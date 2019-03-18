@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#643ec7</color>
+    <color name="colorPrimaryDark">#643EC7</color>
+    <color name="colorAccent">#643EC7</color>
+
+    <color name="divider">#1F000000</color>
+    <color name="icon">#727272</color>
+    <color name="white">#FFF</color>
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+
+    <color name="placeholder">#f2f2f2</color>
+
+    <color name="tab_indicator_default">#E0E0E0</color>
+    <color name="tab_indicator_active">@color/colorAccent</color>
+
+    <color name="login_button">#E33B7F</color>
+    <color name="login_background">#554E9B</color>
+
+    <color name="profile_primary_color">#7E58D4</color>
+
+    <color name="placesPrimary">#DF128A</color>
+
+    <color name="deny_color">#FF3533</color>
+
+    <color name="disabled_text_color">#666666</color>
+</resources>

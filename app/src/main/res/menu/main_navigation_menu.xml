@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_map"
+        android:title="@string/action_map"
+        android:icon="@drawable/ic_send"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_places"
+        android:title="@string/action_places"
+        android:icon="@drawable/ic_message"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_redemptions"
+        android:title="@string/action_redemptions"
+        android:icon="@drawable/ic_alarm"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:title="@string/action_profile"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="ifRoom" />
+
+</menu>

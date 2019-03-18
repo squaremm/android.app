@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.square.android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:fullBackupContent="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="n">
+
+        <activity
+            android:name=".ui.activity.start.StartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StartActivity" />
+
+        <activity
+            android:name=".ui.activity.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteStatusActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activity.profile.ProfileActivity"
+            android:parentActivityName=".ui.activity.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CollapsingToolbarActivity" />
+
+        <activity
+            android:name=".ui.activity.placeDetail.PlaceDetailActivity"
+            android:parentActivityName=".ui.activity.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CollapsingToolbarActivity" />
+
+        <activity
+            android:name=".ui.activity.editProfile.EditProfileActivity"
+            android:parentActivityName=".ui.activity.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CollapsingToolbarActivity" />
+
+        <activity
+            android:name=".ui.activity.review.ReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteStatusActivity" />
+
+        <activity
+            android:name=".ui.activity.selectOffer.SelectOfferActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteStatusActivity" />
+
+        <activity
+            android:name=".ui.activity.claimedRedemption.ClaimedRedemptionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteStatusActivity" />
+    </application>
+
+</manifest>

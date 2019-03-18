@@ -1,0 +1,113 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+
+def secretProps = new Properties()
+
+file('secret.properties').withInputStream { secretProps.load(it) }
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.square.android"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'INSTAGRAM_CLIENT_ID', secretProps.getProperty("instagram_client_id")
+
+        buildConfigField 'String', "MAPBOX_TOKEN", secretProps.getProperty("mapbox_token")
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
+    implementation "com.arello-mobile:moxy:$moxyVersion"
+    kapt "com.arello-mobile:moxy-compiler:$moxyVersion"
+    implementation "com.arello-mobile:moxy-app-compat:$moxyVersion"
+
+    implementation('com.squareup.retrofit2:retrofit:2.4.0') {
+        exclude module: 'okhttp'
+    }
+
+    implementation 'com.squareup.retrofit2:converter-jackson:2.4.0'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
+    //noinspection GradleDependency
+    implementation "androidx.appcompat:appcompat:$supportLibVersion"
+    //noinspection GradleDependency
+    implementation "com.google.android.material:material:$supportLibVersion"
+    //noinspection GradleDependency
+    implementation "androidx.cardview:cardview:$supportLibVersion"
+
+    // ----- Resolving conflicts ------
+
+//    //noinspection GradleDependency
+    implementation "androidx.exifinterface:exifinterface:$supportLibVersion"
+//    //noinspection GradleDependency
+    implementation "androidx.vectordrawable:vectordrawable-animated:$supportLibVersion"
+//    //noinspection GradleDependency
+//    implementation"com.android.support:customtabs:$supportLibVersion"
+//    //noinspection GradleDependency
+//    implementation"com.android.support:support-media-compat:$supportLibVersion"
+//    //noinspection GradleDependency
+//    implementation"com.android.support:support-v4:$supportLibVersion"
+    //noinspection GradleDependency
+    implementation "androidx.legacy:legacy-support-v13:$supportLibVersion"
+
+    // ----- Resolving conflicts ------
+
+    implementation "org.jetbrains.anko:anko-commons:$ankoVersion"
+
+    implementation "org.koin:koin-android:$koin_version"
+
+    implementation "ru.terrakok.cicerone:cicerone:$cicironeVersion"
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.0.1'
+
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+    implementation 'com.github.mukeshsolanki:country-picker-android:2.0.1'
+
+
+    implementation ('com.alimuzaffar.lib:pinentryedittext:1.3.10') {
+        // Exclude is only needed if you already have
+        // any of the following as a dependency in your project.
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v13'
+    }
+
+
+    // ----- Tests -----
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
+}
