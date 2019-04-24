@@ -5,55 +5,59 @@
     android:nestedScrollingEnabled="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        tools:context=".ui.fragment.booking.BookingFragment">
+    xmlns:tools="http://schemas.android.com/tools" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:context=".ui.fragment.booking.BookingFragment" >
 
-
-            <TextView
-                android:id="@+id/bookingDay"
+            <LinearLayout
+                android:id="@+id/bookingDateContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Monday" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/bookingDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/bookingDay"
-                app:layout_constraintStart_toStartOf="@+id/bookingDay"
-                app:layout_constraintTop_toBottomOf="@+id/bookingDay"
-                tools:text="Sept 23rd" />
+                <TextView
+                    android:id="@+id/bookingDay"
+                    style="@style/Models20Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Monday" />
+
+                <TextView
+                    android:id="@+id/bookingDate"
+                    style="@style/Models12Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_text"
+                    tools:text="Sept 23rd" />
+            </LinearLayout>
 
             <ImageView
-                android:id="@+id/bookingChooseDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:src="@drawable/ic_arrow_right"
-                app:layout_constraintBottom_toBottomOf="@+id/bookingDate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/bookingDay" />
+                android:id="@+id/bookingDateRight"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="32dp"
+                android:src="@drawable/chevron_right"
+                app:layout_constraintBottom_toBottomOf="@+id/bookingDateContainer"
+                app:layout_constraintStart_toEndOf="@+id/bookingDateContainer"
+                app:layout_constraintTop_toTopOf="@+id/bookingDateContainer" />
+
+            <ImageView
+                android:id="@+id/bookingDateLeft"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/chevron_left"
+                app:layout_constraintBottom_toBottomOf="@+id/bookingDateContainer"
+                app:layout_constraintEnd_toStartOf="@+id/bookingDateContainer"
+                app:layout_constraintTop_toTopOf="@+id/bookingDateContainer" />
 
             <ProgressBar
                 android:id="@+id/bookProgress"
@@ -62,10 +66,11 @@
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="24dp"
                 android:visibility="visible"
+                android:indeterminateTint="@color/nice_red"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bookingDate" />
+                app:layout_constraintTop_toBottomOf="@+id/bookingDateContainer" />
 
             <LinearLayout
                 android:id="@+id/bookingIntervalList"
@@ -77,26 +82,24 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bookingDate" />
+                app:layout_constraintTop_toBottomOf="@+id/bookingDateContainer" />
 
-            <TextView
+            <Button
                 android:id="@+id/bookingBook"
+                style="@style/Models16BoldText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginStart="32dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/preload_button"
-                android:gravity="center"
-                android:padding="8dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:background="@drawable/nice_button_background"
                 android:text="@string/book"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/bookingIntervalList"
-                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="@+id/bookingIntervalList"
                 app:layout_constraintTop_toBottomOf="@+id/bookingIntervalList" />
 
@@ -108,5 +111,4 @@
                 app:constraint_referenced_ids="bookingBook,bookingIntervalList" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
 </ScrollView>

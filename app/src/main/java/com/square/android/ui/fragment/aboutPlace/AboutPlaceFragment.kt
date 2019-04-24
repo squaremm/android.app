@@ -18,7 +18,6 @@ import com.square.android.presentation.view.aboutPlace.AboutPlaceView
 import com.square.android.ui.fragment.BaseMapFragment
 import kotlinx.android.synthetic.main.fragment_about_place.*
 
-
 private const val LOCATION_ZOOM_LEVEL = 15.0
 
 class AboutPlaceFragment : BaseMapFragment(), AboutPlaceView {
@@ -56,6 +55,8 @@ class AboutPlaceFragment : BaseMapFragment(), AboutPlaceView {
 
         aboutPlaceDescription.text = place.description
         aboutPlaceAddress.text = place.address
+
+        //TODO: there is no dressCode in Place
 
         if (mapboxMap != null) {
             showMap(place)

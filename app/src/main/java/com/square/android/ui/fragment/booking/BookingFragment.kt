@@ -50,10 +50,20 @@ class BookingFragment : BaseFragment(), BookingView {
         data.forEachIndexed { index, interval ->
             val view = inflater.inflate(R.layout.item_interval, bookingIntervalList, false)
 
-            view.bookingInterval.text = getString(R.string.time_range, interval.start, interval.end)
-            view.bookingSpots.text = getString(R.string.spot_format, interval.spots)
+            var active = true
 
-            updateInterval(view, false)
+            view.bookingInterval.text = getString(R.string.time_range, interval.start, interval.end)
+
+            when(interval.spots){
+                0 -> { view.bookingSpots.text = getString(R.string.full)
+                       active = false }
+                1 -> view.bookingSpots.text = getString(R.string.spot_one_format, interval.spots)
+                else -> view.bookingSpots.text = getString(R.string.spot_format, interval.spots)
+            }
+
+            //TODO: (If selected calendar day = today) Check if interval on the current day is available. If not, active = false
+
+            updateInterval(view, active)
 
             view.setOnClickListener { itemClicked(index) }
 
@@ -73,9 +83,11 @@ class BookingFragment : BaseFragment(), BookingView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bookingChooseDate.setOnClickListener { showDatePicker() }
-        bookingDay.setOnClickListener { showDatePicker() }
-        bookingDate.setOnClickListener { showDatePicker() }
+        //TODO: change calendar date and fire presenter.dateSelected(newDate)
+        bookingDateRight.setOnClickListener { }
+        bookingDateLeft.setOnClickListener { }
+
+        bookingDateContainer.setOnClickListener { showDatePicker() }
 
         bookingBook.setOnClickListener { presenter.bookClicked() }
     }
@@ -90,24 +102,26 @@ class BookingFragment : BaseFragment(), BookingView {
     private fun updateList(previousPosition: Int?, currentPosition: Int) {
         previousPosition?.let {
             val previous = bookingIntervalList.getChildAt(it)
-            updateInterval(previous, false)
+            changeSelected(previous, false)
         }
 
         val current = bookingIntervalList.getChildAt(currentPosition)
-        updateInterval(current, true)
+        changeSelected(current, true)
     }
 
     private fun itemClicked(position: Int) {
         presenter.itemClicked(position)
     }
 
-    private fun updateInterval(view: View, isActive: Boolean) {
-        view.bookingInterval.isActivated = isActive
-        view.bookingSpots.isActivated = isActive
-        view.bookingRadio.isChecked = isActive
-        view.bookingContainer.isActivated = isActive
+    private fun changeSelected(view: View, isSelected: Boolean) {
+        view.bookingContainer.isActivated = isSelected
+        if (isSelected) view.bookingTimerIcon.setImageDrawable(context?.getDrawable(R.drawable.ic_timer))
+        else view.bookingTimerIcon.setImageDrawable(context?.getDrawable(R.drawable.ic_timer_disabled))
+    }
 
-        view.bookingSpots.isChecked = isActive
-        view.bookingInterval.isChecked = isActive
+    private fun updateInterval(view: View, isActive: Boolean) {
+        view.bookingContainer.isActivated = false
+        view.bookingInterval.isEnabled = isActive
+        view.bookingSpots.isEnabled = isActive
     }
 }

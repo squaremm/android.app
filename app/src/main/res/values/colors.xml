@@ -11,6 +11,14 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
 
+    <color name="gray_disabled">#C2C2C2</color>
+    <color name="gray_hint">#757575</color>
+
+    <color name="gray_light">#F6F6F6</color>
+    <color name="gray_purple">#F7ECFC</color>
+    <color name="nice_red">#F7425C</color>
+    <color name="nice_purple">#EA308C</color>
+
     <color name="grey_dark">#888888</color>
     <color name="grey_background_field">#F8F8F8</color>
 

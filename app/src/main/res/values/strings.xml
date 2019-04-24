@@ -63,6 +63,7 @@
     <string name="book">Book</string>
     <string name="time_range">%s - %s</string>
     <string name="spot_format">%d Spots</string>
+    <string name="spot_one_format">%d Spot</string>
     <string name="book_subtitle">%s %s</string>
     <string name="opening_time">Opening time</string>
     <string name="dresscode">Dresscode</string>
@@ -103,6 +104,8 @@
     <string name="review_instagram_post_title">Make a post on instagram showing yourself in the venue</string>
     <string name="review_instagram_story_title">Make a story on instagram showing yourself in the venue</string>
     <string name="review_trip_advisor_title">Follow the steps below to earn the credits</string>
+
+    <string name="full">Full</string>
 
     <string name="review_instagram_post_body">
         <![CDATA[

@@ -7,27 +7,19 @@
     android:clipToPadding="false"
     android:nestedScrollingEnabled="true">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="6dp"
-        app:cardUseCompatPadding="true"
-        tools:context=".ui.fragment.aboutPlace.AboutPlaceFragment">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
-
+            tools:context=".ui.fragment.aboutPlace.AboutPlaceFragment" >
 
             <TextView
                 android:id="@+id/aboutPlaceDescription"
-                android:layout_width="wrap_content"
+                style="@style/Models14Text"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="3dp"
-                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -35,66 +27,69 @@
 
             <TextView
                 android:id="@+id/textView8"
+                style="@style/Models16BoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/opening_time"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/aboutPlaceDescription"
                 app:layout_constraintTop_toBottomOf="@+id/aboutPlaceDescription" />
 
             <TextView
                 android:id="@+id/aboutPlaceDay"
+                style="@style/Models16Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/secondary_text"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:text="Mon" />
 
             <TextView
                 android:id="@+id/textView13"
+                style="@style/Models16BoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/dresscode"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/aboutPlaceDay"
                 app:layout_constraintTop_toBottomOf="@+id/aboutPlaceTime" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/aboutPlaceDresscode"
+                style="@style/Models16Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:text="Elegant"
+                android:textColor="@color/secondary_text"
                 app:layout_constraintStart_toStartOf="@+id/textView13"
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             <TextView
                 android:id="@+id/aboutPlaceAddress"
+                style="@style/Models18BoldText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textColor="@color/secondary_text"
                 app:layout_constraintEnd_toStartOf="@+id/aboutPlaceDistance"
-                app:layout_constraintStart_toStartOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/textView14"
+                app:layout_constraintStart_toStartOf="@+id/aboutPlaceDresscode"
+                app:layout_constraintTop_toBottomOf="@+id/aboutPlaceDresscode"
                 tools:text="Via Vigevano 31, Milano" />
 
             <TextView
                 android:id="@+id/aboutPlaceDistance"
+                style="@style/Models18BoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textColor="@color/secondary_text"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/aboutPlaceAddress"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,29 +101,32 @@
                 android:id="@+id/aboutPlaceMap"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="32dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
                 android:src="@color/placeholder"
-                app:mapbox_renderTextureMode="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/aboutPlaceAddress" />
+                app:layout_constraintTop_toBottomOf="@+id/aboutPlaceAddress"
+                app:mapbox_renderTextureMode="true"
+                tools:background="@drawable/auth_background" />
 
             <TextView
                 android:id="@+id/aboutPlaceTime"
-                android:layout_width="wrap_content"
+                style="@style/Models16Text"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
+                android:textColor="@color/secondary_text"
                 app:layout_constraintBottom_toBottomOf="@+id/aboutPlaceDay"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/aboutPlaceDescription"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/aboutPlaceDay"
                 app:layout_constraintTop_toTopOf="@+id/aboutPlaceDay"
                 tools:text="16:00-20:00" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
 </ScrollView>
