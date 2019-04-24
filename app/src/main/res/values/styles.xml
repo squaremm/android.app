@@ -49,4 +49,10 @@
         <item name="android:textColor">?android:textColorHint</item>
     </style>
 
+    <style name="RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:drawableLeft">@drawable/circle_checkbox</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
 </resources>

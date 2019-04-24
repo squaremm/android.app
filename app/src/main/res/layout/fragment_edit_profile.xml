@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editProfileContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:fitsSystemWindows="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/profileEditAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
+            android:id="@+id/profileFade"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/profile_header"
+            app:layout_constraintTop_toTopOf="@id/profileEditAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/profileEditAvatar" />
+
+        <TextView
+            android:id="@+id/tvSave"
+            android:text="@string/save"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/formEditProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="6dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:inputType="textPersonName"
+            android:background="@null"
+            android:drawableEnd="@drawable/pencil"
+            android:drawablePadding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/formEditProfileSurname"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Anna Markova Anna Markova Anna Markova" />
+
+        <EditText
+            android:id="@+id/formEditProfileSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="6dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:inputType="textPersonName"
+            android:background="@null"
+            android:drawableEnd="@drawable/pencil"
+            android:drawablePadding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/formEditProfileAgency"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Anna Markova Anna Markova Anna Markova" />
+
+
+        <EditText
+            android:id="@+id/formEditProfileAgency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="@+id/formEditProfileName"
+            app:layout_constraintBottom_toTopOf="@id/container_coins"
+            android:background="@null"
+            android:drawableEnd="@drawable/pencil"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="24dp"
+            tools:text="Model Agency" />
+
+        <LinearLayout
+            android:id="@+id/container_coins"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/profileEditAvatar"
+            android:background="@drawable/background_credits_profile"
+            android:orientation="horizontal"
+            android:gravity="start|center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/profileAvailableLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/dark_purple"
+                android:textSize="13sp"
+                android:text="@string/available"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                app:srcCompat="@drawable/credits"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp" />
+            <TextView
+                android:id="@+id/profileEditCoins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:text="3500 credits" />
+
+        </LinearLayout>
+
+        <!-- -->
+
+        <TextView
+            android:id="@+id/dobLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="@android:color/transparent"
+            android:text="@string/nationality"
+            android:textColor="@color/grey_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/formEditProfileBirth"
+            app:layout_constraintBottom_toBottomOf="@id/formEditProfileBirth"
+            android:gravity="start"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/formEditProfileBirth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/pencil_grey"
+            android:hint="@string/hint_birth"
+            android:textSize="13sp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/grey_text_field"
+            app:layout_constraintTop_toBottomOf="@id/profileEditAvatar"
+            app:layout_constraintStart_toEndOf="@id/dobLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/background_field" />
+
+
+        <TextView
+            android:id="@+id/formEditProfileGender"
+            style="@style/InputField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/formEditProfileGenderContainer"
+            app:layout_constraintBottom_toBottomOf="@id/formEditProfileGenderContainer"
+            android:text="@string/hint_gender"
+            android:textColor="@color/grey_dark"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:id="@+id/formEditProfileGenderContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintTop_toBottomOf="@id/formEditProfileBirth"
+            app:layout_constraintStart_toStartOf="@id/formEditProfileBirth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/formEditProfileGenderGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/formEditProfileGenderFemale"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:buttonTint="@color/login_button"
+                    android:checked="true"
+                    android:text="@string/gender_female"
+                    android:textSize="13sp"
+                    android:textColor="@color/grey_text_field"
+                    android:background="@drawable/background_field" />
+
+                <RadioButton
+                    android:id="@+id/formEditProfileGenderMale"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/login_button"
+                    android:text="@string/gender_male"
+                    android:textSize="13sp"
+                    android:textColor="@color/grey_text_field"
+                    android:background="@drawable/background_field"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/nationalityLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="@android:color/transparent"
+            android:text="@string/nationality"
+            android:textColor="@color/grey_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/formEditProfileNationalityContainer"
+            app:layout_constraintBottom_toBottomOf="@id/formEditProfileNationalityContainer"
+            android:gravity="start"
+            android:textSize="12sp"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/formEditProfileNationalityContainer"
+            android:textColor="@color/grey_text_field"
+            android:background="@drawable/background_field"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintTop_toBottomOf="@id/formEditProfileGenderContainer"
+            app:layout_constraintStart_toStartOf="@id/formEditProfileBirth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/formEditFlag"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/flag_ac" />
+
+            <TextView
+                android:id="@+id/formEditProfileNationality"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawableEnd="@drawable/pencil_grey"
+                app:layout_goneMarginStart="24dp"
+                android:textSize="13sp"
+                android:textColor="@color/primary_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/formEditFlag"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="@android:color/transparent"
+            android:text="@string/email"
+            android:textColor="@color/grey_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/formEditProfileEmail"
+            app:layout_constraintBottom_toBottomOf="@id/formEditProfileEmail"
+            android:gravity="start"
+            android:textSize="12sp"/>
+
+
+        <EditText
+            android:id="@+id/formEditProfileEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:textColor="@color/grey_text_field"
+            android:background="@drawable/background_field"
+            android:drawableEnd="@drawable/pencil_grey"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toBottomOf="@id/formEditProfileNationalityContainer"
+            app:layout_constraintStart_toStartOf="@id/formEditProfileBirth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/numberLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="@android:color/transparent"
+            android:text="@string/phone"
+            android:textColor="@color/grey_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/formEditProfileNumberContainer"
+            app:layout_constraintBottom_toBottomOf="@id/formEditProfileNumberContainer"
+            android:gravity="start"
+            android:textSize="12sp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/formEditProfileNumberContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:textColor="@color/grey_text_field"
+            app:layout_constraintTop_toBottomOf="@id/formEditProfileEmail"
+            app:layout_constraintStart_toStartOf="@id/formEditProfileBirth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/background_field">
+
+            <ImageView
+                android:id="@+id/formEditDialFlag"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
+                tools:src="@drawable/flag_ac" />
+
+            <TextView
+                android:id="@+id/formEditDialCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:drawableEnd="@drawable/ic_arrow_drop_down"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/formEditDialFlag"
+                app:layout_constraintStart_toEndOf="@+id/formEditDialFlag"
+                app:layout_constraintTop_toTopOf="@+id/formEditDialFlag"
+                tools:text="+7" />
+
+            <EditText
+                android:id="@+id/formEditProfilePhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/phone"
+                android:includeFontPadding="false"
+                android:inputType="phone"
+                android:textSize="13sp"
+                android:drawableEnd="@drawable/pencil_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/formEditDialCode"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="123" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/motherAgencyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="@android:color/transparent"
+            android:text="@string/mother_agency"
+            android:textColor="@color/grey_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/formEditProfileMotherAgency"
+            app:layout_constraintBottom_toBottomOf="@id/formEditProfileMotherAgency"
+            android:gravity="start"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/formEditProfileMotherAgency"
+            android:textSize="13sp"
+            android:textColor="@color/grey_text_field"
+            android:background="@drawable/background_field"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:drawableEnd="@drawable/pencil_grey"
+            android:includeFontPadding="false"
+
+            app:layout_constraintTop_toBottomOf="@id/formEditProfileNumberContainer"
+            app:layout_constraintStart_toStartOf="@id/formEditProfileBirth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="textPersonName" />
+
+
+        <TextView
+            android:id="@+id/editProfileLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/preload_button"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toBottomOf="@id/formEditProfileMotherAgency"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="8dp"
+            android:paddingEnd="64dp"
+            android:paddingStart="64dp"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/contact_us"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/editProfileLogout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"
+            android:text="@string/contact_us" />
+
+        <TextView
+            android:id="@+id/terms"
+            app:layout_constraintTop_toBottomOf="@id/contact_us"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/terms" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/terms"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/privacy_policy" />
+        <!-- -->
+
+        <ProgressBar
+            android:id="@+id/editProfileProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="32dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

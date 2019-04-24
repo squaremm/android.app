@@ -23,11 +23,11 @@
     <string name="gender_female">Female</string>
     <string name="gender_male">Male</string>
     <string name="hint_gender">Gender</string>
-    <string name="nationality">Nationality</string>
+    <string name="nationality">Nationality:</string>
     <string name="fill_profile_counter_1" tools:ignore="TypographyFractions">1/3</string>
-    <string name="email">Email</string>
-    <string name="phone">Phone</string>
-    <string name="mother_agency">Mother agency</string>
+    <string name="email">Email:</string>
+    <string name="phone">Phone:</string>
+    <string name="mother_agency">Mother agency:</string>
     <string name="hint_current_agency">Current agency</string>
     <string name="fill_profile_counter_2">2/3</string>
 
@@ -41,7 +41,7 @@
     <string name="level_default">0</string>
     <string name="credits_format">%d Credits</string>
 
-    <string name="shareContent">Join us: https://models-app-api.herokuapp.com\nReferral code: %s</string>
+    <string name="shareContent">Join us: https://square-app-api.herokuapp.com\nReferral code: %s</string>
     <string name="hint_referral">Referral</string>
     <string name="permsission_needed">We need location permissions to show places near to you!</string>
     <string name="location_failed_message">Failed to get location</string>
@@ -201,4 +201,5 @@
     <string name="no_offer_found">No offer found for this book</string>
     <string name="yelp_post">Yelp post</string>
     <string name="type_yelp">Yelp</string>
+    <string name="available">Available:</string>
 </resources>

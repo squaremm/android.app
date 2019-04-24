@@ -26,6 +26,7 @@
 
         <activity
             android:name=".ui.activity.main.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity">
             <intent-filter>
@@ -36,20 +37,8 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.profile.ProfileActivity"
-            android:parentActivityName=".ui.activity.main.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/CollapsingToolbarActivity" />
-
-        <activity
             android:name=".ui.activity.placeDetail.PlaceDetailActivity"
             android:parentActivityName=".ui.activity.main.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/CollapsingToolbarActivity" />
-
-        <activity
-            android:name=".ui.activity.editProfile.EditProfileActivity"
-            android:parentActivityName=".ui.activity.profile.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CollapsingToolbarActivity" />
 

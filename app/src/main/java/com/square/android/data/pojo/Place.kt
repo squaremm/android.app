@@ -15,7 +15,7 @@ class Place(
         var location: Location = Location(),
         var name: String = "",
         var offers: List<OfferInfo> = listOf(),
-        var photos: List<String> = listOf(),
+        var photos: List<String>? = listOf(),
         var schedule: Map<String, String> = mapOf(),
         var type: String = ""
 ) {

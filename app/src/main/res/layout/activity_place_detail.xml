@@ -30,6 +30,7 @@
                 <View
                     android:id="@+id/placeDetailFade"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@drawable/profile_header"
                     android:translationZ="10dp" />
@@ -65,7 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/placeDetailTab"
                 android:layout_width="match_parent"
@@ -74,15 +74,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/placeDetailAddress"
-                app:tabIndicatorColor="@color/colorPrimary"
-                app:tabIndicatorHeight="1dp"
-                app:tabSelectedTextColor="@color/primary_text"
+                app:tabIndicator="@drawable/indicator"
+                android:layout_marginStart="38dp"
+                android:layout_marginEnd="38dp"
+                app:tabIndicatorColor="@color/placesPrimary"
+                app:tabSelectedTextColor="@color/placesPrimary"
                 app:tabTextColor="@color/secondary_text" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/placeDetailPager"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,50 +93,57 @@
 
             <TextView
                 android:id="@+id/placeDetailName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textSize="22sp"
+                android:textSize="23sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/placeDetailType"
                 tools:text="Pizza Shushi" />
 
             <TextView
                 android:id="@+id/placeDetailType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/placeDetailName"
-                app:layout_constraintTop_toBottomOf="@+id/placeDetailName"
+                android:textSize="9sp"
+                android:layout_marginEnd="32dp"
+                android:drawablePadding="6dp"
+                android:drawableTop="@drawable/fork_knife"
+                app:layout_constraintEnd_toStartOf="@+id/placeDetailDistance"
+                app:layout_constraintTop_toTopOf="@id/placeDetailName"
+                app:layout_constraintBottom_toBottomOf="@id/placeDetailAddress"
                 tools:text="Shushi" />
 
             <TextView
                 android:id="@+id/placeDetailAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/placeDetailDistance"
-                app:layout_constraintStart_toStartOf="@+id/placeDetailType"
-                app:layout_constraintTop_toBottomOf="@+id/placeDetailType"
+                android:layout_marginEnd="32dp"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/placeDetailType"
+                app:layout_constraintStart_toStartOf="@+id/placeDetailName"
+                app:layout_constraintTop_toBottomOf="@+id/placeDetailName"
                 tools:text="Via Vigevano, 13" />
 
             <TextView
                 android:id="@+id/placeDetailDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="24dp"
                 tools:visibility="visible"
-                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawableTop="@drawable/next"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
                 tools:text="3 km"
+                android:textSize="9sp"
+                android:drawablePadding="6dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/placeDetailAddress" />
+                app:layout_constraintTop_toTopOf="@id/placeDetailName"
+                app:layout_constraintBottom_toBottomOf="@id/placeDetailAddress"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profileContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="48dp">
+
+        <ImageView
+            android:id="@+id/profileAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
+            android:id="@+id/profileFade"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/profile_header"
+            app:layout_constraintTop_toTopOf="@id/profileAvatar"
+            app:layout_constraintBottom_toBottomOf="@id/profileAvatar" />
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="6dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/profileLevel"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/profileAgency"
+            tools:text="Anna Markova Anna Markova Anna Markova" />
+
+        <TextView
+            android:id="@+id/profileAgency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="@+id/profileName"
+            app:layout_constraintBottom_toTopOf="@+id/profileCity"
+            android:layout_marginBottom="24dp"
+            tools:text="Model Agency" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/profileSettings"
+            app:srcCompat="@drawable/settings"
+            app:layout_constraintTop_toTopOf="@id/profileName"
+            app:layout_constraintBottom_toBottomOf="@id/profileAgency"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/profileCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:drawablePadding="4dp"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/ic_location"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="@+id/profileAgency"
+            app:layout_constraintBottom_toTopOf="@+id/container_coins"
+            android:visibility="gone"
+            tools:text="Moscow" />
+
+        <TextView
+            android:id="@+id/profileLevel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/level_drawable"
+            android:gravity="center"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:text="@string/level_default"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.86"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profileName" />
+
+        <LinearLayout
+            android:id="@+id/container_coins"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/profileAvatar"
+            android:background="@drawable/background_credits_profile"
+            android:orientation="horizontal"
+            android:gravity="start|center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/profileAvailableLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/dark_purple"
+                android:textSize="13sp"
+                android:text="@string/available"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                app:srcCompat="@drawable/credits"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp" />
+            <TextView
+                android:id="@+id/profileCoins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:text="3500 credits" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/profileInvite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:drawableStart="@drawable/people_profile"
+            android:drawablePadding="24dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="@string/invite_button_text"
+            android:textColor="@color/grey_dark"
+            android:gravity="start|center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileAvatar" />
+
+        <TextView
+            android:id="@+id/profileNationalityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:text="@string/nationality"
+            android:textColor="@color/grey_dark"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileInvite" />
+
+        <TextView
+            android:id="@+id/profileNationality"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:paddingStart="52dp"
+            android:textColor="@color/grey_text_field"
+            android:textSize="13sp"
+            android:background="@drawable/background_field"
+            app:layout_constraintBottom_toBottomOf="@+id/profileNationalityTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/profileMotherAgency"
+            app:layout_constraintTop_toTopOf="@+id/profileNationalityTitle"
+            tools:text="Russian" />
+
+        <ImageView
+            android:id="@+id/formDialFlag"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="@id/profileNationality"
+            app:layout_constraintStart_toStartOf="@id/profileNationality"
+            app:layout_constraintTop_toTopOf="@id/profileNationality"
+            tools:src="@drawable/flag_ac" />
+
+        <TextView
+            android:id="@+id/profileMotherAgencyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/mother_agency"
+            android:textColor="@color/grey_dark"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileNationalityTitle" />
+
+        <TextView
+            android:id="@+id/profileMotherAgency"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="32dp"
+            android:textSize="13sp"
+            android:textColor="@color/grey_text_field"
+            android:background="@drawable/background_field"
+            app:layout_constraintBottom_toBottomOf="@+id/profileMotherAgencyTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profileMotherAgencyTitle"
+            app:layout_constraintTop_toTopOf="@+id/profileMotherAgencyTitle"
+            tools:text="Oriflame" />
+
+        <TextView
+            android:id="@+id/profileEmailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/email"
+            android:textColor="@color/grey_dark"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileMotherAgencyTitle" />
+
+        <TextView
+            android:id="@+id/profileEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textSize="13sp"
+            android:textColor="@color/grey_text_field"
+            android:background="@drawable/background_field"
+            app:layout_constraintBottom_toBottomOf="@+id/profileEmailTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/profileNationality"
+            app:layout_constraintTop_toTopOf="@+id/profileEmailTitle"
+            tools:text="verylongemail@test.com" />
+
+        <TextView
+            android:id="@+id/profilePhoneTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/phone"
+            android:textColor="@color/grey_dark"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileEmailTitle" />
+
+        <TextView
+            android:id="@+id/profilePhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textSize="13sp"
+            android:textColor="@color/grey_text_field"
+            android:background="@drawable/background_field"
+            app:layout_constraintBottom_toBottomOf="@+id/profilePhoneTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/profileNationality"
+            app:layout_constraintTop_toTopOf="@+id/profilePhoneTitle"
+            tools:text="@tools:sample/us_phones" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
+

@@ -21,9 +21,10 @@ import com.square.android.ui.activity.claimedRedemption.CLAIMED_OFFER_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.CLAIMED_REDEMPTION_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.ClaimedExtras
 import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivity
+import com.square.android.ui.activity.editProfile.EditProfileFragment
 import com.square.android.ui.activity.placeDetail.PLACE_EXTRA_ID
 import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
-import com.square.android.ui.activity.profile.ProfileActivity
+import com.square.android.ui.fragment.profile.ProfileFragment
 import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
 import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.activity.start.StartActivity
@@ -81,7 +82,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
         presenter.navigationClicked(screenKey)
 
-        return item.itemId != R.id.action_profile
+        return true
     }
 
     private fun setUpNavigation() {
@@ -103,9 +104,6 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
     private class MainNavigator(activity: FragmentActivity) : AppNavigator(activity, R.id.main_container) {
         override fun createActivityIntent(context: Context, screenKey: String, data: Any?) =
                 when (screenKey) {
-                    SCREENS.PROFILE ->
-                        context.intentFor<ProfileActivity>()
-
                     SCREENS.START ->
                         context.intentFor<StartActivity>()
 
@@ -130,6 +128,8 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
             SCREENS.MAP -> MapFragment()
             SCREENS.PLACES -> PlacesFragment()
             SCREENS.REDEMPTIONS -> RedemptionsFragment()
+            SCREENS.PROFILE -> ProfileFragment()
+            SCREENS.EDIT_PROFILE -> EditProfileFragment()
             else -> throw IllegalArgumentException("Unknown screen key: $screenKey")
         }
     }

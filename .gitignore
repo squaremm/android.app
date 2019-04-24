@@ -1,0 +1,39 @@
+.DS_Store
+/build
+/captures
+# temp files
+*~
+*.swp
+*.ipr
+*.iws
+
+# IntelliJ Idea files
+atlassian-ide-plugin.xml
+.idea/
+out/
+*.iml
+
+# Eclipse files
+.project
+.settings
+.classpath
+
+# Maven files
+target/
+gen/
+
+# Gradle files
+temp/
+build/
+.gradle
+
+/local.properties
+
+installer/
+
+
+# Crashlytics
+com_crashlytics_export_strings.xml
+
+*.pyc
+node_modules/

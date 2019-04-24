@@ -11,15 +11,25 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
 
+    <color name="grey_dark">#888888</color>
+    <color name="grey_background_field">#F8F8F8</color>
+
+    <color name="grey_text_field">#2B282E</color>
+
     <color name="placeholder">#f2f2f2</color>
 
     <color name="tab_indicator_default">#E0E0E0</color>
+
     <color name="tab_indicator_active">@color/colorAccent</color>
 
     <color name="login_button">#E33B7F</color>
     <color name="login_background">#554E9B</color>
 
     <color name="profile_primary_color">#7E58D4</color>
+
+    <color name="dark_purple">#462B74</color>
+    <color name="lighter_pink">#E4A4FF</color>
+    <color name="light_pink">#FF8DB8</color>
 
     <color name="placesPrimary">#DF128A</color>
 

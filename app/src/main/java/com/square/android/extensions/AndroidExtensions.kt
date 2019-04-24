@@ -27,17 +27,21 @@ import com.square.android.App
 import com.square.android.R
 import com.square.android.R.color.placeholder
 import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 
 
 private const val PREFIX_METER = "m"
 private const val PREFIX_KILOMETER = "km"
 
 fun ImageView.loadImage(url: String,
-                        @ColorRes placeholder: Int = R.color.placeholder) {
+                        @ColorRes placeholder: Int = R.color.placeholder,
+                        roundedCornersRadiusPx: Int = 0,
+                        whichCornersToRound: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL) {
     Picasso.get()
             .load(url)
             .fit()
             .centerCrop()
+            .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
             .placeholder(placeholder)
             .into(this)
 }
@@ -62,11 +66,13 @@ fun ImageView.loadImage(@DrawableRes drawableRes: Int, withoutCropping: Boolean 
             .into(this)
 }
 
-fun ImageView.loadFirstOrPlaceholder(photos: List<String>) {
-    if (photos.isEmpty()) {
+fun ImageView.loadFirstOrPlaceholder(photos: List<String>?) {
+    if (photos?.isEmpty() == true) {
         setImageResource(R.color.placeholder)
     } else {
-        loadImage(photos.first())
+        photos?.run {
+            loadImage(first())
+        }
     }
 }
 

@@ -46,7 +46,7 @@ class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
 
     override fun showDistance(distance: Int?) {
         if (distance != null)  {
-            val distanceFormatted = getString(R.string.distance_format, distance.asDistance())
+            val distanceFormatted = distance.asDistance()
 
             placeDetailDistance.visibility = View.VISIBLE
             placeDetailDistance.text =distanceFormatted

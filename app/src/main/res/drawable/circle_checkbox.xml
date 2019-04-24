@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_checked="false">
+        <shape android:shape="oval">
+            <solid android:color="@color/tab_indicator_default" />
+            <size android:height="5dp" android:width="5dp" />
+        </shape>
+    </item>
+    <item android:state_checked="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/placesPrimary" />
+            <size android:height="5dp" android:width="5dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/tab_indicator_default" />
+            <size android:height="5dp" android:width="5dp" />
+        </shape>
+    </item>
+</selector>

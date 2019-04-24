@@ -89,6 +89,7 @@ dependencies {
     implementation "ru.terrakok.cicerone:cicerone:$cicironeVersion"
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
 
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.0.1'
 

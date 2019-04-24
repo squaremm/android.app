@@ -8,11 +8,11 @@ import com.square.android.ui.fragment.offer.OfferFragment
 
 private const val ITEM_COUNT = 3
 
-private var PAGE_TITLES_RES = listOf(R.string.page_about, R.string.page_offer, R.string.page_book)
+private var PAGE_TITLES_RES = listOf(R.string.page_offer, R.string.page_book, R.string.page_about)
 
-private const val POSITION_ABOUT = 0
-private const val POSITION_OFFER = 1
-private const val POSITION_BOOKING = 2
+private const val POSITION_OFFER = 0
+private const val POSITION_BOOKING = 1
+private const val POSITION_ABOUT = 2
 
 class PlaceDetailAdapter(fragmentManager: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentStatePagerAdapter(fragmentManager) {
 

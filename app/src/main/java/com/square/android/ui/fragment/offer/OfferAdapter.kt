@@ -2,7 +2,6 @@ package com.square.android.ui.fragment.offer
 
 import android.view.View
 import com.square.android.R
-import com.square.android.data.pojo.Offer
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.TYPE_INSTAGRAM_POST
 import com.square.android.data.pojo.TYPE_INSTAGRAM_STORY
@@ -59,6 +58,7 @@ class OfferAdapter(data: List<OfferInfo>,
 
             bindSelected(selectedPosition)
 
+            offerTitle.text = item.name
             offerComponents.text = item.compositionAsList()
             offerPrice.text = item.price.toString()
 
