@@ -15,9 +15,13 @@
     <color name="gray_hint">#757575</color>
 
     <color name="gray_light">#F6F6F6</color>
+    <color name="gray_divider"> #EAEAEA</color>
     <color name="gray_purple">#F7ECFC</color>
     <color name="nice_red">#F7425C</color>
-    <color name="nice_purple">#EA308C</color>
+    <color name="nice_pink">#E82E90</color>
+
+
+
 
     <color name="grey_dark">#888888</color>
     <color name="grey_background_field">#F8F8F8</color>
