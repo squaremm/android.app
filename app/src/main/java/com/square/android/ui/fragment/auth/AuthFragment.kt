@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.R
 import com.square.android.data.pojo.AuthData
+import com.square.android.extensions.clearText
 import com.square.android.extensions.content
 import com.square.android.presentation.presenter.auth.AuthPresenter
 import com.square.android.presentation.view.auth.AuthView
@@ -40,8 +41,11 @@ class AuthFragment : BaseFragment(), AuthView {
         }
 
         tv_already_user.setOnClickListener { showLoginFields() }
+        tv_forgot_password.setOnClickListener { showForgotFields() }
+        tv_not_a_user.setOnClickListener { showRegisterFields() }
+        tv_want_to_login.setOnClickListener { showLoginFields() }
 
-        doActionButton.setOnClickListener {
+        do_action_button.setOnClickListener {
             val authData = AuthData(et_email.content, et_password.content, et_confirm_password.content)
             presenter.actionClicked(authData)
         }
@@ -61,23 +65,48 @@ class AuthFragment : BaseFragment(), AuthView {
 
     override fun showLoginFields() {
         presenter.loginAction()
+        do_action_button.text = getString(R.string.login)
+
+        tv_not_a_user.visibility = View.VISIBLE
+        tv_forgot_password.visibility = View.VISIBLE
+        et_password.visibility = View.VISIBLE
+        tv_want_to_login.visibility = View.GONE
         tv_already_user.visibility = View.GONE
         et_confirm_password.visibility = View.GONE
+
+        et_password.clearText()
+        et_confirm_password.clearText()
     }
 
     override fun showRegisterFields() {
         presenter.registerAction()
+        do_action_button.text = getString(R.string.register)
+
+        tv_not_a_user.visibility = View.GONE
+        tv_forgot_password.visibility = View.GONE
+        tv_want_to_login.visibility = View.GONE
         tv_already_user.visibility = View.VISIBLE
+        et_password.visibility = View.VISIBLE
         et_confirm_password.visibility = View.VISIBLE
+
+        et_password.clearText()
+        et_confirm_password.clearText()
     }
 
     override fun showForgotFields() {
         presenter.resetPasswordAction()
+        do_action_button.text = getString(R.string.send_password)
+
+        tv_want_to_login.visibility = View.VISIBLE
+        tv_not_a_user.visibility = View.GONE
+        tv_forgot_password.visibility = View.GONE
         tv_already_user.visibility = View.GONE
         et_password.visibility = View.GONE
         et_confirm_password.visibility = View.GONE
-    }
 
+        et_password.clearText()
+        et_confirm_password.clearText()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

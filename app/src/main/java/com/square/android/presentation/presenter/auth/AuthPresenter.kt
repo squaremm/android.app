@@ -35,17 +35,19 @@ class AuthPresenter : BasePresenter<AuthView>() {
         when (currentAuthAction) {
             AuthAction.REGISTER -> registerClicked(authData)
             AuthAction.LOGIN -> loginClicked(authData)
-            AuthAction.RESET_PASSWORD -> forgotPasswordClicked(authData.email)
+            AuthAction.RESET_PASSWORD -> forgotPasswordClicked(authData)
             AuthAction.NONE -> return
         }
     }
 
-    fun forgotPasswordClicked(email: String) {
+    fun forgotPasswordClicked(authData: AuthData) {
         viewState.showProgress()
         launch({
-            val response = repository.resetPassword(email).await()
+            val response = repository.resetPassword(authData).await()
 
             viewState.hideProgress()
+
+            router.showSystemMessage(response.message)
 
             viewState.showLoginFields()
         }, { error ->

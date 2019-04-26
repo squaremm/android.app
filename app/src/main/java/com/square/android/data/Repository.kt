@@ -21,7 +21,7 @@ interface Repository {
     fun registerUser(authData: AuthData): Deferred<AuthResponse>
     fun loginUser(authData: AuthData): Deferred<AuthResponse>
 
-    fun resetPassword(email: String): Deferred<MessageResponse>
+    fun resetPassword(authData: AuthData): Deferred<MessageResponse>
 
     fun fillProfile(info: ProfileInfo): Deferred<MessageResponse>
 

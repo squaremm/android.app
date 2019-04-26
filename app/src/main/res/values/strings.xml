@@ -218,4 +218,8 @@
     <string name="available">Available:</string>
     <string name="or">or</string>
     <string name="already_a_user">Already a user?</string>
+    <string name="not_a_user_yet">Not a user yet?</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="send_password">Send password</string>
+    <string name="want_to_login">Want to log in?</string>
 </resources>
