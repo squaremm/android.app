@@ -55,8 +55,10 @@ class BookingFragment : BaseFragment(), BookingView {
             view.bookingInterval.text = getString(R.string.time_range, interval.start, interval.end)
 
             when(interval.spots){
-                0 -> { view.bookingSpots.text = getString(R.string.full)
-                       active = false }
+                0 -> {
+                    view.bookingSpots.text = getString(R.string.full)
+                    active = false
+                }
                 1 -> view.bookingSpots.text = getString(R.string.spot_one_format, interval.spots)
                 else -> view.bookingSpots.text = getString(R.string.spot_format, interval.spots)
             }
@@ -84,8 +86,8 @@ class BookingFragment : BaseFragment(), BookingView {
         super.onViewCreated(view, savedInstanceState)
 
         //TODO: change calendar date and fire presenter.dateSelected(newDate)
-        bookingDateRight.setOnClickListener { }
-        bookingDateLeft.setOnClickListener { }
+        bookingDateRight.setOnClickListener { presenter.selectNextDay() }
+        bookingDateLeft.setOnClickListener { presenter.selectPreviousDay() }
 
         bookingDateContainer.setOnClickListener { showDatePicker() }
 

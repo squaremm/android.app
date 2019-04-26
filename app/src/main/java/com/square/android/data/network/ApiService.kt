@@ -10,8 +10,14 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @GET("auth/instagram/callback")
-    fun registerUser(@Query("code") instagramCode: String): Call<AuthResponse>
+    @POST("auth/user/signin")
+    fun registerUser(@Body authData: AuthData): Call<AuthResponse>
+
+    @POST("auth/user/login")
+    fun loginUser(@Body authData: AuthData): Call<AuthResponse>
+
+    @POST("user/forgotPassword")
+    fun resetPassword(@Query("email") email: String): Deferred<MessageResponse>
 
     @GET("user/current")
     fun getCurrentProfile(): Deferred<Profile.User>

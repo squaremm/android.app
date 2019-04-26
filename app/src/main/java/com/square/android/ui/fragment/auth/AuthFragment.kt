@@ -6,13 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.R
+import com.square.android.data.pojo.AuthData
+import com.square.android.extensions.content
 import com.square.android.presentation.presenter.auth.AuthPresenter
 import com.square.android.presentation.view.auth.AuthView
 import com.square.android.ui.dialogs.OAuthDialog
 import com.square.android.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_auth.*
 
+
 class AuthFragment : BaseFragment(), AuthView {
+
     @InjectPresenter
     lateinit var presenter: AuthPresenter
 
@@ -26,7 +30,21 @@ class AuthFragment : BaseFragment(), AuthView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        authButton.setOnClickListener { presenter.authCLicked() }
+        authRegisterButton.setOnClickListener {
+            container_register_login_data.visibility = View.VISIBLE
+            showRegisterFields()
+        }
+        authButton.setOnClickListener {
+            container_register_login_data.visibility = View.VISIBLE
+            showLoginFields()
+        }
+
+        tv_already_user.setOnClickListener { showLoginFields() }
+
+        doActionButton.setOnClickListener {
+            val authData = AuthData(et_email.content, et_password.content, et_confirm_password.content)
+            presenter.actionClicked(authData)
+        }
     }
 
     override fun showProgress() {
@@ -41,17 +59,25 @@ class AuthFragment : BaseFragment(), AuthView {
         authButton.visibility = View.VISIBLE
     }
 
-    override fun showAuthDialog(url: String, trigger: String) {
-        dialog = OAuthDialog(url, trigger)
-
-        dialog!!.show(activity!!,
-                callback = { code ->
-                    presenter.authDone(code)
-                },
-                onCancelListener = {
-                    presenter.dialogCanceled()
-                })
+    override fun showLoginFields() {
+        presenter.loginAction()
+        tv_already_user.visibility = View.GONE
+        et_confirm_password.visibility = View.GONE
     }
+
+    override fun showRegisterFields() {
+        presenter.registerAction()
+        tv_already_user.visibility = View.VISIBLE
+        et_confirm_password.visibility = View.VISIBLE
+    }
+
+    override fun showForgotFields() {
+        presenter.resetPasswordAction()
+        tv_already_user.visibility = View.GONE
+        et_password.visibility = View.GONE
+        et_confirm_password.visibility = View.GONE
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

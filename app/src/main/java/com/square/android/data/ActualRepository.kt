@@ -17,6 +17,7 @@ private const val TOKEN_PREFIX = "Bearer "
 
 class ActualRepository(private val api: ApiService,
                        private val localManager: LocalDataManager) : Repository {
+
     override fun getIntervals(placeId: Long, date: String) =
             api.getIntervals(placeId, date)
 
@@ -64,7 +65,7 @@ class ActualRepository(private val api: ApiService,
 
     override fun getUserInfo() = localManager.getUserInfo()
 
-    override fun setAvatarUrl(url: String) {
+    override fun setAvatarUrl(url: String?) {
         localManager.setAvatarUrl(url)
     }
 
@@ -128,8 +129,10 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun registerUser(instagramCode: String): Deferred<AuthResponse> = GlobalScope.async {
-        val data = performRequest { api.registerUser(instagramCode) }
+    override fun registerUser(authData: AuthData): Deferred<AuthResponse> = GlobalScope.async {
+        val data = performRequest {
+            api.registerUser(authData)
+        }
 
         if (data.token.isNullOrEmpty()) {
             throw Exception(data.message)
@@ -137,6 +140,20 @@ class ActualRepository(private val api: ApiService,
 
         data
     }
+
+    override fun loginUser(authData: AuthData): Deferred<AuthResponse> = GlobalScope.async {
+        val data = performRequest {
+            api.loginUser(authData)
+        }
+
+        if (data.token.isNullOrEmpty()) {
+            throw Exception(data.message)
+        }
+
+        data
+    }
+
+    override fun resetPassword(email: String) = api.resetPassword(email)
 
     override fun introDisplayed() {
         localManager.setShouldDisplayIntro(false)

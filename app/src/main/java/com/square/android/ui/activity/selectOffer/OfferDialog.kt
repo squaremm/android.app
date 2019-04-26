@@ -28,7 +28,9 @@ class OfferDialog(private val context: Context) {
         val body = view.couponBody
 
         body.couponImage.loadImage(offer.photo)
-        body.couponAvatar.loadImage(userInfo.photo)
+        userInfo.photo?.run {
+            body.couponAvatar.loadImage(this)
+        }
 
         body.couponPlaceName.text = place.name
         body.couponAddress.text = place.address

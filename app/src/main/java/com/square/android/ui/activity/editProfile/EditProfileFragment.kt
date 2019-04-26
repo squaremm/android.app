@@ -91,9 +91,11 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
     }
 
     override fun showData(user: Profile.User) {
-        profileEditAvatar.loadImage(user.photo, placeholder = R.color.colorPrimary,
-                roundedCornersRadiusPx = 100,
-                whichCornersToRound = RoundedCornersTransformation.CornerType.BOTTOM)
+        user.photo?.run {
+            profileEditAvatar.loadImage(this, placeholder = R.color.colorPrimary,
+                    roundedCornersRadiusPx = 100,
+                    whichCornersToRound = RoundedCornersTransformation.CornerType.BOTTOM)
+        }
 
         formEditProfileName.content = user.name
         formEditProfileSurname.content = user.surname

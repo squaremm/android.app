@@ -54,6 +54,14 @@ class BookingPresenter : BasePresenter<BookingView>() {
         currentPosition = position
     }
 
+    fun selectNextDay() {
+        dateSelected(calendar.apply { add(Calendar.DATE, 1) })
+    }
+
+    fun selectPreviousDay() {
+        dateSelected(calendar.apply { add(Calendar.DATE, -1) })
+    }
+
     fun dateSelected(newCalendar: Calendar) {
         calendar = newCalendar
 

@@ -25,7 +25,7 @@ class Profile(var message: String = "",
                var name: String = "",
                var nationality: String = "",
                var phone: String = "",
-               var photo: String = "",
+               var photo: String? = "",
                var surname: String = "") {
 
         class Instagram(var counts: Counts = Counts(),

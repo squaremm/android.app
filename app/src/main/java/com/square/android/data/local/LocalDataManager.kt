@@ -82,7 +82,7 @@ class LocalDataManager(context: Context) {
                 ?: throw IllegalArgumentException("No key is stored")
     }
 
-    fun setAvatarUrl(url: String) {
+    fun setAvatarUrl(url: String?) {
         preferences.edit()
                 .putString(KEY_AVATAR_URL, url)
                 .apply()
@@ -115,9 +115,8 @@ class LocalDataManager(context: Context) {
                 ?: throw IllegalArgumentException("Name is not stored")
     }
 
-    private fun getAvatarUrl(): String {
+    private fun getAvatarUrl(): String? {
         return preferences.getString(KEY_AVATAR_URL, null)
-                ?: throw IllegalArgumentException("Avatar is not stored")
     }
 
     private fun getSocialLink(): String {

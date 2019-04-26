@@ -49,9 +49,11 @@ class ProfileFragment : BaseFragment(), ProfileView {
     }
 
     override fun showUser(user: Profile.User) {
-        profileAvatar.loadImage(user.photo,
-                roundedCornersRadiusPx = 100,
-                whichCornersToRound = RoundedCornersTransformation.CornerType.BOTTOM)
+        user.photo?.run {
+            profileAvatar.loadImage(this,
+                    roundedCornersRadiusPx = 100,
+                    whichCornersToRound = RoundedCornersTransformation.CornerType.BOTTOM)
+        }
 
         profileName.text = getString(R.string.name_format, user.name, user.surname)
         profileAgency.text = user.currentAgency

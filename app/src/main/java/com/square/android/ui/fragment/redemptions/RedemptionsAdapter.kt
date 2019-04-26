@@ -41,7 +41,6 @@ class RedemptionsAdapter(data: List<Any>, private val handler: Handler)
         notifyItemRemoved(position)
     }
 
-
     class RedemptionHolder(containerView: View, handler: Handler) : BaseHolder<Any>(containerView) {
         init {
             redemptionCancel?.setOnClickListener {

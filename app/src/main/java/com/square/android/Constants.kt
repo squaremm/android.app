@@ -26,11 +26,8 @@ object SCREENS {
 }
 
 object Network {
-    const val BASE_API_URL = "https://square-app-api.herokuapp.com/api/"
+    const val BASE_API_URL = "https://square-app-dev-api.herokuapp.com/api/"
 
-    const val INSTAGRAM_CALLBACK_URL = "http://square-app-api.herokuapp.com/api/auth/instagram/callback"
-
-    const val INSTAGRAM_TRIGGER = "code"
 }
 
 object SOCIAL {

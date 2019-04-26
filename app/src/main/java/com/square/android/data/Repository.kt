@@ -18,7 +18,10 @@ interface Repository {
     fun isProfileFilled(): Boolean
     fun setProfileFilled(isFilled: Boolean)
 
-    fun registerUser(instagramCode: String): Deferred<AuthResponse>
+    fun registerUser(authData: AuthData): Deferred<AuthResponse>
+    fun loginUser(authData: AuthData): Deferred<AuthResponse>
+
+    fun resetPassword(email: String): Deferred<MessageResponse>
 
     fun fillProfile(info: ProfileInfo): Deferred<MessageResponse>
 
@@ -27,7 +30,7 @@ interface Repository {
     fun getPlaces(): Deferred<List<Place>>
 
     fun setUserId(id: Long)
-    fun setAvatarUrl(url: String)
+    fun setAvatarUrl(url: String?)
     fun setUserName(name: String, surname: String)
     fun setSocialLink(username: String)
 

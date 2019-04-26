@@ -1,35 +1,87 @@
 package com.square.android.presentation.presenter.auth
 
 import com.arellomobile.mvp.InjectViewState
-import com.square.android.BuildConfig
-import com.square.android.Network
 import com.square.android.SCREENS
 import com.square.android.data.network.errorMessage
+import com.square.android.data.network.response.AuthResponse
+import com.square.android.data.pojo.AuthData
 
 import com.square.android.presentation.presenter.BasePresenter
 
 import com.square.android.presentation.view.auth.AuthView
-import com.square.android.utils.buildInstagramUrl
 
+enum class AuthAction {
+    REGISTER, LOGIN, RESET_PASSWORD, NONE
+}
 
 @InjectViewState
 class AuthPresenter : BasePresenter<AuthView>() {
-    fun authCLicked() {
-        val url = buildInstagramUrl(
-                BuildConfig.INSTAGRAM_CLIENT_ID,
-                Network.INSTAGRAM_CALLBACK_URL
-        )
 
-        viewState.showProgress()
-        viewState.showAuthDialog(url, Network.INSTAGRAM_TRIGGER)
+    var currentAuthAction = AuthAction.NONE
+
+    fun registerAction() {
+        currentAuthAction = AuthAction.REGISTER
     }
 
-    fun authDone(code: String) {
+    fun loginAction() {
+        currentAuthAction = AuthAction.LOGIN
+    }
+
+    fun resetPasswordAction() {
+        currentAuthAction = AuthAction.RESET_PASSWORD
+    }
+
+    fun actionClicked(authData: AuthData) {
+        when (currentAuthAction) {
+            AuthAction.REGISTER -> registerClicked(authData)
+            AuthAction.LOGIN -> loginClicked(authData)
+            AuthAction.RESET_PASSWORD -> forgotPasswordClicked(authData.email)
+            AuthAction.NONE -> return
+        }
+    }
+
+    fun forgotPasswordClicked(email: String) {
+        viewState.showProgress()
+        launch({
+            val response = repository.resetPassword(email).await()
+
+            viewState.hideProgress()
+
+            viewState.showLoginFields()
+        }, { error ->
+            viewState.hideProgress()
+
+            viewState.showMessage(error.errorMessage)
+        })
+    }
+
+    fun loginClicked(authData: AuthData) {
+        viewState.showProgress()
+        launch({
+            val response = repository.loginUser(authData).await()
+            authDone(response)
+        }, { error ->
+            viewState.hideProgress()
+
+            viewState.showMessage(error.errorMessage)
+        })
+    }
+
+    fun registerClicked(authData: AuthData) {
+        viewState.showProgress()
+
+        launch({
+            val response = repository.registerUser(authData).await()
+            authDone(response)
+        }, { error ->
+            viewState.hideProgress()
+
+            viewState.showMessage(error.errorMessage)
+        })
+    }
+
+    fun authDone(response: AuthResponse) {
         launch ({
-            viewState.showProgress()
-
-            val response = repository.registerUser(code).await()
-
             repository.setUserToken(response.token!!)
 
             val profile = repository.getCurrentUser().await()
@@ -57,7 +109,4 @@ class AuthPresenter : BasePresenter<AuthView>() {
         })
     }
 
-    fun dialogCanceled() {
-        viewState.hideProgress()
-    }
 }
