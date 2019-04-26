@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/redemptionHeader"
+    style="@style/Models14Text"
+    android:textColor="@color/secondary_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/redemptionHeader"
     xmlns:toolxs="http://schemas.android.com/tools"
     toolxs:text="Today"
-    android:layout_marginTop="8dp"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:layout_marginBottom="8dp"
-    android:textSize="20sp"
-    android:textColor="@color/placesPrimary">
-
+    android:paddingTop="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp" >
 </TextView>

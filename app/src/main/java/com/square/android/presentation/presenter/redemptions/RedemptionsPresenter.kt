@@ -61,6 +61,8 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
         launch {
             val redemptions = repository.getRedemptions().await()
 
+            //TODO: sort redemptions by date, active, claimed? Client side or API?
+
             data = addHeaders(redemptions).await().toMutableList()
 
             viewState.hideProgress()

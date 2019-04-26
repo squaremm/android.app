@@ -112,6 +112,10 @@
     <string name="full">Full</string>
     <string name="booked_for">Booked for:</string>
 
+    <string name="remove_item_title">Delete booking</string>
+    <string name="remove_item_content">Do you really want to remove the item?</string>
+    <string name="my_bookings_title">My Bookings</string>
+
     <string name="review_instagram_post_body">
         <![CDATA[
          <font color=#7CFC00>Do:</font><br>
@@ -187,6 +191,8 @@
     </string>
 
     <string name="ok">OK</string>
+
+    <string name="ok_lowercase">Ok</string>
     <string name="type_tripavisor">Tripadvisor</string>
     <string name="done">Done</string>
     <string name="copy_reivew">Copy reivew</string>

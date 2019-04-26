@@ -1,19 +1,25 @@
 package com.square.android.ui.fragment.redemptions
 
+import android.util.TypedValue
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.afollestad.materialdialogs.MaterialDialog
+import com.daimajia.swipe.SwipeLayout
 import com.square.android.R
 import com.square.android.data.pojo.RedemptionInfo
 import com.square.android.extensions.loadImage
 import com.square.android.extensions.makeBlackWhite
 import com.square.android.extensions.removeFilters
 import com.square.android.ui.base.BaseAdapter
-import kotlinx.android.synthetic.main.redemption_card_active.*
+import kotlinx.android.synthetic.main.item_redemption_active.*
 import kotlinx.android.synthetic.main.redemption_header.*
 
 private const val TYPE_HEADER = R.layout.redemption_header
-private const val TYPE_REDEMPTION = R.layout.redemption_card_active
-private const val TYPE_CLAIMED_REDEMPTION = R.layout.redemption_card_claimed
-private const val TYPE_CLOSED_REDEMPTION = R.layout.redemption_card_closed
+private const val TYPE_REDEMPTION = R.layout.item_redemption_active
+private const val TYPE_CLAIMED_REDEMPTION = R.layout.item_redemption_claimed
+private const val TYPE_CLOSED_REDEMPTION = R.layout.item_redemption_closed
+
+private var isDialogVisible = false
 
 class RedemptionsAdapter(data: List<Any>, private val handler: Handler)
     : BaseAdapter<Any, RedemptionsAdapter.RedemptionHolder>(data) {
@@ -43,19 +49,71 @@ class RedemptionsAdapter(data: List<Any>, private val handler: Handler)
 
     class RedemptionHolder(containerView: View, handler: Handler) : BaseHolder<Any>(containerView) {
         init {
-            redemptionCancel?.setOnClickListener {
-                handler.cancelClicked(adapterPosition)
-            }
+            redemptionContainer?.setOnClickListener {
+                //TODO: fire animation with elevation size change (@animator/shadow_anim_6dp_2dp.xml) for: container, imageShadow and image
 
-            redemptionClaim?.setOnClickListener {
-                handler.claimClicked(adapterPosition)
-            }
-
-            containerView.setOnClickListener {
-                if (itemViewType == TYPE_CLAIMED_REDEMPTION) {
+                if (itemViewType == TYPE_REDEMPTION) {
+                    handler.claimClicked(adapterPosition)
+                } else if (itemViewType == TYPE_CLAIMED_REDEMPTION) {
                     handler.claimedItemClicked(adapterPosition)
                 }
             }
+            redemptionImage?.setOnClickListener {
+                redemptionContainer?.callOnClick()
+            }
+            redemptionImageShadow?.setOnClickListener {
+                redemptionContainer?.callOnClick()
+            }
+
+            redemptionSwipeLayout?.showMode = SwipeLayout.ShowMode.LayDown
+            redemptionSwipeLayout?.addSwipeListener(object: SwipeLayout.SwipeListener {
+                override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {}
+                override fun onStartOpen(layout: SwipeLayout?) {}
+                override fun onStartClose(layout: SwipeLayout?) {}
+                override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {}
+                override fun onClose(layout: SwipeLayout?) {}
+
+                override fun onOpen(layout: SwipeLayout?) {
+                    //TODO: Delete only active item(not closed, not claimed)?
+                    if (itemViewType == TYPE_REDEMPTION) {
+                        if(!isDialogVisible){
+                            isDialogVisible = true
+
+                            val dialog: MaterialDialog = MaterialDialog.Builder(redemptionSwipeLayout.context)
+                                    .title(R.string.remove_item_title)
+                                    .content(R.string.remove_item_content)
+                                    .contentColorRes(android.R.color.black)
+                                    .itemsColor( ContextCompat.getColor( redemptionSwipeLayout.context, R.color.nice_pink))
+                                    .positiveText(R.string.ok_lowercase)
+                                    .negativeText(R.string.cancel)
+                                    .cancelable(false)
+                                    .onPositive { dialog, action ->
+                                        redemptionSwipeLayout?.close()
+                                        dialog.hide()
+                                        isDialogVisible = false
+
+                                        //TODO: Delete item? Wait for API response?
+                                        handler.cancelClicked(adapterPosition)
+                                    }
+                                    .onNegative { dialog, action ->
+                                        redemptionSwipeLayout?.close()
+                                        dialog.hide()
+                                        isDialogVisible = false
+                                    }
+                                    .build()
+
+                            val titleTv = dialog.titleView
+                            val contentTv = dialog.contentView
+
+                            titleTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19f)
+                            contentTv?.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+
+                            dialog.show()
+                        }
+                    }
+                }
+            })
+
         }
 
         override fun bind(item: Any, vararg extras: Any?) {
@@ -66,12 +124,13 @@ class RedemptionsAdapter(data: List<Any>, private val handler: Handler)
         }
 
         private fun bindRedemption(redemptionInfo: RedemptionInfo) {
-            if (redemptionInfo.closed) {
+            if (redemptionInfo.closed || redemptionInfo.claimed) {
                 redemptionImage.makeBlackWhite()
             } else {
                 redemptionImage.removeFilters()
             }
 
+            redemptionHours?.text = redemptionHours.context.getString(com.square.android.R.string.time_range, redemptionInfo.startTime, redemptionInfo.endTime)
             redemptionTitle.text = redemptionInfo.place.name
             redemptionAddress.text = redemptionInfo.place.address
             redemptionImage.loadImage(redemptionInfo.place.photo)
@@ -87,6 +146,6 @@ class RedemptionsAdapter(data: List<Any>, private val handler: Handler)
 
         fun cancelClicked(position: Int)
 
-        fun claimedItemClicked(position: Int);
+        fun claimedItemClicked(position: Int)
     }
 }

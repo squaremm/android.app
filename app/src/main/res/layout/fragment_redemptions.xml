@@ -8,26 +8,39 @@
 
     <TextView
         android:id="@+id/redemptionsTitle"
+        style="@style/Models22BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/redemptions_title"
-        android:textColor="@color/placesPrimary"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/my_bookings_title"
+        android:textAllCaps="true"
+        android:textColor="@color/nice_pink"
+        app:layout_constraintStart_toEndOf="@+id/dividerStart"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:id="@+id/redemptionDivider"
-        android:background="@color/placesPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/dividerStart"
+        android:layout_width="32dp"
+        android:layout_height="0.75dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/nice_pink"
+        app:layout_constraintBottom_toBottomOf="@+id/redemptionsTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/redemptionsTitle" />
+        app:layout_constraintTop_toTopOf="@+id/redemptionsTitle" />
+
+    <View
+        android:id="@+id/dividerEnd"
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/nice_pink"
+        app:layout_constraintBottom_toBottomOf="@+id/dividerStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/redemptionsTitle"
+        app:layout_constraintTop_toTopOf="@+id/dividerStart" />
 
     <ProgressBar
         android:id="@+id/redemptionsProgress"
@@ -39,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/redemptionDivider"
+        app:layout_constraintTop_toBottomOf="@id/redemptionsTitle"
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -48,11 +61,10 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
+        android:paddingBottom="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/redemptionDivider" />
+        app:layout_constraintTop_toBottomOf="@+id/redemptionsTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

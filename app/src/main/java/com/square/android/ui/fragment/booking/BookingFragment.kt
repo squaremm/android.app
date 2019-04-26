@@ -85,7 +85,6 @@ class BookingFragment : BaseFragment(), BookingView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //TODO: change calendar date and fire presenter.dateSelected(newDate)
         bookingDateRight.setOnClickListener { presenter.selectNextDay() }
         bookingDateLeft.setOnClickListener { presenter.selectPreviousDay() }
 

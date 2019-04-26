@@ -52,6 +52,13 @@ dependencies {
         exclude module: 'okhttp'
     }
 
+    // SwipeLayout
+    implementation "com.daimajia.swipelayout:library:1.2.0"
+
+    // MaterialDialog
+    implementation "com.afollestad.material-dialogs:core:0.9.6.0"
+    implementation "com.afollestad.material-dialogs:commons:0.9.6.0"
+
     implementation 'com.squareup.retrofit2:converter-jackson:2.4.0'
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
