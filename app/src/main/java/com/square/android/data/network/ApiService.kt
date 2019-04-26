@@ -17,7 +17,7 @@ interface ApiService {
     fun loginUser(@Body authData: AuthData): Call<AuthResponse>
 
     @POST("user/forgotPassword")
-    fun resetPassword(@Query("email") email: String): Deferred<MessageResponse>
+    fun resetPassword(@Body authData: AuthData): Deferred<MessageResponse>
 
     @GET("user/current")
     fun getCurrentProfile(): Deferred<Profile.User>

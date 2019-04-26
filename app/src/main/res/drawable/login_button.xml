@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
 
-    <solid android:color="@color/login_button" />
+    <gradient android:startColor="#E82E90" android:endColor="#F7425B" android:angle="0" />
 
     <corners android:radius="8dp" />
 

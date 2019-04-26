@@ -153,7 +153,7 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun resetPassword(email: String) = api.resetPassword(email)
+    override fun resetPassword(authData: AuthData) = api.resetPassword(authData)
 
     override fun introDisplayed() {
         localManager.setShouldDisplayIntro(false)
