@@ -15,12 +15,14 @@ class BadgeStateChangedEvent()
 class MainPresenter : BasePresenter<MainView>() {
     private val bus: EventBus by inject()
 
+    private var currentScreenKey: String? = null
+
     fun navigationClicked(screenKey: String) {
-        if (screenKey != SCREENS.PROFILE) {
-            router.replaceScreen(screenKey)
-        } else {
+        if (currentScreenKey != screenKey) {
             router.navigateTo(screenKey)
+
         }
+        currentScreenKey = screenKey
     }
 
     init {

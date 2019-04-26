@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -35,6 +37,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.notifications_badge.*
 import org.jetbrains.anko.intentFor
 import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Replace
 
 
 private const val REDEMPTIONS_POSITION = 2
@@ -131,6 +135,17 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
             SCREENS.PROFILE -> ProfileFragment()
             SCREENS.EDIT_PROFILE -> EditProfileFragment()
             else -> throw IllegalArgumentException("Unknown screen key: $screenKey")
+        }
+
+        override fun setupFragmentTransactionAnimation(command: Command,
+                                                       currentFragment: Fragment?,
+                                                       nextFragment: Fragment,
+                                                       fragmentTransaction: FragmentTransaction) {
+            fragmentTransaction.setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.fade_out)
         }
     }
 }

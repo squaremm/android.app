@@ -56,6 +56,10 @@
             android:name=".ui.activity.claimedRedemption.ClaimedRedemptionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="56a4e72e32090ced1d143edc3295897b2172276b" />
     </application>
 
 </manifest>

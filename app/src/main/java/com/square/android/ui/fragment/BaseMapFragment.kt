@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.annotations.IconFactory
@@ -157,8 +158,19 @@ abstract class BaseMapFragment : LocationFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
+        mapView.visibility = View.GONE
+        removeFromSuperview(mapView)
+        activity?.findViewById<ViewGroup>(R.id.container)?.addView(mapView)
         mapView.onDestroy()
+        removeFromSuperview(mapView)
+    }
+
+
+    fun removeFromSuperview(view: View) {
+        val parent = view.parent
+        if (parent != null && parent is ViewGroup) {
+            parent.removeView(view)
+        }
     }
 }
 

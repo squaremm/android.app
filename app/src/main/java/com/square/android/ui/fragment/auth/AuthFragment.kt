@@ -32,11 +32,11 @@ class AuthFragment : BaseFragment(), AuthView {
         super.onViewCreated(view, savedInstanceState)
 
         authRegisterButton.setOnClickListener {
-            container_register_login_data.visibility = View.VISIBLE
+            hideInitialButtons()
             showRegisterFields()
         }
         authButton.setOnClickListener {
-            container_register_login_data.visibility = View.VISIBLE
+            hideInitialButtons()
             showLoginFields()
         }
 
@@ -48,19 +48,27 @@ class AuthFragment : BaseFragment(), AuthView {
         do_action_button.setOnClickListener {
             val authData = AuthData(et_email.content, et_password.content, et_confirm_password.content)
             presenter.actionClicked(authData)
+            container_register_login_data
         }
+    }
+
+    override fun hideInitialButtons() {
+        authRegisterButton.visibility = View.GONE
+        authButton.visibility = View.GONE
+        tv_or.visibility = View.GONE
+        container_register_login_data.visibility = View.VISIBLE
     }
 
     override fun showProgress() {
         authProgress.visibility = View.VISIBLE
 
-        authButton.visibility = View.GONE
+        container_register_login_data.visibility = View.GONE
     }
 
     override fun hideProgress() {
         authProgress.visibility = View.GONE
 
-        authButton.visibility = View.VISIBLE
+        container_register_login_data.visibility = View.VISIBLE
     }
 
     override fun showLoginFields() {

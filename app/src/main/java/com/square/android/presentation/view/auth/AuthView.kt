@@ -20,4 +20,7 @@ interface AuthView : BaseView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showForgotFields()
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun hideInitialButtons()
 }

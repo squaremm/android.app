@@ -70,12 +70,12 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvOr"
+                app:layout_constraintBottom_toTopOf="@+id/tv_or"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvOr"
+                android:id="@+id/tv_or"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -107,7 +107,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvOr"
+                app:layout_constraintTop_toBottomOf="@+id/tv_or"
                 app:layout_constraintVertical_bias="0.36" />
 
 
