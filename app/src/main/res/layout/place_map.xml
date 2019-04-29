@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    tools:visibility="visible">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mapPlaceRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/gdfgdfg"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="start"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mapPlaceTitle">
+
+            <TextView
+                android:id="@+id/mapPlaceDistance"
+                style="@style/Models14Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="3km" />
+
+            <TextView
+                android:id="@+id/placeInfoDistanceLabel"
+                style="@style/Models10Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/distance"
+                android:textColor="@color/gray_disabled" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mapPlaceTitle"
+            style="@style/Models16BoldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toStartOf="@+id/mapPlaceTypeLabel"
+            app:layout_constraintStart_toStartOf="@+id/gdfgdfg"
+            app:layout_constraintTop_toBottomOf="@+id/mapPlaceRv"
+            tools:text="Bar&amp;Grill" />
+
+        <TextView
+            android:id="@+id/mapPlaceAddress"
+            style="@style/Models12Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/mapPlaceTitle"
+            app:layout_constraintTop_toBottomOf="@+id/mapPlaceTitle"
+            tools:text="Via vigenano 31" />
+
+
+        <TextView
+            android:id="@+id/mapPlaceTypeLabel"
+            style="@style/Models14BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:textColor="@color/nice_pink"
+            app:layout_constraintEnd_toStartOf="@+id/mapPlaceTypeIcon"
+            app:layout_constraintTop_toTopOf="@+id/mapPlaceTitle"
+            tools:text="Asian" />
+
+        <ImageView
+            android:id="@+id/mapPlaceTypeIcon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginEnd="16dp"
+
+            android:src="@drawable/ic_restaurant"
+            android:tint="@color/secondary_text"
+            app:layout_constraintBottom_toBottomOf="@+id/mapPlaceTypeLabel"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/mapPlaceTypeLabel" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -33,6 +33,10 @@ abstract class BaseMapFragment : LocationFragment() {
 
     protected val markerBackground by lazy { getDefaultMarkerBackground() }
 
+    protected val markerIconGray by lazy { getGrayMarker() }
+
+    protected val markerIconPink by lazy { getPinkMarker() }
+
     private lateinit var style: Style
 
     protected var locationComponent: LocationComponent? = null
@@ -87,11 +91,34 @@ abstract class BaseMapFragment : LocationFragment() {
         return iconFactory.fromBitmap(bitmap)
     }
 
+    private fun getGrayMarker(): Icon {
+        val bitmap = context!!.getBitmap(R.drawable.ic_marker_gray)
+
+        val iconFactory = IconFactory.getInstance(activity!!)
+
+        return iconFactory.fromBitmap(bitmap)
+    }
+
+    private fun getPinkMarker(): Icon {
+        val bitmap = context!!.getBitmap(R.drawable.ic_marker_pink)
+
+        val iconFactory = IconFactory.getInstance(activity!!)
+
+        return iconFactory.fromBitmap(bitmap)
+    }
+
     @SuppressLint("MissingPermission")
     private fun initMapLocation() {
         val options = LocationComponentOptions.builder(context!!)
                 .trackingGesturesManagement(true)
-                .accuracyColor(ContextCompat.getColor(context!!, R.color.colorAccent))
+                .accuracyColor(ContextCompat.getColor(context!!, R.color.nice_pink))
+                .accuracyAlpha(0.08f)
+                .bearingTintColor(android.R.color.transparent)
+                .elevation(0f)
+                .foregroundDrawable(R.drawable.my_location)
+                .foregroundDrawableStale(R.drawable.my_location)
+                .backgroundDrawable(R.drawable.my_location_bg)
+                .backgroundDrawableStale(R.drawable.my_location_bg)
                 .build()
 
         locationComponent = mapboxMap!!.locationComponent
@@ -164,7 +191,6 @@ abstract class BaseMapFragment : LocationFragment() {
         mapView.onDestroy()
         removeFromSuperview(mapView)
     }
-
 
     fun removeFromSuperview(view: View) {
         val parent = view.parent

@@ -22,14 +22,13 @@
 
     <TextView
         android:id="@+id/placesTitle"
+        style="@style/Models22BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
-        android:text="@string/places_title"
-        android:textColor="@color/placesPrimary"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        android:text="@string/venues_list"
+        android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

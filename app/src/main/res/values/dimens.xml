@@ -6,4 +6,7 @@
 
     <dimen name="anim_start">4dp</dimen>
     <dimen name="anim_end">2dp</dimen>
+
+    <dimen name="rv_item_decorator_width">1.5dp</dimen>
+
 </resources>

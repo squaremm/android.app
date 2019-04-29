@@ -46,6 +46,21 @@ fun ImageView.loadImage(url: String,
             .into(this)
 }
 
+
+fun ImageView.loadImageCenterInside(url: String,
+                                    @ColorRes placeholder: Int = R.color.placeholder,
+                                    roundedCornersRadiusPx: Int = 0,
+                                    whichCornersToRound: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL) {
+    Picasso.get()
+            .load(url)
+            .fit()
+            .centerInside()
+            .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
+            .placeholder(placeholder)
+            .into(this)
+}
+
+
 inline fun View.doOnPreDraw(crossinline listener: (View) -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
         override fun onGlobalLayout() {

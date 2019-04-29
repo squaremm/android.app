@@ -5,7 +5,6 @@ import com.square.android.R
 import com.square.android.data.pojo.Place
 import com.square.android.extensions.asDistance
 import com.square.android.extensions.loadFirstOrPlaceholder
-import com.square.android.extensions.loadImage
 import com.square.android.extensions.setTextCarryingEmpty
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.place_card.*
@@ -45,14 +44,8 @@ class PlacesAdapter(data: List<Place>,
 
         override fun bind(item: Place, vararg extras: Any?) {
             placeInfoAddress.text = item.address
-            placeInfoCredits.text = item.credits.toString()
-
             placeInfoImage.loadFirstOrPlaceholder(item.photos)
-
-            placeInfoTitle.text = item.name
-
-            placeInfoCredits.text = item.award.toString()
-
+            placeInfoTitle.text =  placeInfoTitle.context.getString(R.string.place_name_comma, item.name)
             bindDistance(item)
         }
 

@@ -7,26 +7,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.mapbox.android.core.location.LocationEngineCallback
 import com.mapbox.android.core.location.LocationEngineResult
 import com.mapbox.android.core.permissions.PermissionsListener
+import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.R
 import com.square.android.data.pojo.Place
 import com.square.android.extensions.asDistance
-import com.square.android.extensions.loadFirstOrPlaceholder
 import com.square.android.presentation.presenter.map.MapPresenter
 import com.square.android.presentation.view.map.MapView
 import com.square.android.ui.fragment.BaseMapFragment
 import kotlinx.android.synthetic.main.fragment_map.*
-import kotlinx.android.synthetic.main.place_card.view.*
+import kotlinx.android.synthetic.main.place_map.view.*
 
 
 class MapFragment : BaseMapFragment(), MapView, PermissionsListener, LocationEngineCallback<LocationEngineResult> {
     @InjectPresenter
     lateinit var presenter: MapPresenter
+
+    private var previousMarker : Marker? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,7 +49,11 @@ class MapFragment : BaseMapFragment(), MapView, PermissionsListener, LocationEng
 
             presenter.markerClicked(markerId)
 
+            previousMarker?.let { it.icon = markerIconGray }
 
+            it.icon = markerIconPink
+
+            previousMarker = it
             true
         }
 
@@ -58,7 +66,7 @@ class MapFragment : BaseMapFragment(), MapView, PermissionsListener, LocationEng
             presenter.locateClicked()
         }
 
-        placeInfo.setOnClickListener { presenter.infoClicked() }
+        mapPlaceInfo.setOnClickListener { presenter.infoClicked() }
 
         loadMapData()
     }
@@ -76,38 +84,50 @@ class MapFragment : BaseMapFragment(), MapView, PermissionsListener, LocationEng
             MarkerOptions()
                     .title(key)
                     .position(latLng)
-                    .icon(markerBackground)
+                    .icon(markerIconGray)
         }
 
-
         mapboxMap?.addMarkers(markerOptions)
+
+        mapPlaceInfo.mapPlaceRv.layoutManager = LinearLayoutManager(mapPlaceInfo.mapPlaceRv.context,RecyclerView.HORIZONTAL,false)
+        mapPlaceInfo.mapPlaceRv.adapter = MapPlaceImagesAdapter(listOf())
+        mapPlaceInfo.mapPlaceRv.addItemDecoration(MarginItemDecorator( mapPlaceInfo.mapPlaceRv.context.resources.getDimension(R.dimen.rv_item_decorator_width).toInt()))
     }
 
     override fun showInfo(place: Place) {
         updateCurrentInfoDistance(place.distance)
 
-        placeInfo.placeInfoImage.loadFirstOrPlaceholder(place.photos)
+        mapPlaceInfo.mapPlaceTitle.text = place.name
+        mapPlaceInfo.mapPlaceAddress.text = place.address
 
-        placeInfo.placeInfoCredits.text = place.award.toString()
-        placeInfo.placeInfoTitle.text = place.name
-        placeInfo.placeInfoAddress.text = place.address
+        mapPlaceInfo.visibility = View.VISIBLE
 
-        placeInfo.visibility = View.VISIBLE
+        mapPlaceInfo.mapPlaceTypeLabel.text = place.type
+
+        //TODO change mapPlaceInfo.mapPlaceTypeIcon for different types of places
+
+        place.photos?.let {(mapPlaceInfo.mapPlaceRv.adapter as MapPlaceImagesAdapter).setUrls(it)}
+                ?: (mapPlaceInfo.mapPlaceRv.adapter as MapPlaceImagesAdapter).setUrls(listOf())
+
+        if((mapPlaceInfo.mapPlaceRv.adapter as MapPlaceImagesAdapter).imageUrls.isEmpty()){
+            mapPlaceInfo.mapPlaceRv.visibility = View.GONE
+        } else  mapPlaceInfo.mapPlaceRv.visibility = View.VISIBLE
+
     }
 
     override fun updateCurrentInfoDistance(distance: Int?) {
         if (distance != null) {
-            val distanceFormatted = getString(R.string.distance_format, distance.asDistance())
-
-            placeInfo.placeInfoDistance.text = distanceFormatted
-            placeInfo.placeInfoDistance.visibility = View.VISIBLE
+            mapPlaceInfo.mapPlaceDistance.text = distance.asDistance()
+            mapPlaceInfo.mapPlaceDistance.visibility = View.VISIBLE
         } else {
-            placeInfo.placeInfoDistance.visibility = View.GONE
+            mapPlaceInfo.mapPlaceDistance.visibility = View.GONE
         }
     }
 
     override fun hideInfo() {
-        placeInfo.visibility = View.GONE
+        mapPlaceInfo.visibility = View.GONE
+
+        previousMarker?.let { it.icon = markerIconGray }
     }
 
     private fun loadMapData() {

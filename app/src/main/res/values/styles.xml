@@ -56,12 +56,21 @@
         <item name="android:lineSpacingMultiplier">1</item>
     </style>
 
+    <style name="Models10Text" parent="ModelsText">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <style name="Models12Text" parent="ModelsText">
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Models14Text" parent="ModelsText">
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Models14BoldText" parent="ModelsText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Models16Text" parent="ModelsText">
@@ -85,6 +94,10 @@
     <style name="Models22BoldText" parent="ModelsText">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Models22Text" parent="ModelsText">
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="RadioButton">
