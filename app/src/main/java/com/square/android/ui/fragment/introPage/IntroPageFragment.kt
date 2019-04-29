@@ -50,7 +50,7 @@ class IntroPageFragment : BaseFragment(), IntroPageView {
             introPageContent.setText(it.contentRes)
             introPageTitle.setText(it.titleRes)
 
-            introPageImage.loadImage(it.imageRes)
+            introPageImage.loadImage(it.imageRes,true)
 
             selectOfferSubmit.visibility = it.buttonVisibility
         }

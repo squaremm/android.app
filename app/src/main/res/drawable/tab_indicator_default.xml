@@ -7,7 +7,7 @@
             android:thickness="@dimen/indicator_size"
             android:useLevel="false">
 
-            <solid android:color="@color/tab_indicator_default"/>
+            <solid android:color="@color/gray_disabled"/>
         </shape>
     </item>
 </layer-list>

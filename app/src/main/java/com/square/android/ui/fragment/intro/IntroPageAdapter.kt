@@ -7,10 +7,10 @@ import com.square.android.ui.fragment.introPage.IntroPageFragment
 
 private val PAGES = listOf(
         IntroPage(R.string.intro_title_1, R.string.intro_content_1,
-                R.drawable.intro_image_1, buttonVisibility = View.INVISIBLE),
+                R.drawable.intro_image_1, buttonVisibility = View.VISIBLE),
 
         IntroPage(R.string.intro_title_2, R.string.intro_content_2,
-                R.drawable.intro_image_2, buttonVisibility = View.INVISIBLE),
+                R.drawable.intro_image_2, buttonVisibility = View.VISIBLE),
 
         IntroPage(R.string.intro_title_3, R.string.intro_content_3,
                 R.drawable.intro_image_3, buttonVisibility = View.VISIBLE)

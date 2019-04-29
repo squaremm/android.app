@@ -3,13 +3,13 @@
 
     <string name="error_unable_to_connect">No internet connection</string>
 
-    <string name="intro_title_1">Discover and enjoy venues in your city.</string>
+    <string name="intro_title_1">Discover and enjoy venues in your city</string>
     <string name="intro_title_3">Attend your favorite places  and share the experience</string>
     <string name="intro_title_2">Bring the game  into your real life</string>
 
-    <string name="intro_content_1">Wide selection of premium perks  like restaurants, gyms, beauty salons  and much more all around you</string>
-    <string name="intro_content_3">Surf through the multiple tailored offers  available everyday, book your spot  and promote them</string>
-    <string name="intro_content_2">Raise your ranking, gain credits  and unlock new features to claim  awesome rewards</string>
+    <string name="intro_content_1">Wide selection of premium perks  like restaurants, gyms, beauty salons  and much more all around you.</string>
+    <string name="intro_content_3">Surf through the multiple tailored offers  available everyday, book your spot  and promote them.</string>
+    <string name="intro_content_2">Raise your ranking, gain credits  and unlock new features to claim  awesome rewards.</string>
 
     <string name="next">Next</string>
     <string name="login">Login</string>
