@@ -2,4 +2,8 @@
 <resources>
     <dimen name="indicator_size">6dp</dimen>
     <dimen name="point_radius">5dp</dimen>
+
+
+    <dimen name="anim_start">4dp</dimen>
+    <dimen name="anim_end">2dp</dimen>
 </resources>
