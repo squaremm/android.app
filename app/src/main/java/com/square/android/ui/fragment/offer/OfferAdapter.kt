@@ -36,12 +36,12 @@ class OfferAdapter(data: List<OfferInfo>,
     fun setSelectedItem(position: Int?) {
         if (position == null) return
 
-        val previousPosition = selectedItemPosition
+//        val previousPosition = selectedItemPosition
         selectedItemPosition = position
 
-        previousPosition?.let { notifyItemChanged(it, SelectedPayload) }
-
-        notifyItemChanged(position)
+//        previousPosition?.let { notifyItemChanged(it, SelectedPayload) }
+//
+//        notifyItemChanged(position)
     }
 
     override fun instantiateHolder(view: View): OfferHolder = OfferHolder(view, handler)
@@ -59,14 +59,13 @@ class OfferAdapter(data: List<OfferInfo>,
             bindSelected(selectedPosition)
 
             offerTitle.text = item.name
-            offerComponents.text = item.compositionAsList()
             offerPrice.text = item.price.toString()
 
-            val instagramPostCredits = item.credits[TYPE_INSTAGRAM_POST] ?: 0
-            val instagramStoryCredits = item.credits[TYPE_INSTAGRAM_STORY] ?: 0
-
-            offerStory.text = instagramStoryCredits.toString()
-            offerPost.text = instagramPostCredits.toString()
+//            offerComponents.text = item.compositionAsList()
+//            val instagramPostCredits = item.credits[TYPE_INSTAGRAM_POST] ?: 0
+//            val instagramStoryCredits = item.credits[TYPE_INSTAGRAM_STORY] ?: 0
+//            offerStory.text = instagramStoryCredits.toString()
+//            offerPost.text = instagramPostCredits.toString()
 
             offerImage.loadImage(item.photo)
         }

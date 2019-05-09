@@ -50,7 +50,7 @@
     <string name="hint_referral">Referral</string>
     <string name="permsission_needed">We need location permissions to show places near to you!</string>
     <string name="location_failed_message">Failed to get location</string>
-    <string name="credits">credits</string>
+    <string name="credits">Credits</string>
 
     <string name="place_detail_title">Place info</string>
     <string name="page_about">About</string>

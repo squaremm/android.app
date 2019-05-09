@@ -12,6 +12,10 @@
         <item name="colorPrimaryDark">@color/white</item>
     </style>
 
+    <style name="GreyishStatusActivity" parent="AppTheme">
+        <item name="colorPrimaryDark">@color/greyish_app_bg</item>
+    </style>
+
     <style name="CollapsingToolbarActivity" parent="AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
@@ -64,6 +68,11 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="Models12BoldText" parent="ModelsText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Models14Text" parent="ModelsText">
         <item name="android:textSize">14sp</item>
     </style>
@@ -82,6 +91,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Models18Text" parent="ModelsText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="Models18BoldText" parent="ModelsText">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
@@ -98,6 +111,15 @@
 
     <style name="Models22Text" parent="ModelsText">
         <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Models24Text" parent="ModelsText">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Models24BoldText" parent="ModelsText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="RadioButton">

@@ -1,6 +1,5 @@
 package com.square.android.ui.activity.selectOffer
 
-
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -21,6 +20,7 @@ import com.square.android.ui.activity.review.EXTRA_OFFER_ID
 import com.square.android.ui.activity.review.EXTRA_REDEMPTION_ID
 import com.square.android.ui.activity.review.ReviewActivity
 import com.square.android.ui.activity.review.ReviewExtras
+import com.square.android.ui.fragment.map.MarginItemDecorator
 import com.square.android.ui.fragment.offer.OfferAdapter
 import kotlinx.android.synthetic.main.activity_select_offer.*
 import org.jetbrains.anko.intentFor
@@ -48,14 +48,12 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, OfferAdapter.Handle
         selectOfferList.setHasFixedSize(true)
 
         selectOfferBack.setOnClickListener { presenter.backClicked() }
-
-        selectOfferSubmit.setOnClickListener { presenter.submitClicked() }
     }
 
     override fun showOfferDialog(offer: OfferInfo, userInfo: UserInfo, place: PlaceInfo) {
         dialog = OfferDialog(this)
 
-        dialog!!.show(offer, place, userInfo) {
+        dialog!!.show(offer, place) {
             presenter.dialogSubmitClicked(offer.id)
         }
     }
@@ -64,12 +62,10 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, OfferAdapter.Handle
         adapter = OfferAdapter(data, this)
 
         selectOfferList.adapter = adapter
-    }
-
-    override fun setSelectedItem(position: Int) {
-        adapter?.setSelectedItem(position)
-
-        selectOfferSubmit.visibility = View.VISIBLE
+        selectOfferList.addItemDecoration(MarginItemDecorator( selectOfferList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),true,
+                selectOfferList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),
+                selectOfferList.context.resources.getDimension(R.dimen.rv_item_decorator_16).toInt()
+        ))
     }
 
     override fun hideProgress() {
@@ -79,6 +75,12 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, OfferAdapter.Handle
 
     override fun itemClicked(position: Int) {
         presenter.itemClicked(position)
+    }
+
+    override fun setSelectedItem(position: Int) {
+        adapter?.setSelectedItem(position)
+
+        presenter.submitClicked()
     }
 
     override fun showProgress() {

@@ -55,7 +55,7 @@
         <activity
             android:name=".ui.activity.selectOffer.SelectOfferActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/WhiteStatusActivity" />
+            android:theme="@style/GreyishStatusActivity" />
 
         <activity
             android:name=".ui.activity.claimedRedemption.ClaimedRedemptionActivity"

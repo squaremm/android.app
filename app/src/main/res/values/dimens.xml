@@ -8,5 +8,8 @@
     <dimen name="anim_end">2dp</dimen>
 
     <dimen name="rv_item_decorator_width">1.5dp</dimen>
+    <dimen name="rv_item_decorator_16">16dp</dimen>
+    <dimen name="rv_item_decorator_12">12dp</dimen>
+    <dimen name="rv_item_decorator_8">8dp</dimen>
 
 </resources>

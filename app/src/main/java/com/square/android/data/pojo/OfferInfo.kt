@@ -23,4 +23,6 @@ class OfferInfo(
     }
 
     fun compositionAsString() = composition.joinToString(separator = ",")
+
+    fun compositionAsStr() = composition.joinToString(separator = "\n")
 }

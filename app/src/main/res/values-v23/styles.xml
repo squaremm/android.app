@@ -4,4 +4,10 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimaryDark">@color/white</item>
     </style>
+
+    <style name="GreyishStatusActivity" parent="AppTheme">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorPrimaryDark">@color/greyish_app_bg</item>
+    </style>
+
 </resources>
