@@ -61,6 +61,15 @@ public class PermissionsManager {
         requestLocationPermissions(activity, true);
     }
 
+    public static boolean areCameraPermissionsGranted(Context context) {
+        return isPermissionGranted(context, Manifest.permission.CAMERA);
+    }
+
+    public void requestCameraPermissions(Activity activity) {
+        String[] permissions = new String[]{Manifest.permission.CAMERA};
+        requestPermissions(activity, permissions);
+    }
+
     public void requestLocationPermissions(Fragment fragment) {
         String[] permissions = new String[]{FINE_LOCATION_PERMISSION};
 

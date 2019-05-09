@@ -4,6 +4,7 @@ import com.square.android.data.network.response.AuthResponse
 import com.square.android.data.network.response.MessageResponse
 import com.square.android.data.pojo.*
 import kotlinx.coroutines.Deferred
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -68,7 +69,32 @@ interface ApiService {
     fun addOfferToBook(@Path("id") bookId: Long,
                        @Body body: OfferToBook) : Call<MessageResponse>
 
-    @GET("place/{id}/book/slots")
+    @GET("place/{id}/intervals")
     fun getIntervals(@Path("id") placeId: Long,
-                     @Query("date") date: String) : Deferred<List<Place.Interval>>
+                     @Query("date") date: String) : Deferred<IntervalsWrapper>
+
+    @GET("place/{id}/book/slots")
+    fun getIntervalSlots(@Path("id") placeId: Long,
+                         @Query("date") date: String) : Deferred<List<Place.Interval>>
+
+    @GET("offer/{id}/booking/{bookingId}/actions")
+    fun getActions(@Path("id") offerId: Long,
+                   @Path("bookingId") bookingId: Long) : Deferred<List<ReviewNetType>>
+
+    @DELETE("user/{id}/images")
+    fun removePhoto(@Path("id") userId: Long,
+                    @Query("imageId") photoId: String) : Deferred<MessageResponse>
+
+    @Multipart
+    @POST("user/{id}/images")
+    fun addPhoto(@Path("id") userId: Long,
+                 @Part photo: MultipartBody.Part) : Deferred<Images>
+
+    @PUT("user/{id}/images/{imageId}/main")
+    fun setPhotoAsMain(@Path("id") userId: Long,
+                       @Path("imageId") imageId: String) : Deferred<MessageResponse>
+
+    @PUT("user/{id}/device")
+    fun sendFcmToken(@Path("id") userId: Long,
+                     @Body fcmTokenData: FcmTokenData) : Deferred<MessageResponse>
 }

@@ -5,6 +5,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:name=".App"
@@ -56,6 +61,19 @@
             android:name=".ui.activity.claimedRedemption.ClaimedRedemptionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
+
+        <activity
+            android:name=".ui.activity.gallery.GalleryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteStatusActivity" />
+
+        <service android:name=".data.network.fcm.FirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="io.fabric.ApiKey"

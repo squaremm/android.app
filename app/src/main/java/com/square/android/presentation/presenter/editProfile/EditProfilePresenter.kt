@@ -3,6 +3,8 @@ package com.square.android.presentation.presenter.editProfile
 import com.arellomobile.mvp.InjectViewState
 import com.mukesh.countrypicker.Country
 import com.square.android.SCREENS
+import com.square.android.SCREENS.GALLERY
+import com.square.android.data.pojo.Profile
 import com.square.android.data.pojo.ProfileInfo
 
 import com.square.android.presentation.presenter.BasePresenter
@@ -16,15 +18,22 @@ import org.koin.standalone.inject
 class EditProfilePresenter : BasePresenter<EditProfileView>() {
     private val eventBus: EventBus by inject()
 
+    private var user: Profile.User? = null
+
     init {
         loadData()
     }
 
-    private fun loadData() {
+    fun loadData() {
         launch {
-            val user = repository.getCurrentUser().await()
 
-            viewState.showData(user)
+            viewState.showProgress()
+
+            user = repository.getCurrentUser().await()
+
+            viewState.showData(user!!)
+
+            viewState.hideProgress()
         }
     }
 
@@ -57,5 +66,9 @@ class EditProfilePresenter : BasePresenter<EditProfileView>() {
 
     fun countrySelected(country: Country) {
         viewState.displayNationality(country)
+    }
+
+    fun openGallery() {
+        router.navigateTo(GALLERY, user)
     }
 }

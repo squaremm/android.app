@@ -27,4 +27,6 @@ interface ReviewView : ProgressView {
     fun showCongratulations()
 
     fun showButtons()
+
+    fun initReviewTypes()
 }

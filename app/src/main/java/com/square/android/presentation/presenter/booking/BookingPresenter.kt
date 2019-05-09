@@ -26,7 +26,7 @@ class BookingPresenter : BasePresenter<BookingView>() {
 
     private var calendar: Calendar = Calendar.getInstance()
 
-    private var placeId: Long? = null
+    private var place: Place? = null
 
     init {
         eventBus.register(this)
@@ -37,7 +37,7 @@ class BookingPresenter : BasePresenter<BookingView>() {
     @Suppress("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onIntervalsLoadedEvent(event: PlaceLoadedEvent) {
-        placeId = event.data.id
+        place = event.data
 
         loadIntervals()
     }
@@ -82,11 +82,12 @@ class BookingPresenter : BasePresenter<BookingView>() {
         launch {
             viewState.showProgress()
 
-            val intervals = repository.getIntervals(placeId!!, getStringDate()).await()
+//            val intervalsWrapper = repository.getIntervals(place?.id!!, getStringDate()).await()
+            val intervalSlots = repository.getIntervalSlots(place?.id!!, getStringDate()).await()
 
             viewState.hideProgress()
 
-            viewState.showIntervals(intervals)
+            viewState.showIntervals(intervalSlots)
         }
     }
 

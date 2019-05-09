@@ -48,7 +48,6 @@ class AuthFragment : BaseFragment(), AuthView {
         do_action_button.setOnClickListener {
             val authData = AuthData(et_email.content, et_password.content, et_confirm_password.content)
             presenter.actionClicked(authData)
-            container_register_login_data
         }
     }
 
@@ -69,6 +68,10 @@ class AuthFragment : BaseFragment(), AuthView {
         authProgress.visibility = View.GONE
 
         container_register_login_data.visibility = View.VISIBLE
+    }
+
+    override fun showPendingUser() {
+        pending_splash.visibility = View.VISIBLE
     }
 
     override fun showLoginFields() {

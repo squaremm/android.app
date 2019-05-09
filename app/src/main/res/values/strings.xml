@@ -12,6 +12,7 @@
     <string name="intro_content_2">Raise your ranking, gain credits  and unlock new features to claim  awesome rewards.</string>
 
     <string name="next">Next</string>
+    <string name="next_step">Next &#8594;</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
@@ -82,7 +83,7 @@
     <string name="privacy_policy">Privacy policy</string>
     <string name="save">Save</string>
     <string name="review_subtitle">Gain more credits by doing some of the actions</string>
-    <string name="review_title">Select an action</string>
+    <string name="review_title">Select actions</string>
     <string name="select_offer_subtitle">Choose which offer you want to redeem</string>
     <string name="select_offer_title">Select an offer</string>
     <string name="past">Past</string>
@@ -101,12 +102,15 @@
     <string name="facebook_post">Facebook post</string>
     <string name="facebook_post_description">Add a review on Facebook</string>
     <string name="yelp_post_description">Add a review on Yelp</string>
-    <string name="award_format">+%d\ncoins</string>
+    <string name="award_format">+%d\ncredits</string>
     <string name="award_single_line_format">+%d coins</string>
     <string name="empty_card">For now, it is empty</string>
     <string name="review_instagram_post_title">Make a post on instagram showing yourself in the venue</string>
     <string name="review_instagram_story_title">Make a story on instagram showing yourself in the venue</string>
     <string name="review_trip_advisor_title">Follow the steps below to earn the credits</string>
+
+    <string name="add_a">Add a</string>
+    <string name="step">Step</string>
 
     <string name="full">Full</string>
     <string name="booked_for">Booked for:</string>
@@ -145,60 +149,24 @@
         ]]>
     </string>
 
-    <string name="review_other_body_format">
-        <![CDATA[
-         <font color=#DF128A>1 - Select a number of stars from 3 to 5 and click Done</font><br>
+    <string name="review_other_body_format">Select a number of stars from 3 to 5 and click next</string>
 
-         2 - Copy paste the auto generated text<br>
-        ]]>
-         3 - Open %s and make a review on the restaurant pasting the given text
-        <![CDATA[
-         <br>4 - We will notify when your review is accepted
-        ]]>
-    </string>
+    <string name="review_stage_2">Copypaste the auto generated text</string>
 
-    <string name="review_stage_2">
-        <![CDATA[
-         <font color=#DF128A>2 - Copypaste the auto generated text</font><br>
-         <br>
-        ]]>
-        %s
-    </string>
+    <string name="review_stage_3_maps">Open Maps and make a on restaurant the given text</string>
 
-    <string name="review_stage_3_maps">
-        <![CDATA[
-         <font color=#DF128A>3 - Open Maps and make a on restaurant the given text</font><br>
-         <br>
-        ]]>
-    </string>
+    <string name="review_stage_3_facebook">Open Facebook and make a on restaurant the given text </string>
 
-    <string name="review_stage_3_facebook">
-        <![CDATA[
-         <font color=#DF128A>3 - Open Facebook and make a on restaurant the given text</font><br>
-         <br>
-        ]]>
-    </string>
+    <string name="review_stage_3_tripadvisor">Open Tripadvisor and make a on restaurant the given text</string>
 
-    <string name="review_stage_3_tripadvisor">
-        <![CDATA[
-         <font color=#DF128A>3 - Open Tripadvisor and make a on restaurant the given text</font><br>
-         <br>
-        ]]>
-    </string>
-
-    <string name="review_stage_3_yelp">
-        <![CDATA[
-         <font color=#DF128A>3 - Open Yelp and make a on restaurant the given text</font><br>
-         <br>
-        ]]>
-    </string>
+    <string name="review_stage_3_yelp">Open Yelp and make a on restaurant the given text</string>
 
     <string name="ok">OK</string>
 
     <string name="ok_lowercase">Ok</string>
     <string name="type_tripavisor">Tripadvisor</string>
     <string name="done">Done</string>
-    <string name="copy_reivew">Copy reivew</string>
+    <string name="copy_review">Copy review</string>
     <string name="type_google_places">Google places</string>
     <string name="type_facebook">Facebook</string>
     <string name="claim_progress">Claiming booking…</string>
@@ -211,7 +179,8 @@
     <string name="badge_big_count">9+</string>
     <string name="open_restaurant">Open restaurant</string>
     <string name="submit">Submit</string>
-    <string name="review_done_title">Thank you so much! We will notify you when your review will be accepted</string>
+    <string name="review_done_title">Thank you so much!</string>
+    <string name="review_done_title_sub">We will notify you when your review will be accepted</string>
     <string name="claimed_redemption_title">Redeemed item</string>
     <string name="page_coupon">Coupon</string>
     <string name="page_actions">Actons taken</string>
@@ -225,4 +194,12 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="send_password">Send password</string>
     <string name="want_to_login">Want to log in?</string>
+
+    <string name="text_copied">Text copied!</string>
+
+    <string name="choose_photo">Choose photo</string>
+    <string name="gallery">Gallery</string>
+    <string name="set_image_as_main">Set image as main</string>
+    <string name="set_image_as_main_info">Do you want to set this image as the main one?</string>
+    <string name="delete_image">Delete image</string>
 </resources>

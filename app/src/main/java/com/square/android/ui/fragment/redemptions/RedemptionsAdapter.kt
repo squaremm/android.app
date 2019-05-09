@@ -16,7 +16,10 @@ import kotlinx.android.synthetic.main.item_redemption_active.*
 import kotlinx.android.synthetic.main.redemption_header.*
 import android.animation.Animator
 import android.animation.AnimatorSet
+import android.util.Log
 import android.view.animation.DecelerateInterpolator
+import android.webkit.URLUtil
+import com.square.android.data.pojo.RedemptionFull
 
 private const val TYPE_HEADER = R.layout.redemption_header
 private const val TYPE_REDEMPTION = R.layout.item_redemption_active
@@ -177,7 +180,8 @@ class RedemptionsAdapter(data: List<Any>, private val handler: Handler)
             redemptionHours?.text = redemptionHours.context.getString(com.square.android.R.string.time_range, redemptionInfo.startTime, redemptionInfo.endTime)
             redemptionTitle.text = redemptionInfo.place.name
             redemptionAddress.text = redemptionInfo.place.address
-            redemptionImage.loadImage(redemptionInfo.place.photo)
+            if (URLUtil.isValidUrl(redemptionInfo.place.photo))
+                redemptionImage.loadImage(redemptionInfo.place.photo, roundedCornersRadiusPx = 360)
         }
 
         private fun bindHeader(header: String) {

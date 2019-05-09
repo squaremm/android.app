@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
-private val FORMAT = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+private val FORMAT = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
 fun Int.toOrdinalString() =
         this.toString() + when (this % 10) {

@@ -48,6 +48,8 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
 
         tvSave.setOnClickListener { presenter.save(collectInfo()) }
 
+        iv_gallery.setOnClickListener { presenter.openGallery() }
+
         countryPicker = CountryPicker.Builder().with(requireContext())
                 .listener(this)
                 .build()
@@ -91,7 +93,7 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
     }
 
     override fun showData(user: Profile.User) {
-        user.photo?.run {
+        user.mainImage?.run {
             profileEditAvatar.loadImage(this, placeholder = R.color.colorPrimary,
                     roundedCornersRadiusPx = 100,
                     whichCornersToRound = RoundedCornersTransformation.CornerType.BOTTOM)
@@ -201,5 +203,10 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
     private fun getGender() = when (formEditProfileGenderGroup.checkedRadioButtonId) {
         R.id.formEditProfileGenderFemale -> GENDER_FEMALE
         else -> GENDER_MALE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.loadData()
     }
 }

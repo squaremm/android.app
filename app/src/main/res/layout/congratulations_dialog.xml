@@ -44,6 +44,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/congratulationsImage" />
+    <TextView
+        android:id="@+id/congratulationsTitleSub"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="@string/review_done_title_sub"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/grey_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/congratulationsTitle" />
 
     <TextView
         android:id="@+id/congratulationsSubmit"
@@ -51,17 +65,18 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/preload_button"
+        android:paddingStart="36dp"
+        android:paddingEnd="36dp"
+        android:background="@drawable/nice_button_pink_red"
         android:gravity="center"
-        android:minWidth="250dp"
         android:padding="8dp"
         android:text="@string/ok"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/congratulationsTitle"
+        app:layout_constraintTop_toBottomOf="@+id/congratulationsTitleSub"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

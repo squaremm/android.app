@@ -10,4 +10,6 @@ interface MainView : BaseView {
     fun checkInitial()
 
     fun setActiveRedemptions(count: Int)
+
+    fun showUserPending()
 }

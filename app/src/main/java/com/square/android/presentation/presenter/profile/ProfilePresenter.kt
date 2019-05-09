@@ -31,9 +31,13 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
 
     private fun loadData() {
         launch {
+
+            viewState.showProgress()
             val user = repository.getCurrentUser().await()
 
             viewState.showUser(user)
+
+            viewState.hideProgress()
         }
     }
 

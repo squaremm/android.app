@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
 import com.square.android.data.pojo.Place
 import com.square.android.extensions.toOrdinalString
@@ -54,13 +53,13 @@ class BookingFragment : BaseFragment(), BookingView {
 
             view.bookingInterval.text = getString(R.string.time_range, interval.start, interval.end)
 
-            when(interval.spots){
+            when(interval.slots){
                 0 -> {
                     view.bookingSpots.text = getString(R.string.full)
                     active = false
                 }
-                1 -> view.bookingSpots.text = getString(R.string.spot_one_format, interval.spots)
-                else -> view.bookingSpots.text = getString(R.string.spot_format, interval.spots)
+                1 -> view.bookingSpots.text = getString(R.string.spot_one_format, interval.slots)
+                else -> view.bookingSpots.text = getString(R.string.spot_format, interval.slots)
             }
 
             //TODO: (If selected calendar day = today) Check if interval on the current day is available. If not, active = false

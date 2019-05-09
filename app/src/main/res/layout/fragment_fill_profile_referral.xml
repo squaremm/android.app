@@ -149,6 +149,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fillReferralSkip" />
 
+        <ImageView
+            android:id="@+id/pending_splash_image"
+            android:src="@drawable/pending_splash"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            android:clickable="true"
+            android:focusable="true"
+            android:translationZ="10dp"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar

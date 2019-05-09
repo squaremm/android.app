@@ -5,6 +5,7 @@
     android:id="@+id/review_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".ui.activity.review.ReviewActivity">
 
 
@@ -17,8 +18,9 @@
         android:layout_marginTop="16dp"
         android:includeFontPadding="false"
         android:text="@string/review_title"
+        android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textColor="@color/placesPrimary"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,11 +30,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:tint="@color/placesPrimary"
+        android:tint="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@+id/reviewTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/reviewTitle"
         app:srcCompat="@drawable/ic_arrow_back" />
+
+    <View
+        android:id="@+id/dividerStart"
+        android:layout_width="32dp"
+        android:layout_height="0.75dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/reviewBack"
+        app:layout_constraintStart_toEndOf="@id/reviewBack"
+        app:layout_constraintTop_toTopOf="@+id/reviewBack" />
+
+    <View
+        android:id="@+id/dividerEnd"
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/dividerStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/reviewTitle"
+        app:layout_constraintTop_toTopOf="@+id/dividerStart" />
 
     <TextView
         android:id="@+id/reviewSubtitle"
@@ -41,7 +66,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:gravity="center"
+        android:gravity="start"
         android:text="@string/review_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

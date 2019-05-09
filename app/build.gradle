@@ -19,7 +19,7 @@ static def getDate() {
 
 def versionMajor = 0
 def versionMinor = 0
-def versionPatch = 1
+def versionPatch = 4
 
 def versionNameVal = "${versionMajor}.${versionMinor}.${versionPatch}"
 
@@ -38,10 +38,26 @@ android {
 
         buildConfigField 'String', "MAPBOX_TOKEN", secretProps.getProperty("mapbox_token")
     }
+    signingConfigs {
+        release {
+            storeFile file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            versionNameSuffix " (DEBUG) "
+//            proguardFiles getDefaultProguardFile("proguard-android.txt"), "../proguard-rules.pro"
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     productFlavors {
@@ -56,7 +72,7 @@ android {
 
                 Crashlytics docs: https://docs.fabric.io/android/beta/gradle.html#distribution-with-gradle
             */
-            ext.betaDistributionGroupAliases = "android"
+            ext.betaDistributionGroupAliases = "square"
             ext.betaDistributionReleaseNotesFilePath = project.getProjectDir().getParentFile().getAbsolutePath() + "/beta_changelog.txt"
         }
     }
@@ -139,6 +155,8 @@ dependencies {
 
     implementation 'com.github.mukeshsolanki:country-picker-android:2.0.1'
 
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+
 
     implementation ('com.alimuzaffar.lib:pinentryedittext:1.3.10') {
         // Exclude is only needed if you already have
@@ -152,8 +170,14 @@ dependencies {
         transitive = true
     }
 
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+
+    implementation 'com.mixpanel.android:mixpanel-android:5.+'
+
     // ----- Tests -----
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
 }
+
+apply plugin: 'com.google.gms.google-services'

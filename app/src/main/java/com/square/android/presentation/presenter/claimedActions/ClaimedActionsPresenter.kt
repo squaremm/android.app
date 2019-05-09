@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.square.android.data.pojo.Offer
 
 import com.square.android.presentation.presenter.BasePresenter
+import com.square.android.presentation.presenter.claimedCoupon.OfferLoadedEvent
 
 import com.square.android.presentation.view.claimedActions.ClaimedActionsView
 import kotlinx.coroutines.GlobalScope
@@ -12,8 +13,6 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
-
-class PostsLoadedEvent(val offer: Offer)
 
 @InjectViewState
 class ClaimedActionsPresenter : BasePresenter<ClaimedActionsView>() {
@@ -24,11 +23,11 @@ class ClaimedActionsPresenter : BasePresenter<ClaimedActionsView>() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onPostsLoaded(event: PostsLoadedEvent) {
-        processData(event.offer)
+    fun onOfferLoaded(event: OfferLoadedEvent) {
+        processData(event.offer, event.redemptionId)
     }
 
-    private fun processData(offer: Offer) {
+    private fun processData(offer: Offer, bookingId: Long) {
         launch {
             val actions = GlobalScope.async {
                 offer.posts.mapTo(HashSet(), Offer.Post::type)

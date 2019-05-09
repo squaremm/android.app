@@ -4,6 +4,10 @@ import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.main.MainView
+import com.square.android.utils.DeviceUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -26,16 +30,23 @@ class MainPresenter : BasePresenter<MainView>() {
     }
 
     init {
-        if (!repository.isLoggedIn() || !repository.isProfileFilled()) {
-            router.replaceScreen(SCREENS.START)
-        } else {
-            router.replaceScreen(SCREENS.PLACES)
+        launch {
+            val user = repository.getCurrentUser().await()
+            if (user.isAcceptationPending) {
+                viewState.showUserPending()
+            } else {
+                if (!repository.isLoggedIn() || !repository.isProfileFilled()) {
+                    router.replaceScreen(SCREENS.START)
+                } else {
+                    router.replaceScreen(SCREENS.PLACES)
 
-            viewState.checkInitial()
+                    viewState.checkInitial()
 
-            loadBadgeCount()
+                    loadBadgeCount()
+                }
+
+            }
         }
-
 
         bus.register(this)
     }

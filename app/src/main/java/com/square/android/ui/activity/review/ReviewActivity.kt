@@ -48,8 +48,6 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review)
 
-        initReviewTypes()
-
         reviewBack.setOnClickListener { presenter.exit() }
 
         reviewList.setHasFixedSize(true)
@@ -126,7 +124,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         val index = filteredTypes!!.indexOfFirst { it.key == type }
         val reviewType = filteredTypes!![index]
 
-        ReviewDialog(this)
+        ReviewDialog(this, presenter.reviewInfo.feedback)
                 .show(reviewType, coins) { stageResult ->
                     when (stageResult.stage) {
                         STAGE_RATE -> processRate(stageResult.rating)
@@ -149,7 +147,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
     }
 
     private fun updateReviewTypes(feedback: String, data: Offer) {
-        val feedbackDescription = getString(R.string.review_stage_2, feedback)
+        val feedbackDescription = getString(R.string.review_stage_2)
 
         reviewTypes.forEach {
             it.enabled = true
@@ -164,7 +162,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         }
     }
 
-    private fun initReviewTypes() {
+    override fun initReviewTypes() {
         reviewTypes = listOf(
                 /* TODO uncomment
                  ReviewType(
@@ -207,12 +205,12 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                                         subtitleRes = R.string.review_subtitle,
                                         content = getContentFor(R.string.type_tripavisor),
                                         ratingNeeded = true,
-                                        buttonText = R.string.done
+                                        buttonText = R.string.next_step
                                 ),
 
                                 Stage(
                                         subtitleRes = null,
-                                        buttonText = R.string.copy_reivew
+                                        buttonText = R.string.copy_review
                                 ),
 
                                 Stage(
@@ -235,12 +233,12 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                                         subtitleRes = R.string.review_subtitle,
                                         content = getContentFor(R.string.type_google_places),
                                         ratingNeeded = true,
-                                        buttonText = R.string.done
+                                        buttonText = R.string.next_step
                                 ),
 
                                 Stage(
                                         subtitleRes = null,
-                                        buttonText = R.string.copy_reivew
+                                        buttonText = R.string.copy_review
                                 ),
 
                                 Stage(
@@ -262,12 +260,12 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                                         subtitleRes = R.string.review_subtitle,
                                         content = getContentFor(R.string.type_facebook),
                                         ratingNeeded = true,
-                                        buttonText = R.string.done
+                                        buttonText = R.string.next_step
                                 ),
 
                                 Stage(
                                         subtitleRes = null,
-                                        buttonText = R.string.copy_reivew
+                                        buttonText = R.string.copy_review
                                 ),
 
                                 Stage(
@@ -289,12 +287,12 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                                         subtitleRes = R.string.review_subtitle,
                                         content = getContentFor(R.string.type_yelp),
                                         ratingNeeded = true,
-                                        buttonText = R.string.done
+                                        buttonText = R.string.next_step
                                 ),
 
                                 Stage(
                                         subtitleRes = null,
-                                        buttonText = R.string.copy_reivew
+                                        buttonText = R.string.copy_review
                                 ),
 
                                 Stage(
@@ -305,11 +303,13 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                                 )
                         ))
         )
+
+//        reviewTypes.filter { it.key }
     }
 
     private fun getContentFor(@StringRes typeStringRes: Int): String {
         val type = getString(typeStringRes)
-        return getString(R.string.review_other_body_format, type)
+        return getString(R.string.review_other_body_format)
     }
 
     private fun getOfferId() = intent.getLongExtra(EXTRA_OFFER_ID, 0)

@@ -9,6 +9,9 @@ import com.square.android.data.pojo.Place
 import com.square.android.presentation.presenter.BasePresenter
 
 import com.square.android.presentation.view.map.MapView
+import com.square.android.utils.AnalyticsEvent
+import com.square.android.utils.AnalyticsEvents
+import com.square.android.utils.AnalyticsManager
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -87,6 +90,7 @@ class MapPresenter : BasePresenter<MapView>() {
     fun infoClicked() {
         currentInfo?.let {
             router.navigateTo(SCREENS.PLACE_DETAIL, it.id)
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_FROM_MAP, hashMapOf("id" to it.id.toString())))
         }
     }
 

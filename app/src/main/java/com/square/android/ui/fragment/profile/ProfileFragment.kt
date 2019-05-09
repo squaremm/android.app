@@ -49,7 +49,7 @@ class ProfileFragment : BaseFragment(), ProfileView {
     }
 
     override fun showUser(user: Profile.User) {
-        user.photo?.run {
+        user.mainImage?.run {
             profileAvatar.loadImage(this,
                     roundedCornersRadiusPx = 100,
                     whichCornersToRound = RoundedCornersTransformation.CornerType.BOTTOM)
@@ -81,5 +81,13 @@ class ProfileFragment : BaseFragment(), ProfileView {
         shareIntent.putExtra(Intent.EXTRA_TEXT, text)
 
         startActivity(shareIntent)
+    }
+
+    override fun showProgress() {
+        profileProgress.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        profileProgress.visibility = View.GONE
     }
 }

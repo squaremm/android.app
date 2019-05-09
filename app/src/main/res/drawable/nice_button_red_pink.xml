@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:angle="0"
-        android:startColor="@color/nice_red"
-        android:endColor="@color/nice_pink" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+        <shape>
+            <gradient android:angle="0"
+                android:startColor="@color/nice_red"
+                android:endColor="@color/nice_pink" />
 
-    <corners android:radius="4dp" />
-</shape>
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="#E4D5DD" />
+
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+</selector>

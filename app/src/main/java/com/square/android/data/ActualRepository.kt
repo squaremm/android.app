@@ -3,13 +3,18 @@ package com.square.android.data
 import com.square.android.SOCIAL
 import com.square.android.data.local.LocalDataManager
 import com.square.android.data.network.ApiService
+import com.square.android.data.network.PhotoId
 import com.square.android.data.network.response.AuthResponse
 import com.square.android.data.network.response.ERRORS
 import com.square.android.data.network.response.MessageResponse
 import com.square.android.data.pojo.*
+import com.square.android.utils.FileUtils
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.HttpException
 
@@ -17,6 +22,19 @@ private const val TOKEN_PREFIX = "Bearer "
 
 class ActualRepository(private val api: ApiService,
                        private val localManager: LocalDataManager) : Repository {
+
+    override fun saveFcmToken(fcmToken: String?) = localManager.saveFcmToken(fcmToken)
+    override fun getFcmToken() = localManager.getFcmToken()
+
+    override fun sendFcmToken(uuid: String, newFcmToken: String?, oldToken: String?): Deferred<MessageResponse> {
+        return api.sendFcmToken(localManager.getUserInfo().id,
+                FcmTokenData(uuid, "android", newFcmToken, oldToken))
+    }
+
+    override fun getIntervalSlots(placeId: Long, date: String) =
+            api.getIntervalSlots(placeId, date)
+
+    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>> = api.getActions(offerId, bookingId)
 
     override fun getIntervals(placeId: Long, date: String) =
             api.getIntervals(placeId, date)
@@ -183,4 +201,20 @@ class ActualRepository(private val api: ApiService,
 
         return result
     }
+
+    override fun removePhoto(userId: Long, photoId: PhotoId) = api.removePhoto(userId, photoId.imageId)
+
+    override fun addPhoto(userId: Long, imageBytes: ByteArray): Deferred<Images> {
+        // create RequestBody instance from file
+        val requestFile = RequestBody.create(
+                MediaType.parse("image/*"),
+                imageBytes
+        )
+
+        // MultipartBody.Part is used to send also the actual file name
+        val body = MultipartBody.Part.createFormData("images", "", requestFile)
+
+        return api.addPhoto(userId, body)
+    }
+    override fun setPhotoAsMain(userId: Long, photoId: String) = api.setPhotoAsMain(userId, photoId)
 }

@@ -7,6 +7,7 @@ import com.square.android.data.pojo.UserInfo
 
 private const val KEY_DISPLAY_INTRO = "KEY_DISPLAY_INTRO"
 private const val KEY_AUTH_TOKEN = "KEY_AUTH_TOKEN"
+private const val KEY_FCM_TOKEN = "KEY_FCM_TOKEN"
 private const val KEY_ID = "KEY_ID"
 private const val KEY_AVATAR_URL = "KEY_AVATAR_URL"
 private const val KEY_USER_NAME = "KEY_USER_NAME"
@@ -37,11 +38,19 @@ class LocalDataManager(context: Context) {
         return preferences.getBoolean(KEY_LOGGED_IN, LOGGED_IN_DEFAULT)
     }
 
+    fun getFcmToken() = preferences.getString(KEY_FCM_TOKEN, null)
+
     @SuppressLint("ApplySharedPref")
     fun setAuthToken(token: String) {
         preferences.edit()
                 .putString(KEY_AUTH_TOKEN, token)
                 .commit()
+    }
+
+    fun saveFcmToken(fcmToken: String?) {
+        preferences.edit()
+                .putString(KEY_FCM_TOKEN, fcmToken)
+                .apply()
     }
 
     fun setLoggedIn(isLogged: Boolean) {

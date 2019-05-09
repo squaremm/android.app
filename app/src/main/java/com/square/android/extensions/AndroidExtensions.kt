@@ -10,6 +10,7 @@ import android.graphics.Canvas
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.location.Location
+import android.net.Uri
 import android.os.Build
 import android.text.Editable
 import android.text.Html
@@ -17,6 +18,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
+import android.webkit.URLUtil
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,6 +30,8 @@ import com.square.android.R
 import com.square.android.R.color.placeholder
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
+import java.io.ByteArrayOutputStream
+import java.io.IOException
 
 
 private const val PREFIX_METER = "m"
@@ -37,15 +41,31 @@ fun ImageView.loadImage(url: String,
                         @ColorRes placeholder: Int = R.color.placeholder,
                         roundedCornersRadiusPx: Int = 0,
                         whichCornersToRound: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL) {
-    Picasso.get()
-            .load(url)
-            .fit()
-            .centerCrop()
-            .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
-            .placeholder(placeholder)
-            .into(this)
+    if (URLUtil.isValidUrl(url)) {
+        Picasso.get()
+                .load(url)
+                .fit()
+                .centerCrop()
+                .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
+                .placeholder(placeholder)
+                .into(this)
+    }
 }
 
+fun ImageView.loadImage(@DrawableRes drawableRes: Int,
+                        withoutCropping: Boolean = false,
+                        roundedCornersRadiusPx: Int = 0,
+                        whichCornersToRound: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL) {
+    val creator = Picasso.get()
+            .load(drawableRes)
+            .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
+            .fit()
+
+    if (!withoutCropping) creator.centerCrop()
+
+    creator.placeholder(R.color.white)
+            .into(this)
+}
 
 fun ImageView.loadImageCenterInside(url: String,
                                     @ColorRes placeholder: Int = R.color.placeholder,
@@ -68,17 +88,6 @@ inline fun View.doOnPreDraw(crossinline listener: (View) -> Unit) {
             listener.invoke(this@doOnPreDraw)
         }
     })
-}
-
-fun ImageView.loadImage(@DrawableRes drawableRes: Int, withoutCropping: Boolean = false) {
-    val creator = Picasso.get()
-            .load(drawableRes)
-            .fit()
-
-    if (!withoutCropping) creator.centerCrop()
-
-    creator.placeholder(R.color.white)
-            .into(this)
 }
 
 fun ImageView.loadFirstOrPlaceholder(photos: List<String>?) {
@@ -216,4 +225,21 @@ fun Location.distanceTo(location: com.square.android.data.pojo.Location): Float 
     temp.longitude = latLng.longitude
 
     return distanceTo(temp)
+}
+
+fun Uri.toBytes(context: Context): ByteArray? {
+    val inputStream = context.contentResolver.openInputStream(this)?.run {
+        val byteBuffer = ByteArrayOutputStream()
+        val bufferSize = 1024
+        val buffer = ByteArray(bufferSize)
+
+        var len = read(buffer)
+        while (len != -1) {
+            byteBuffer.write(buffer, 0, len)
+            len = read(buffer)
+        }
+        return byteBuffer.toByteArray()
+    }
+
+    return null
 }

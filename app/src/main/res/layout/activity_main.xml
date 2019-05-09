@@ -29,4 +29,15 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/pending_splash"
+        android:src="@drawable/pending_splash"
+        android:visibility="gone"
+        android:scaleType="centerCrop"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

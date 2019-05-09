@@ -81,10 +81,9 @@ class ReviewAdapter(data: List<ReviewType>,
             val coins = extras[0] as Int
 
             reviewItemLogo.loadImageInside(item.imageRes)
-            reviewItemDescription.setText(item.descriptionRes)
+//            reviewItemDescription.setText(item.descriptionRes)
             reviewItemTitle.setText(item.titleRes)
-            reviewItemCoins.text = App.INSTANCE.getString(R.string.award_format, coins)
-
+            reviewItemCoins.text = "+$coins"
 
             bindEnableState(item)
         }
@@ -104,9 +103,9 @@ class ReviewAdapter(data: List<ReviewType>,
         private fun bindEnabled() {
             reviewItemLogo.removeFilters()
 
-            reviewItemCoins.setTextColorRes(R.color.colorPrimary)
-            reviewItemTitle.setTextColorRes(R.color.primary_text)
-            reviewItemDescription.setTextColorRes(R.color.secondary_text)
+//            reviewItemCoins.setTextColorRes(R.color.colorPrimary)
+//            reviewItemTitle.setTextColorRes(R.color.primary_text)
+//            reviewItemDescription.setTextColorRes(R.color.secondary_text)
         }
 
         private fun bindDisabled() {
@@ -114,9 +113,9 @@ class ReviewAdapter(data: List<ReviewType>,
 
             val textColor = R.color.disabled_text_color
 
-            reviewItemDescription.setTextColorRes(textColor)
-            reviewItemTitle.setTextColorRes(textColor)
-            reviewItemCoins.setTextColorRes(textColor)
+////            reviewItemDescription.setTextColorRes(textColor)
+//            reviewItemTitle.setTextColorRes(textColor)
+//            reviewItemCoins.setTextColorRes(textColor)
         }
 
         fun bindSelected(selectedPosition: Int?) {

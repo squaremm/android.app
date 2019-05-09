@@ -1,5 +1,6 @@
 package com.square.android.presentation.presenter.auth
 
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.network.errorMessage
@@ -96,11 +97,13 @@ class AuthPresenter : BasePresenter<AuthView>() {
 
             viewState.hideProgress()
 
-            if (profile.newUser) {
-                router.replaceScreen(SCREENS.FILL_PROFILE_FIRST)
-            } else {
-                repository.setProfileFilled(true)
-                router.replaceScreen(SCREENS.MAIN)
+            when {
+                profile.newUser -> router.replaceScreen(SCREENS.FILL_PROFILE_FIRST)
+                profile.isAcceptationPending -> viewState.showPendingUser()
+                else -> {
+                    repository.setProfileFilled(true)
+                    router.replaceScreen(SCREENS.MAIN)
+                }
             }
 
             router.showSystemMessage(response.message)

@@ -46,6 +46,9 @@
     <color name="placesPrimary">#DF128A</color>
 
     <color name="deny_color">#FF3533</color>
+    <color name="yellow">#FCCA47</color>
+
+    <color name="whiteish_purple">#FFF9FC</color>
 
     <color name="disabled_text_color">#666666</color>
 </resources>

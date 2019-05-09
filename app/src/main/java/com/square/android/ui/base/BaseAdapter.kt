@@ -8,7 +8,7 @@ import kotlinx.android.extensions.LayoutContainer
 
 private const val TYPE_EMPTY = R.layout.empty_card
 
-abstract class BaseAdapter<T, V : BaseAdapter.BaseHolder<T>>(protected val data: List<T>)
+abstract class BaseAdapter<T, V : BaseAdapter.BaseHolder<T>>(protected open val data: List<T>)
     : androidx.recyclerview.widget.RecyclerView.Adapter<V>() {
 
     abstract fun getLayoutId(viewType: Int): Int

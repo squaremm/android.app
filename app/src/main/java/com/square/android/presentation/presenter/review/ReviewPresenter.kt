@@ -5,6 +5,7 @@ import com.square.android.R
 import com.square.android.data.pojo.CREDITS_TO_SOCIAL
 import com.square.android.data.pojo.Offer
 import com.square.android.data.pojo.ReviewInfo
+import com.square.android.data.pojo.ReviewNetType
 import com.square.android.domain.review.ReviewInteractor
 
 import com.square.android.presentation.presenter.BasePresenter
@@ -25,9 +26,11 @@ class ReviewPresenter(private val offerId: Long,
 
     private var data: Offer? = null
 
-    private val reviewInfo = ReviewInfo()
+    val reviewInfo = ReviewInfo()
 
     private var currentPosition: Int? = null
+
+    lateinit var actions: List<ReviewNetType>
 
     init {
         loadData()
@@ -44,6 +47,10 @@ class ReviewPresenter(private val offerId: Long,
             val feedback = repository.getFeedbackContent(placeId).await()
 
             reviewInfo.feedback = feedback.message
+
+//            actions = repository.getActions(data!!.id, placeId).await()
+
+            viewState.initReviewTypes()
 
             viewState.hideProgress()
             viewState.showData(data!!, reviewInfo.feedback)
@@ -104,7 +111,6 @@ class ReviewPresenter(private val offerId: Long,
 
         viewState.openLink(link)
     }
-
 
     fun exit() {
         router.exit()

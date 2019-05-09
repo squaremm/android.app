@@ -23,4 +23,7 @@ interface AuthView : BaseView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun hideInitialButtons()
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showPendingUser()
 }

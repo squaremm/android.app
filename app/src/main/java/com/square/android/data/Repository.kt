@@ -1,5 +1,6 @@
 package com.square.android.data
 
+import com.square.android.data.network.PhotoId
 import com.square.android.data.network.response.AuthResponse
 import com.square.android.data.network.response.MessageResponse
 import com.square.android.data.pojo.*
@@ -63,5 +64,17 @@ interface Repository {
     fun addOfferToBook(bookId: Long,
                        offerId: Long) : MessageResponse
 
-    fun getIntervals(placeId: Long, date: String): Deferred<List<Place.Interval>>
+    fun getIntervals(placeId: Long, date: String): Deferred<IntervalsWrapper>
+    fun getIntervalSlots(placeId: Long, date: String): Deferred<List<Place.Interval>>
+
+    fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>>
+
+    fun removePhoto(userId: Long, photoId: PhotoId): Deferred<MessageResponse>
+    fun addPhoto(userId: Long, imageBytes: ByteArray): Deferred<Images>
+    fun setPhotoAsMain(userId: Long, photoId: String): Deferred<MessageResponse>
+
+    fun saveFcmToken(fcmToken: String?)
+    fun getFcmToken(): String?
+
+    fun sendFcmToken(uuid: String, newFcmToken: String?, oldToken: String?): Deferred<MessageResponse>
 }

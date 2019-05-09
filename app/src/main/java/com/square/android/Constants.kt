@@ -18,6 +18,7 @@ object SCREENS {
 
     const val PLACE_DETAIL = "PLACE_DETAIL"
     const val EDIT_PROFILE = "EDIT_PROFILE"
+    const val GALLERY = "GALLERY"
 
     const val SELECT_OFFER = "SELECT_OFFER"
     const val REVIEW = "REVIEW"
@@ -26,7 +27,8 @@ object SCREENS {
 }
 
 object Network {
-    const val BASE_API_URL = "https://square-app-test-api.herokuapp.com/api/"
+    const val BASE_API_URL = "https://square-app-dev-api.herokuapp.com/api/"
+    const val MIXPANEL_TOKEN = "2529780c1354ad1945e06330161ac446"
 
 }
 

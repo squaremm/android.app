@@ -14,6 +14,9 @@ import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
 import com.square.android.presentation.presenter.offer.OffersLoadedEvent
 import com.square.android.presentation.presenter.redemptions.RedemptionsUpdatedEvent
 import com.square.android.presentation.view.placeDetail.PlaceDetailView
+import com.square.android.utils.AnalyticsEvent
+import com.square.android.utils.AnalyticsEvents
+import com.square.android.utils.AnalyticsManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -71,6 +74,8 @@ class PlaceDetailPresenter(private val placeId: Long) : BasePresenter<PlaceDetai
             eventBus.post(redemptionsEvent)
             eventBus.post(badgeEvent)
             eventBus.post(spotsEvent)
+
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.BOOKING_MADE))
 
             viewState.showMessage(result.message)
         }

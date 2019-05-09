@@ -8,7 +8,8 @@ class Place(
         @field:JsonProperty("_id")
         var id: Long = 0,
         var address: String = "",
-        var bookings: List<Any> = listOf(),
+//        var bookings: List<Booking> = listOf(),
+        var intervals: List<Interval> = listOf(),
         var credits: Int = 0,
         var description: String = "",
         var level: Int = 0,
@@ -38,7 +39,7 @@ class Place(
             var end: String = "",
 
             @field:JsonProperty("free")
-            var spots: Int = 0
+            var slots: Int = 0
     )
 
     data class Booking(

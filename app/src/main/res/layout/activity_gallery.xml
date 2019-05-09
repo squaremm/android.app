@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/galleryToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/gallery" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_photo"
+        tools:listitem="@layout/item_gallery"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        android:paddingTop="8dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/galleryToolbar"
+        android:requiresFadingEdge="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_below="@id/galleryToolbar"
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/editProfileProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="32dp" />
+    </FrameLayout>
+
+</RelativeLayout>

@@ -34,9 +34,11 @@ class FillProfileReferralPresenter(private val info: ProfileInfo)
 
             viewState.hideProgress()
 
+
             repository.setProfileFilled(true)
 
             router.showSystemMessage(response.message)
+//            viewState.showPendingUser()
             router.replaceScreen(SCREENS.MAIN)
         }, { error ->
             viewState.hideProgress()

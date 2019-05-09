@@ -13,9 +13,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.square.android.App
 import com.square.android.R
 import com.square.android.SCREENS
 import com.square.android.androidx.navigator.AppNavigator
+import com.square.android.data.pojo.Profile
 import com.square.android.presentation.presenter.main.MainPresenter
 import com.square.android.presentation.view.main.MainView
 import com.square.android.ui.activity.BaseActivity
@@ -24,6 +26,8 @@ import com.square.android.ui.activity.claimedRedemption.CLAIMED_REDEMPTION_EXTRA
 import com.square.android.ui.activity.claimedRedemption.ClaimedExtras
 import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivity
 import com.square.android.ui.activity.editProfile.EditProfileFragment
+import com.square.android.ui.activity.gallery.GalleryActivity
+import com.square.android.ui.activity.gallery.USER_EXTRA
 import com.square.android.ui.activity.placeDetail.PLACE_EXTRA_ID
 import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
 import com.square.android.ui.fragment.profile.ProfileFragment
@@ -44,6 +48,7 @@ import ru.terrakok.cicerone.commands.Replace
 private const val REDEMPTIONS_POSITION = 2
 
 class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigationItemSelectedListener {
+
     @InjectPresenter
     lateinit var presenter: MainPresenter
 
@@ -60,6 +65,9 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
         bottomNavigation.selectedItemId = R.id.action_places
     }
 
+    override fun showUserPending() {
+        pending_splash.visibility = View.VISIBLE
+    }
 
     override fun setActiveRedemptions(count: Int) {
         when (count) {
@@ -95,6 +103,11 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
         addBadgeView()
     }
 
+    override fun onDestroy() {
+        App.INSTANCE.mixpanel.flush()
+        super.onDestroy()
+    }
+
     private fun addBadgeView() {
         val bottomNavigationMenuView = bottomNavigation.getChildAt(0) as BottomNavigationMenuView
         val v = bottomNavigationMenuView.getChildAt(REDEMPTIONS_POSITION)
@@ -116,6 +129,9 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
                     SCREENS.PLACE_DETAIL ->
                         context.intentFor<PlaceDetailActivity>(PLACE_EXTRA_ID to data as Long)
+
+                    SCREENS.GALLERY ->
+                        context.intentFor<GalleryActivity>(USER_EXTRA to data as Profile.User)
 
                     SCREENS.CLAIMED_REDEMPTION -> {
                         val extras = data as ClaimedExtras

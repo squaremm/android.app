@@ -4,7 +4,6 @@ import com.arellomobile.mvp.InjectViewState
 import com.square.android.data.pojo.Offer
 
 import com.square.android.presentation.presenter.BasePresenter
-import com.square.android.presentation.presenter.claimedActions.PostsLoadedEvent
 import com.square.android.presentation.presenter.claimedCoupon.OfferLoadedEvent
 
 import com.square.android.presentation.view.claimedRedemption.ClaimedRedemptionView
@@ -33,10 +32,8 @@ class ClaimedRedemptionPresenter(
 
     private fun sendEvents(offer: Offer) {
         val couponEvent = OfferLoadedEvent(offer, redemptionId)
-        val actionsEvent = PostsLoadedEvent(offer)
 
         bus.post(couponEvent)
-        bus.post(actionsEvent)
     }
 
     fun exit() {

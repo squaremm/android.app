@@ -14,6 +14,7 @@ import com.square.android.presentation.presenter.fillProfileReferral.FillProfile
 import com.square.android.presentation.view.fillProfileReferral.FillProfileReferralView
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.utils.ValidationCallback
+import kotlinx.android.synthetic.main.fragment_auth.*
 import kotlinx.android.synthetic.main.fragment_fill_profile_referral.*
 import org.jetbrains.anko.bundleOf
 
@@ -25,6 +26,7 @@ private const val POSITION_PROGRESS = 1
 private const val CODE_LENGTH = 4
 
 class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, ValidationCallback<CharSequence> {
+
     companion object {
         @Suppress("DEPRECATION")
         fun newInstance(info: ProfileInfo): FillProfileReferralFragment {
@@ -96,4 +98,9 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
     private fun getModel(): ProfileInfo {
         return arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
     }
+
+    override fun showPendingUser() {
+        pending_splash_image.visibility = View.VISIBLE
+    }
+
 }

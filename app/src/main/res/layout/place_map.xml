@@ -30,18 +30,6 @@
             android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageView
-            android:id="@+id/gdfgdfg"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
@@ -80,7 +68,7 @@
             android:maxLines="1"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toStartOf="@+id/mapPlaceTypeLabel"
-            app:layout_constraintStart_toStartOf="@+id/gdfgdfg"
+            app:layout_constraintStart_toStartOf="@+id/mapPlaceRv"
             app:layout_constraintTop_toBottomOf="@+id/mapPlaceRv"
             tools:text="Bar&amp;Grill" />
 
