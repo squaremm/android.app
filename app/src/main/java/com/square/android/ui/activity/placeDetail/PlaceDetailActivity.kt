@@ -24,6 +24,9 @@ class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
     @InjectPresenter
     lateinit var presenter: PlaceDetailPresenter
 
+
+    var place: Place? = null
+
     @ProvidePresenter
     fun providePresenter() = PlaceDetailPresenter(getId())
 
@@ -57,6 +60,8 @@ class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
 
 
     override fun showData(place: Place) {
+        this.place = place
+
         setUpPager()
 
         placeDetailAvatar.loadFirstOrPlaceholder(place.photos)
@@ -67,9 +72,10 @@ class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
     }
 
     private fun setUpPager() {
-        placeDetailPager.adapter = PlaceDetailAdapter(supportFragmentManager)
+        placeDetailPager.adapter = PlaceDetailAdapter(supportFragmentManager, place)
         placeDetailTab.setupWithViewPager(placeDetailPager)
         placeDetailPager.offscreenPageLimit = 2
+
     }
 
     private fun getId() = intent.getLongExtra(PLACE_EXTRA_ID, 0)

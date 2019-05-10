@@ -10,5 +10,5 @@ interface SelectOfferView : ProgressView {
     fun setSelectedItem(position: Int)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showOfferDialog(offer: OfferInfo, userInfo: UserInfo, place: PlaceInfo)
+    fun showOfferDialog(offer: OfferInfo, place: PlaceInfo)
 }

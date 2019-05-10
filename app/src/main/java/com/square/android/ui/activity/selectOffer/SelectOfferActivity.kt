@@ -12,7 +12,6 @@ import com.square.android.SCREENS
 import com.square.android.androidx.navigator.AppNavigator
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.PlaceInfo
-import com.square.android.data.pojo.UserInfo
 import com.square.android.presentation.presenter.selectOffer.SelectOfferPresenter
 import com.square.android.presentation.view.selectOffer.SelectOfferView
 import com.square.android.ui.activity.BaseActivity
@@ -31,7 +30,7 @@ const val OFFER_EXTRA_ID = "CLAIMED_OFFER_EXTRA_ID"
 class SelectOfferActivity : BaseActivity(), SelectOfferView, OfferAdapter.Handler {
     private var adapter: OfferAdapter? = null
 
-    private var dialog: OfferDialog? = null
+    private var dialog: SelectOfferDialog? = null
 
     @InjectPresenter
     lateinit var presenter: SelectOfferPresenter
@@ -50,8 +49,8 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, OfferAdapter.Handle
         selectOfferBack.setOnClickListener { presenter.backClicked() }
     }
 
-    override fun showOfferDialog(offer: OfferInfo, userInfo: UserInfo, place: PlaceInfo) {
-        dialog = OfferDialog(this)
+    override fun showOfferDialog(offer: OfferInfo, place: PlaceInfo) {
+        dialog = SelectOfferDialog(this)
 
         dialog!!.show(offer, place) {
             presenter.dialogSubmitClicked(offer.id)

@@ -48,10 +48,9 @@ class SelectOfferPresenter(private val redemptionId: Long) : BasePresenter<Selec
 
     fun submitClicked() {
         val offer = offers!![currentPosition]
-        val userInfo = repository.getUserInfo()
         val place = data!!.redemption.place
 
-        viewState.showOfferDialog(offer, userInfo, place)
+        viewState.showOfferDialog(offer, place)
     }
 
     fun dialogSubmitClicked(id: Long) {

@@ -1,11 +1,9 @@
 package com.square.android.presentation.presenter.offer
 
 import com.arellomobile.mvp.InjectViewState
-import com.square.android.data.pojo.Offer
 import com.square.android.data.pojo.OfferInfo
-
+import com.square.android.data.pojo.Place
 import com.square.android.presentation.presenter.BasePresenter
-
 import com.square.android.presentation.view.offer.OfferView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -16,6 +14,9 @@ class OffersLoadedEvent(val data: List<OfferInfo>)
 
 @InjectViewState
 class OfferPresenter : BasePresenter<OfferView>() {
+
+    private var currentPosition = 0
+
     private val eventBus: EventBus by inject()
 
     private var data: List<OfferInfo>? = null
@@ -37,4 +38,14 @@ class OfferPresenter : BasePresenter<OfferView>() {
 
         eventBus.unregister(this)
     }
+
+    fun itemClicked(position: Int, place: Place?) {
+        currentPosition = position
+        viewState.setSelectedItem(position)
+
+        val offer = data!![currentPosition]
+
+        viewState.showOfferDialog(offer, place)
+    }
+
 }

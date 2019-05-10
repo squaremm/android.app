@@ -3,8 +3,6 @@ package com.square.android.ui.fragment.offer
 import android.view.View
 import com.square.android.R
 import com.square.android.data.pojo.OfferInfo
-import com.square.android.data.pojo.TYPE_INSTAGRAM_POST
-import com.square.android.data.pojo.TYPE_INSTAGRAM_STORY
 import com.square.android.extensions.loadImage
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.offer_card.*
@@ -35,13 +33,7 @@ class OfferAdapter(data: List<OfferInfo>,
 
     fun setSelectedItem(position: Int?) {
         if (position == null) return
-
-//        val previousPosition = selectedItemPosition
         selectedItemPosition = position
-
-//        previousPosition?.let { notifyItemChanged(it, SelectedPayload) }
-//
-//        notifyItemChanged(position)
     }
 
     override fun instantiateHolder(view: View): OfferHolder = OfferHolder(view, handler)
@@ -60,12 +52,6 @@ class OfferAdapter(data: List<OfferInfo>,
 
             offerTitle.text = item.name
             offerPrice.text = item.price.toString()
-
-//            offerComponents.text = item.compositionAsList()
-//            val instagramPostCredits = item.credits[TYPE_INSTAGRAM_POST] ?: 0
-//            val instagramStoryCredits = item.credits[TYPE_INSTAGRAM_STORY] ?: 0
-//            offerStory.text = instagramStoryCredits.toString()
-//            offerPost.text = instagramPostCredits.toString()
 
             offerImage.loadImage(item.photo)
         }

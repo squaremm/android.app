@@ -2,6 +2,7 @@ package com.square.android.ui.activity.placeDetail
 
 import com.square.android.App
 import com.square.android.R
+import com.square.android.data.pojo.Place
 import com.square.android.ui.fragment.aboutPlace.AboutPlaceFragment
 import com.square.android.ui.fragment.booking.BookingFragment
 import com.square.android.ui.fragment.offer.OfferFragment
@@ -14,14 +15,14 @@ private const val POSITION_OFFER = 0
 private const val POSITION_BOOKING = 1
 private const val POSITION_ABOUT = 2
 
-class PlaceDetailAdapter(fragmentManager: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentStatePagerAdapter(fragmentManager) {
+class PlaceDetailAdapter(fragmentManager: androidx.fragment.app.FragmentManager, val place: Place? = null) : androidx.fragment.app.FragmentStatePagerAdapter(fragmentManager) {
 
     private val titles: List<String> = PAGE_TITLES_RES.map { App.getString(it) }
 
     override fun getItem(position: Int): androidx.fragment.app.Fragment {
         return when (position) {
             POSITION_ABOUT -> AboutPlaceFragment()
-            POSITION_OFFER -> OfferFragment()
+            POSITION_OFFER -> OfferFragment(place)
             POSITION_BOOKING -> BookingFragment()
             else -> throw IllegalArgumentException("Unknown position: $position")
         }

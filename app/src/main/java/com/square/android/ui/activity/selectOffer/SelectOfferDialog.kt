@@ -12,7 +12,7 @@ import com.square.android.extensions.loadImage
 import kotlinx.android.synthetic.main.offer_dialog.view.*
 import android.graphics.Color
 
-class OfferDialog(private val context: Context) {
+class SelectOfferDialog(private val context: Context) {
     @SuppressLint("InflateParams")
     fun show(offer: OfferInfo, place: PlaceInfo, onAction: () ->Unit) {
         val inflater = LayoutInflater.from(context)
@@ -31,7 +31,7 @@ class OfferDialog(private val context: Context) {
             onAction.invoke() }
 
         view.offerDialogName.text = offer.name
-        view.offerDialogCredits.text = context.getString(R.string.credits_format, offer.price)
+        view.offerDialogCredits.text = context.getString(R.string.credits_format_lowercase, offer.price)
         view.offerDialogComponents.text = offer.compositionAsStr()
 
         dialog.show()
