@@ -7,4 +7,7 @@ import com.square.android.presentation.view.ProgressView
 interface FillProfileReferralView : ProgressView {
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showPendingUser()
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun sendFcmToken()
 }

@@ -14,7 +14,7 @@ import org.koin.standalone.inject
 import ru.terrakok.cicerone.Router
 
 abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
-    protected val repository: Repository by inject()
+    val repository: Repository by inject()
 
     protected val router: Router by inject()
 

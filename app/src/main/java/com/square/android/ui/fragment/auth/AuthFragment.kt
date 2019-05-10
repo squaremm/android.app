@@ -1,10 +1,16 @@
 package com.square.android.ui.fragment.auth
 
+import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
+import com.square.android.App
 import com.square.android.R
 import com.square.android.data.pojo.AuthData
 import com.square.android.extensions.clearText
@@ -13,7 +19,9 @@ import com.square.android.presentation.presenter.auth.AuthPresenter
 import com.square.android.presentation.view.auth.AuthView
 import com.square.android.ui.dialogs.OAuthDialog
 import com.square.android.ui.fragment.BaseFragment
+import com.square.android.utils.TokenUtils
 import kotlinx.android.synthetic.main.fragment_auth.*
+import org.koin.dsl.module.applicationContext
 
 
 class AuthFragment : BaseFragment(), AuthView {
@@ -117,6 +125,15 @@ class AuthFragment : BaseFragment(), AuthView {
 
         et_password.clearText()
         et_confirm_password.clearText()
+    }
+
+    override fun sendFcmToken() {
+        if (presenter.repository.getUserInfo().id != 0L) {
+            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(activity as Activity) { instanceIdResult ->
+                val newToken = instanceIdResult.token
+                TokenUtils.sendTokenToApi(App.INSTANCE, presenter.repository, newToken)
+            }
+        }
     }
 
     override fun onDestroy() {

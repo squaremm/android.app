@@ -59,6 +59,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
         setContentView(R.layout.activity_main)
 
         setUpNavigation()
+
     }
 
     override fun checkInitial() {
@@ -140,7 +141,6 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                                 CLAIMED_OFFER_EXTRA_ID to extras.offerId,
                                 CLAIMED_REDEMPTION_EXTRA_ID to extras.redemptionId)
                     }
-
                     else -> null
                 }
 

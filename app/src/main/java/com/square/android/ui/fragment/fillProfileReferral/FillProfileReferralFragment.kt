@@ -1,11 +1,14 @@
 package com.square.android.ui.fragment.fillProfileReferral
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.google.firebase.iid.FirebaseInstanceId
+import com.square.android.App
 import com.square.android.R
 import com.square.android.data.pojo.ProfileInfo
 import com.square.android.extensions.content
@@ -13,6 +16,7 @@ import com.square.android.extensions.hideKeyboard
 import com.square.android.presentation.presenter.fillProfileReferral.FillProfileReferralPresenter
 import com.square.android.presentation.view.fillProfileReferral.FillProfileReferralView
 import com.square.android.ui.fragment.BaseFragment
+import com.square.android.utils.TokenUtils
 import com.square.android.utils.ValidationCallback
 import kotlinx.android.synthetic.main.fragment_auth.*
 import kotlinx.android.synthetic.main.fragment_fill_profile_referral.*
@@ -26,6 +30,14 @@ private const val POSITION_PROGRESS = 1
 private const val CODE_LENGTH = 4
 
 class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, ValidationCallback<CharSequence> {
+    override fun sendFcmToken() {
+        if (presenter.repository.getUserInfo().id != 0L) {
+            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(activity as Activity) { instanceIdResult ->
+                val newToken = instanceIdResult.token
+                TokenUtils.sendTokenToApi(App.INSTANCE, presenter.repository, newToken)
+            }
+        }
+    }
 
     companion object {
         @Suppress("DEPRECATION")

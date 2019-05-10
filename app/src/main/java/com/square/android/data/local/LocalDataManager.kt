@@ -128,9 +128,8 @@ class LocalDataManager(context: Context) {
         return preferences.getString(KEY_AVATAR_URL, null)
     }
 
-    private fun getSocialLink(): String {
+    private fun getSocialLink(): String? {
         return preferences.getString(KEY_SOCIAL_LINK, null)
-                ?: throw IllegalArgumentException("Social link is not stored")
     }
 
     private fun getId() = preferences.getLong(KEY_ID, ID_DEFAULT)

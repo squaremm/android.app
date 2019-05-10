@@ -38,6 +38,7 @@ class FillProfileReferralPresenter(private val info: ProfileInfo)
             repository.setProfileFilled(true)
 
             router.showSystemMessage(response.message)
+            viewState.sendFcmToken()
 //            viewState.showPendingUser()
             router.replaceScreen(SCREENS.MAIN)
         }, { error ->

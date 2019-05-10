@@ -1,5 +1,6 @@
 package com.square.android.presentation.presenter.main
 
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.presentation.presenter.BasePresenter
@@ -49,6 +50,8 @@ class MainPresenter : BasePresenter<MainView>() {
         }
 
         bus.register(this)
+
+//        Log.e("LOL", repository.getFcmToken())
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -19,7 +19,7 @@ static def getDate() {
 
 def versionMajor = 0
 def versionMinor = 0
-def versionPatch = 4
+def versionPatch = 6
 
 def versionNameVal = "${versionMajor}.${versionMinor}.${versionPatch}"
 
@@ -173,6 +173,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.6.0'
 
     implementation 'com.mixpanel.android:mixpanel-android:5.+'
+
+    implementation "com.google.android.gms:play-services-gcm:16.0.0"
+
 
     // ----- Tests -----
     testImplementation 'junit:junit:4.12'

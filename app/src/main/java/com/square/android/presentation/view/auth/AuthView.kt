@@ -26,4 +26,8 @@ interface AuthView : BaseView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showPendingUser()
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun sendFcmToken()
+
 }

@@ -10,6 +10,12 @@ import com.square.android.data.pojo.AuthData
 import com.square.android.presentation.presenter.BasePresenter
 
 import com.square.android.presentation.view.auth.AuthView
+import com.google.firebase.internal.FirebaseAppHelper.getToken
+import com.google.firebase.iid.InstanceIdResult
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.iid.FirebaseInstanceId
+
+
 
 enum class AuthAction {
     REGISTER, LOGIN, RESET_PASSWORD, NONE
@@ -105,6 +111,9 @@ class AuthPresenter : BasePresenter<AuthView>() {
                     router.replaceScreen(SCREENS.MAIN)
                 }
             }
+
+            FirebaseInstanceId.getInstance().token
+            viewState.sendFcmToken()
 
             router.showSystemMessage(response.message)
         }, { error ->
