@@ -46,6 +46,9 @@
     <string name="level_default">0</string>
     <string name="credits_format">%d Credits</string>
 
+    <string name="credits_plus_format">+ %d credits</string>
+
+
     <string name="shareContent">Join us: https://square-app-api.herokuapp.com\nReferral code: %s</string>
     <string name="hint_referral">Referral</string>
     <string name="permsission_needed">We need location permissions to show places near to you!</string>
@@ -122,6 +125,16 @@
     <string name="venues_list">Venues List</string>
     <string name="distance">Distance</string>
     <string name="place_name_comma">%s,</string>
+
+
+    <string name="congratulations">Congratulations</string>
+    <string name="we_will_notify">We will notify you when your review is accepted.</string>
+    <string name="you_lost_credits">You\'ve lost credits</string>
+    <string name="lost_credits_message_format">Since you didn\'t show up at %s at %s you have lost credits.</string>
+    <string name="lost_credits_format">- %d credits</string>
+    <string name="current_balance">Current balance:</string>
+    <string name="credits_format_lowercase">%d credits</string>
+
 
     <string name="review_instagram_post_body">
         <![CDATA[

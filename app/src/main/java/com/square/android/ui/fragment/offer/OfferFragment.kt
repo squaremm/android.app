@@ -11,6 +11,7 @@ import com.square.android.data.pojo.OfferInfo
 import com.square.android.presentation.presenter.offer.OfferPresenter
 import com.square.android.presentation.view.offer.OfferView
 import com.square.android.ui.fragment.BaseFragment
+import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_offer.*
 
 class OfferFragment : BaseFragment(), OfferView {
@@ -23,6 +24,11 @@ class OfferFragment : BaseFragment(), OfferView {
         adapter = OfferAdapter(data, null)
 
         offerList.adapter = adapter
+
+        offerList.addItemDecoration(MarginItemDecorator( offerList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),true,
+                offerList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),
+                offerList.context.resources.getDimension(R.dimen.rv_item_decorator_16).toInt()
+        ))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

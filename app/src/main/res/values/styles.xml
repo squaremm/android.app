@@ -104,6 +104,11 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="Models20BoldText" parent="ModelsText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Models22BoldText" parent="ModelsText">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>

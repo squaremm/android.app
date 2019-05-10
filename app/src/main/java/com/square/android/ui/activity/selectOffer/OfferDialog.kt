@@ -30,7 +30,7 @@ class OfferDialog(private val context: Context) {
         view.offerDialogSubmit.setOnClickListener { dialog.dismiss()
             onAction.invoke() }
 
-        view.offerDialogName.text = place.name
+        view.offerDialogName.text = offer.name
         view.offerDialogCredits.text = context.getString(R.string.credits_format, offer.price)
         view.offerDialogComponents.text = offer.compositionAsStr()
 
