@@ -13,6 +13,9 @@ import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
 import com.square.android.presentation.view.redemptions.RedemptionsView
 import com.square.android.ui.activity.claimedRedemption.ClaimedExtras
+import com.square.android.utils.AnalyticsEvent
+import com.square.android.utils.AnalyticsEvents
+import com.square.android.utils.AnalyticsManager
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -92,6 +95,8 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
         }
 
         router.navigateTo(SCREENS.SELECT_OFFER, item.id)
+
+        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.OFFER_SELECT, hashMapOf("id" to item.id.toString())))
     }
 
     fun claimedInfoClicked(position: Int) {

@@ -12,7 +12,8 @@ enum class AnalyticsEvents {
     RESTAURANT_OPENED_FROM_MAP,
     RESTAURANT_OPENED_FROM_LIST,
     BOOKING_OPENED,
-    ACTIONS_OPENED
+    ACTIONS_OPENED,
+    OFFER_SELECT
 }
 
 data class AnalyticsEvent(val eventName: AnalyticsEvents, val payload: HashMap<String, String>? = null)

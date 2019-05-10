@@ -5,13 +5,11 @@ import com.square.android.SCREENS
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.RedemptionFull
 import com.square.android.presentation.presenter.BasePresenter
-import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
-import com.square.android.presentation.presenter.redemptions.RedemptionsUpdatedEvent
 import com.square.android.presentation.view.selectOffer.SelectOfferView
 import com.square.android.ui.activity.review.ReviewExtras
-import org.greenrobot.eventbus.EventBus
-import org.koin.standalone.inject
-
+import com.square.android.utils.AnalyticsEvent
+import com.square.android.utils.AnalyticsEvents
+import com.square.android.utils.AnalyticsManager
 
 @InjectViewState
 class SelectOfferPresenter(private val redemptionId: Long) : BasePresenter<SelectOfferView>() {
@@ -60,5 +58,7 @@ class SelectOfferPresenter(private val redemptionId: Long) : BasePresenter<Selec
         val extras = ReviewExtras(redemptionId, id)
 
         router.replaceScreen(SCREENS.REVIEW, extras)
+
+        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.ACTIONS_OPENED, hashMapOf("id" to id.toString())))
     }
 }
