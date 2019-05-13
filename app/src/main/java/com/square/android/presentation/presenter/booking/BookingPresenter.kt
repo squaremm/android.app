@@ -25,6 +25,7 @@ class BookingPresenter : BasePresenter<BookingView>() {
     private val eventBus: EventBus by inject()
 
     private var calendar: Calendar = Calendar.getInstance()
+    private var calendar2: Calendar = Calendar.getInstance()
 
     private var place: Place? = null
 
@@ -54,28 +55,23 @@ class BookingPresenter : BasePresenter<BookingView>() {
         currentPosition = position
     }
 
-    fun selectNextDay() {
-        dateSelected(calendar.apply { add(Calendar.DATE, 1) })
-    }
-
-    fun selectPreviousDay() {
-        dateSelected(calendar.apply { add(Calendar.DATE, -1) })
-    }
-
-    fun dateSelected(newCalendar: Calendar) {
-        calendar = newCalendar
-
-        viewState.showDate(calendar)
-
-        loadIntervals()
-    }
-
     fun bookClicked() {
         val date = getStringDate()
 
         val event = BookSelectedEvent(currentPosition, date)
 
         eventBus.post(event)
+    }
+
+    fun dayItemClicked(position: Int) {
+        viewState.setSelectedDayItem(position)
+
+        calendar2.timeInMillis = calendar.timeInMillis
+        calendar2.add(Calendar.DAY_OF_YEAR, position)
+
+        viewState.updateMonthName(calendar2)
+
+        loadIntervals()
     }
 
     private fun loadIntervals() {
@@ -91,7 +87,9 @@ class BookingPresenter : BasePresenter<BookingView>() {
         }
     }
 
-    private fun getStringDate() = calendar.getStringDate()
+
+    fun getStringDate() = calendar2.getStringDate()
+
 
     override fun onDestroy() {
         super.onDestroy()

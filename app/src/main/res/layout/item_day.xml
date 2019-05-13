@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemDayContainer"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white" >
+
+    <TextView
+        android:id="@+id/itemDayName"
+        style="@style/Models18Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="T" />
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:id="@+id/itemDayValue"
+        style="@style/Models16Text"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/item_day_selector"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:textColor="@color/day_text_color"
+        app:layout_constraintEnd_toEndOf="@+id/itemDayName"
+        app:layout_constraintStart_toStartOf="@+id/itemDayName"
+        app:layout_constraintTop_toBottomOf="@+id/itemDayName"
+        tools:text="30" />
+
+</LinearLayout>

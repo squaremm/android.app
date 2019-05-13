@@ -10,4 +10,9 @@ interface BookingView : ProgressView {
 
     fun setSelectedItem(previousPosition: Int?, currentPosition: Int)
     fun showDate(calendar: Calendar)
+
+    fun updateMonthName(calendar: Calendar)
+
+    fun setSelectedDayItem(position: Int)
+
 }

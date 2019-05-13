@@ -135,6 +135,12 @@
     <string name="current_balance">Current balance:</string>
     <string name="credits_format_lowercase">%d credits</string>
 
+    <string name="calendar_format">%s %i</string>
+
+
+    <string name="spots_available">Spots available:</string>
+
+
 
     <string name="review_instagram_post_body">
         <![CDATA[

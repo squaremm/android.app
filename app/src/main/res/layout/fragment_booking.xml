@@ -31,6 +31,34 @@
             app:layout_constraintStart_toStartOf="@+id/bookingIntervalList"
             app:layout_constraintTop_toBottomOf="@+id/bookingIntervalList" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bookingCalendar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookingMonth" />
+
+        <TextView
+            android:id="@+id/bookingLabel"
+            style="@style/Models20Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/spots_available"
+            android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookingCalendar" />
+
         <LinearLayout
             android:id="@+id/bookingIntervalList"
             android:layout_width="0dp"
@@ -41,56 +69,18 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bookingDateContainer" />
+            app:layout_constraintTop_toBottomOf="@+id/bookingLabel" />
 
-        <LinearLayout
-            android:id="@+id/bookingDateContainer"
+        <TextView
+            android:id="@+id/bookingMonth"
+            style="@style/Models20BoldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/bookingDay"
-                style="@style/Models20Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Monday" />
-
-            <TextView
-                android:id="@+id/bookingDate"
-                style="@style/Models12Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text"
-                tools:text="Sept 23rd" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/bookingDateLeft"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="32dp"
-            android:src="@drawable/chevron_left"
-            app:layout_constraintBottom_toBottomOf="@+id/bookingDateContainer"
-            app:layout_constraintStart_toStartOf="@+id/guideline12"
-            app:layout_constraintEnd_toEndOf="@+id/guideline12"
-            app:layout_constraintTop_toTopOf="@+id/bookingDateContainer" />
-
-        <ImageView
-            android:id="@+id/bookingDateRight"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="32dp"
-            android:src="@drawable/chevron_right"
-            app:layout_constraintBottom_toBottomOf="@+id/bookingDateContainer"
-            app:layout_constraintStart_toStartOf="@+id/guideline13"
-            app:layout_constraintEnd_toEndOf="@+id/guideline13"
-            app:layout_constraintTop_toTopOf="@+id/bookingDateContainer" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="SEPTEMBER 2019" />
 
         <ProgressBar
             android:id="@+id/bookProgress"
@@ -103,7 +93,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bookingDateContainer" />
+            app:layout_constraintTop_toBottomOf="@+id/bookingLabel" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/bookControls"
@@ -112,19 +102,6 @@
             android:visibility="gone"
             app:constraint_referenced_ids="bookingBook,bookingIntervalList" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
