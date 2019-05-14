@@ -15,23 +15,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textAllCaps="true"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="T" />
 
-    <androidx.appcompat.widget.AppCompatCheckedTextView
-        android:id="@+id/itemDayValue"
-        style="@style/Models16Text"
+    <FrameLayout
         android:layout_width="51dp"
         android:layout_height="51dp"
-        android:layout_marginTop="16dp"
-        android:paddingEnd="16dp"
-        android:background="@drawable/item_day_selector"
-        android:gravity="center"
-        android:paddingStart="16dp"
-        android:textColor="@color/day_text_color"
-        app:layout_constraintEnd_toEndOf="@+id/itemDayName"
-        app:layout_constraintStart_toStartOf="@+id/itemDayName"
-        app:layout_constraintTop_toBottomOf="@+id/itemDayName"
-        tools:text="30" />
+        android:layout_marginTop="12dp">
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/itemDayValue"
+            style="@style/Models16Text"
+            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/item_day_selector"
+            android:gravity="center"
+            android:paddingStart="11dp"
+            android:textColor="@color/day_text_color"
+            app:layout_constraintEnd_toEndOf="@+id/itemDayName"
+            app:layout_constraintStart_toStartOf="@+id/itemDayName"
+            app:layout_constraintTop_toBottomOf="@+id/itemDayName"
+            tools:text="30" />
+    </FrameLayout>
+
 
 </LinearLayout>

@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.item_day.*
 class DaysAdapter(data: List<Day>,
                    private val handler: Handler?) : BaseAdapter<Day, DaysAdapter.DayHolder>(data) {
 
-    private var selectedItemPosition: Int? = null
+    var selectedItemPosition: Int? = null
     var selectedMonth: Int = 0
 
     override fun getLayoutId(viewType: Int) = R.layout.item_day
@@ -17,7 +17,7 @@ class DaysAdapter(data: List<Day>,
     override fun getItemCount() = data.size
 
     override fun bindHolder(holder: DayHolder, position: Int) {
-        holder.bind(data[position], listOf(selectedItemPosition, selectedMonth))
+        holder.bind(data[position], selectedItemPosition, selectedMonth)
     }
 
     @Suppress("ForEachParameterNotUsed")
@@ -52,8 +52,9 @@ class DaysAdapter(data: List<Day>,
         }
 
         override fun bind(item: Day, vararg extras: Any? ) {
-            val selectedPosition = extras[0] as Int?
-            val selectedMonth = extras[1] as Int?
+
+            val selectedPosition = if(extras[0] == null) null else extras[0] as Int
+            val selectedMonth = extras[1] as Int
 
             bindSelected(item, selectedPosition, selectedMonth)
 

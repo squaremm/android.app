@@ -69,8 +69,10 @@
     <string name="insta_post">Instagram Post</string>
     <string name="book">Book</string>
     <string name="time_range">%s - %s</string>
-    <string name="spot_format">%d Spots</string>
-    <string name="spot_one_format">%d Spot</string>
+
+    <string name="spot_format">%d spots available</string>
+    <string name="spot_one_format">%d spot available</string>
+
     <string name="book_subtitle">%s %s</string>
     <string name="opening_time">Opening time</string>
     <string name="dresscode">Dresscode</string>
@@ -140,7 +142,7 @@
 
     <string name="spots_available">Spots available:</string>
 
-
+    <string name="cant_use_square">You can\'t use SQUARE on this day</string>
 
     <string name="review_instagram_post_body">
         <![CDATA[

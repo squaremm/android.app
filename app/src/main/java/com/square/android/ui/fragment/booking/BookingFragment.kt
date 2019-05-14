@@ -29,6 +29,7 @@ class BookingFragment : BaseFragment(), BookingView {
     var dayHandler = object : DaysAdapter.Handler{
         override fun itemClicked(position: Int) {
             presenter.dayItemClicked(position)
+            bookingBook.isEnabled = false
         }
     }
 
@@ -38,12 +39,13 @@ class BookingFragment : BaseFragment(), BookingView {
     lateinit var presenter: BookingPresenter
 
     override fun showProgress() {
-        bookControls.visibility = View.GONE
+        bookingIntervalList.visibility = View.GONE
+        bookingEmpty.visibility = View.GONE
         bookProgress.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        bookControls.visibility = View.VISIBLE
+        bookingIntervalList.visibility = View.VISIBLE
         bookProgress.visibility = View.GONE
     }
 
@@ -68,9 +70,10 @@ class BookingFragment : BaseFragment(), BookingView {
 
         val days = mutableListOf<Day>()
         val calendar2 = Calendar.getInstance().apply { timeInMillis = calendar.timeInMillis }
-        val day = Day()
 
-        for (x: Int in 0 until 7) {
+        for (x in 0 until 7) {
+            val day = Day()
+
             day.monthNumber = calendar2.get(Calendar.MONTH) + 1
             day.dayValue = calendar2.get(Calendar.DAY_OF_MONTH)
             day.dayName = calendar2.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()).substring(0, 1)
@@ -80,8 +83,10 @@ class BookingFragment : BaseFragment(), BookingView {
             calendar2.add(Calendar.DAY_OF_YEAR, 1)
         }
 
-        adapter = DaysAdapter(days, dayHandler)
+        adapter = DaysAdapter(days.toList(), dayHandler)
 //        adapter!!.selectedMonth = calendar.get(Calendar.MONTH) + 1
+        bookingCalendar.adapter = adapter
+        adapter!!.selectedItemPosition = 0
         adapter!!.notifyItemChanged(0, DaysAdapter.SelectedPayload)
     }
 
@@ -97,18 +102,19 @@ class BookingFragment : BaseFragment(), BookingView {
 
     private fun itemClicked(position: Int) {
         presenter.itemClicked(position)
+        bookingBook.isEnabled = true
     }
 
     private fun changeSelected(view: View?, isSelected: Boolean) {
         view?.bookingContainer?.isActivated = isSelected
-        if (isSelected) view?.bookingTimerIcon?.setImageDrawable(context?.getDrawable(R.drawable.ic_timer))
-        else view?.bookingTimerIcon?.setImageDrawable(context?.getDrawable(R.drawable.ic_timer_disabled))
     }
 
     override fun showIntervals(data: List<Place.Interval>) {
         bookingIntervalList.removeAllViews()
 
         val inflater = layoutInflater
+
+        bookingEmpty.visibility = if(data.isEmpty()) View.VISIBLE else View.GONE
 
         data.forEachIndexed { index, interval ->
             val view = inflater.inflate(R.layout.item_interval, bookingIntervalList, false)
