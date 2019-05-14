@@ -1,18 +1,17 @@
-package com.square.android.ui.fragment.offer
+package com.square.android.ui.activity.selectOffer
 
 import android.view.View
 import com.square.android.R
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.extensions.loadImage
 import com.square.android.ui.base.BaseAdapter
-import kotlinx.android.synthetic.main.offer_card.*
+import kotlinx.android.synthetic.main.select_offer_card.*
 
-
-class OfferAdapter(data: List<OfferInfo>,
-                   private val handler: Handler?) : BaseAdapter<OfferInfo, OfferAdapter.OfferHolder>(data) {
+class SelectofferAdapter(data: List<OfferInfo>,
+                   private val handler: Handler?) : BaseAdapter<OfferInfo, SelectofferAdapter.OfferHolder>(data) {
     private var selectedItemPosition: Int? = null
 
-    override fun getLayoutId(viewType: Int) = R.layout.offer_card
+    override fun getLayoutId(viewType: Int) = R.layout.select_offer_card
 
     override fun getItemCount() = data.size
 
@@ -54,9 +53,6 @@ class OfferAdapter(data: List<OfferInfo>,
             offerPrice.text = item.price.toString()
 
             offerImage.loadImage(item.photo)
-
-            //TODO change when API done
-            offerHours.text = "Friday - Sunday: 19.00 - 23.00"
         }
 
         fun bindSelected(selectedPosition: Int?) {

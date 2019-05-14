@@ -20,15 +20,14 @@ import com.square.android.ui.activity.review.EXTRA_REDEMPTION_ID
 import com.square.android.ui.activity.review.ReviewActivity
 import com.square.android.ui.activity.review.ReviewExtras
 import com.square.android.ui.fragment.map.MarginItemDecorator
-import com.square.android.ui.fragment.offer.OfferAdapter
 import kotlinx.android.synthetic.main.activity_select_offer.*
 import org.jetbrains.anko.intentFor
 import ru.terrakok.cicerone.Navigator
 
 const val OFFER_EXTRA_ID = "CLAIMED_OFFER_EXTRA_ID"
 
-class SelectOfferActivity : BaseActivity(), SelectOfferView, OfferAdapter.Handler {
-    private var adapter: OfferAdapter? = null
+class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectofferAdapter.Handler {
+    private var adapter: SelectofferAdapter? = null
 
     private var dialog: SelectOfferDialog? = null
 
@@ -58,7 +57,7 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, OfferAdapter.Handle
     }
 
     override fun showData(data: List<OfferInfo>) {
-        adapter = OfferAdapter(data, this)
+        adapter = SelectofferAdapter(data, this)
 
         selectOfferList.adapter = adapter
         selectOfferList.addItemDecoration(MarginItemDecorator( selectOfferList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),true,

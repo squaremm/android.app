@@ -54,10 +54,11 @@
     <string name="permsission_needed">We need location permissions to show places near to you!</string>
     <string name="location_failed_message">Failed to get location</string>
     <string name="credits">Credits</string>
+    <string name="credits_lowercase">credits</string>
 
     <string name="place_detail_title">Place info</string>
     <string name="page_about">About</string>
-    <string name="page_offer">Offer</string>
+    <string name="page_offer">Offers</string>
     <string name="page_book">Book</string>
     <string name="claim">Claim</string>
     <string name="deny">Cancel</string>
@@ -143,6 +144,9 @@
     <string name="spots_available">Spots available:</string>
 
     <string name="cant_use_square">You can\'t use SQUARE on this day</string>
+
+
+    <string name="offer_availability">Offer Availability</string>
 
     <string name="review_instagram_post_body">
         <![CDATA[

@@ -9,14 +9,14 @@ import com.square.android.R
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.PlaceInfo
 import com.square.android.extensions.loadImage
-import kotlinx.android.synthetic.main.offer_dialog.view.*
+import kotlinx.android.synthetic.main.select_offer_dialog.view.*
 import android.graphics.Color
 
 class SelectOfferDialog(private val context: Context) {
     @SuppressLint("InflateParams")
     fun show(offer: OfferInfo, place: PlaceInfo, onAction: () ->Unit) {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.offer_dialog, null, false)
+        val view = inflater.inflate(R.layout.select_offer_dialog, null, false)
 
         val dialog = MaterialDialog.Builder(context)
                 .customView(view, false)

@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/offerDialogPlace"
+            android:id="@+id/offerDialogName"
             style="@style/Models24BoldText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,35 +36,7 @@
             app:layout_constraintEnd_toStartOf="@+id/offerDialogCredits"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/offerDialogImg"
-            tools:text="EastRiver" />
-
-        <TextView
-            android:id="@+id/offerDialogCredits"
-            style="@style/Models18Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:textColor="@color/placesPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/offerDialogPlace"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/offerDialogPlace"
-            tools:text="150 Credits" />
-
-        <TextView
-            android:id="@+id/offerDialogAddress"
-            style="@style/Models16Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/gray_disabled"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/offerDialogPlace"
-            tools:text="City Life, 20145, milano" />
+            tools:text="Hotdog Dinner" />
 
         <ScrollView
             android:id="@+id/sv"
@@ -73,12 +45,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:overScrollMode="never"
-            android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/offerDialogAddress">
-
+            app:layout_constraintTop_toBottomOf="@+id/offerDialogName"
+            android:scrollbars="none"
+            android:overScrollMode="never" >
             <TextView
                 android:id="@+id/offerDialogComponents"
                 style="@style/Models22Text"
@@ -86,26 +57,38 @@
                 android:layout_height="wrap_content" />
         </ScrollView>
 
+
         <TextView
-            android:id="@+id/offerDialogName"
-            style="@style/Models20BoldText"
+            android:id="@+id/offerDialogCredits"
+            style="@style/Models18Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:background="@color/placesPrimary"
-            android:paddingStart="24dp"
-            android:paddingEnd="22dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:gravity="end"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@android:color/white"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/placesPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/offerDialogName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/offerDialogName"
+            tools:text="150 Credits" />
+
+        <Button
+            android:id="@+id/offerDialogSubmit"
+            style="@style/Models16BoldText"
+            android:layout_width="128dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/nice_button_pink_red"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sv"
-            tools:text="Burger Dinner" />
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
+
+
+
