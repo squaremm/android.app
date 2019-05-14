@@ -18,14 +18,16 @@
     <string name="cancel">Cancel</string>
 
     <string name="unknown_error">Error occurred. Please try again</string>
-    <string name="fill_profile_title">Create your profile</string>
+    <string name="fill_profile_title">Create Profile</string>
     <string name="hint_name">Name</string>
+    <string name="hint_last_name">Last Name</string>
     <string name="hint_surname">Surname</string>
     <string name="hint_birth">Date of birth</string>
     <string name="gender_female">Female</string>
     <string name="gender_male">Male</string>
     <string name="hint_gender">Gender</string>
     <string name="nationality">Nationality:</string>
+    <string name="nationality_pure">Nationality</string>
     <string name="fill_profile_counter_1" tools:ignore="TypographyFractions">1/3</string>
     <string name="email">Email:</string>
     <string name="email_label">Email</string>
@@ -146,7 +148,14 @@
     <string name="cant_use_square">You can\'t use SQUARE on this day</string>
 
 
-    <string name="offer_availability">Offer Availability</string>
+    <string name="offer_availability">Offer Availability:</string>
+
+
+    <string name="tell_us">Tell us about you</string>
+
+    <string name="choose_gender">Choose your gender</string>
+
+
 
     <string name="review_instagram_post_body">
         <![CDATA[

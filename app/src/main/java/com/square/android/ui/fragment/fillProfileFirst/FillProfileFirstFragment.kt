@@ -8,6 +8,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.mukesh.countrypicker.Country
 import com.mukesh.countrypicker.CountryPicker
 import com.mukesh.countrypicker.listeners.OnCountryPickerListener
+import com.square.android.R
 import com.square.android.extensions.content
 import com.square.android.presentation.presenter.fillProfileFirst.FillProfileFirstPresenter
 import com.square.android.presentation.view.fillProfileFirst.FillProfileFirstView
@@ -17,13 +18,12 @@ import com.square.android.utils.ValidationCallback
 import kotlinx.android.synthetic.main.fragment_fill_profile_1.*
 import kotlinx.android.synthetic.main.profile_form_1.view.*
 
-
-private const val GENDER_MALE = "male"
-private const val GENDER_FEMALE = "female"
-
 class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView, ValidationCallback<CharSequence>, OnCountryPickerListener {
+
     @InjectPresenter
     lateinit var presenter: FillProfileFirstPresenter
+
+    private var dialog: SelectGenderDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,6 +37,8 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView, Validatio
 
         form.formProfileNationality.setOnClickListener { showCountryDialog() }
 
+        form.formProfileGender.setOnClickListener { genderClicked() }
+
         fillProfileNext.setOnClickListener { nextClicked() }
 
         setUpValidation()
@@ -44,9 +46,6 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView, Validatio
 
     override fun displayNationality(country: Country) {
         form.formProfileNationality.text = country.name
-
-        form.formFlag.visibility = View.VISIBLE
-        form.formFlag.setImageResource(country.flag)
     }
 
     private fun showCountryDialog() {
@@ -60,17 +59,16 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView, Validatio
 
     private fun setUpValidation() {
         val validateList = listOf(
-                form.formProfileName, form.formProfileSurname,
-                form.formProfileBirth, form.formProfileNationality
+                form.formProfileName, form.formProfileLastName,
+                form.formProfileNationality, form.formProfileBirth,
+                form.formProfileGender
         )
 
         addTextValidation(validateList, this)
     }
 
     override fun validityChanged(isValid: Boolean) {
-        val visibility = if (isValid) View.VISIBLE else View.INVISIBLE
-
-        fillProfileNext.visibility = visibility
+        fillProfileNext.isEnabled = isValid
     }
 
     override fun onSelectCountry(country: Country) {
@@ -81,18 +79,27 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView, Validatio
 
     private fun nextClicked() {
         val name = form.formProfileName.content
-        val surname = form.formProfileSurname.content
+        val surname = form.formProfileLastName.content
 
-        val gender = getGender()
-
-        presenter.nextClicked(name = name,
-                surname = surname,
-                gender = gender)
+        presenter.nextClicked(name = name, surname = surname)
     }
 
-    private fun getGender() = when (form.formProfileGenderGroup.checkedRadioButtonId) {
-        com.square.android.R.id.formProfileGenderFemale -> GENDER_FEMALE
-        else -> GENDER_MALE
+    private fun genderClicked(){
+        context?.let {
+
+            //TODO: change SelectGenderDialog layout to something better looking
+            dialog = SelectGenderDialog(it)
+            dialog!!.show(){
+                when(it){
+                    1 -> presenter.genderSelected(getString(R.string.gender_female))
+                    2 -> presenter.genderSelected(getString(R.string.gender_male))
+                }
+            }
+        }
+    }
+
+    override fun displayGender(gender: String) {
+        form.formProfileGender.text = gender
     }
 
     override fun showBirthday(birthday: String) {

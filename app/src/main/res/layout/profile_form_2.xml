@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/formProfileEmail"
-        style="@style/InputField"
+        style="@style/OldInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/email"
@@ -70,7 +70,7 @@
 
     <EditText
         android:id="@+id/formProfileMotherAgency"
-        style="@style/InputField"
+        style="@style/OldInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/mother_agency"
@@ -78,7 +78,7 @@
 
     <EditText
         android:id="@+id/formProfileCurrentAgency"
-        style="@style/InputField"
+        style="@style/OldInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_current_agency"

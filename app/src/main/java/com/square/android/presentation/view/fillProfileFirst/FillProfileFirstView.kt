@@ -6,4 +6,5 @@ import com.square.android.presentation.view.BaseView
 interface FillProfileFirstView : BaseView {
     fun showBirthday(birthday: String)
     fun displayNationality(country: Country)
+    fun displayGender(gender: String)
 }

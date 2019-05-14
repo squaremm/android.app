@@ -41,7 +41,7 @@
         <item name="colorAccent">@color/login_button</item>
     </style>
 
-    <style name="InputField">
+    <style name="OldInputField">
         <item name="android:paddingStart">24dp</item>
         <item name="android:paddingEnd">24dp</item>
         <item name="android:paddingTop">12dp</item>
@@ -49,7 +49,26 @@
         <item name="android:background">@drawable/input_background</item>
     </style>
 
-    <style name="InputTitle" parent="InputField">
+    <style name="InputField" parent="Models14Text">
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColorHint">@color/grey_dark</item>
+        <item name="android:background">@drawable/background_rounded_4dp</item>
+        <item name="android:backgroundTint">@color/gray_light</item>
+    </style>
+
+    <style name="InputSpinner" parent="InputField">
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:drawableRight">@drawable/ic_arrow_down</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="InputTitle" parent="OldInputField">
         <item name="android:textColor">?android:textColorHint</item>
     </style>
 
