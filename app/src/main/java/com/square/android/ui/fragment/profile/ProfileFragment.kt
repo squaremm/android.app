@@ -64,11 +64,11 @@ class ProfileFragment : BaseFragment(), ProfileView {
 
         displayNationality(countryPicker.getCountryByName(user.nationality))
 
-        profileMotherAgency.text = user.motherAgency
-        profileEmail.text = user.email
-        profilePhone.text = user.phone
+//        profileMotherAgency.text = user.motherAgency
+//        profileEmail.text = user.email
+//        profilePhone.text = user.phone
 
-        profileInvite.setOnClickListener { share(user.referralCode) }
+        container_invite.setOnClickListener { share(user.referralCode) }
 
         profileSettings.setOnClickListener { presenter.openSettings() }
     }

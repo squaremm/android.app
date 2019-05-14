@@ -11,11 +11,13 @@ import com.square.android.presentation.presenter.claimedActions.ClaimedActionsPr
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.data.pojo.*
 import com.square.android.ui.activity.review.ReviewAdapter
+import com.square.android.ui.dialogs.ClaimedCouponDialog
 
 import com.square.android.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_claimed_actions.*
 
 class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView {
+
     @InjectPresenter
     lateinit var presenter: ClaimedActionsPresenter
 

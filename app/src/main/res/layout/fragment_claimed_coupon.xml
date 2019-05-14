@@ -3,41 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:background="@color/placeholder"
     tools:context=".ui.fragment.claimedCoupon.ClaimedCouponFragment">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false"
+        android:background="@color/white"
+        android:paddingBottom="32dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/coupon_border_background" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingBottom="32dp">
-
-            <include
-                android:id="@+id/coupon"
-                layout="@layout/coupon_body" />
-        </FrameLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:rotation="180"
-            android:scaleType="fitXY"
-            android:src="@drawable/coupon_border_background"
-            android:layout_marginBottom="32dp"/>
-
-    </LinearLayout>
+        <include
+            android:id="@+id/coupon"
+            layout="@layout/coupon_body" />
+    </androidx.cardview.widget.CardView>
 </ScrollView>

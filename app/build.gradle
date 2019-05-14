@@ -19,7 +19,7 @@ static def getDate() {
 
 def versionMajor = 0
 def versionMinor = 0
-def versionPatch = 6
+def versionPatch = 9
 
 def versionNameVal = "${versionMajor}.${versionMinor}.${versionPatch}"
 

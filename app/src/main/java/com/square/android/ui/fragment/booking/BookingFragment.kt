@@ -99,10 +99,10 @@ class BookingFragment : BaseFragment(), BookingView {
         presenter.itemClicked(position)
     }
 
-    private fun changeSelected(view: View, isSelected: Boolean) {
-        view.bookingContainer.isActivated = isSelected
-        if (isSelected) view.bookingTimerIcon.setImageDrawable(context?.getDrawable(R.drawable.ic_timer))
-        else view.bookingTimerIcon.setImageDrawable(context?.getDrawable(R.drawable.ic_timer_disabled))
+    private fun changeSelected(view: View?, isSelected: Boolean) {
+        view?.bookingContainer?.isActivated = isSelected
+        if (isSelected) view?.bookingTimerIcon?.setImageDrawable(context?.getDrawable(R.drawable.ic_timer))
+        else view?.bookingTimerIcon?.setImageDrawable(context?.getDrawable(R.drawable.ic_timer_disabled))
     }
 
     override fun showIntervals(data: List<Place.Interval>) {

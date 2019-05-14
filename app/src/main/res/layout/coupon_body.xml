@@ -5,19 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/couponTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/coupon"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/couponBack"
         android:layout_width="wrap_content"
@@ -34,13 +21,12 @@
         android:id="@+id/couponImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
         android:foreground="#4DFFFFFF"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/couponTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.square.android.ui.view.CircleImageView
         android:id="@+id/couponAvatar"
@@ -50,7 +36,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@+id/couponImage"
         app:layout_constraintStart_toStartOf="@+id/couponImage"
-        app:layout_constraintTop_toTopOf="@+id/couponImage" />
+        app:layout_constraintTop_toBottomOf="@+id/couponImage" />
 
     <TextView
         android:id="@+id/couponPlaceName"
@@ -58,9 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textSize="18sp"
+        android:textSize="19sp"
         app:layout_constraintEnd_toStartOf="@+id/couponCoins"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/couponImage"
@@ -70,11 +56,25 @@
         android:id="@+id/couponCoins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/placesPrimary"
+        android:textSize="16sp"
+        android:layout_marginEnd="4dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/couponAddress"
+        app:layout_constraintEnd_toStartOf="@id/couponCoinsLabel"
+        app:layout_constraintTop_toTopOf="@+id/couponPlaceName"
+        tools:text="-40 coins" />
+
+    <TextView
+        android:id="@+id/couponCoinsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:gravity="center"
         android:textColor="@color/placesPrimary"
-        android:textSize="17sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="@string/credits"
         app:layout_constraintBottom_toBottomOf="@+id/couponAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/couponPlaceName"
@@ -85,8 +85,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintEnd_toStartOf="@+id/couponCoins"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toStartOf="@+id/couponCoinsLabel"
         app:layout_constraintStart_toStartOf="@+id/couponPlaceName"
         app:layout_constraintTop_toBottomOf="@+id/couponPlaceName"
         tools:text="Innopolis, Republic of Tatasrtan" />
@@ -96,24 +96,37 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/couponAddress"
         app:layout_constraintTop_toBottomOf="@+id/couponAddress"
         tools:text="Mr. Valentun Sergeev" />
+
+    <View
+        android:id="@+id/separator"
+        android:background="@color/black_trans_75"
+        android:alpha="0.2"
+        app:layout_constraintTop_toBottomOf="@id/couponPersonName"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp" />
 
     <TextView
         android:id="@+id/couponOfferName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp"
+        android:textColor="@color/nice_pink"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/couponPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/couponPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/separator"
         tools:text="@tools:sample/tools:lorem[5]" />
 
     <TextView
@@ -121,10 +134,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/couponOfferName"
         app:layout_constraintTop_toBottomOf="@+id/couponOfferName"
+        android:textColor="@color/nice_pink"
         tools:text="1 Pervak, 2  Barilla" />
 
     <TextView
@@ -136,12 +152,32 @@
         android:layout_marginTop="32dp"
         android:gravity="center"
         android:maxWidth="200dp"
+        android:visibility="gone"
         android:text="@string/offer_dialog_hint"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/couponComponents" />
+
+    <Button
+        android:id="@+id/bt_coupon_check_in"
+        style="@style/Models16BoldText"
+        android:layout_width="128dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/nice_button_pink_red"
+        android:text="@string/check_in"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/couponHint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

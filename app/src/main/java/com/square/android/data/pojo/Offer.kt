@@ -39,5 +39,5 @@ class Offer(
             var user: Long = 0
     )
 
-    fun compositionAsString() = composition.joinToString(separator = ",")
+    fun compositionAsString() = composition.joinToString(separator = "\n")
 }

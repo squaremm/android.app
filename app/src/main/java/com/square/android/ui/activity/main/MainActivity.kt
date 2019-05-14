@@ -17,6 +17,7 @@ import com.square.android.App
 import com.square.android.R
 import com.square.android.SCREENS
 import com.square.android.androidx.navigator.AppNavigator
+import com.square.android.data.network.fcm.NotificationType
 import com.square.android.data.pojo.Profile
 import com.square.android.presentation.presenter.main.MainPresenter
 import com.square.android.presentation.view.main.MainView
@@ -30,24 +31,28 @@ import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
 import com.square.android.ui.activity.placeDetail.PLACE_EXTRA_ID
 import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
-import com.square.android.ui.fragment.profile.ProfileFragment
 import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
 import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.activity.start.StartActivity
+import com.square.android.ui.dialogs.LostCreditsDialog
 import com.square.android.ui.fragment.map.MapFragment
 import com.square.android.ui.fragment.places.PlacesFragment
+import com.square.android.ui.fragment.profile.ProfileFragment
 import com.square.android.ui.fragment.redemptions.RedemptionsFragment
+import com.square.android.utils.DialogDepository
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.notifications_badge.*
 import org.jetbrains.anko.intentFor
+import org.koin.android.ext.android.inject
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
-import ru.terrakok.cicerone.commands.Replace
 
 
 private const val REDEMPTIONS_POSITION = 2
 
 class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigationItemSelectedListener {
+
+    val dialogDepository: DialogDepository by inject()
 
     @InjectPresenter
     lateinit var presenter: MainPresenter
@@ -59,7 +64,18 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
         setContentView(R.layout.activity_main)
 
         setUpNavigation()
+        setUpNotifications()
+    }
 
+    private fun setUpNotifications() {
+        intent?.extras?.takeIf { it.size() > 0 }?.run {
+            val pushType = getString("pushType")
+            if (pushType != null) {
+                val notifType = NotificationType.values()
+                        .first{ it.notifName == pushType}
+                dialogDepository.showDialogFromNotification(notifType, this)
+            }
+        }
     }
 
     override fun checkInitial() {
@@ -86,7 +102,10 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val screenKey = when (item.itemId) {
-            R.id.action_redemptions -> SCREENS.REDEMPTIONS
+            R.id.action_redemptions -> {
+                setActiveRedemptions(0)
+                SCREENS.REDEMPTIONS
+            }
             R.id.action_profile -> SCREENS.PROFILE
             R.id.action_places -> SCREENS.PLACES
             R.id.action_map -> SCREENS.MAP

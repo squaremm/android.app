@@ -51,7 +51,7 @@ class MainPresenter : BasePresenter<MainView>() {
 
         bus.register(this)
 
-//        Log.e("LOL", repository.getFcmToken())
+        Log.e("LOL", " " + repository.getFcmToken())
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -41,7 +41,7 @@
     <string name="action_places">Places</string>
     <string name="action_redemptions">Redemptions</string>
     <string name="action_profile">Profile</string>
-    <string name="invite_button_text">Invite your friends, you will gain 150 credits for each invitation accepted.</string>
+    <string name="invite_button_text">Invite your friends</string>
     <string name="name_format">%s %s</string>
     <string name="level_default">0</string>
     <string name="credits_format">%d Credits</string>
@@ -130,12 +130,12 @@
     <string name="congratulations">Congratulations</string>
     <string name="we_will_notify">We will notify you when your review is accepted.</string>
     <string name="you_lost_credits">You\'ve lost credits</string>
-    <string name="lost_credits_message_format">Since you didn\'t show up at %s at %s you have lost credits.</string>
+    <string name="lost_credits_message_format">Since you didn\'t show up at %s have lost credits.</string>
     <string name="lost_credits_format">- %d credits</string>
     <string name="current_balance">Current balance:</string>
     <string name="credits_format_lowercase">%d credits</string>
 
-    <string name="calendar_format">%s %i</string>
+    <string name="calendar_format">%s %d</string>
 
 
     <string name="spots_available">Spots available:</string>

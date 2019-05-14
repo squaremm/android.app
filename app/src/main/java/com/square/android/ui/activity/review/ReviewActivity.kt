@@ -17,6 +17,7 @@ import com.square.android.extensions.copyToClipboard
 import com.square.android.presentation.presenter.review.ReviewPresenter
 import com.square.android.presentation.view.review.ReviewView
 import com.square.android.ui.activity.BaseActivity
+import com.square.android.ui.dialogs.ClaimedCouponDialog
 import kotlinx.android.synthetic.main.activity_review.*
 import ru.terrakok.cicerone.Navigator
 
@@ -94,6 +95,8 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         adapter = ReviewAdapter(filteredTypes!!, data.credits, this)
 
         reviewList.adapter = adapter
+
+        ClaimedCouponDialog(this).show(data, data.place, presenter.repository.getUserInfo())
     }
 
     override fun showProgress() {

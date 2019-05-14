@@ -1,0 +1,9 @@
+<!-- drawable/close_circle.xml -->
+<rotate android:fromDegrees="45"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <selector>
+        <item android:drawable="@drawable/close_circle">
+        </item>
+    </selector>
+
+</rotate>

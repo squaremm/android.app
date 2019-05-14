@@ -53,10 +53,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textSize="16sp"
+            android:layout_marginBottom="8dp"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="@+id/profileName"
-            app:layout_constraintBottom_toTopOf="@+id/profileCity"
-            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/profileNationality"
             tools:text="Model Agency" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -82,6 +82,31 @@
             app:layout_constraintBottom_toTopOf="@+id/container_coins"
             android:visibility="gone"
             tools:text="Moscow" />
+
+        <TextView
+            android:id="@+id/profileNationality"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:paddingStart="24dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/profileCity"
+            app:layout_constraintStart_toStartOf="@id/profileName"
+            android:layout_marginBottom="24dp"
+            tools:text="Russian" />
+
+        <ImageView
+            android:id="@+id/formDialFlag"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@id/profileNationality"
+            app:layout_constraintStart_toStartOf="@id/profileNationality"
+            app:layout_constraintTop_toTopOf="@id/profileNationality"
+            tools:src="@drawable/flag_ac" />
 
         <TextView
             android:id="@+id/profileLevel"
@@ -144,143 +169,187 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/profileInvite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/container_invite"
+            android:background="@drawable/background_credits_profile"
+            android:backgroundTint="@color/nice_pink_other"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileAvatar"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:drawableStart="@drawable/people_profile"
-            android:drawablePadding="24dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="@string/invite_button_text"
-            android:textColor="@color/grey_dark"
-            android:gravity="start|center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileAvatar" />
-
-        <TextView
-            android:id="@+id/profileNationalityTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
-            android:text="@string/nationality"
-            android:textColor="@color/grey_dark"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileInvite" />
-
-        <TextView
-            android:id="@+id/profileNationality"
+            android:layout_marginTop="46dp"
+            android:padding="12dp"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="52dp"
-            android:textColor="@color/grey_text_field"
-            android:textSize="13sp"
-            android:background="@drawable/background_field"
-            app:layout_constraintBottom_toBottomOf="@+id/profileNationalityTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/profileMotherAgency"
-            app:layout_constraintTop_toTopOf="@+id/profileNationalityTitle"
-            tools:text="Russian" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:rotation="90"
+                app:srcCompat="@drawable/add_cricle"
+                android:tint="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginEnd="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/profileInvite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="24dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="@string/invite_button_text"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="start|center"/>
+            <View
+                android:background="@color/black_trans_75"
+                android:layout_width="1dp"
+                android:alpha="0.1"
+                android:layout_marginEnd="12dp"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="150"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="@string/credits"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/formDialFlag"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="24dp"
-            app:layout_constraintBottom_toBottomOf="@id/profileNationality"
-            app:layout_constraintStart_toStartOf="@id/profileNationality"
-            app:layout_constraintTop_toTopOf="@id/profileNationality"
-            tools:src="@drawable/flag_ac" />
 
-        <TextView
-            android:id="@+id/profileMotherAgencyTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/mother_agency"
-            android:textColor="@color/grey_dark"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileNationalityTitle" />
+<!--        <TextView-->
+<!--            android:id="@+id/profileNationalityTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="24dp"-->
+<!--            android:layout_marginTop="48dp"-->
+<!--            android:text="@string/nationality"-->
+<!--            android:textColor="@color/grey_dark"-->
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profileInvite" />-->
 
-        <TextView
-            android:id="@+id/profileMotherAgency"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="32dp"
-            android:textSize="13sp"
-            android:textColor="@color/grey_text_field"
-            android:background="@drawable/background_field"
-            app:layout_constraintBottom_toBottomOf="@+id/profileMotherAgencyTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profileMotherAgencyTitle"
-            app:layout_constraintTop_toTopOf="@+id/profileMotherAgencyTitle"
-            tools:text="Oriflame" />
+<!--        <TextView-->
+<!--            android:id="@+id/profileNationality"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:paddingStart="52dp"-->
+<!--            android:textColor="@color/grey_text_field"-->
+<!--            android:textSize="13sp"-->
+<!--            android:background="@drawable/background_field"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/profileNationalityTitle"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/profileMotherAgency"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/profileNationalityTitle"-->
+<!--            tools:text="Russian" />-->
 
-        <TextView
-            android:id="@+id/profileEmailTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/email"
-            android:textColor="@color/grey_dark"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileMotherAgencyTitle" />
+<!--        <ImageView-->
+<!--            android:id="@+id/formDialFlag"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginStart="24dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/profileNationality"-->
+<!--            app:layout_constraintStart_toStartOf="@id/profileNationality"-->
+<!--            app:layout_constraintTop_toTopOf="@id/profileNationality"-->
+<!--            tools:src="@drawable/flag_ac" />-->
 
-        <TextView
-            android:id="@+id/profileEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:textSize="13sp"
-            android:textColor="@color/grey_text_field"
-            android:background="@drawable/background_field"
-            app:layout_constraintBottom_toBottomOf="@+id/profileEmailTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/profileNationality"
-            app:layout_constraintTop_toTopOf="@+id/profileEmailTitle"
-            tools:text="verylongemail@test.com" />
+<!--        <TextView-->
+<!--            android:id="@+id/profileMotherAgencyTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="24dp"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="@string/mother_agency"-->
+<!--            android:textColor="@color/grey_dark"-->
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profileNationalityTitle" />-->
 
-        <TextView
-            android:id="@+id/profilePhoneTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/phone"
-            android:textColor="@color/grey_dark"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileEmailTitle" />
+<!--        <TextView-->
+<!--            android:id="@+id/profileMotherAgency"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:textSize="13sp"-->
+<!--            android:textColor="@color/grey_text_field"-->
+<!--            android:background="@drawable/background_field"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/profileMotherAgencyTitle"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/profileMotherAgencyTitle"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/profileMotherAgencyTitle"-->
+<!--            tools:text="Oriflame" />-->
 
-        <TextView
-            android:id="@+id/profilePhone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:textSize="13sp"
-            android:textColor="@color/grey_text_field"
-            android:background="@drawable/background_field"
-            app:layout_constraintBottom_toBottomOf="@+id/profilePhoneTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/profileNationality"
-            app:layout_constraintTop_toTopOf="@+id/profilePhoneTitle"
-            tools:text="@tools:sample/us_phones" />
+<!--        <TextView-->
+<!--            android:id="@+id/profileEmailTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="24dp"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="@string/email"-->
+<!--            android:textColor="@color/grey_dark"-->
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profileMotherAgencyTitle" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/profileEmail"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:textSize="13sp"-->
+<!--            android:textColor="@color/grey_text_field"-->
+<!--            android:background="@drawable/background_field"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/profileEmailTitle"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/profileNationality"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/profileEmailTitle"-->
+<!--            tools:text="verylongemail@test.com" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/profilePhoneTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="24dp"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="@string/phone"-->
+<!--            android:textColor="@color/grey_dark"-->
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profileEmailTitle" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/profilePhone"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:textSize="13sp"-->
+<!--            android:textColor="@color/grey_text_field"-->
+<!--            android:background="@drawable/background_field"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/profilePhoneTitle"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/profileNationality"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/profilePhoneTitle"-->
+<!--            tools:text="@tools:sample/us_phones" />-->
 
         <FrameLayout
             app:layout_constraintTop_toTopOf="parent"
