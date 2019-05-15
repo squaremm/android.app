@@ -51,15 +51,15 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/fillProfileNext"
+        android:id="@+id/fillProfile1Next"
         style="@style/Models16BoldText"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/nice_button_red_pink_alpha"
         android:text="@string/next"
-        android:textAllCaps="false"
         android:enabled="false"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="32dp"

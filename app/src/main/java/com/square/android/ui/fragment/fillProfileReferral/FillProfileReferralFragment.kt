@@ -18,7 +18,6 @@ import com.square.android.presentation.view.fillProfileReferral.FillProfileRefer
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.utils.TokenUtils
 import com.square.android.utils.ValidationCallback
-import kotlinx.android.synthetic.main.fragment_auth.*
 import kotlinx.android.synthetic.main.fragment_fill_profile_referral.*
 import org.jetbrains.anko.bundleOf
 

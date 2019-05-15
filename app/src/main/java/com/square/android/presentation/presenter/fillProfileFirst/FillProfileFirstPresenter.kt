@@ -11,10 +11,10 @@ import com.square.android.presentation.view.fillProfileFirst.FillProfileFirstVie
 class FillProfileFirstPresenter : BasePresenter<FillProfileFirstView>() {
     private val model = ProfileInfo()
 
-    fun birthSelected(birthday: String) {
-        model.birthDate = birthday
+    fun birthSelected(modelBirthday: String, displayBirthday: String) {
+        model.birthDate = modelBirthday
 
-        viewState.showBirthday(birthday)
+        viewState.showBirthday(displayBirthday)
     }
 
     fun nextClicked(name: String, surname: String) {

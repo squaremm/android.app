@@ -4,7 +4,7 @@ import com.mukesh.countrypicker.Country
 import com.square.android.presentation.view.BaseView
 
 interface FillProfileFirstView : BaseView {
-    fun showBirthday(birthday: String)
+    fun showBirthday(displayBirthday: String)
     fun displayNationality(country: Country)
     fun displayGender(gender: String)
 }

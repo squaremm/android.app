@@ -12,7 +12,7 @@
         android:id="@+id/formProfileName"
         style="@style/InputField"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:hint="@string/hint_name"
         android:inputType="textPersonName|textCapSentences" />
 
@@ -20,7 +20,7 @@
         android:id="@+id/formProfileLastName"
         style="@style/InputField"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:hint="@string/hint_last_name"
         android:inputType="textPersonName|textCapSentences" />
 
@@ -28,7 +28,7 @@
         android:id="@+id/formProfileNationality"
         style="@style/InputSpinner"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:hint="@string/nationality_pure" />
 
     <LinearLayout
@@ -40,8 +40,8 @@
             android:id="@+id/formProfileBirth"
             style="@style/InputSpinner"
             android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="0.60"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:hint="@string/hint_birth"
             android:layout_marginEnd="8dp" />
 
@@ -50,8 +50,8 @@
             style="@style/InputSpinner"
             android:layout_marginStart="8dp"
             android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="0.40"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:hint="@string/hint_gender" />
     </LinearLayout>
 

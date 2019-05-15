@@ -49,23 +49,41 @@
         <item name="android:background">@drawable/input_background</item>
     </style>
 
-    <style name="InputField" parent="Models14Text">
+    <style name="BaseEditText" parent="Models14Text">
         <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="colorAccent">@color/nice_pink</item>
+        <item name="android:textColorHint">@color/grey_dark</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <style name="InputField" parent="BaseEditText">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="colorAccent">@color/nice_pink</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
         <item name="android:textColorHint">@color/grey_dark</item>
-        <item name="android:background">@drawable/background_rounded_4dp</item>
-        <item name="android:backgroundTint">@color/gray_light</item>
+        <item name="android:background">@drawable/input_field_bg</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
 
     <style name="InputSpinner" parent="InputField">
         <item name="android:paddingEnd">8dp</item>
-        <item name="android:drawableRight">@drawable/ic_arrow_down</item>
+        <item name="android:drawableRight">@drawable/spinner_arrow_selector</item>
         <item name="android:drawablePadding">0dp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/input_field_spinner_bg</item>
     </style>
 
     <style name="InputTitle" parent="OldInputField">

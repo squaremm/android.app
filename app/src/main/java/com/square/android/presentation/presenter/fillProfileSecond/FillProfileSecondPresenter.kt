@@ -13,8 +13,8 @@ import com.square.android.presentation.view.fillProfileSecond.FillProfileSecondV
 @InjectViewState
 class FillProfileSecondPresenter(private val info: ProfileInfo) : BasePresenter<FillProfileSecondView>() {
 
-    fun nextClicked(email: String, phone: String, motherAgency: String, currentAgency: String) {
-        info.email = email
+    fun nextClicked(account: String, phone: String, motherAgency: String, currentAgency: String) {
+        info.email = account
         info.phone = phone
         info.motherAgency = motherAgency
         info.currentAgency = currentAgency

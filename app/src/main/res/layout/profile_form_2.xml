@@ -1,86 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingStart="32dp"
+    android:paddingEnd="32dp"
     tools:showIn="@layout/fragment_fill_profile_2">
 
     <EditText
-        android:id="@+id/formProfileEmail"
-        style="@style/OldInputField"
+        android:id="@+id/formProfileAccount"
+        style="@style/InputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress" />
+        android:inputType="text"
+        android:hint="@string/username_instagram_account" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/formDialPhoneLl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/input_background">
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_field_spinner_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/formDialFlag"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/flag_ac" />
-
-        <TextView
-            android:id="@+id/formDialCode"
+        <LinearLayout
+            android:id="@+id/formDialCountryLl"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="18sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/formDialFlag"
-            app:layout_constraintStart_toEndOf="@+id/formDialFlag"
-            app:layout_constraintTop_toTopOf="@+id/formDialFlag"
-            tools:text="+7" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/formDialFlag"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                tools:src="@drawable/flag_ac" />
+            <TextView
+                android:id="@+id/formDialCode"
+                style="@style/Models14Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                tools:text="+44" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider" />
 
         <EditText
-            android:id="@+id/formProfilePhone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@android:color/transparent"
+            android:id="@+id/formDialPhoneNumber"
+            android:layout_width="match_parent"
+            style="@style/BaseEditText"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp"
             android:hint="@string/phone"
-            android:includeFontPadding="false"
-            android:inputType="phone"
-            android:paddingTop="12dp"
-            app:layout_goneMarginStart="24dp"
-            android:paddingBottom="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/formDialCode"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="123" />
+            android:inputType="phone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 
     <EditText
         android:id="@+id/formProfileMotherAgency"
-        style="@style/OldInputField"
+        style="@style/InputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/mother_agency"
+        android:hint="@string/your_mother_agency"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/formProfileCurrentAgency"
-        style="@style/OldInputField"
+        style="@style/InputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_current_agency"
+        android:hint="@string/your_current_agency"
         android:inputType="textPersonName" />
+
 </LinearLayout>
