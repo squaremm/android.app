@@ -33,9 +33,7 @@
     <color name="nice_pink_other">#E751A4</color>
     <color name="nice_pink_trans_20">#32E82E90</color>
     <color name="black_trans_75">#BF000000</color>
-
-
-
+    <color name="black_trans_50">#80000000</color>
 
     <color name="grey_dark">#888888</color>
     <color name="grey_background_field">#F8F8F8</color>

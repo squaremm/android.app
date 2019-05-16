@@ -30,12 +30,12 @@
             style="@style/Models24BoldText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:maxLines="1"
             android:ellipsize="end"
-            app:layout_constraintEnd_toStartOf="@+id/offerDialogCredits"
+            app:layout_constraintEnd_toStartOf="@+id/creditsll"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/offerDialogImg"
             tools:text="Hotdog Dinner" />
@@ -44,9 +44,9 @@
             android:id="@+id/sv"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/offerDialogName"
@@ -54,23 +54,34 @@
             android:overScrollMode="never" >
             <TextView
                 android:id="@+id/offerDialogComponents"
-                style="@style/Models22Text"
+                style="@style/Models18Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </ScrollView>
 
-
-        <TextView
-            android:id="@+id/offerDialogCredits"
-            style="@style/Models18Text"
+        <LinearLayout
+            android:id="@+id/creditsll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:textColor="@color/placesPrimary"
+            android:layout_marginEnd="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/offerDialogName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/offerDialogName"
-            tools:text="150 Credits" />
+            app:layout_constraintTop_toTopOf="@+id/offerDialogName" >
+            <TextView
+                android:id="@+id/offerDialogCredits"
+                style="@style/Models18BoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/placesPrimary"
+                tools:text="50" />
+            <TextView
+                style="@style/Models18Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/placesPrimary"
+                android:text="@string/credits_lowercase"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/offerDialogSubmit"

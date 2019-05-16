@@ -12,6 +12,7 @@ import com.square.android.SCREENS
 import com.square.android.androidx.navigator.AppNavigator
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.PlaceInfo
+import com.square.android.data.pojo.RedemptionFull
 import com.square.android.presentation.presenter.selectOffer.SelectOfferPresenter
 import com.square.android.presentation.view.selectOffer.SelectOfferView
 import com.square.android.ui.activity.BaseActivity
@@ -26,8 +27,8 @@ import ru.terrakok.cicerone.Navigator
 
 const val OFFER_EXTRA_ID = "CLAIMED_OFFER_EXTRA_ID"
 
-class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectofferAdapter.Handler {
-    private var adapter: SelectofferAdapter? = null
+class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.Handler {
+    private var adapter: SelectOfferAdapter? = null
 
     private var dialog: SelectOfferDialog? = null
 
@@ -35,7 +36,7 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectofferAdapter.
     lateinit var presenter: SelectOfferPresenter
 
     @ProvidePresenter
-    fun providePresenter() = SelectOfferPresenter(getRedemptionId())
+    fun providePresenter() = SelectOfferPresenter(intent.getLongExtra(OFFER_EXTRA_ID,0))
 
     override fun provideNavigator(): Navigator = SelectOfferNavigator(this)
 
@@ -56,8 +57,8 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectofferAdapter.
         }
     }
 
-    override fun showData(data: List<OfferInfo>) {
-        adapter = SelectofferAdapter(data, this)
+    override fun showData(data: List<OfferInfo>, redemptionFull: RedemptionFull?) {
+        adapter = SelectOfferAdapter(data, this, redemptionFull)
 
         selectOfferList.adapter = adapter
         selectOfferList.addItemDecoration(MarginItemDecorator( selectOfferList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),true,
@@ -101,5 +102,4 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectofferAdapter.
 
     }
 
-    private fun getRedemptionId() = intent.getLongExtra(OFFER_EXTRA_ID, 0)
 }

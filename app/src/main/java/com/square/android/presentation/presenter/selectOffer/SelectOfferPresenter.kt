@@ -32,7 +32,7 @@ class SelectOfferPresenter(private val redemptionId: Long) : BasePresenter<Selec
             offers = repository.getPlaceOffers(data!!.redemption.place.id).await()
 
             viewState.hideProgress()
-            viewState.showData(offers!!)
+            viewState.showData(offers!!, data)
         }
     }
 

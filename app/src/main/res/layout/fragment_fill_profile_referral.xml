@@ -133,27 +133,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/fillReferralSubmit"
-            style="@style/Models16BoldText"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/nice_button_red_pink_alpha"
-            android:text="@string/confirm"
-            android:visibility="invisible"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/fillReferralFooter"
-            app:layout_constraintTop_toTopOf="@+id/fillReferralFooter"
-            tools:visibility="visible" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar

@@ -31,7 +31,7 @@ class SelectOfferDialog(private val context: Context) {
             onAction.invoke() }
 
         view.offerDialogName.text = offer.name
-        view.offerDialogCredits.text = context.getString(R.string.credits_format_lowercase, offer.price)
+        view.offerDialogCredits.text = offer.price.toString()
         view.offerDialogComponents.text = offer.compositionAsStr()
 
         dialog.show()

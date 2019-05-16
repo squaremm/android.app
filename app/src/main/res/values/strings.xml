@@ -73,6 +73,9 @@
     <string name="insta_post">Instagram Post</string>
     <string name="book">Book</string>
     <string name="time_range">%s - %s</string>
+    <string name="not_available_from_to">Not available from %s to %s</string>
+
+
 
     <string name="spot_format">%d spots available</string>
     <string name="spot_one_format">%d spot available</string>

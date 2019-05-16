@@ -38,18 +38,7 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
         }
     }
 
-    companion object {
-        @Suppress("DEPRECATION")
-        fun newInstance(info: ProfileInfo): FillProfileReferralFragment {
-            val fragment = FillProfileReferralFragment()
-
-            val args = bundleOf(EXTRA_MODEL to info)
-            fragment.arguments = args
-
-            return fragment
-        }
-
-    }
+    private var isValid: Boolean = false
 
     @InjectPresenter
     lateinit var presenter: FillProfileReferralPresenter
@@ -67,14 +56,20 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
 
         initializeFields()
 
-        fillReferralSkip.setOnClickListener { presenter.skipClicked() }
-
-        fillReferralSubmit.setOnClickListener { codeReady() }
+        fillReferralSkip.setOnClickListener {skipClick()}
 
         codeField.setMaxLength(CODE_LENGTH)
     }
 
-    private fun codeReady() {
+    private fun skipClick(){
+        if(!isValid){
+            presenter.skipClicked()
+        } else{
+            codeReady()
+        }
+    }
+
+    private fun codeReady(){
         val code = codeField.content
 
         presenter.confirmClicked(code)
@@ -91,20 +86,19 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
     override fun isValid(item: CharSequence) = item.length == CODE_LENGTH
 
     override fun validityChanged(isValid: Boolean) {
-        val confirmVisibility = if (isValid) View.VISIBLE else View.INVISIBLE
-
         if (isValid) {
             codeReady()
             codeField.hideKeyboard()
         }
 
-        fillReferralSubmit.visibility = confirmVisibility
+        this.isValid = isValid
+
+        fillReferralSkip.text = if(isValid) getString(R.string.confirm) else getString(R.string.skip)
     }
 
     private fun initializeFields() {
         addTextValidation(listOf(codeField), this)
     }
-
 
     private fun getModel(): ProfileInfo {
         return arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
@@ -114,4 +108,16 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
         pending_splash_image.visibility = View.VISIBLE
     }
 
+    companion object {
+        @Suppress("DEPRECATION")
+        fun newInstance(info: ProfileInfo): FillProfileReferralFragment {
+            val fragment = FillProfileReferralFragment()
+
+            val args = bundleOf(EXTRA_MODEL to info)
+            fragment.arguments = args
+
+            return fragment
+        }
+
+    }
 }
