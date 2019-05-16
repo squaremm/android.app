@@ -25,6 +25,6 @@ class PlaceInfo(
         var address: String = "",
         var location: Location = Location(),
         var name: String = "",
-        var photo   : String = "",
+        var photo   : String? = "",
         var socials: Map<String, String> = mapOf()
 )

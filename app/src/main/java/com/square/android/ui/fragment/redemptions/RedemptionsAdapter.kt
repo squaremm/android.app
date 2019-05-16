@@ -181,7 +181,7 @@ class RedemptionsAdapter(data: List<Any>, private val handler: Handler)
             redemptionTitle.text = redemptionInfo.place.name
             redemptionAddress.text = redemptionInfo.place.address
             if (URLUtil.isValidUrl(redemptionInfo.place.photo))
-                redemptionImage.loadImage(redemptionInfo.place.photo, roundedCornersRadiusPx = 360)
+                redemptionImage.loadImage(redemptionInfo.place.photo!!, roundedCornersRadiusPx = 360)
         }
 
         private fun bindHeader(header: String) {
