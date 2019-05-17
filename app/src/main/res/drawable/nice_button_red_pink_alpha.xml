@@ -13,7 +13,7 @@
         <shape>
             <gradient android:angle="0"
                 android:startColor="@color/nice_red_alpha"
-                android:endColor="@color/nice_pink_alpha" />
+                android:endColor="@color/nice_pink_alpha_50" />
             <corners android:radius="4dp" />
         </shape>
     </item>

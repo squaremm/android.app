@@ -166,6 +166,15 @@
 
     <string name="insert_invitation_code">Insert invitation code</string>
 
+
+    <string name="push_notification">Push notification</string>
+    <string name="allow_geolocation">Allow geolocation</string>
+
+    <string name="how_to">How to</string>
+    <string name="book_a_spot">Book a spot</string>
+    <string name="earn_more_credits">Earn more credits</string>
+
+
     <string name="review_instagram_post_body">
         <![CDATA[
          <font color=#7CFC00>Do:</font><br>

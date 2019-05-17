@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.mukesh.countrypicker.Country
 import com.mukesh.countrypicker.CountryPicker
 import com.mukesh.countrypicker.listeners.OnCountryPickerListener
 import com.square.android.R
 import com.square.android.extensions.content
-import com.square.android.extensions.onTextChanged
 import com.square.android.extensions.toOrdinalString
 import com.square.android.presentation.presenter.fillProfileFirst.FillProfileFirstPresenter
 import com.square.android.presentation.view.fillProfileFirst.FillProfileFirstView
@@ -29,9 +27,6 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
 
     private var dialog: SelectGenderDialog? = null
 
-    private var errorName: Boolean = false
-    private var errorLastName: Boolean = false
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(com.square.android.R.layout.fragment_fill_profile_1, container, false)
@@ -47,22 +42,6 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
         form.formProfileGender.setOnClickListener { genderClicked() }
 
         fillProfile1Next.setOnClickListener { nextClicked() }
-
-        form.formProfileName.onTextChanged {
-            if(errorName){
-                errorName = false
-                form.formProfileName.setHintTextColor(ContextCompat.getColor(context!!, R.color.grey_dark))
-                form.formProfileName.hint = getString(R.string.hint_name)
-            }
-        }
-
-        form.formProfileLastName.onTextChanged {
-            if(errorLastName){
-                errorLastName = false
-                form.formProfileLastName.setHintTextColor(ContextCompat.getColor(context!!, R.color.grey_dark))
-                form.formProfileLastName.hint = getString(R.string.hint_last_name)
-            }
-        }
 
         setUpValidation()
     }
@@ -104,18 +83,14 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
     private fun nextClicked() {
 
         if(!isValid( form.formProfileName.content)){
-            errorName = true
-            form.formProfileName.setHintTextColor(ContextCompat.getColor(context!!, R.color.nice_red))
-            form.formProfileName.hint = getString(R.string.name_error)
+            form.formProfileName.showCustomError(getString(R.string.name_error))
         }
 
         if(!isValid( form.formProfileLastName.content)){
-            errorLastName = true
-            form.formProfileLastName.setHintTextColor(ContextCompat.getColor(context!!, R.color.nice_red))
-            form.formProfileLastName.hint = getString(R.string.last_name_error)
+            form.formProfileLastName.showCustomError(getString(R.string.last_name_error))
         }
 
-        if(!errorName && !errorLastName){
+        if(!form.formProfileName.errorShowing && !form.formProfileLastName.errorShowing){
             val name = form.formProfileName.content
             val surname = form.formProfileLastName.content
 

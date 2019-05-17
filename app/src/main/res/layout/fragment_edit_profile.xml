@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp" >
         <ImageView
             android:id="@+id/profileEditAvatar"
             android:layout_width="match_parent"
@@ -156,13 +157,47 @@
 
         <!-- -->
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchPushNotifi"
+            style="@style/Models16Text"
+            android:textColor="@color/grey_dark"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toBottomOf="@id/profileEditAvatar"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:thumbTint="@color/switch_color_thumb"
+            app:trackTint="@color/switch_color_track"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/push_notification" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchAllowGeo"
+            style="@style/Models16Text"
+            android:textColor="@color/grey_dark"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toBottomOf="@id/switchPushNotifi"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:thumbTint="@color/switch_color_thumb"
+            app:trackTint="@color/switch_color_track"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center_vertical"
+            android:text="@string/allow_geolocation" />
+
         <TextView
             android:id="@+id/dobLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:background="@android:color/transparent"
-            android:text="@string/nationality"
+            android:text="@string/hint_birth"
             android:textColor="@color/grey_dark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/formEditProfileBirth"
@@ -179,9 +214,9 @@
             android:textSize="13sp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:textColor="@color/grey_text_field"
-            app:layout_constraintTop_toBottomOf="@id/profileEditAvatar"
+            app:layout_constraintTop_toBottomOf="@id/switchAllowGeo"
             app:layout_constraintStart_toEndOf="@id/dobLabel"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/background_field" />
@@ -429,12 +464,56 @@
             android:layout_marginEnd="24dp"
             android:drawableEnd="@drawable/pencil_grey"
             android:includeFontPadding="false"
-
             app:layout_constraintTop_toBottomOf="@id/formEditProfileNumberContainer"
             app:layout_constraintStart_toStartOf="@id/formEditProfileBirth"
             app:layout_constraintEnd_toEndOf="parent"
             android:inputType="textPersonName" />
 
+     <TextView
+         android:id="@+id/howToLabel"
+         style="@style/Models16BoldText"
+         android:textColor="@color/gray_hint"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/how_to"
+         android:layout_marginStart="24dp"
+         android:layout_marginTop="32dp"
+         app:layout_constraintTop_toBottomOf="@+id/formEditProfileMotherAgency"
+         app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/editProfileBook"
+            style="@style/Models18Text"
+            android:textColor="@color/nice_pink"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/white_button_background"
+            app:layout_constraintTop_toBottomOf="@id/howToLabel"
+            android:text="@string/book_a_spot" />
+
+        <Button
+            android:id="@+id/editProfileMoreCredits"
+            style="@style/Models18Text"
+            android:textColor="@color/nice_pink"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/white_button_background"
+            app:layout_constraintTop_toBottomOf="@id/editProfileBook"
+            android:text="@string/earn_more_credits" />
 
         <TextView
             android:id="@+id/editProfileLogout"
@@ -443,11 +522,11 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/preload_button"
             android:gravity="center"
             android:includeFontPadding="false"
-            app:layout_constraintTop_toBottomOf="@id/formEditProfileMotherAgency"
+            app:layout_constraintTop_toBottomOf="@id/editProfileMoreCredits"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="8dp"
@@ -466,7 +545,7 @@
             app:layout_constraintTop_toBottomOf="@id/editProfileLogout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:text="@string/contact_us" />
 
         <TextView
@@ -477,7 +556,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:text="@string/terms" />
 
         <TextView
@@ -487,7 +566,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/terms"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:text="@string/privacy_policy" />
         <!-- -->
 

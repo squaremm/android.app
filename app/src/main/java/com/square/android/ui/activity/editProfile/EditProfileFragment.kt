@@ -1,6 +1,6 @@
 package com.square.android.ui.activity.editProfile
 
-
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -20,6 +20,7 @@ import com.square.android.ui.fragment.BaseFragment
 import com.square.android.utils.ValidationCallback
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
+import android.content.Intent
 
 private const val GENDER_MALE = "male"
 private const val GENDER_FEMALE = "female"
@@ -54,7 +55,16 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
                 .listener(this)
                 .build()
 
+
+        editProfileBook.setOnClickListener{btnClicked()}
+        editProfileMoreCredits.setOnClickListener{btnClicked()}
+
         setUpValidation()
+    }
+
+    fun btnClicked(){
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=6VCsX_Hw9js"))
+        startActivity(browserIntent)
     }
 
     override fun showProgress() {

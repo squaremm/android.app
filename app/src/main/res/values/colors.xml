@@ -27,8 +27,8 @@
     <color name="nice_red">#F7425C</color>
     <color name="nice_pink">#E82E90</color>
     <color name="nice_red_alpha">#80F7425C</color>
-    <color name="nice_pink_alpha">#80E82E90</color>
-
+    <color name="nice_pink_alpha_50">#80E82E90</color>
+    <color name="nice_pink_alpha_40">#66E82E90</color>
 
     <color name="nice_pink_other">#E751A4</color>
     <color name="nice_pink_trans_20">#32E82E90</color>

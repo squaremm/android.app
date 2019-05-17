@@ -5,7 +5,6 @@ import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mukesh.countrypicker.Country
@@ -15,7 +14,6 @@ import com.square.android.R
 import com.square.android.data.pojo.ProfileInfo
 import com.square.android.extensions.content
 import com.square.android.extensions.hideKeyboard
-import com.square.android.extensions.onTextChanged
 import com.square.android.presentation.presenter.fillProfileSecond.FillProfileSecondPresenter
 import com.square.android.presentation.view.fillProfileSecond.FillProfileSecondView
 import com.square.android.ui.fragment.BaseFragment
@@ -49,12 +47,6 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
     @ProvidePresenter
     fun providePresenter(): FillProfileSecondPresenter = FillProfileSecondPresenter(getModel())
 
-    private var errorUsername: Boolean = false
-    private var errorPhone: Boolean = false
-    private var errorMother: Boolean = false
-    private var errorCurrent: Boolean = false
-
-
     override fun showDialInfo(country: Country) {
         form.formDialCode.text = country.dialCode
         form.formDialFlag.setImageResource(country.flag)
@@ -87,39 +79,6 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
 
         form.formDialCountryLl.setOnClickListener {showCountryDialog()}
 
-
-        form.formProfileAccount.onTextChanged {
-            if(errorUsername){
-                errorUsername = false
-                form.formProfileAccount.setHintTextColor(ContextCompat.getColor(context!!, R.color.grey_dark))
-                form.formProfileAccount.hint = getString(R.string.username_instagram_account)
-            }
-        }
-
-        form.formDialPhoneNumber.onTextChanged {
-            if(errorPhone){
-                errorPhone = false
-                form.formDialPhoneNumber.setHintTextColor(ContextCompat.getColor(context!!, R.color.grey_dark))
-                form.formDialPhoneNumber.hint = getString(R.string.phone)
-            }
-        }
-
-        form.formProfileMotherAgency.onTextChanged {
-            if(errorMother){
-                errorMother = false
-                form.formProfileMotherAgency.setHintTextColor(ContextCompat.getColor(context!!, R.color.grey_dark))
-                form.formProfileMotherAgency.hint = getString(R.string.your_mother_agency)
-            }
-        }
-
-        form.formProfileCurrentAgency.onTextChanged {
-            if(errorCurrent){
-                errorCurrent = false
-                form.formProfileCurrentAgency.setHintTextColor(ContextCompat.getColor(context!!, R.color.grey_dark))
-                form.formProfileCurrentAgency.hint = getString(R.string.your_current_agency)
-            }
-        }
-
         showDefaultDialInfo()
     }
 
@@ -145,32 +104,23 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
     }
 
     private fun nextClicked() {
-
-        if(!isValid( form.formProfileAccount.content)){
-            errorUsername = true
-            form.formProfileAccount.setHintTextColor(ContextCompat.getColor(context!!, R.color.nice_red))
-            form.formProfileAccount.hint = getString(R.string.username_error)
+        if(!isValid(form.formProfileAccount.content)){
+            form.formProfileAccount.showCustomError(getString(R.string.username_error))
         }
 
-        if(!isValid( form.formDialPhoneNumber.content)){
-            errorPhone = true
-            form.formDialPhoneNumber.setHintTextColor(ContextCompat.getColor(context!!, R.color.nice_red))
-            form.formDialPhoneNumber.hint = getString(R.string.phone_error)
+        if(!isValid(form.formDialPhoneNumber.content)){
+            form.formDialPhoneNumber.showCustomError(getString(R.string.phone_error))
         }
 
-        if(!isValid( form.formProfileMotherAgency.content)){
-            errorMother = true
-            form.formProfileMotherAgency.setHintTextColor(ContextCompat.getColor(context!!, R.color.nice_red))
-            form.formProfileMotherAgency.hint = getString(R.string.mother_agency_error)
+        if(!isValid(form.formProfileMotherAgency.content)){
+            form.formProfileMotherAgency.showCustomError(getString(R.string.mother_agency_error))
         }
 
-        if(!isValid( form.formProfileCurrentAgency.content)){
-            errorCurrent = true
-            form.formProfileCurrentAgency.setHintTextColor(ContextCompat.getColor(context!!, R.color.nice_red))
-            form.formProfileCurrentAgency.hint = getString(R.string.current_agency_error)
+        if(!isValid(form.formProfileCurrentAgency.content)){
+            form.formProfileCurrentAgency.showCustomError(getString(R.string.current_agency_error))
         }
 
-        if(!errorUsername && !errorPhone && !errorMother && !errorCurrent){
+        if(!form.formProfileAccount.errorShowing && !form.formDialPhoneNumber.errorShowing && !form.formProfileMotherAgency.errorShowing && !form.formProfileCurrentAgency.errorShowing){
 
             val account = form.formProfileAccount.content
 
