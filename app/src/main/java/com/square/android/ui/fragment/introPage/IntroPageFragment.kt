@@ -36,6 +36,8 @@ class IntroPageFragment : BaseFragment(), IntroPageView {
     @InjectPresenter
     lateinit var presenter: IntroPagePresenter
 
+    var onClickListener: View.OnClickListener? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_intro_page, container, false)
@@ -51,11 +53,19 @@ class IntroPageFragment : BaseFragment(), IntroPageView {
             introPageTitle.setText(it.titleRes)
 
             introPageImage.loadImage(it.imageRes,true)
-
-            selectOfferSubmit.visibility = it.buttonVisibility
         }
 
-        selectOfferSubmit.setOnClickListener { presenter.nextClicked() }
+        if (onClickListener == null) {
+            selectOfferSubmit.text = getString(R.string.done)
+        }
+
+        selectOfferSubmit.setOnClickListener {
+            if (onClickListener != null) {
+                onClickListener!!.onClick(null)
+            } else {
+                presenter.nextClicked()
+            }
+        }
     }
 
     private fun getPage() : IntroPage? {

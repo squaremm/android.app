@@ -10,6 +10,7 @@ import com.square.android.data.pojo.OfferInfo
 import com.square.android.extensions.loadImage
 import kotlinx.android.synthetic.main.offer_dialog.view.*
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import com.square.android.data.pojo.Place
 
 class OfferDialog(private val context: Context) {
@@ -23,7 +24,7 @@ class OfferDialog(private val context: Context) {
                 .cancelable(true)
                 .build()
 
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(context, R.color.black_trans_75)))
 
         view.offerDialogImg.loadImage(offer.photo)
         view.offerDialogPlace.text = offer.name
