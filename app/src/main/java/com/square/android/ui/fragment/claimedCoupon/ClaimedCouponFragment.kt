@@ -30,7 +30,7 @@ class ClaimedCouponFragment : BaseFragment(), ClaimedCouponView {
 
         coupon.couponComponents.text = offer.compositionAsString()
 
-        coupon.couponCoins.text = getString(R.string.price_format, offer.price)
+        coupon.couponCoins.text = offer.price.toString()
     }
 
     @InjectPresenter

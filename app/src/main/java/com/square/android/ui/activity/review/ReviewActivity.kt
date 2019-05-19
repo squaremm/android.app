@@ -85,7 +85,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         adapter?.disableReviewType(position)
     }
 
-    override fun showData(data: Offer, feedback: String) {
+    override fun showData(data: Offer, feedback: String, user: Profile.User, place: Place) {
         updateReviewTypes(feedback, data)
 
         val used = data.posts.map { it.type }
@@ -96,7 +96,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
 
         reviewList.adapter = adapter
 
-        ClaimedCouponDialog(this).show(data, data.place, presenter.repository.getUserInfo())
+        ClaimedCouponDialog(this).show(data, place, user)
     }
 
     override fun showProgress() {

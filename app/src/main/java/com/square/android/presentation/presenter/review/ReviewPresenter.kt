@@ -41,8 +41,10 @@ class ReviewPresenter(private val offerId: Long,
             viewState.showProgress()
 
             data = interactor.getOffer(offerId).await()
+            val user = repository.getCurrentUser().await()
 
             val placeId = data!!.place.id
+            val place = repository.getPlace(placeId).await()
 
             val feedback = repository.getFeedbackContent(placeId).await()
 
@@ -53,7 +55,7 @@ class ReviewPresenter(private val offerId: Long,
             viewState.initReviewTypes()
 
             viewState.hideProgress()
-            viewState.showData(data!!, reviewInfo.feedback)
+            viewState.showData(data!!, reviewInfo.feedback, user, place)
         }
     }
 

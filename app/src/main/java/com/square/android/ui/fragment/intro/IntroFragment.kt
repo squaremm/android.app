@@ -29,7 +29,7 @@ class IntroFragment : BaseFragment(), IntroView {
     }
 
     private fun setUpPager() {
-        val adapter = IntroPageAdapter(childFragmentManager)
+        val adapter = IntroPageAdapter(childFragmentManager, View.OnClickListener {introPager.currentItem = introPager.currentItem+1})
 
         introPager.adapter = adapter
         introTabs.setupWithViewPager(introPager)

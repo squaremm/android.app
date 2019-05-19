@@ -16,9 +16,9 @@ class DialogDepository(context: Context, val repository: Repository) {
 
     fun showDialogFromNotification(notificationType: NotificationType, extras: Bundle) {
         when (notificationType) {
-            NotificationType.USER_ACCEPTED -> TODO()
-            NotificationType.USER_REJECTED -> TODO()
-            NotificationType.ACTION_ACCEPTED -> TODO()
+            NotificationType.USER_ACCEPTED -> {}
+            NotificationType.USER_REJECTED -> {}
+            NotificationType.ACTION_ACCEPTED -> {}
             NotificationType.CREDITS_ADDED -> congratulationsDialog.show(
                     extras["credits"] as Int
             ) {
@@ -34,8 +34,8 @@ class DialogDepository(context: Context, val repository: Repository) {
 
                 }
             }
-            NotificationType.NEW_RESTAURANT -> TODO()
-            NotificationType.NEW_OFFER -> TODO()
+            NotificationType.NEW_RESTAURANT -> {}
+            NotificationType.NEW_OFFER -> {}
         }
     }
 }
