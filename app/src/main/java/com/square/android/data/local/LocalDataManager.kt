@@ -16,6 +16,8 @@ private const val KEY_LOGGED_IN = "KEY_LOGGED_IN"
 
 private const val KEY_SOCIAL_LINK = "KEY_SOCIAL_LINK"
 
+private const val KEY_TUTORIAL = "KEY_TUTORIAL"
+
 private const val DISPLAY_INTRO_DEFAULT = true
 private const val PROFILE_FILLED_DEFAULT = false
 private const val LOGGED_IN_DEFAULT = false
@@ -116,6 +118,16 @@ class LocalDataManager(context: Context) {
                 .remove(KEY_USER_NAME)
                 .remove(KEY_AVATAR_URL)
                 .remove(KEY_SOCIAL_LINK)
+                .apply()
+    }
+
+    fun getTutorialDontShowAgain(tutorialKey: Int): Boolean {
+        return preferences.getBoolean(KEY_TUTORIAL+tutorialKey, false)
+    }
+
+    fun setTutorialDontShowAgain(tutorialKey: Int, dontShowAgain: Boolean){
+        preferences.edit()
+                .putBoolean(KEY_TUTORIAL+tutorialKey, dontShowAgain)
                 .apply()
     }
 

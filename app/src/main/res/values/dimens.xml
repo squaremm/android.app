@@ -12,4 +12,8 @@
     <dimen name="rv_item_decorator_12">12dp</dimen>
     <dimen name="rv_item_decorator_8">8dp</dimen>
 
+
+    <dimen name="value_128dp">128dp</dimen>
+    <dimen name="value_16dp">16dp</dimen>
+    <dimen name="value_8dp">8dp</dimen>
 </resources>

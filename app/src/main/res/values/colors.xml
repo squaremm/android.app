@@ -21,6 +21,9 @@
     <color name="redish_gray">#F4EBFC</color>
 
 
+    <color name="tutorial_bg">#B3000000</color>
+
+
     <color name="gray_light">#F6F6F6</color>
     <color name="gray_divider"> #EAEAEA</color>
     <color name="gray_purple">#F7ECFC</color>
