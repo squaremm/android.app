@@ -13,6 +13,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import java.util.*
 import com.square.android.R
+import android.os.Looper
+import android.os.Handler
+import android.util.TypedValue
 
 class TutorialView : ConstraintLayout {
 
@@ -62,6 +65,9 @@ class TutorialView : ConstraintLayout {
 
     fun initialStep(){
         mCurrentTutorialStepNumber++
+
+        mCurrentTutorialStep = mTutorialSteps?.get(mCurrentTutorialStepNumber)
+
         mOnNextStepIsChangingListener?.onNextStepIsChanging(mCurrentTutorialStepNumber + 1)
 
         if(mCurrentTutorialStep!!.waitValue > 0){
@@ -72,12 +78,9 @@ class TutorialView : ConstraintLayout {
                 override fun run() {
                     mAwaitStepChange = false
                     configureCurrentStep()
-                    showView = true
-                    hideContent(false)
                 }
             }, mCurrentTutorialStep!!.waitValue.toLong())
         } else{
-            showView = true
             configureCurrentStep()
         }
     }
@@ -87,15 +90,10 @@ class TutorialView : ConstraintLayout {
     }
 
     fun init(){
-
         setWillNotDraw(false)
         setLayerType(View.LAYER_TYPE_HARDWARE, null)
 
         isClickable = true
-
-        layoutParams.width = ConstraintLayout.LayoutParams.MATCH_PARENT
-        layoutParams.height = ConstraintLayout.LayoutParams.MATCH_PARENT
-
 
         mScreenMetrics = DisplayMetrics()
         (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getMetrics(mScreenMetrics)
@@ -106,74 +104,60 @@ class TutorialView : ConstraintLayout {
     private fun createViews(){
         tutorialMessage = TextView(context)
         tutorialMessage.id = R.id.tutorialMessage
-        var params = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,ConstraintLayout.LayoutParams.WRAP_CONTENT)
-        params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-        params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-        tutorialMessage.layoutParams = params
         tutorialMessage.textSize = 16f
         tutorialMessage.setTextColor(ContextCompat.getColor(context, R.color.nice_pink))
         tutorialMessage.setPadding(resources.getDimensionPixelSize(R.dimen.value_16dp),resources.getDimensionPixelSize(R.dimen.value_16dp), resources.getDimensionPixelSize(R.dimen.value_16dp),resources.getDimensionPixelSize(R.dimen.value_16dp))
-        //TODO: check later if multipier should stay 1f or be 0f
-        tutorialMessage.setLineSpacing( resources.getDimensionPixelSize(R.dimen.value_8dp).toFloat(),1f)
+        tutorialMessage.setLineSpacing( resources.getDimensionPixelSize(R.dimen.value_4dp).toFloat(),1f)
         tutorialMessage.background = ContextCompat.getDrawable(context, R.drawable.white_button_background)
         tutorialMessage.visibility = View.GONE
+        tutorialMessage.gravity = Gravity.CENTER
+
         addView(tutorialMessage)
-//        tutorialMessage.requestLayout()
 
         tutorialArrow = AppCompatImageView(context)
         tutorialArrow.id = R.id.tutorialArrow
-        params = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-        params.startToStart = tutorialMessage.id
-        params.endToEnd = tutorialMessage.id
-        params.bottomToTop =  tutorialMessage.id
-        tutorialArrow.layoutParams = params
-        tutorialArrow.setImageResource(R.drawable.arrow_top_left)
         tutorialArrow.imageTintMode = PorterDuff.Mode.SRC_ATOP
         tutorialArrow.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.nice_pink))
         tutorialArrow.visibility = View.GONE
+
         addView(tutorialArrow)
-//        tutorialArrow.requestLayout()
     }
 
     private fun setupViews() {
-        var layoutParams = ConstraintLayout.LayoutParams(tutorialMessage.layoutParams)
+        Handler(Looper.getMainLooper()).post(Runnable {
+            tutorialMessage.text = mCurrentTutorialStep!!.stepText
+            tutorialMessage.measure(0, 0)
+            tutorialMessage.x = (width * mCurrentTutorialStep!!.infoWindowPercentagePos!![0]) - tutorialMessage.measuredWidth/2
+            tutorialMessage.y = (height * mCurrentTutorialStep!!.infoWindowPercentagePos!![1]) - tutorialMessage.measuredHeight/2
 
-        layoutParams.matchConstraintPercentWidth = mCurrentTutorialStep!!.infoWindowPercentagePos!![0]
-        layoutParams.matchConstraintPercentHeight = mCurrentTutorialStep!!.infoWindowPercentagePos!![1]
-        tutorialMessage.layoutParams = layoutParams
-        tutorialMessage.text = mCurrentTutorialStep!!.stepText
+            tutorialArrow.setImageResource(mCurrentTutorialStep!!.arrowDrawable)
+            tutorialArrow.measure(0, 0)
+            if(mCurrentTutorialStep!!.arrowPos == TutorialStep.ArrowPos.TOP){
+                tutorialArrow.y =(tutorialMessage.y - tutorialArrow.measuredHeight) +3
+            } else if(mCurrentTutorialStep!!.arrowPos == TutorialStep.ArrowPos.BOTTOM){
+                tutorialArrow.y = (tutorialMessage.y + tutorialMessage.measuredHeight) -3
+            }
+            tutorialArrow.x = (tutorialMessage.x +(mCurrentTutorialStep!!.arrowHorizontalPercentagePos * tutorialMessage.measuredWidth)) - tutorialArrow.measuredWidth/2
 
+            x1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![0], context.resources.displayMetrics)
+            x2 = width - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![1], context.resources.displayMetrics)
+            y1 = (height * mCurrentTutorialStep!!.transparentViewPixelPos!![2]) - ((TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![3], context.resources.displayMetrics)) /2)
+            y2 = (height * mCurrentTutorialStep!!.transparentViewPixelPos!![2]) + ((TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![3], context.resources.displayMetrics)) /2)
 
-        layoutParams = ConstraintLayout.LayoutParams(tutorialArrow.layoutParams)
-        if(mCurrentTutorialStep!!.arrowPos == TutorialStep.ArrowPos.TOP){
-            layoutParams.bottomToTop =  tutorialMessage.id
-            layoutParams.topToBottom = -1
-        } else if(mCurrentTutorialStep!!.arrowPos == TutorialStep.ArrowPos.BOTTOM){
-            layoutParams.bottomToTop = -1
-            layoutParams.topToBottom = tutorialMessage.id
-        }
-        layoutParams.matchConstraintPercentWidth = mCurrentTutorialStep!!.arrowHorizontalPercentagePos
-        tutorialArrow.layoutParams = layoutParams
-        tutorialArrow.setImageResource(mCurrentTutorialStep!!.arrowDrawable)
+            showView = true
+            hideContent(false)
 
-        hideContent(false)
+            postInvalidate()
+        })
 
-        //TODO: check if it is required
-        tutorialMessage.requestLayout()
-        tutorialArrow.requestLayout()
-
-        x1 = mCurrentTutorialStep!!.transparentViewPixelPos!![0]
-        x2 = mCurrentTutorialStep!!.transparentViewPixelPos!![1]
-        y1 = mCurrentTutorialStep!!.transparentViewPixelPos!![2]
-        y2 = mCurrentTutorialStep!!.transparentViewPixelPos!![3]
-        createWindowFrame()
     }
 
     override fun dispatchDraw(canvas: Canvas) {
         if(showView){
-            bitmap?.let {canvas.drawBitmap(it, 0f, 0f, null)} ?: createWindowFrame()
+            bitmap?.let {canvas.drawBitmap(it, 0f, 0f, null)} ?: run {
+                createWindowFrame()
+                bitmap?.let{canvas.drawBitmap(it, 0f, 0f, null)}
+            }
         }
 
         super.dispatchDraw(canvas)
@@ -187,10 +171,8 @@ class TutorialView : ConstraintLayout {
             val outerRectangle = RectF(0f, 0f, width.toFloat(), height.toFloat())
             val paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.color = ContextCompat.getColor(context, R.color.tutorial_bg)
-//            paint.alpha = 99
             osCanvas.drawRect(outerRectangle, paint)
 
-            // left top right bottom
             val transRect = RectF(x1, y1, x2, y2)
             paint.color = Color.TRANSPARENT
             paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_OUT)
@@ -211,15 +193,12 @@ class TutorialView : ConstraintLayout {
         when (event.action) {
             MotionEvent.ACTION_UP ->{
                 if(showView){
-
-                    //TODO check if clicked inside transparent view bounds (x1, x2, y1, y2)
-
-                    // if ok
-                    showNextStep()
-
-//                // else
-//                performClick()
-//                // or nothing?
+                    if((event.x in x1..x2) && (event.y in y1..y2)){
+                        bitmap = null
+                        showView = false
+                        hideContent(true)
+                        showNextStep()
+                    }
                 }
             }
         }
@@ -239,28 +218,6 @@ class TutorialView : ConstraintLayout {
         mAwaitStepChange = true
     }
 
-//    fun awaitStepChangeForView(view: View?, runnable: Runnable?) {
-//        if (view != null) {
-//            val awaitRunnable = Runnable {
-//                runnable?.run()
-//                resumeStepChange()
-//            }
-//            mAwaitStepChange = true
-//            if (view.visibility == View.VISIBLE) {
-//                view.post(awaitRunnable)
-//            } else {
-//                view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-//                    override fun onGlobalLayout() {
-//                        if (view.visibility == View.VISIBLE) {
-//                            awaitRunnable.run()
-//                            view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-//                        }
-//                    }
-//                })
-//            }
-//        }
-//    }
-
     fun resumeStepChange() {
         mAwaitStepChange = false
         configureCurrentStep()
@@ -268,23 +225,21 @@ class TutorialView : ConstraintLayout {
     }
 
     private fun configureCurrentStep() {
-        if (mCurrentTutorialStepNumber == mTutorialSteps!!.size - 1 ) {
-
-        } else{
-            mCurrentTutorialStep = mTutorialSteps?.get(mCurrentTutorialStepNumber)
+        if (mCurrentTutorialStepNumber < mTutorialSteps!!.size) {
             setupViews()
         }
     }
 
     private fun stepChangeFirstPhase() {
-        if (mCurrentTutorialStepNumber < mTutorialSteps!!.size - 1) {
-            mCurrentTutorialStepNumber++
+        mCurrentTutorialStepNumber++
+
+        if (mCurrentTutorialStepNumber < mTutorialSteps!!.size) {
+            mCurrentTutorialStep = mTutorialSteps?.get(mCurrentTutorialStepNumber)
+
             mOnNextStepIsChangingListener?.onNextStepIsChanging(mCurrentTutorialStepNumber + 1)
 
             if(mCurrentTutorialStep!!.waitValue > 0){
                 awaitStepChange()
-                showView = false
-                hideContent(true)
                 awaitForStep(mCurrentTutorialStep!!.waitValue.toLong())
             }
         }
@@ -294,36 +249,31 @@ class TutorialView : ConstraintLayout {
         Timer().schedule(object : TimerTask() {
             override fun run() {
                 resumeStepChange()
-                showView = true
-                hideContent(false)
             }
         }, delay)
     }
 
     private fun hideContent(hide: Boolean){
        if(hide){
-           tutorialArrow.visibility = View.GONE
-           tutorialMessage.visibility = View.GONE
+           Handler(Looper.getMainLooper()).post(Runnable {
+               tutorialArrow.visibility = View.GONE
+               tutorialMessage.visibility = View.GONE
+           })
+
        } else{
-           tutorialArrow.visibility = View.VISIBLE
-           tutorialMessage.visibility = View.VISIBLE
+           Handler(Looper.getMainLooper()).post(Runnable {
+               tutorialArrow.visibility = View.VISIBLE
+               tutorialMessage.visibility = View.VISIBLE
+           })
        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun stepChangeFinalPhase() {
-
-        if (mCurrentTutorialStepNumber == mTutorialSteps!!.size - 1 ) {
+        if (mCurrentTutorialStepNumber >= mTutorialSteps!!.size) {
             mFinished = true
             mOnFinishTutorialListener?.onTutorialFinished(true)
         }
-
-//
-//        if (mCurrentTutorialStepNumber == mTutorialSteps.size() - 1 && !mFinished) {
-//            mFinished = true
-//        } else if (mFinished) {
-//            mOnFinishTutorialListener?.onTutorialFinished(mDontShowAgain)
-//        }
     }
 
     interface OnNextStepIsChangingListener {

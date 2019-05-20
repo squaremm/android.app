@@ -45,22 +45,19 @@ class TutorialService : Service() {
 
     private fun setupService() {
 
-        //TODO: ask for android.permission.SYSTEM_ALERT_WINDOW permission on api 23 and higher IN ACTIVITY
-
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager?
 
-        if ( android.os.Build.VERSION.SDK_INT < 26) {
-            // Do something for 14 and above versions
+        if (android.os.Build.VERSION.SDK_INT < 26) {
             mWindowLayoutParams = WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.TYPE_TOAST,
-                    WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                    WindowManager.LayoutParams.TYPE_TOAST,                                               //was FLAG_LAYOUT_IN_SCREEN
+                    WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                     PixelFormat.TRANSLUCENT)
             mWindowLayoutParams!!.gravity = Gravity.CENTER or Gravity.TOP
 
         } else {
             mWindowLayoutParams = WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,                                //was FLAG_LAYOUT_IN_SCREEN
+                    WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                     PixelFormat.TRANSLUCENT)
             mWindowLayoutParams!!.gravity = Gravity.CENTER or Gravity.TOP
         }
@@ -70,7 +67,7 @@ class TutorialService : Service() {
             override fun onTouch(v: View, event: MotionEvent): Boolean {
                 if (event.action == MotionEvent.ACTION_UP) {
                     mTutorialView!!.onTouchEvent(event)
-                    return true
+                   // return true
                 }
                 return false
             }
@@ -83,11 +80,9 @@ class TutorialService : Service() {
 
     override fun onStartCommand(intent: Intent?, flag: Int, startId: Int): Int {
 
-        //TODO: ask for android.permission.SYSTEM_ALERT_WINDOW permission on api 23 and higher IN ACTIVITY
-
         if (intent != null && intent.hasExtra(TUTORIAL_APP_EXTRA_KEY)) {
             @TutorialKey val tutorialKey = determineTutorialKey(intent)
-            if (tutorialKey != -1 && !localDataManager!!.getTutorialDontShowAgain(tutorialKey)) {
+            if (tutorialKey != -1) {
                 val t = mTutorialsSparseArray.get(tutorialKey)
                 if (t != null) {
                     mWindowManager!!.addView(mTutorialView, mWindowLayoutParams)
@@ -96,39 +91,47 @@ class TutorialService : Service() {
             }
         }
         return START_STICKY
+
+//TODO: uncomment this and swap with code above when testing done
+//        if (intent != null && intent.hasExtra(TUTORIAL_APP_EXTRA_KEY)) {
+//            @TutorialKey val tutorialKey = determineTutorialKey(intent)
+//            if (tutorialKey != -1 && !localDataManager!!.getTutorialDontShowAgain(tutorialKey)) {
+//                val t = mTutorialsSparseArray.get(tutorialKey)
+//                if (t != null) {
+//                    mWindowManager!!.addView(mTutorialView, mWindowLayoutParams)
+//                    t!!.show()
+//                }
+//            }
+//        }
+//        return START_STICKY
     }
 
     private fun determineTutorialKey(intent: Intent): Int {
         val t = intent.getStringExtra(TUTORIAL_APP_EXTRA_KEY)
         if (t == TUTORIAL_1_PLACE) {
             return TutorialKey.PLACE
-//        } else if (t == SoloshotApp.TRACK.name()) {
-//            return TutorialKey.TRACK
-//        } else if (t == SoloshotApp.TAGS.name()) {
-//            return TutorialKey.TAG_MANAGEMENT
         }
         return -1
     }
 
     private fun buildTutorials() {
         mTutorialsSparseArray.put(TutorialKey.PLACE, buildPlaceTutorial())
-
-        // mTutorialsSparseArray.put(TutorialKey.MTL, buildMtlTutorial())
+        // mTutorialsSparseArray.put(TutorialKey.BOOKINGS, buildBookingsTutorial())
     }
 
     private fun buildPlaceTutorial(): Tutorial {
         return Tutorial.Builder(mTutorialView!!, TutorialKey.PLACE)
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
-                        floatArrayOf(0.5f, 0.25f),
-                        "Step text",
-                        TutorialStep.ArrowPos.TOP,
-                        R.drawable.arrow_top_left,
-                        0.5f,
-                        // x1, x2, y1, y2 of transparent window and click listener bounds
-                        floatArrayOf(0f,0f,0f,0f),
+                        floatArrayOf(0.60f, 0.565f),
+                        getString(R.string.tut_1_1),
+                        TutorialStep.ArrowPos.BOTTOM,
+                        R.drawable.arrow_bottom_left_x_top_right,
+                        0.3f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        floatArrayOf(0f,0f,0.76f,88f),
                         // delay before showing view in ms
-                        5000f))
+                        0f))
 
                 .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
                     override fun onNextStepIsChanging(targetStepNumber: Int) {

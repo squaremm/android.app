@@ -77,6 +77,10 @@
             </intent-filter>
         </service>
 
+        <service android:name=".ui.base.tutorial.TutorialService"
+            android:enabled="true"
+            />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="56a4e72e32090ced1d143edc3295897b2172276b" />

@@ -1,6 +1,5 @@
 package com.square.android.ui.activity.placeDetail
 
-
 import android.location.Location
 import android.os.Bundle
 import android.view.View
@@ -15,15 +14,15 @@ import com.square.android.presentation.presenter.placeDetail.PlaceDetailPresente
 import com.square.android.presentation.view.placeDetail.PlaceDetailView
 import com.square.android.ui.activity.LocationActivity
 import com.square.android.ui.base.SimpleNavigator
+import com.square.android.ui.base.tutorial.TutorialService
 import kotlinx.android.synthetic.main.activity_place_detail.*
 import ru.terrakok.cicerone.Navigator
 
 const val PLACE_EXTRA_ID = "EXTRA_ID"
 
-class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
+class PlaceDetailActivity : LocationActivity(TutorialService.TUTORIAL_1_PLACE), PlaceDetailView {
     @InjectPresenter
     lateinit var presenter: PlaceDetailPresenter
-
 
     var place: Place? = null
 
