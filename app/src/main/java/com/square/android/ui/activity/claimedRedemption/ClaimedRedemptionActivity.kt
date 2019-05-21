@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
@@ -13,6 +14,7 @@ import com.square.android.androidx.navigator.AppNavigator
 import com.square.android.presentation.presenter.claimedRedemption.ClaimedRedemptionPresenter
 import com.square.android.presentation.view.claimedRedemption.ClaimedRedemptionView
 import com.square.android.ui.activity.BaseActivity
+import com.square.android.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.activity_claimed_redemption.*
 import ru.terrakok.cicerone.Navigator
 
@@ -47,6 +49,18 @@ class ClaimedRedemptionActivity : BaseActivity(), ClaimedRedemptionView {
         claimedRedemptionPager.adapter = adapter
 
         claimedRedemptionTab.setupWithViewPager(claimedRedemptionPager)
+
+        //(claimedRedemptionPager.adapter?.instantiateItem(claimedRedemptionPager, 0) as BaseFragment).visibleNow()
+
+        claimedRedemptionPager.addOnPageChangeListener( object: ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) { }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
+            override fun onPageSelected(position: Int) {
+                (claimedRedemptionPager.adapter?.instantiateItem(claimedRedemptionPager, position) as BaseFragment).visibleNow()
+            }
+
+        })
     }
 
     private class ClaimedRedemptionNavigator(activity: FragmentActivity) : AppNavigator(activity, 0) {

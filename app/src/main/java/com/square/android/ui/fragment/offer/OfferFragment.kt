@@ -10,9 +10,16 @@ import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.Place
 import com.square.android.presentation.presenter.offer.OfferPresenter
 import com.square.android.presentation.view.offer.OfferView
+import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
+import com.square.android.ui.base.tutorial.Tutorial
+import com.square.android.ui.base.tutorial.TutorialService
+import com.square.android.ui.base.tutorial.TutorialStep
+import com.square.android.ui.base.tutorial.TutorialView
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_offer.*
+import java.lang.Exception
+import java.util.*
 
 class OfferFragment(private val place: Place?) : BaseFragment(), OfferView, OfferAdapter.Handler {
 
@@ -59,4 +66,79 @@ class OfferFragment(private val place: Place?) : BaseFragment(), OfferView, Offe
             dialog!!.show(offer, place)
         }
     }
+
+    //TODO: paste and rewrite this on every Activity/Fragment that implements tutorial
+    override val tutorialName: String?
+        get() = TutorialService.TUTORIAL_1_PLACE
+
+    override val PERMISSION_REQUEST_CODE: Int?
+        get() = 1338
+
+    override val tutorial: Tutorial?
+        get() =  Tutorial.Builder()
+                .addNextStep(TutorialStep(
+                        // width percentage, height percentage for text with arrow
+                        floatArrayOf(0.60f, 0.565f),
+                        getString(R.string.tut_1_1),
+                        TutorialStep.ArrowPos.BOTTOM,
+                        R.drawable.arrow_bottom_left_x_top_right,
+                        0.3f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        // 0f,0f,0f,0f for covering entire screen
+                        floatArrayOf(0f,0f,0.76f,88f),
+                        1,
+                        // delay before showing view in ms
+                        0f))
+                .addNextStep(TutorialStep(
+                        // width percentage, height percentage for text with arrow
+                        floatArrayOf(0.65f, 0.92f),
+                        getString(R.string.tut_1_2),
+                        TutorialStep.ArrowPos.TOP,
+                        R.drawable.arrow_bottom_left_x_top_right,
+                        0.8f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        // 0f,0f,0f,0f for covering entire screen
+                        floatArrayOf(0f,0f,0.667f,230f),
+                        1,
+                        // delay before showing view in ms
+                        500f))
+                .addNextStep(TutorialStep(
+                        // width percentage, height percentage for text with arrow
+                        floatArrayOf(0.65f, 0.92f),
+                        getString(R.string.tut_1_2),
+                        TutorialStep.ArrowPos.TOP,
+                        R.drawable.arrow_bottom_left_x_top_right,
+                        0.8f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        // 0f,0f,0f,0f for covering entire screen
+                        floatArrayOf(0f,0f,0f,0f),
+                        0,
+                        // delay before showing view in ms
+                        500f,
+                        250))
+
+                .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
+                    override fun onNextStepIsChanging(targetStepNumber: Int) {
+
+                        if(targetStepNumber == 3){
+                            presenter.itemClicked(0, place)
+                        }
+                    }
+                })
+                .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
+                    override fun continueTutorial(endDelay: Long) {
+                        dialog?.close()
+
+                        Timer().schedule(object : TimerTask() {
+                            override fun run() {
+                                try{
+                                    (activity as PlaceDetailActivity).pagerMoveToAnotherPage(1)
+                                } catch (exception: Exception){
+                                }
+                            }
+                        }, endDelay+50)
+                    }
+                })
+                .build()
+    //TODO /////////////////////////////////////////////////////////////////
 }

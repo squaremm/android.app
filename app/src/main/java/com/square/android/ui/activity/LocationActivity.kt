@@ -12,7 +12,7 @@ import java.lang.Exception
 private const val DEFAULT_INTERVAL_IN_MILLISECONDS = 1_000L
 private const val DEFAULT_MAX_WAIT_TIME = 30_000L
 
-abstract class LocationActivity(var tutName: String) : BaseActivity(tutName),
+abstract class LocationActivity: BaseActivity(),
         LocationEngineCallback<LocationEngineResult>, PermissionsListener {
     private var permissionsManager: PermissionsManager? = null
     private var locationEngine: LocationEngine? = null

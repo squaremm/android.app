@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
+import java.lang.Exception
 
 class OffersLoadedEvent(val data: List<OfferInfo>)
 
@@ -40,12 +41,19 @@ class OfferPresenter : BasePresenter<OfferView>() {
     }
 
     fun itemClicked(position: Int, place: Place?) {
-        currentPosition = position
-        viewState.setSelectedItem(position)
+        try{
+            currentPosition = position
+            viewState.setSelectedItem(position)
 
-        val offer = data!![currentPosition]
+            val offer = data!![currentPosition]
 
-        viewState.showOfferDialog(offer, place)
+            viewState.showOfferDialog(offer, place)
+
+        } catch (e: Exception){
+
+
+        }
+
     }
 
 }

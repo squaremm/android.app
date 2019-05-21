@@ -51,6 +51,9 @@ class TutorialView : ConstraintLayout {
     private var mOnNextStepIsChangingListener: OnNextStepIsChangingListener? = null
     private var mOnFinishTutorialListener: OnFinishTutorialListener? = null
 
+    private var mOnContinueListener : OnContinueTutorialListener? = null
+
+
     fun setOnFinishTutorialListener(listener: OnFinishTutorialListener?) {
         this.mOnFinishTutorialListener = listener
     }
@@ -59,11 +62,19 @@ class TutorialView : ConstraintLayout {
         this.mOnNextStepIsChangingListener = listener
     }
 
+    fun setonContinueTutorialListener(listener: OnContinueTutorialListener?) {
+        this.mOnContinueListener = listener
+    }
+
     fun setTutorialSteps(tutorialSteps: ArrayList<TutorialStep>) {
         this.mTutorialSteps = tutorialSteps
     }
 
     fun initialStep(){
+        showView = false
+        mCurrentTutorialStepNumber = -1
+        mFinished = false
+
         mCurrentTutorialStepNumber++
 
         mCurrentTutorialStep = mTutorialSteps?.get(mCurrentTutorialStepNumber)
@@ -144,7 +155,7 @@ class TutorialView : ConstraintLayout {
                     && mCurrentTutorialStep!!.transparentViewPixelPos!![2] == 0f && mCurrentTutorialStep!!.transparentViewPixelPos!![3] == 0f){
                 x1 = 0f
                 x2 = width.toFloat()
-                y2 = 0f
+                y1 = 0f
                 y2 = height.toFloat()
             } else{
                 x1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![0], context.resources.displayMetrics)
@@ -284,7 +295,14 @@ class TutorialView : ConstraintLayout {
     private fun stepChangeFinalPhase() {
         if (mCurrentTutorialStepNumber >= mTutorialSteps!!.size) {
             mFinished = true
-            mOnFinishTutorialListener?.onTutorialFinished(true)
+
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    mOnFinishTutorialListener?.onTutorialFinished(true)
+                }
+            }, mCurrentTutorialStep!!.endDelay)
+
+            mOnContinueListener?.continueTutorial(mCurrentTutorialStep!!.endDelay)
         }
     }
 
@@ -294,6 +312,10 @@ class TutorialView : ConstraintLayout {
 
     interface OnFinishTutorialListener {
         fun onTutorialFinished(dontShowAgain: Boolean)
+    }
+
+    interface OnContinueTutorialListener {
+        fun continueTutorial(endDelay: Long)
     }
 
     override fun performClick(): Boolean {

@@ -14,6 +14,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
 
+class TutorialInvokeEvent(val data: String?)
+
 class BadgeStateChangedEvent()
 
 @InjectViewState
@@ -26,8 +28,10 @@ class MainPresenter : BasePresenter<MainView>() {
         if (currentScreenKey != screenKey) {
             router.navigateTo(screenKey)
 
+            bus.post(TutorialInvokeEvent(screenKey))
         }
         currentScreenKey = screenKey
+
     }
 
     init {

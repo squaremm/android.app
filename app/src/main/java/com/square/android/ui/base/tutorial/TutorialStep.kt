@@ -29,6 +29,8 @@ class TutorialStep : Parcelable {
 
     var arrowHorizontalPercentagePos: Float = 0.5f
 
+    var endDelay : Long = 0
+
     // x1, x2, y1, y2
     var transparentViewPixelPos: FloatArray? = null
 
@@ -41,7 +43,8 @@ class TutorialStep : Parcelable {
                 arrowHorizontalPercentagePos: Float,
                 transparentViewPixelPos: FloatArray,
                 shouldShowUi: Int = 1,
-                waitValue: Float = 0f) {
+                waitValue: Float = 0f,
+                endDelay: Long = 0) {
 
         this.infoWindowPercentagePos = infoWindowPercentagePos
         this.stepText = stepText
@@ -51,6 +54,7 @@ class TutorialStep : Parcelable {
         this.transparentViewPixelPos = transparentViewPixelPos
         this.shouldShowUi = shouldShowUi
         this.waitValue = waitValue
+        this.endDelay = endDelay
     }
 
     constructor(parcel: Parcel) {
@@ -62,6 +66,7 @@ class TutorialStep : Parcelable {
         transparentViewPixelPos = parcel.createFloatArray()
         shouldShowUi = parcel.readInt()
         waitValue = parcel.readFloat()
+        endDelay = parcel.readLong()
     }
 
     override fun describeContents(): Int {
@@ -77,6 +82,7 @@ class TutorialStep : Parcelable {
         dest.writeFloatArray(transparentViewPixelPos)
         dest.writeInt(shouldShowUi)
         dest.writeFloat(waitValue)
+        dest.writeLong(endDelay)
     }
 
     companion object CREATOR : Parcelable.Creator<TutorialStep> {

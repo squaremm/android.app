@@ -10,6 +10,11 @@ import com.square.android.data.pojo.Day
 import com.square.android.data.pojo.Place
 import com.square.android.presentation.presenter.booking.BookingPresenter
 import com.square.android.presentation.view.booking.BookingView
+import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
+import com.square.android.ui.base.tutorial.Tutorial
+import com.square.android.ui.base.tutorial.TutorialService
+import com.square.android.ui.base.tutorial.TutorialStep
+import com.square.android.ui.base.tutorial.TutorialView
 import com.square.android.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_booking.*
 import kotlinx.android.synthetic.main.item_interval.view.*
@@ -147,4 +152,51 @@ class BookingFragment : BaseFragment(), BookingView {
         view.bookingInterval.isEnabled = isActive
         view.bookingSpots.isEnabled = isActive
     }
+
+    override val tutorialName: String?
+        get() = TutorialService.TUTORIAL_2_BOOKING
+
+    override val PERMISSION_REQUEST_CODE: Int?
+        get() = 1339
+
+    override val tutorial: Tutorial?
+        get() =  Tutorial.Builder()
+                .addNextStep(TutorialStep(
+                        // width percentage, height percentage for text with arrow
+                        floatArrayOf(0.40f, 0.88f),
+                        getString(R.string.tut_2_1),
+                        TutorialStep.ArrowPos.TOP,
+                        R.drawable.arrow_bottom_right_x_top_left,
+                        0.15f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        // 0f,0f,0f,0f for covering entire screen
+                        floatArrayOf(0f,0f,0.585f,230f),
+                        1,
+                        // delay before showing view in ms
+                        500f))
+                .addNextStep(TutorialStep(
+                        // width percentage, height percentage for text with arrow
+                        floatArrayOf(0.65f, 0.65f),
+                        getString(R.string.tut_2_2),
+                        TutorialStep.ArrowPos.BOTTOM,
+                        R.drawable.arrow_bottom_left_x_top_right,
+                        0.4f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        // 0f,0f,0f,0f for covering entire screen
+                        floatArrayOf(0f,0f,0.845f,136f),
+                        1,
+                        // delay before showing view in ms
+                        500f))
+
+                .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
+                    override fun onNextStepIsChanging(targetStepNumber: Int) {
+
+                    }
+                })
+                .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
+                    override fun continueTutorial(endDelay: Long) {
+
+                    }
+                })
+                .build()
 }

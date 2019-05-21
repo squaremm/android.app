@@ -14,12 +14,16 @@ import androidx.core.content.ContextCompat
 import com.square.android.data.pojo.Place
 
 class OfferDialog(private val context: Context) {
+
+    lateinit var dialog: MaterialDialog
+
+
     @SuppressLint("InflateParams")
     fun show(offer: OfferInfo, place: Place?) {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.offer_dialog, null, false)
 
-        val dialog = MaterialDialog.Builder(context)
+        dialog = MaterialDialog.Builder(context)
                 .customView(view, false)
                 .cancelable(true)
                 .build()
@@ -36,4 +40,9 @@ class OfferDialog(private val context: Context) {
 
         dialog.show()
     }
+
+    fun close(){
+        dialog.cancel()
+    }
+
 }

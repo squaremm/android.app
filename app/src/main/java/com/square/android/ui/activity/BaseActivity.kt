@@ -18,20 +18,28 @@ import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import android.os.Build
 import android.provider.Settings
+import com.square.android.data.local.LocalDataManager
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialLoadedEvent
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
-abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), BaseView {
+abstract class BaseActivity : MvpActivity(), BaseView {
     private val navigatorHolder: NavigatorHolder by inject()
 
     private var navigator: Navigator? = null
 
-    private val PERMISSION_REQUEST_CODE = 1338
+    private var waitAttempts: Int = 0
 
-    protected open val tutorial: Tutorial? = null
+    open val tutorial: Tutorial? = null
 
-    val eventBus: EventBus by inject()
+    open val PERMISSION_REQUEST_CODE: Int? = null
+
+    protected open val tutorialName: String? = null
+
+    private var localDataManager: LocalDataManager? = null
+
+    private val eventBus: EventBus by inject()
 
     override fun showMessage(message: String) {
         contentView?.let {
@@ -40,14 +48,11 @@ abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), Base
         }
     }
 
-    fun checkDrawOverlayPermission() {
+    private fun checkDrawOverlayPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
 
-                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:$packageName"))
-
-                startActivityForResult(intent, PERMISSION_REQUEST_CODE)
+                startPermissionForResult()
             } else {
                 startTutorialService()
             }
@@ -55,6 +60,11 @@ abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), Base
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        for (fragment in supportFragmentManager.fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data)
+        }
+
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (Settings.canDrawOverlays(this)) {
@@ -62,7 +72,19 @@ abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), Base
                 }
             }
         }
+
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun startPermissionForResult(requestCode: Int = -1){
+        val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:$packageName"))
+
+        if(requestCode == -1){
+            PERMISSION_REQUEST_CODE?.let { startActivityForResult(intent, it)}
+        } else{
+            startActivityForResult(intent, requestCode)
+        }
     }
 
     private fun startTutorialService(){
@@ -70,12 +92,22 @@ abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), Base
         intent.putExtra(TutorialService.TUTORIAL_APP_EXTRA_KEY, tutorialName)
         startService(intent)
 
-        eventBus.post(tutorial)
+        waitAttempts = 0
+        waitForSubscriber()
+    }
 
-        if(eventBus.hasSubscriberForEvent(TutorialLoadedEvent::class.java)){
-            println("EEEE has subscriber")
+    private fun waitForSubscriber(){
+        if (eventBus.hasSubscriberForEvent(TutorialLoadedEvent::class.java)){
+            eventBus.post(TutorialLoadedEvent(tutorial))
         } else{
-            println("EEEE has no subscriber")
+            if(waitAttempts < 10){
+                waitAttempts++
+                Timer().schedule(object : TimerTask() {
+                    override fun run() {
+                        waitForSubscriber()
+                    }
+                }, 50)
+            }
         }
     }
 
@@ -88,12 +120,18 @@ abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), Base
 
         navigator = provideNavigator()
 
-        if(!TextUtils.isEmpty(tutorialName) && tutorial != null){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                checkDrawOverlayPermission()
-            } else{
-                startTutorialService()
-            }
+        localDataManager = LocalDataManager(this)
+
+        if(!TextUtils.isEmpty(tutorialName)){
+
+            //TODO uncomment later
+//            if(!localDataManager!!.getTutorialDontShowAgain(tutorialName!!)){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    checkDrawOverlayPermission()
+                } else{
+                    startTutorialService()
+                }
+            //TODO uncomment later            }
         }
     }
 

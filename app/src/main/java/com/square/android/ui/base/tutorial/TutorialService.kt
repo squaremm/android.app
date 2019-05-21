@@ -3,7 +3,10 @@ package com.square.android.ui.base.tutorial
 import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
+import android.text.TextUtils
 import android.view.*
 import androidx.annotation.IntDef
 import android.view.WindowManager
@@ -21,8 +24,6 @@ class TutorialService : Service() {
     private val eventBus: EventBus by inject()
 
     override fun onDestroy() {
-        println("EEEE unregister ")
-
         eventBus.unregister(this)
         super.onDestroy()
     }
@@ -30,14 +31,6 @@ class TutorialService : Service() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onTutorialLoadedEvent(event: TutorialLoadedEvent) {
         tutorial = event.data
-
-        println("EEEE tutorial: "+ tutorial)
-    }
-
-    init {
-        println("EEEE register ")
-
-        eventBus.register(this)
     }
 
     @IntDef(TutorialKey.PLACE, TutorialKey.BOOKINGS)
@@ -64,11 +57,12 @@ class TutorialService : Service() {
     override fun onCreate() {
         super.onCreate()
 
+        eventBus.register(this)
+
         setupService()
     }
 
     private fun setupService() {
-
         mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager?
 
         if (android.os.Build.VERSION.SDK_INT < 26) {
@@ -93,7 +87,6 @@ class TutorialService : Service() {
                     mTutorialView!!.onTouchEvent(event)
 
                     return true
-                   // return true
                 }
                 return false
             }
@@ -103,66 +96,65 @@ class TutorialService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flag: Int, startId: Int): Int {
+        if(intent != null && intent.hasExtra(TUTORIAL_APP_EXTRA_KEY)) {
+            val tutorialKey = getTutorialKey(intent)
 
-        if (intent != null && intent.hasExtra(TUTORIAL_APP_EXTRA_KEY)) {
-            @TutorialKey val tutorialKey = determineTutorialKey(intent)
-
-            //TODO swap with code below when testing done
-//            if (tutorialKey != -1 && !localDataManager!!.getTutorialDontShowAgain(tutorialKey)) {
-            if (tutorialKey != -1) {
+            if (!TextUtils.isEmpty(tutorialKey)) {
                 if(tutorial == null){
-
-                    println("EEEE tutorial null ")
 
                     Timer().schedule(object : TimerTask() {
                         override fun run() {
-                            startTutorial(tutorialKey)
+                            onStartCommand(intent,flag,startId)
                         }
-                    }, 200)
+                    }, 50)
 
                 } else{
-                    println("EEEE tutorial not null ")
                     startTutorial(tutorialKey)
                 }
             }
         }
+
         return START_STICKY
     }
 
-    private fun startTutorial(tutorialKey: Int){
+    private fun startTutorial(tutorialKey: String){
         tutorial?.onFinishTutorialListener = (object : TutorialView.OnFinishTutorialListener {
             override fun onTutorialFinished(dontShowAgain: Boolean) {
-                commonTutorialFinished(TutorialKey.PLACE, dontShowAgain)
+                commonTutorialFinished(tutorialKey, dontShowAgain)
             }
         })
         tutorial?.mTutorialView = mTutorialView
         tutorial?.mTutorialKey = tutorialKey
 
         if (tutorial != null) {
-            mWindowManager!!.addView(mTutorialView, mWindowLayoutParams)
-            tutorial?.show()
+            Handler(Looper.getMainLooper()).post(Runnable {
+                mWindowManager!!.addView(mTutorialView, mWindowLayoutParams)
+                tutorial?.show()
+            })
         }
     }
 
-    private fun determineTutorialKey(intent: Intent): Int {
-        val t = intent.getStringExtra(TUTORIAL_APP_EXTRA_KEY)
-        if (t == TUTORIAL_1_PLACE) {
-            return TutorialKey.PLACE
-        }
-        return -1
+    private fun getTutorialKey(intent: Intent): String {
+        return intent.getStringExtra(TUTORIAL_APP_EXTRA_KEY)
     }
 
-    fun commonTutorialFinished(@TutorialKey tutorialKey: Int, dontShowAgain: Boolean) {
-        mWindowManager!!.removeViewImmediate(mTutorialView)
-        localDataManager!!.setTutorialDontShowAgain(tutorialKey, dontShowAgain)
+    fun commonTutorialFinished(tutorialKey: String, dontShowAgain: Boolean) {
+
+        //TODO: is this handler necessary?
+        Handler(Looper.getMainLooper()).post(Runnable {
+            mWindowManager!!.removeViewImmediate(mTutorialView)
+            localDataManager!!.setTutorialDontShowAgain(tutorialKey, dontShowAgain)
+        })
 
         tutorial = null
     }
 
     companion object {
         val TUTORIAL_APP_EXTRA_KEY = "square_tutorial_app_key"
-        val TUTORIAL_KEY = "square_tutorial_key"
 
         val TUTORIAL_1_PLACE = "tutorial_1_place"
+        val TUTORIAL_2_BOOKING = "tutorial_2_booking"
+        val TUTORIAL_3_REDEMPTIONS = "tutorial_3_redemptions"
+        val TUTORIAL_4_SELECT_OFFER = "tutorial_4_select_offer"
     }
 }

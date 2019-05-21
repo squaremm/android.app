@@ -121,11 +121,11 @@ class LocalDataManager(context: Context) {
                 .apply()
     }
 
-    fun getTutorialDontShowAgain(tutorialKey: Int): Boolean {
+    fun getTutorialDontShowAgain(tutorialKey: String): Boolean {
         return preferences.getBoolean(KEY_TUTORIAL+tutorialKey, false)
     }
 
-    fun setTutorialDontShowAgain(tutorialKey: Int, dontShowAgain: Boolean){
+    fun setTutorialDontShowAgain(tutorialKey: String, dontShowAgain: Boolean){
         preferences.edit()
                 .putBoolean(KEY_TUTORIAL+tutorialKey, dontShowAgain)
                 .apply()

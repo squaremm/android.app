@@ -75,6 +75,7 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
 
 
     fun claimClicked(position: Int) {
+
         val item = data!![position] as? RedemptionInfo ?: return
 
         if (item.claimed) {
