@@ -51,11 +51,11 @@ class TutorialView : ConstraintLayout {
     private var mOnNextStepIsChangingListener: OnNextStepIsChangingListener? = null
     private var mOnFinishTutorialListener: OnFinishTutorialListener? = null
 
-    fun setOnFinishTutorialListener(listener: OnFinishTutorialListener) {
+    fun setOnFinishTutorialListener(listener: OnFinishTutorialListener?) {
         this.mOnFinishTutorialListener = listener
     }
 
-    fun setOnStepIsChangingListener(listener: OnNextStepIsChangingListener) {
+    fun setOnStepIsChangingListener(listener: OnNextStepIsChangingListener?) {
         this.mOnNextStepIsChangingListener = listener
     }
 
@@ -139,13 +139,25 @@ class TutorialView : ConstraintLayout {
             }
             tutorialArrow.x = (tutorialMessage.x +(mCurrentTutorialStep!!.arrowHorizontalPercentagePos * tutorialMessage.measuredWidth)) - tutorialArrow.measuredWidth/2
 
-            x1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![0], context.resources.displayMetrics)
-            x2 = width - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![1], context.resources.displayMetrics)
-            y1 = (height * mCurrentTutorialStep!!.transparentViewPixelPos!![2]) - ((TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![3], context.resources.displayMetrics)) /2)
-            y2 = (height * mCurrentTutorialStep!!.transparentViewPixelPos!![2]) + ((TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![3], context.resources.displayMetrics)) /2)
+
+            if(mCurrentTutorialStep!!.transparentViewPixelPos!![0] == 0f && mCurrentTutorialStep!!.transparentViewPixelPos!![1] == 0f
+                    && mCurrentTutorialStep!!.transparentViewPixelPos!![2] == 0f && mCurrentTutorialStep!!.transparentViewPixelPos!![3] == 0f){
+                x1 = 0f
+                x2 = width.toFloat()
+                y2 = 0f
+                y2 = height.toFloat()
+            } else{
+                x1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![0], context.resources.displayMetrics)
+                x2 = width - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![1], context.resources.displayMetrics)
+                y1 = (height * mCurrentTutorialStep!!.transparentViewPixelPos!![2]) - ((TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![3], context.resources.displayMetrics)) /2)
+                y2 = (height * mCurrentTutorialStep!!.transparentViewPixelPos!![2]) + ((TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mCurrentTutorialStep!!.transparentViewPixelPos!![3], context.resources.displayMetrics)) /2)
+            }
 
             showView = true
-            hideContent(false)
+
+            if( mCurrentTutorialStep!!.shouldShowUi == 1){
+                hideContent(false)
+            }
 
             postInvalidate()
         })

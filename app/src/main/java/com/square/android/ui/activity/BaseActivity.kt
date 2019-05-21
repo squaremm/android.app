@@ -18,6 +18,9 @@ import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import android.os.Build
 import android.provider.Settings
+import com.square.android.ui.base.tutorial.Tutorial
+import com.square.android.ui.base.tutorial.TutorialLoadedEvent
+import org.greenrobot.eventbus.EventBus
 
 abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), BaseView {
     private val navigatorHolder: NavigatorHolder by inject()
@@ -25,6 +28,10 @@ abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), Base
     private var navigator: Navigator? = null
 
     private val PERMISSION_REQUEST_CODE = 1338
+
+    protected open val tutorial: Tutorial? = null
+
+    val eventBus: EventBus by inject()
 
     override fun showMessage(message: String) {
         contentView?.let {
@@ -61,8 +68,15 @@ abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), Base
     private fun startTutorialService(){
         val intent = Intent(Intent(this,TutorialService::class.java))
         intent.putExtra(TutorialService.TUTORIAL_APP_EXTRA_KEY, tutorialName)
-
         startService(intent)
+
+        eventBus.post(tutorial)
+
+        if(eventBus.hasSubscriberForEvent(TutorialLoadedEvent::class.java)){
+            println("EEEE has subscriber")
+        } else{
+            println("EEEE has no subscriber")
+        }
     }
 
     override fun showMessage(messageRes: Int) {
@@ -74,7 +88,7 @@ abstract class BaseActivity(var tutorialName: String = "") : MvpActivity(), Base
 
         navigator = provideNavigator()
 
-        if(!TextUtils.isEmpty(tutorialName)){
+        if(!TextUtils.isEmpty(tutorialName) && tutorial != null){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 checkDrawOverlayPermission()
             } else{

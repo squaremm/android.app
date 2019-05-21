@@ -20,6 +20,9 @@ class TutorialStep : Parcelable {
 
     var waitValue: Float = 0f
 
+    // 1 - true, 0 false
+    var shouldShowUi: Int = 1
+
     @DrawableRes var arrowDrawable: Int = 0
 
     var infoWindowPercentagePos: FloatArray? = null
@@ -37,6 +40,7 @@ class TutorialStep : Parcelable {
                 @DrawableRes arrowDrawable: Int,
                 arrowHorizontalPercentagePos: Float,
                 transparentViewPixelPos: FloatArray,
+                shouldShowUi: Int = 1,
                 waitValue: Float = 0f) {
 
         this.infoWindowPercentagePos = infoWindowPercentagePos
@@ -45,6 +49,7 @@ class TutorialStep : Parcelable {
         this.arrowDrawable = arrowDrawable
         this.arrowHorizontalPercentagePos = arrowHorizontalPercentagePos
         this.transparentViewPixelPos = transparentViewPixelPos
+        this.shouldShowUi = shouldShowUi
         this.waitValue = waitValue
     }
 
@@ -55,6 +60,7 @@ class TutorialStep : Parcelable {
         arrowDrawable = parcel.readInt()
         arrowHorizontalPercentagePos = parcel.readFloat()
         transparentViewPixelPos = parcel.createFloatArray()
+        shouldShowUi = parcel.readInt()
         waitValue = parcel.readFloat()
     }
 
@@ -69,6 +75,7 @@ class TutorialStep : Parcelable {
         dest.writeInt(arrowDrawable)
         dest.writeFloat(arrowHorizontalPercentagePos)
         dest.writeFloatArray(transparentViewPixelPos)
+        dest.writeInt(shouldShowUi)
         dest.writeFloat(waitValue)
     }
 
