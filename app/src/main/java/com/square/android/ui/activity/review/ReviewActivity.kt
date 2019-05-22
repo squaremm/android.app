@@ -42,7 +42,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
     private var adapter: ReviewAdapter? = null
 
 
-    private lateinit var claimedDialog: ClaimedCouponDialog
+    private var claimedDialog: ClaimedCouponDialog? = null
 
     @InjectPresenter
     lateinit var presenter: ReviewPresenter
@@ -105,7 +105,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         reviewList.adapter = adapter
 
         claimedDialog = ClaimedCouponDialog(this)
-        claimedDialog.show(data, place, user)
+        claimedDialog?.show(data, place, user)
     }
 
     override fun showProgress() {
@@ -358,7 +358,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                         floatArrayOf(0f,0f,0f,0f),
                         0,
                         // delay before showing view in ms
-                        0f))
+                        500f))
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
                         floatArrayOf(0.50f, 0.78f),
@@ -376,7 +376,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                 .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
                     override fun onNextStepIsChanging(targetStepNumber: Int) {
                         if(targetStepNumber == 2){
-                            claimedDialog.cancel()
+                            claimedDialog?.cancel()
                         }
                     }
                 })

@@ -144,7 +144,7 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
                         floatArrayOf(0f,0f,0.0f,0f),
                         0,
                         // delay before showing view in ms
-                        0f))
+                        500f))
 
                 .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
                     override fun onNextStepIsChanging(targetStepNumber: Int) {
