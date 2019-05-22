@@ -2,7 +2,7 @@ package com.square.android.ui.base.tutorial
 
 import java.util.*
 
-class Tutorial(
+class Tutorial private constructor(
         var tutorialView: TutorialView? = null,
         var tutorialKey: TutorialService.TutorialKey? = null,
         private var tutorialSteps: ArrayList<TutorialStep> = ArrayList(),
