@@ -6,10 +6,11 @@ import android.graphics.PixelFormat
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
-import android.view.*
+import android.view.Gravity
+import android.view.MotionEvent
+import android.view.View
 import android.view.WindowManager
 import com.square.android.data.Repository
-import com.square.android.data.local.LocalDataManager
 import com.square.android.utils.AppInBackgroundEvent
 import com.square.android.utils.AppInForegroundEvent
 import org.greenrobot.eventbus.EventBus
@@ -26,7 +27,11 @@ class TutorialService : Service() {
     private val repository: Repository by inject()
 
     enum class TutorialKey {
-        PLACE, BOOKING, REDEMPTIONS, SELECT_OFFER, REVIEW
+        PLACE,
+        BOOKING,
+        REDEMPTIONS,
+        SELECT_OFFER,
+        REVIEW
     }
 
     private var tutorial: Tutorial? = null
@@ -35,11 +40,7 @@ class TutorialService : Service() {
     private var mWindowManager: WindowManager? = null
     private var windowLayoutParams: WindowManager.LayoutParams? = null
 
-    private var localDataManager: LocalDataManager? = null
-
-    override fun onBind(intent: Intent): IBinder? {
-        return null
-    }
+    override fun onBind(intent: Intent): IBinder? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -98,8 +99,6 @@ class TutorialService : Service() {
                 return false
             }
         })
-
-        localDataManager = LocalDataManager(this)
     }
 
     override fun onStartCommand(intent: Intent?, flag: Int, startId: Int): Int {
@@ -145,7 +144,6 @@ class TutorialService : Service() {
         Handler(Looper.getMainLooper()).post {
             mWindowManager!!.removeViewImmediate(serviceTutorialView)
             repository.setTutorialDontShowAgain(tutorialKey, dontShowAgain)
-            localDataManager!!.setTutorialDontShowAgain(tutorialKey, dontShowAgain)
         }
 
         tutorial = null
