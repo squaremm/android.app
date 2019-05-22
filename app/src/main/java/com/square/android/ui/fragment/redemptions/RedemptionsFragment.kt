@@ -85,7 +85,7 @@ class RedemptionsFragment : LocationFragment(), RedemptionsView, RedemptionsAdap
         get() =  Tutorial.Builder()
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
-                        floatArrayOf(0.50f, 0.75f),
+                        floatArrayOf(0.50f, 0.78f),
                         getString(R.string.tut_3_1),
                         TutorialStep.ArrowPos.TOP,
                         R.drawable.arrow_bottom_right_x_top_left,

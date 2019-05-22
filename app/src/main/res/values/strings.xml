@@ -183,8 +183,9 @@
     <string name="tut_3_1">Welecome in\nMYBooking section.</string>
     <string name="tut_3_2">Click over\nyour booking.</string>
 
-
     <string name="tut_4_1">Select an offer available\nwithin the book timeframe.</string>
+
+    <string name="tut_5_1">Select which social media\nactions you would like to do.</string>
 
     <string name="review_instagram_post_body">
         <![CDATA[

@@ -17,6 +17,10 @@ import com.square.android.extensions.copyToClipboard
 import com.square.android.presentation.presenter.review.ReviewPresenter
 import com.square.android.presentation.view.review.ReviewView
 import com.square.android.ui.activity.BaseActivity
+import com.square.android.ui.base.tutorial.Tutorial
+import com.square.android.ui.base.tutorial.TutorialService
+import com.square.android.ui.base.tutorial.TutorialStep
+import com.square.android.ui.base.tutorial.TutorialView
 import com.square.android.ui.dialogs.ClaimedCouponDialog
 import kotlinx.android.synthetic.main.activity_review.*
 import ru.terrakok.cicerone.Navigator
@@ -37,6 +41,9 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
 
     private var adapter: ReviewAdapter? = null
 
+
+    private lateinit var claimedDialog: ClaimedCouponDialog
+
     @InjectPresenter
     lateinit var presenter: ReviewPresenter
 
@@ -47,6 +54,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_review)
 
         reviewBack.setOnClickListener { presenter.exit() }
@@ -96,7 +104,8 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
 
         reviewList.adapter = adapter
 
-        ClaimedCouponDialog(this).show(data, place, user)
+        claimedDialog = ClaimedCouponDialog(this)
+        claimedDialog.show(data, place, user)
     }
 
     override fun showProgress() {
@@ -328,4 +337,52 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                 throw IllegalArgumentException("No navigation from here")
 
     }
+
+    override val tutorialName: String?
+        get() = TutorialService.TUTORIAL_5_REVIEW
+
+    override val PERMISSION_REQUEST_CODE: Int?
+        get() = 1342
+
+    override val tutorial: Tutorial?
+        get() =  Tutorial.Builder()
+                .addNextStep(TutorialStep(
+                        // width percentage, height percentage for text with arrow
+                        floatArrayOf(0.35f, 0.50f),
+                        "",
+                        TutorialStep.ArrowPos.TOP,
+                        R.drawable.arrow_bottom_left_x_top_right,
+                        0.60f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        // 0f,0f,0f,0f for covering entire screen
+                        floatArrayOf(0f,0f,0f,0f),
+                        0,
+                        // delay before showing view in ms
+                        0f))
+                .addNextStep(TutorialStep(
+                        // width percentage, height percentage for text with arrow
+                        floatArrayOf(0.50f, 0.78f),
+                        getString(R.string.tut_5_1),
+                        TutorialStep.ArrowPos.TOP,
+                        R.drawable.arrow_bottom_right_x_top_left,
+                        0.35f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        // 0f,0f,0f,0f for covering entire screen
+                        floatArrayOf(0f,0f,0.30f,500f),
+                        1,
+                        // delay before showing view in ms
+                        500f))
+
+                .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
+                    override fun onNextStepIsChanging(targetStepNumber: Int) {
+                        if(targetStepNumber == 2){
+                            claimedDialog.cancel()
+                        }
+                    }
+                })
+                .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
+                    override fun continueTutorial(endDelay: Long) {
+                    }
+                })
+                .build()
 }

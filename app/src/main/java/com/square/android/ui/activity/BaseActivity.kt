@@ -131,7 +131,8 @@ abstract class BaseActivity : MvpActivity(), BaseView {
                 } else{
                     startTutorialService()
                 }
-            //TODO uncomment later            }
+//            }
+            //TODO uncomment later
         }
     }
 

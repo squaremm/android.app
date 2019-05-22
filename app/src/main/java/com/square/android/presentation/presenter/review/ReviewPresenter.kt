@@ -7,11 +7,9 @@ import com.square.android.data.pojo.Offer
 import com.square.android.data.pojo.ReviewInfo
 import com.square.android.data.pojo.ReviewNetType
 import com.square.android.domain.review.ReviewInteractor
-
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
 import com.square.android.presentation.presenter.redemptions.RedemptionsUpdatedEvent
-
 import com.square.android.presentation.view.review.ReviewView
 import org.greenrobot.eventbus.EventBus
 import org.koin.standalone.inject

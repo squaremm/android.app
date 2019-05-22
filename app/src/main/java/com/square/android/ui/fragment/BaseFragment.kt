@@ -103,17 +103,16 @@ abstract class BaseFragment : MvpFragment(), BaseView {
                     if(localDataManager != null){
 
                         //TODO uncomment later
-                        //    if(!localDataManager!!.getTutorialDontShowAgain(tutorialName!!)){
+//                            if(!localDataManager!!.getTutorialDontShowAgain(tutorialName!!)){
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             checkDrawOverlayPermission()
                         } else{
                             startTutorialService()
                         }
-                    } else{
-                        println("EEEE DATA MANAGER NULL")
                     }
-                    //TODO uncomment later   }
                 }
+                    //TODO uncomment later
+//                }
             }
         } catch (exception: Exception){ }
     }

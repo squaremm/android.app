@@ -156,5 +156,6 @@ class TutorialService : Service() {
         val TUTORIAL_2_BOOKING = "tutorial_2_booking"
         val TUTORIAL_3_REDEMPTIONS = "tutorial_3_redemptions"
         val TUTORIAL_4_SELECT_OFFER = "tutorial_4_select_offer"
+        val TUTORIAL_5_REVIEW= "tutorial_5_review"
     }
 }

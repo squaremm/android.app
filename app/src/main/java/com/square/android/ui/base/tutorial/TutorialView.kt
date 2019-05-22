@@ -302,6 +302,9 @@ class TutorialView : ConstraintLayout {
                 }
             }, mCurrentTutorialStep!!.endDelay)
 
+            // Use this method to navigate to another activity/fragment that implements Tutorial
+            // Wrap your action in Timer and add 50+ ms delay to endDelay
+            // See: android.ui.fragment.offer.OfferFragment Tutorial.Builder() -> override fun continueTutorial(endDelay: Long) {
             mOnContinueListener?.continueTutorial(mCurrentTutorialStep!!.endDelay)
         }
     }

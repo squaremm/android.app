@@ -36,6 +36,8 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
 
     private var dialog: SelectOfferDialog? = null
 
+    private var currentId: Long? = null
+
     @InjectPresenter
     lateinit var presenter: SelectOfferPresenter
 
@@ -55,6 +57,8 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
 
     override fun showOfferDialog(offer: OfferInfo, place: PlaceInfo) {
         dialog = SelectOfferDialog(this)
+
+        currentId = offer.id
 
         dialog!!.show(offer, place) {
             presenter.dialogSubmitClicked(offer.id)
@@ -128,14 +132,30 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
                         1,
                         // delay before showing view in ms
                         500f))
+                .addNextStep(TutorialStep(
+                        // width percentage, height percentage for text with arrow
+                        floatArrayOf(0.35f, 0.50f),
+                        "",
+                        TutorialStep.ArrowPos.TOP,
+                        R.drawable.arrow_bottom_left_x_top_right,
+                        0.60f,
+                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                        // 0f,0f,0f,0f for covering entire screen
+                        floatArrayOf(0f,0f,0.0f,0f),
+                        0,
+                        // delay before showing view in ms
+                        0f))
 
                 .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
                     override fun onNextStepIsChanging(targetStepNumber: Int) {
-
+                        if(targetStepNumber == 2){
+                            presenter.itemClicked(0)
+                        }
                     }
                 })
                 .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
                     override fun continueTutorial(endDelay: Long) {
+                        currentId?.let {presenter.dialogSubmitClicked(it)}
                     }
                 })
                 .build()

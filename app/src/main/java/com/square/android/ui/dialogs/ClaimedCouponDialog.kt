@@ -16,17 +16,21 @@ import com.square.android.extensions.loadImage
 import kotlinx.android.synthetic.main.coupon_body.view.*
 
 class ClaimedCouponDialog(val context: Context) {
+
+    var dialog: MaterialDialog? = null
+
+
     @SuppressLint("InflateParams")
     fun show(offer: Offer, place: Place, user: Profile.User) {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.fragment_claimed_coupon, null, false)
 
-        val dialog = MaterialDialog.Builder(context)
+        dialog = MaterialDialog.Builder(context)
                 .customView(view, false)
                 .cancelable(false)
                 .build()
 
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         view.couponImage.loadImage(offer.photo)
 
@@ -50,9 +54,13 @@ class ClaimedCouponDialog(val context: Context) {
 
         view.bt_coupon_check_in.visibility = View.VISIBLE
         view.bt_coupon_check_in.setOnClickListener {
-            dialog.dismiss()
+            cancel()
         }
 
-        dialog.show()
+        dialog?.show()
+    }
+
+    fun cancel(){
+        dialog?.cancel()
     }
 }
