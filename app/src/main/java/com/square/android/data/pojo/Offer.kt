@@ -20,6 +20,7 @@ class Offer(
         var name: String = "",
         var photo: String = "",
         var place: PlaceInfo = PlaceInfo(),
+        var isAvailable: Boolean = false,
         var price: Int = 0,
         var user: Int = 0,
         var instaUser: String = "",

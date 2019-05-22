@@ -266,4 +266,11 @@
     <string name="set_image_as_main">Set image as main</string>
     <string name="set_image_as_main_info">Do you want to set this image as the main one?</string>
     <string name="delete_image">Delete image</string>
+    <string name="thank_you_for_interest">Thank you for your interest in joining our community!</string>
+    <string name="pending_text_1">We are continually reviewing applications and will notify you as soon as we can.</string>
+    <string name="pending_text_2">In the meantime, you can follow us on <a href="https://instagram.com/square.app"><u><b>Instagram</b></u></a>.</string>
+    <string name="watch_our_video">Watch our video</string>
+    <string name="read_acceptation_policy">Read the <a href="https://squaremm.com/approvalpolicy.php"><u>Acceptation Policy</u></a>.</string>
+
+    <string name="youtube_tutorial">https://www.youtube.com/watch?v=6VCsX_Hw9js</string>
 </resources>

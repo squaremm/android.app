@@ -12,4 +12,6 @@ interface MainView : BaseView {
     fun setActiveRedemptions(count: Int)
 
     fun showUserPending()
+
+    fun hideUserPending()
 }

@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
 
-class BookSelectedEvent(val intervalId: Int?, val date: String)
+class BookSelectedEvent(val intervalId: String?, val date: String)
 
 
 @InjectViewState
@@ -61,7 +61,7 @@ class PlaceDetailPresenter(private val placeId: Long) : BasePresenter<PlaceDetai
         }
     }
 
-    private fun tryBooking(intervalId: Int?, date: String) {
+    private fun tryBooking(intervalId: String?, date: String) {
         launch {
             val userId = repository.getUserInfo().id
             val bookInfo = BookInfo(userId, date, intervalId)
@@ -75,7 +75,7 @@ class PlaceDetailPresenter(private val placeId: Long) : BasePresenter<PlaceDetai
             eventBus.post(badgeEvent)
             eventBus.post(spotsEvent)
 
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.BOOKING_MADE))
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.BOOKING_MADE), repository)
 
             viewState.showMessage(result.message)
         }

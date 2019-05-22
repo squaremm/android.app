@@ -26,27 +26,28 @@ class MainPresenter : BasePresenter<MainView>() {
     }
 
     init {
-        launch {
-            val user = repository.getCurrentUser().await()
-            if (user.isAcceptationPending) {
-                viewState.showUserPending()
-            } else {
-                if (!repository.isLoggedIn() || !repository.isProfileFilled()) {
-                    router.replaceScreen(SCREENS.START)
-                } else {
-                    router.replaceScreen(SCREENS.PLACES)
-
-                    viewState.checkInitial()
-
-                    loadBadgeCount()
-                }
-
-            }
-        }
+        checkPending()
 
         bus.register(this)
+    }
 
-        Log.e("LOL", " " + repository.getFcmToken())
+    fun checkPending() = launch {
+        val user = repository.getCurrentUser().await()
+        if (user.isAcceptationPending) {
+            viewState.showUserPending()
+        } else {
+            viewState.hideUserPending()
+            if (!repository.isLoggedIn() || !repository.isProfileFilled()) {
+                router.replaceScreen(SCREENS.START)
+            } else {
+                router.replaceScreen(SCREENS.PLACES)
+
+                viewState.checkInitial()
+
+                loadBadgeCount()
+            }
+
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -17,6 +17,7 @@ class Place(
         var name: String = "",
         var offers: List<OfferInfo> = listOf(),
         var photos: List<String>? = listOf(),
+        var mainImage: String? = null,
         var schedule: Map<String, String> = mapOf(),
         var type: String = ""
 ) {
@@ -35,6 +36,9 @@ class Place(
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     class Interval(
+            @field:JsonProperty("_id")
+            var id: String? = null,
+
             var start: String = "",
             var end: String = "",
 

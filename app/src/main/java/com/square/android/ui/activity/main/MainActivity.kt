@@ -2,7 +2,10 @@ package com.square.android.ui.activity.main
 
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -63,6 +66,13 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        pending_text_2.movementMethod = LinkMovementMethod.getInstance()
+        read_acceptation_policy.movementMethod = LinkMovementMethod.getInstance()
+        pending_button_video.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_tutorial)))
+            startActivity(browserIntent)
+        }
+
         setUpNavigation()
         setUpNotifications()
     }
@@ -84,6 +94,10 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
     override fun showUserPending() {
         pending_splash.visibility = View.VISIBLE
+    }
+
+    override fun hideUserPending() {
+        pending_splash.visibility = View.GONE
     }
 
     override fun setActiveRedemptions(count: Int) {
@@ -121,6 +135,11 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
         bottomNavigation.setOnNavigationItemSelectedListener(this)
 
         addBadgeView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.checkPending()
     }
 
     override fun onDestroy() {

@@ -97,7 +97,7 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
 
         router.navigateTo(SCREENS.SELECT_OFFER, item.id)
 
-        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.OFFER_SELECT, hashMapOf("id" to item.id.toString())))
+        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.OFFER_SELECT, hashMapOf("id" to item.id.toString())), repository)
     }
 
     fun claimedInfoClicked(position: Int) {

@@ -77,4 +77,5 @@ interface Repository {
     fun getFcmToken(): String?
 
     fun sendFcmToken(uuid: String, newFcmToken: String?, oldToken: String?): Deferred<MessageResponse>
+    fun getOffersForBooking(placeId: Long, bookingId: Long): Deferred<List<OfferInfo>>
 }

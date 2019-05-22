@@ -39,6 +39,9 @@ class ActualRepository(private val api: ApiService,
     override fun getIntervals(placeId: Long, date: String) =
             api.getIntervals(placeId, date)
 
+    override fun getOffersForBooking(placeId: Long, bookingId: Long) =
+            api.getOffersForBooking(placeId, bookingId)
+
     override fun addOfferToBook(bookId: Long, offerId: Long) = performRequest {
         api.addOfferToBook(bookId, OfferToBook(offerId))
     }

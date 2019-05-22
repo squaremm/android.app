@@ -63,7 +63,7 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
     }
 
     fun btnClicked(){
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=6VCsX_Hw9js"))
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(context?.getString(R.string.youtube_tutorial)))
         startActivity(browserIntent)
     }
 

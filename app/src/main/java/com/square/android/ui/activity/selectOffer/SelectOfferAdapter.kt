@@ -39,32 +39,37 @@ class SelectOfferAdapter(data: List<OfferInfo>,
     override fun instantiateHolder(view: View): OfferHolder = OfferHolder(view, handler, redemptionFull)
 
     class OfferHolder(containerView: View,
-                      private var handler: Handler?, private var redemptionFull: RedemptionFull?) : BaseHolder<OfferInfo>(containerView) {
+                      private var handler: Handler?,
+                      private var redemptionFull: RedemptionFull?
+    ): BaseHolder<OfferInfo>(containerView) {
 
         override fun bind(item: OfferInfo, vararg extras: Any?) {
             val selectedPosition = extras.first() as Int?
 
             bindSelected(selectedPosition)
 
-            //TODO: TODO WHEN API DONE -> check if offer hours are matching redemption hours and set hoursMatching
-            var hoursMatching = true
-
             containerView.setOnClickListener {
-                if(hoursMatching){
+                if(item.isAvailable){
                     handler?.itemClicked(adapterPosition)
                 }
             }
 
-            shadowTop.visibility = if(hoursMatching) View.VISIBLE else View.GONE
+            item.isAvailable.run {
+                shadowTop.visibility = if(this) View.VISIBLE else View.GONE
 
-            redemptionFull?.let { offerAvailableText.text =  offerAvailableText.context.getString(R.string.not_available_from_to, it.redemption.startTime, it.redemption.endTime) }
+                redemptionFull?.let {
+                    offerAvailableText.text = if (!this)
+                        offerAvailableText.context.getString(R.string.not_available_from_to, it.redemption.startTime, it.redemption.endTime)
+                    else null
+                }
 
-            notAvailableRl.visibility = if(!hoursMatching) View.VISIBLE else View.GONE
+                notAvailableRl.visibility = if(!this) View.VISIBLE else View.GONE
+            }
 
             offerTitle.text = item.name
             offerPrice.text = item.price.toString()
 
-            offerImage.loadImage(item.photo)
+            offerImage.loadImage(item.mainImage ?: item.photo)
         }
 
         fun bindSelected(selectedPosition: Int?) {

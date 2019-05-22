@@ -29,6 +29,8 @@ class BookingPresenter : BasePresenter<BookingView>() {
 
     private var place: Place? = null
 
+    private lateinit var intervalSlots: List<Place.Interval>
+
     init {
         eventBus.register(this)
 
@@ -56,11 +58,14 @@ class BookingPresenter : BasePresenter<BookingView>() {
     }
 
     fun bookClicked() {
-        val date = getStringDate()
+        currentPosition?.run {
+            val date = getStringDate()
 
-        val event = BookSelectedEvent(currentPosition, date)
+            val event = BookSelectedEvent(intervalSlots[this].id, date)
 
-        eventBus.post(event)
+            eventBus.post(event)
+        }
+
     }
 
     fun dayItemClicked(position: Int) {
@@ -79,7 +84,7 @@ class BookingPresenter : BasePresenter<BookingView>() {
             viewState.showProgress()
 
 //            val intervalsWrapper = repository.getIntervals(place?.id!!, getStringDate()).await()
-            val intervalSlots = repository.getIntervalSlots(place?.id!!, getStringDate()).await()
+            intervalSlots = repository.getIntervalSlots(place?.id!!, getStringDate()).await()
 
             viewState.hideProgress()
 

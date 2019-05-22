@@ -90,7 +90,7 @@ class MapPresenter : BasePresenter<MapView>() {
     fun infoClicked() {
         currentInfo?.let {
             router.navigateTo(SCREENS.PLACE_DETAIL, it.id)
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_FROM_MAP, hashMapOf("id" to it.id.toString())))
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_FROM_MAP, hashMapOf("id" to it.id.toString())), repository)
         }
     }
 

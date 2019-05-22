@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.square.android.R
 import com.square.android.data.pojo.OfferInfo
+import com.square.android.data.pojo.Place
 import com.square.android.extensions.loadImage
 import kotlinx.android.synthetic.main.offer_dialog.view.*
-import android.graphics.Color
-import androidx.core.content.ContextCompat
-import com.square.android.data.pojo.Place
 
 class OfferDialog(private val context: Context) {
 

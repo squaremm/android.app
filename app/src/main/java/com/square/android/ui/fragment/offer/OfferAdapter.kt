@@ -53,7 +53,7 @@ class OfferAdapter(data: List<OfferInfo>,
             offerTitle.text = item.name
             offerPrice.text = item.price.toString()
 
-            offerImage.loadImage(item.photo)
+            offerImage.loadImage(item.mainImage ?: item.photo)
 
             //TODO change when API done
             offerHours.text = "Friday - Sunday: 19.00 - 23.00"

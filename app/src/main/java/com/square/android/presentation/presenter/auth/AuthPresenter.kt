@@ -107,6 +107,7 @@ class AuthPresenter : BasePresenter<AuthView>() {
                 profile.newUser -> router.replaceScreen(SCREENS.FILL_PROFILE_FIRST)
                 profile.isAcceptationPending -> viewState.showPendingUser()
                 else -> {
+                    viewState.hideUserPending()
                     repository.setProfileFilled(true)
                     router.replaceScreen(SCREENS.MAIN)
                 }
@@ -121,6 +122,15 @@ class AuthPresenter : BasePresenter<AuthView>() {
 
             viewState.showMessage(error.errorMessage)
         })
+    }
+
+    fun checkUserPending() = launch {
+        val profile = repository.getCurrentUser().await()
+        if (profile.isAcceptationPending) {
+            viewState.showUserPending()
+        } else {
+            viewState.hideUserPending()
+        }
     }
 
 }

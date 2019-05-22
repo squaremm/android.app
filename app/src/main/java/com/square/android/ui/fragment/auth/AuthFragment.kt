@@ -1,7 +1,10 @@
 package com.square.android.ui.fragment.auth
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +24,6 @@ import com.square.android.ui.dialogs.OAuthDialog
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.utils.TokenUtils
 import kotlinx.android.synthetic.main.fragment_auth.*
-import org.koin.dsl.module.applicationContext
 
 
 class AuthFragment : BaseFragment(), AuthView {
@@ -52,6 +54,13 @@ class AuthFragment : BaseFragment(), AuthView {
         tv_forgot_password.setOnClickListener { showForgotFields() }
         tv_not_a_user.setOnClickListener { showRegisterFields() }
         tv_want_to_login.setOnClickListener { showLoginFields() }
+
+        pending_text_2.movementMethod = LinkMovementMethod.getInstance()
+        read_acceptation_policy.movementMethod = LinkMovementMethod.getInstance()
+        pending_button_video.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_tutorial)))
+            startActivity(browserIntent)
+        }
 
         do_action_button.setOnClickListener {
             val authData = AuthData(et_email.content, et_password.content, et_confirm_password.content)
@@ -134,6 +143,21 @@ class AuthFragment : BaseFragment(), AuthView {
                 TokenUtils.sendTokenToApi(App.INSTANCE, presenter.repository, newToken)
             }
         }
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            presenter.checkUserPending()
+        }
+    }
+
+    override fun showUserPending() {
+        pending_splash.visibility = View.VISIBLE
+    }
+
+    override fun hideUserPending() {
+        pending_splash.visibility = View.GONE
     }
 
     override fun onDestroy() {

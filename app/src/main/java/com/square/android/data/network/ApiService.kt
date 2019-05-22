@@ -32,9 +32,19 @@ interface ApiService {
     @GET("place/{id}")
     fun getPlace(@Path("id") id: Long): Deferred<Place>
 
-    @POST("place/{id}/book")
+    @POST("v2/place/{id}/book")
     fun book(@Path("id") id: Long,
              @Body body: BookInfo): Call<MessageResponse>
+
+    @GET("place/{placeId}/booking/{bookingId}/offers")
+    fun getOffersForBooking(@Path("placeId") placeId: Long,
+                            @Path("bookingId") bookingId: Long): Deferred<List<OfferInfo>>
+
+    @GET("place/{placeId}/booking/{bookingId}/offers")
+    fun getOffersFor(@Path("placeId") placeId: Long,
+                            @Path("bookingId") bookingId: Long,
+                            @Query("start") start: String,
+                            @Query("end") end: String): Deferred<List<OfferInfo>>
 
     @GET("user/{id}/bookings")
     fun getRedemptions(@Path("id") userId: Long) : Deferred<List<RedemptionInfo>>

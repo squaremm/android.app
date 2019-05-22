@@ -8,10 +8,13 @@ class OfferInfo(
         @field:JsonProperty("_id")
         var id: Long = 0,
         var closed: Boolean = false,
+        @field:JsonProperty("isAvailable")
+        var isAvailable: Boolean = false,
         var composition: List<String> = listOf(),
         var credits: Map<String, Int> = mapOf(),
         var name: String = "",
         var photo: String = "",
+        var mainImage: String? = "",
         var place: Int = 0,
         var price: Int = 0,
         var user: Int = 0

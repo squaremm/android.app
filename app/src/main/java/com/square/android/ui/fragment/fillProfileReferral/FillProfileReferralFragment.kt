@@ -104,10 +104,6 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
         return arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
     }
 
-    override fun showPendingUser() {
-        pending_splash_image.visibility = View.VISIBLE
-    }
-
     companion object {
         @Suppress("DEPRECATION")
         fun newInstance(info: ProfileInfo): FillProfileReferralFragment {

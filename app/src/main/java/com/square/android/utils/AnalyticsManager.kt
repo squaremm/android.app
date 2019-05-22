@@ -3,6 +3,7 @@ package com.square.android.utils
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.CustomEvent
 import com.square.android.App
+import com.square.android.data.Repository
 import org.json.JSONObject
 
 
@@ -20,7 +21,7 @@ data class AnalyticsEvent(val eventName: AnalyticsEvents, val payload: HashMap<S
 
 object AnalyticsManager {
 
-    fun logEvent(analyticsEvent: AnalyticsEvent) {
+    fun logEvent(analyticsEvent: AnalyticsEvent, repository: Repository) {
         val eventName = analyticsEvent.eventName.toString()
 
         val fabricEvent = CustomEvent(eventName)
@@ -32,6 +33,8 @@ object AnalyticsManager {
         }
 
         Answers.getInstance().logCustom(fabricEvent)
+
+        mixpanelEvent.put("username", repository.getUserInfo().name)
         App.INSTANCE.mixpanel.track(eventName, mixpanelEvent)
     }
 }

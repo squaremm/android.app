@@ -62,8 +62,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
     fun itemClicked(position: Int) {
         val id = data!![position].id
 
-        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED, hashMapOf("id" to id.toString())))
-        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST, hashMapOf("id" to id.toString())))
+        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED, hashMapOf("id" to id.toString())), repository)
+        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST, hashMapOf("id" to id.toString())), repository)
 
         router.navigateTo(SCREENS.PLACE_DETAIL, id)
     }
