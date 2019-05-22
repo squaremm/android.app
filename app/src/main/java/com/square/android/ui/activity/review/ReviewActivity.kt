@@ -338,14 +338,11 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
 
     }
 
-    override val tutorialName: String?
-        get() = TutorialService.TUTORIAL_5_REVIEW
-
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1342
 
     override val tutorial: Tutorial?
-        get() =  Tutorial.Builder()
+        get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REVIEW)
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
                         floatArrayOf(0.35f, 0.50f),
@@ -373,16 +370,13 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                         // delay before showing view in ms
                         500f))
 
-                .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
-                    override fun onNextStepIsChanging(targetStepNumber: Int) {
-                        if(targetStepNumber == 2){
-                            claimedDialog?.cancel()
-                        }
+                .setOnNextStepIsChangingListener {
+                    if(it == 2){
+                        claimedDialog?.cancel()
                     }
-                })
-                .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
-                    override fun continueTutorial(endDelay: Long) {
-                    }
-                })
+                }
+                .setOnContinueTutorialListener {
+
+                }
                 .build()
 }

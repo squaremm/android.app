@@ -14,7 +14,8 @@ import com.square.android.di.networkModule
 import io.fabric.sdk.android.Fabric
 import org.koin.android.ext.android.startKoin
 import com.mixpanel.android.mpmetrics.MixpanelAPI
-
+import com.square.android.utils.AppLifecycleTracker
+import org.greenrobot.eventbus.EventBus
 
 
 class App : Application() {
@@ -31,6 +32,7 @@ class App : Application() {
         Mapbox.getInstance(this, BuildConfig.MAPBOX_TOKEN)
         Fabric.with(this, Crashlytics())
         mixpanel = MixpanelAPI.getInstance(this, Network.MIXPANEL_TOKEN)
+        registerActivityLifecycleCallbacks((AppLifecycleTracker(EventBus.getDefault())))
     }
 
     companion object {

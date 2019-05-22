@@ -75,14 +75,11 @@ class RedemptionsFragment : LocationFragment(), RedemptionsView, RedemptionsAdap
         redemptionsList.setHasFixedSize(true)
     }
 
-    override val tutorialName: String?
-        get() = TutorialService.TUTORIAL_3_REDEMPTIONS
-
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1340
 
     override val tutorial: Tutorial?
-        get() =  Tutorial.Builder()
+        get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REDEMPTIONS)
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
                         floatArrayOf(0.50f, 0.78f),
@@ -110,16 +107,11 @@ class RedemptionsFragment : LocationFragment(), RedemptionsView, RedemptionsAdap
                         // delay before showing view in ms
                         500f,
                         0))
+                .setOnNextStepIsChangingListener {
 
-                .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
-                    override fun onNextStepIsChanging(targetStepNumber: Int) {
-
-                    }
-                })
-                .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
-                    override fun continueTutorial(endDelay: Long) {
-                        presenter.claimClicked(1)
-                    }
-                })
+                }
+                .setOnContinueTutorialListener {
+                    presenter.claimClicked(1)
+                }
                 .build()
 }

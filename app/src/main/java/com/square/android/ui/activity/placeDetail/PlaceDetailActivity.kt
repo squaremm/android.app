@@ -51,7 +51,7 @@ class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
             val distanceFormatted = distance.asDistance()
 
             placeDetailDistance.visibility = View.VISIBLE
-            placeDetailDistance.text =distanceFormatted
+            placeDetailDistance.text = distanceFormatted
         } else {
             placeDetailDistance.visibility = View.GONE
         }
@@ -59,7 +59,7 @@ class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
 
     fun pagerMoveToAnotherPage(page: Int){
         //Must be placeDetailPager?.post to measure its children
-        placeDetailPager?.post(Runnable { placeDetailPager?.setCurrentItem(page, true) })
+        placeDetailPager?.post { placeDetailPager?.setCurrentItem(page, true) }
     }
 
     override fun showData(place: Place) {

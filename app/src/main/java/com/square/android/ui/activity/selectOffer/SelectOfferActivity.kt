@@ -110,15 +110,11 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
 
     }
 
-    override val tutorialName: String?
-        get() = TutorialService.TUTORIAL_4_SELECT_OFFER
-
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1341
 
     override val tutorial: Tutorial?
-        get() =  Tutorial.Builder()
-
+        get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.SELECT_OFFER)
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
                         floatArrayOf(0.35f, 0.50f),
@@ -146,18 +142,14 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
                         // delay before showing view in ms
                         500f))
 
-                .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
-                    override fun onNextStepIsChanging(targetStepNumber: Int) {
-                        if(targetStepNumber == 2){
-                            presenter.itemClicked(0)
-                        }
+                .setOnNextStepIsChangingListener {
+                    if(it == 2){
+                        presenter.itemClicked(0)
                     }
-                })
-                .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
-                    override fun continueTutorial(endDelay: Long) {
-                        currentId?.let {presenter.dialogSubmitClicked(it)}
-                    }
-                })
+                }
+                .setOnContinueTutorialListener {
+                    currentId?.run {presenter.dialogSubmitClicked(this)}
+                }
                 .build()
 
 }

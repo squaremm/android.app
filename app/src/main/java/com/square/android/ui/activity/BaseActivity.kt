@@ -35,8 +35,6 @@ abstract class BaseActivity : MvpActivity(), BaseView {
 
     open val PERMISSION_REQUEST_CODE: Int? = null
 
-    protected open val tutorialName: String? = null
-
     private var localDataManager: LocalDataManager? = null
 
     private val eventBus: EventBus by inject()
@@ -89,7 +87,7 @@ abstract class BaseActivity : MvpActivity(), BaseView {
 
     private fun startTutorialService(){
         val intent = Intent(Intent(this,TutorialService::class.java))
-        intent.putExtra(TutorialService.TUTORIAL_APP_EXTRA_KEY, tutorialName)
+        intent.putExtra(TutorialService.TUTORIAL_APP_EXTRA_KEY, tutorial?.tutorialKey?.name)
         startService(intent)
 
         waitAttempts = 0
@@ -122,7 +120,7 @@ abstract class BaseActivity : MvpActivity(), BaseView {
 
         localDataManager = LocalDataManager(this)
 
-        if(!TextUtils.isEmpty(tutorialName)){
+        if(tutorial?.tutorialKey != null){
 
             //TODO uncomment later
 //            if(!localDataManager!!.getTutorialDontShowAgain(tutorialName!!)){

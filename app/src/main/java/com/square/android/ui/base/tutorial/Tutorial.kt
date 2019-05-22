@@ -6,92 +6,88 @@ import java.util.ArrayList
 
 class Tutorial : Parcelable {
 
-    @TutorialService.TutorialKey
-    var mTutorialKey: String? = null
-    private var mTutorialSteps = ArrayList<TutorialStep>()
-    var onFinishTutorialListener: TutorialView.OnFinishTutorialListener? = null
-    var onNextStepIsChangingListener: TutorialView.OnNextStepIsChangingListener? = null
-    var onContinueTutorialListener: TutorialView.OnContinueTutorialListener? = null
+    var tutorialKey: TutorialService.TutorialKey? = null
+    private var tutorialSteps = ArrayList<TutorialStep>()
+    var onFinishTutorialListener: OnFinishTutorialListener? = null
+    var onNextStepIsChangingListener: OnNextStepIsChangingListener? = null
+    var onContinueTutorialListener: OnContinueTutorialListener? = null
 
-    private var mStartFromStep = 1
-    var mTutorialView: TutorialView? = null
+    private var startFromStep = 1
+    var tutorialView: TutorialView? = null
 
     val isTutorialFinished: Boolean
-        get() = mTutorialView?.isFinished() ?: true
+        get() = tutorialView?.isFinished() ?: true
 
     constructor(builder: Builder) {
-        this.mTutorialView = builder.tutorialView
-        this.mTutorialKey = builder.tutorialKey
-        this.mTutorialSteps = builder.tutorialSteps
-        this.mStartFromStep = builder.startFromStep
-        this.onFinishTutorialListener = builder.onFinishTutorialListener
-        this.onNextStepIsChangingListener = builder.onNextStepIsChangingListener
-        this.onContinueTutorialListener = builder.onContinueTutorialListener
+        tutorialView = builder.tutorialView
+        tutorialKey = builder.tutorialKey
+        tutorialSteps = builder.tutorialSteps
+        startFromStep = builder.startFromStep
+        onFinishTutorialListener = builder.onFinishTutorialListener
+        onNextStepIsChangingListener = builder.onNextStepIsChangingListener
+        onContinueTutorialListener = builder.onContinueTutorialListener
     }
 
     constructor(parcel: Parcel) {
-        parcel.readTypedList(mTutorialSteps, TutorialStep.CREATOR)
-        mStartFromStep = parcel.readInt()
+        parcel.readTypedList(tutorialSteps, TutorialStep.CREATOR)
+        startFromStep = parcel.readInt()
     }
 
     fun show() {
-        mTutorialView?.setOnFinishTutorialListener(onFinishTutorialListener)
-        mTutorialView?.setOnStepIsChangingListener(onNextStepIsChangingListener)
-        mTutorialView?.setonContinueTutorialListener(onContinueTutorialListener)
-        mTutorialView?.setTutorialSteps(mTutorialSteps)
-        mTutorialView?.initialStep()
+        tutorialView?.let {
+            it.onFinishTutorialListener = onFinishTutorialListener
+            it.onNextStepIsChangingListener = onNextStepIsChangingListener
+            it.onContinueTutorialListener = onContinueTutorialListener
+            it.tutorialSteps = tutorialSteps
+            it.initialStep()
+        }
     }
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeTypedList(mTutorialSteps)
-        dest.writeInt(mStartFromStep)
+    override fun writeToParcel(dest: Parcel, flags: Int) = dest.run {
+        writeTypedList(tutorialSteps)
+        writeInt(startFromStep)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents() = 0
 
-    class Builder(var tutorialView: TutorialView? = null, var tutorialKey: String? = null) {
+    data class Builder(var tutorialKey: TutorialService.TutorialKey? = null,
+                       var tutorialView: TutorialView? = null,
+                       var tutorialSteps: ArrayList<TutorialStep> = ArrayList(),
+                       var startFromStep: Int = 1,
+                       var onFinishTutorialListener: OnFinishTutorialListener? = null,
+                       var onNextStepIsChangingListener: OnNextStepIsChangingListener? = null,
+                       var onContinueTutorialListener: OnContinueTutorialListener? = null) {
 
-        var tutorialSteps = ArrayList<TutorialStep>()
-        var startFromStep = 1
-        var onFinishTutorialListener: TutorialView.OnFinishTutorialListener? = null
-        var onNextStepIsChangingListener: TutorialView.OnNextStepIsChangingListener? = null
-        var onContinueTutorialListener: TutorialView.OnContinueTutorialListener? = null
-
-
-        fun fromExisting(tutorial: Tutorial, l1: TutorialView.OnNextStepIsChangingListener, l3: TutorialView.OnFinishTutorialListener): Builder {
-            this.tutorialSteps = tutorial.mTutorialSteps
-            this.startFromStep = tutorial.mStartFromStep
-            this.tutorialKey = tutorial.mTutorialKey
-            setOnFinishTutorialListener(l3)
+        fun fromExisting(tutorial: Tutorial,
+                         l1: OnNextStepIsChangingListener,
+                         l2: OnContinueTutorialListener,
+                         l3: OnFinishTutorialListener) = apply {
+            tutorialView = tutorial.tutorialView;
+            tutorialSteps = tutorial.tutorialSteps
+            startFromStep = tutorial.startFromStep
+            tutorialKey = tutorial.tutorialKey
             setOnNextStepIsChangingListener(l1)
-            return this
+            setOnContinueTutorialListener(l2)
+            setOnFinishTutorialListener(l3)
         }
 
-        fun addNextStep(tutorialStep: TutorialStep): Builder {
+        fun addNextStep(tutorialStep: TutorialStep) = apply {
             this.tutorialSteps.add(tutorialStep)
-            return this
         }
 
-        fun setOnFinishTutorialListener(onFinishTutorialListener: TutorialView.OnFinishTutorialListener? = null): Builder {
+        fun setOnFinishTutorialListener(onFinishTutorialListener: OnFinishTutorialListener) = apply {
             this.onFinishTutorialListener = onFinishTutorialListener
-            return this
         }
 
-        fun setOnNextStepIsChangingListener(onNextStepIsChangingListener: TutorialView.OnNextStepIsChangingListener? = null): Builder {
+        fun setOnNextStepIsChangingListener(onNextStepIsChangingListener: OnNextStepIsChangingListener) = apply {
             this.onNextStepIsChangingListener = onNextStepIsChangingListener
-            return this
         }
 
-        fun setOnContinueTutorialListener(onContinueTutorialListener: TutorialView.OnContinueTutorialListener? = null): Builder {
+        fun setOnContinueTutorialListener(onContinueTutorialListener: OnContinueTutorialListener) = apply {
             this.onContinueTutorialListener = onContinueTutorialListener
-            return this
         }
 
-        fun build(): Tutorial {
-            return Tutorial(this)
-        }
+        fun build() = Tutorial(this)
     }
 
     companion object CREATOR : Parcelable.Creator<Tutorial> {

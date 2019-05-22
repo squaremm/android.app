@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.preference.PreferenceManager
 import com.square.android.data.pojo.UserInfo
+import com.square.android.ui.base.tutorial.TutorialService
 
 private const val KEY_DISPLAY_INTRO = "KEY_DISPLAY_INTRO"
 private const val KEY_AUTH_TOKEN = "KEY_AUTH_TOKEN"
@@ -121,11 +122,10 @@ class LocalDataManager(context: Context) {
                 .apply()
     }
 
-    fun getTutorialDontShowAgain(tutorialKey: String): Boolean {
-        return preferences.getBoolean(KEY_TUTORIAL+tutorialKey, false)
-    }
+    fun getTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey) =
+            preferences.getBoolean(KEY_TUTORIAL+tutorialKey.name, false)
 
-    fun setTutorialDontShowAgain(tutorialKey: String, dontShowAgain: Boolean){
+    fun setTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey, dontShowAgain: Boolean){
         preferences.edit()
                 .putBoolean(KEY_TUTORIAL+tutorialKey, dontShowAgain)
                 .apply()

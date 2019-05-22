@@ -153,14 +153,11 @@ class BookingFragment : BaseFragment(), BookingView {
         view.bookingSpots.isEnabled = isActive
     }
 
-    override val tutorialName: String?
-        get() = TutorialService.TUTORIAL_2_BOOKING
-
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1339
 
     override val tutorial: Tutorial?
-        get() =  Tutorial.Builder()
+        get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.BOOKING)
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
                         floatArrayOf(0.40f, 0.88f),
@@ -188,15 +185,11 @@ class BookingFragment : BaseFragment(), BookingView {
                         // delay before showing view in ms
                         500f))
 
-                .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
-                    override fun onNextStepIsChanging(targetStepNumber: Int) {
+                .setOnNextStepIsChangingListener {
 
-                    }
-                })
-                .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
-                    override fun continueTutorial(endDelay: Long) {
+                }
+                .setOnContinueTutorialListener {
 
-                    }
-                })
+                }
                 .build()
 }

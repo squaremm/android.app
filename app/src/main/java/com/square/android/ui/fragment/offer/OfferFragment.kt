@@ -67,15 +67,11 @@ class OfferFragment(private val place: Place?) : BaseFragment(), OfferView, Offe
         }
     }
 
-    //TODO: paste and rewrite this on every Activity/Fragment that implements tutorial
-    override val tutorialName: String?
-        get() = TutorialService.TUTORIAL_1_PLACE
-
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1338
 
     override val tutorial: Tutorial?
-        get() =  Tutorial.Builder()
+        get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.PLACE)
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
                         floatArrayOf(0.60f, 0.565f),
@@ -116,29 +112,22 @@ class OfferFragment(private val place: Place?) : BaseFragment(), OfferView, Offe
                         // delay before showing view in ms
                         500f,
                         250))
-
-                .setOnNextStepIsChangingListener(object: TutorialView.OnNextStepIsChangingListener{
-                    override fun onNextStepIsChanging(targetStepNumber: Int) {
-
-                        if(targetStepNumber == 3){
-                            presenter.itemClicked(0, place)
-                        }
+                .setOnNextStepIsChangingListener {
+                    if(it == 3){
+                        presenter.itemClicked(0, place)
                     }
-                })
-                .setOnContinueTutorialListener(object: TutorialView.OnContinueTutorialListener{
-                    override fun continueTutorial(endDelay: Long) {
-                        dialog?.close()
+                }
+                .setOnContinueTutorialListener {
+                    dialog?.close()
 
-                        Timer().schedule(object : TimerTask() {
-                            override fun run() {
-                                try{
-                                    (activity as PlaceDetailActivity).pagerMoveToAnotherPage(1)
-                                } catch (exception: Exception){
-                                }
+                    Timer().schedule(object : TimerTask() {
+                        override fun run() {
+                            try{
+                                (activity as PlaceDetailActivity).pagerMoveToAnotherPage(1)
+                            } catch (exception: Exception){
                             }
-                        }, endDelay+50)
-                    }
-                })
+                        }
+                    }, it+50)
+                }
                 .build()
-    //TODO /////////////////////////////////////////////////////////////////
 }

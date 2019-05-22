@@ -8,6 +8,7 @@ import com.square.android.data.network.response.AuthResponse
 import com.square.android.data.network.response.ERRORS
 import com.square.android.data.network.response.MessageResponse
 import com.square.android.data.pojo.*
+import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.utils.FileUtils
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
@@ -23,6 +24,9 @@ private const val TOKEN_PREFIX = "Bearer "
 class ActualRepository(private val api: ApiService,
                        private val localManager: LocalDataManager) : Repository {
 
+    override fun setTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey, dontShowAgain: Boolean) =
+            localManager.setTutorialDontShowAgain(tutorialKey, dontShowAgain
+            )
     override fun saveFcmToken(fcmToken: String?) = localManager.saveFcmToken(fcmToken)
     override fun getFcmToken() = localManager.getFcmToken()
 
