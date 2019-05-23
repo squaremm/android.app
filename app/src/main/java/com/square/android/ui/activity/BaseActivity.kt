@@ -18,6 +18,7 @@ import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import android.os.Build
 import android.provider.Settings
+import com.square.android.data.Repository
 import com.square.android.data.local.LocalDataManager
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialLoadedEvent
@@ -35,9 +36,8 @@ abstract class BaseActivity : MvpActivity(), BaseView {
 
     open val PERMISSION_REQUEST_CODE: Int? = null
 
-    private var localDataManager: LocalDataManager? = null
-
     private val eventBus: EventBus by inject()
+    private val repository: Repository by inject()
 
     override fun showMessage(message: String) {
         contentView?.let {
@@ -118,19 +118,14 @@ abstract class BaseActivity : MvpActivity(), BaseView {
 
         navigator = provideNavigator()
 
-        localDataManager = LocalDataManager(this)
-
         if(tutorial?.tutorialKey != null){
-
-            //TODO uncomment later
-//            if(!localDataManager!!.getTutorialDontShowAgain(tutorialName!!)){
+            if(!repository.getTutorialDontShowAgain(tutorial?.tutorialKey!!)){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     checkDrawOverlayPermission()
                 } else{
                     startTutorialService()
                 }
-//            }
-            //TODO uncomment later
+            }
         }
     }
 

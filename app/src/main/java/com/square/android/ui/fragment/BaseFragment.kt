@@ -2,12 +2,10 @@ package com.square.android.ui.fragment
 
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
 import android.provider.Settings
-import android.text.TextUtils
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
-import com.square.android.data.local.LocalDataManager
+import com.square.android.data.Repository
 import com.square.android.extensions.onTextChanged
 import com.square.android.presentation.view.BaseView
 import com.square.android.ui.activity.BaseActivity
@@ -17,7 +15,6 @@ import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.utils.ValidationCallback
 import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
-import java.lang.Exception
 import java.util.*
 
 abstract class BaseFragment : MvpFragment(), BaseView {
@@ -31,11 +28,8 @@ abstract class BaseFragment : MvpFragment(), BaseView {
 
     protected open val tutorial: Tutorial? = null
 
-    protected open val tutorialName: String? = null
-
-    private var localDataManager: LocalDataManager? = null
-
     private val eventBus: EventBus by inject()
+    private val repository: Repository by inject()
 
     private fun checkDrawOverlayPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -62,7 +56,7 @@ abstract class BaseFragment : MvpFragment(), BaseView {
 
     private fun startTutorialService(){
         val intent = Intent(Intent(activity, TutorialService::class.java))
-        intent.putExtra(TutorialService.TUTORIAL_APP_EXTRA_KEY, tutorialName)
+        intent.putExtra(TutorialService.TUTORIAL_APP_EXTRA_KEY, tutorial?.tutorialKey?.name)
         activity?.startService(intent)
 
         waitAttempts = 0
@@ -99,28 +93,17 @@ abstract class BaseFragment : MvpFragment(), BaseView {
             }
 
             if(allowTutorial){
-                if(!TextUtils.isEmpty(tutorialName)){
-                    if(localDataManager != null){
-
-                        //TODO uncomment later
-//                            if(!localDataManager!!.getTutorialDontShowAgain(tutorialName!!)){
+                if(tutorial?.tutorialKey != null){
+                    if(!repository.getTutorialDontShowAgain(tutorial?.tutorialKey!!)) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             checkDrawOverlayPermission()
-                        } else{
+                        } else {
                             startTutorialService()
                         }
                     }
                 }
-                    //TODO uncomment later
-//                }
             }
         } catch (exception: Exception){ }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        context?.let {localDataManager = LocalDataManager(it)}
     }
 
     override fun showMessage(message: String) {

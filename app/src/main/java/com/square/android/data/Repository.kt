@@ -81,4 +81,5 @@ interface Repository {
     fun getOffersForBooking(placeId: Long, bookingId: Long): Deferred<List<OfferInfo>>
 
     fun setTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey, dontShowAgain: Boolean)
+    fun getTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey): Boolean
 }

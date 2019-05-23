@@ -24,9 +24,12 @@ private const val TOKEN_PREFIX = "Bearer "
 class ActualRepository(private val api: ApiService,
                        private val localManager: LocalDataManager) : Repository {
 
+    override fun getTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey) =
+            localManager.getTutorialDontShowAgain(tutorialKey)
+
     override fun setTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey, dontShowAgain: Boolean) =
-            localManager.setTutorialDontShowAgain(tutorialKey, dontShowAgain
-            )
+            localManager.setTutorialDontShowAgain(tutorialKey, dontShowAgain)
+
     override fun saveFcmToken(fcmToken: String?) = localManager.saveFcmToken(fcmToken)
     override fun getFcmToken() = localManager.getFcmToken()
 
