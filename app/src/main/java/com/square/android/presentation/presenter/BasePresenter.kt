@@ -32,18 +32,17 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onTutorialLoadedEvent(event: NoConnectionClosedEvent) {
-       allowNoConnectionScreen = true
+        allowNoConnectionScreen = true
     }
 
     private val defaultCatch: suspend CoroutineScope.(Throwable) -> Unit = {
 
-        if(it is  UnknownHostException || it is SocketTimeoutException || it is ConnectException){
-            if(allowNoConnectionScreen){
-                allowNoConnectionScreen = false
-                router.replaceScreen(SCREENS.NO_CONNECTION)
-            }
+        if((it is  UnknownHostException || it is SocketTimeoutException || it is ConnectException)){
+                if(allowNoConnectionScreen){
+                    allowNoConnectionScreen = false
+                    router.navigateTo(SCREENS.NO_CONNECTION)
+                }
         } else{
-
             viewState.showMessage(it.errorMessage)
         }
 

@@ -1,6 +1,5 @@
 package com.square.android.presentation.presenter.main
 
-import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.presentation.presenter.BasePresenter
@@ -32,21 +31,25 @@ class MainPresenter : BasePresenter<MainView>() {
     }
 
     fun checkPending() = launch {
-        val user = repository.getCurrentUser().await()
-        if (user.isAcceptationPending) {
-            viewState.showUserPending()
+        if(!repository.isLoggedIn() && !repository.isProfileFilled()){
+            router.replaceScreen(SCREENS.START)
         } else {
-            viewState.hideUserPending()
-            if (!repository.isLoggedIn() || !repository.isProfileFilled()) {
-                router.replaceScreen(SCREENS.START)
+            val user = repository.getCurrentUser().await()
+            if (user.isAcceptationPending) {
+                viewState.showUserPending()
             } else {
-                router.replaceScreen(SCREENS.PLACES)
+                viewState.hideUserPending()
+                if (!repository.isLoggedIn() || !repository.isProfileFilled()) {
+                    router.replaceScreen(SCREENS.START)
+                } else {
+                    router.replaceScreen(SCREENS.PLACES)
 
-                viewState.checkInitial()
+                    viewState.checkInitial()
 
-                loadBadgeCount()
+                    loadBadgeCount()
+                }
+
             }
-
         }
     }
 
