@@ -1,5 +1,6 @@
 package com.square.android.presentation.presenter
 
+import android.text.TextUtils
 import com.arellomobile.mvp.MvpPresenter
 import com.square.android.SCREENS
 import com.square.android.data.Repository
@@ -43,7 +44,9 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     router.navigateTo(SCREENS.NO_CONNECTION)
                 }
         } else{
-            viewState.showMessage(it.errorMessage)
+            if(!TextUtils.isEmpty(it.errorMessage)){
+                viewState.showMessage(it.errorMessage)
+            }
         }
 
         (viewState as? ProgressView)?.hideProgress()
