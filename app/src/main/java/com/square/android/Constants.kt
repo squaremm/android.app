@@ -24,6 +24,8 @@ object SCREENS {
     const val REVIEW = "REVIEW"
 
     const val CLAIMED_REDEMPTION = "CLAIMED_REDEMPTION"
+
+    const val NO_CONNECTION = "NO_CONNECTION"
 }
 
 object Network {

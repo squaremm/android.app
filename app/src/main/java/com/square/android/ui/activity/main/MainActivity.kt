@@ -32,6 +32,7 @@ import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivit
 import com.square.android.ui.activity.editProfile.EditProfileFragment
 import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
+import com.square.android.ui.activity.noConnection.NoConnectionActivity
 import com.square.android.ui.activity.placeDetail.PLACE_EXTRA_ID
 import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
 import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
@@ -179,6 +180,10 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                                 CLAIMED_OFFER_EXTRA_ID to extras.offerId,
                                 CLAIMED_REDEMPTION_EXTRA_ID to extras.redemptionId)
                     }
+
+                    SCREENS.NO_CONNECTION ->
+                        context.intentFor<NoConnectionActivity>()
+
                     else -> null
                 }
 

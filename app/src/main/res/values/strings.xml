@@ -187,6 +187,12 @@
 
     <string name="tut_5_1">Select which social media\nactions you would like to do.</string>
 
+
+    <string name="seems_offline">It seems you are offline!</string>
+    <string name="connect_to_an">Connect to an internet source\nto use Square correctly</string>
+
+
+
     <string name="review_instagram_post_body">
         <![CDATA[
          <font color=#7CFC00>Do:</font><br>

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.MenuItem
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
@@ -19,7 +18,6 @@ import ru.terrakok.cicerone.NavigatorHolder
 import android.os.Build
 import android.provider.Settings
 import com.square.android.data.Repository
-import com.square.android.data.local.LocalDataManager
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialLoadedEvent
 import org.greenrobot.eventbus.EventBus

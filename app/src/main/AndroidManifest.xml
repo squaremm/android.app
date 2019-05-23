@@ -68,6 +68,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 
+        <activity
+            android:name=".ui.activity.noConnection.NoConnectionActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/WhiteStatusActivity" />
+
         <service android:name=".data.network.fcm.FirebaseMessagingService"
             android:stopWithTask="false"
             android:exported="true">

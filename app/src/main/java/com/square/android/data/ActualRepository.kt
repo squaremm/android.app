@@ -9,7 +9,6 @@ import com.square.android.data.network.response.ERRORS
 import com.square.android.data.network.response.MessageResponse
 import com.square.android.data.pojo.*
 import com.square.android.ui.base.tutorial.TutorialService
-import com.square.android.utils.FileUtils
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -33,35 +32,51 @@ class ActualRepository(private val api: ApiService,
     override fun saveFcmToken(fcmToken: String?) = localManager.saveFcmToken(fcmToken)
     override fun getFcmToken() = localManager.getFcmToken()
 
-    override fun sendFcmToken(uuid: String, newFcmToken: String?, oldToken: String?): Deferred<MessageResponse> {
-        return api.sendFcmToken(localManager.getUserInfo().id,
-                FcmTokenData(uuid, "android", newFcmToken, oldToken))
+    override fun sendFcmToken(uuid: String, newFcmToken: String?, oldToken: String?): Deferred<MessageResponse> =  GlobalScope.async {
+        val data = performRequest {api.sendFcmToken(localManager.getUserInfo().id,
+                FcmTokenData(uuid, "android", newFcmToken, oldToken))}
+        data
     }
 
-    override fun getIntervalSlots(placeId: Long, date: String) =
-            api.getIntervalSlots(placeId, date)
+    override fun getIntervalSlots(placeId: Long, date: String): Deferred<List<Place.Interval>> = GlobalScope.async {
+        val data = performRequest {api.getIntervalSlots(placeId, date)}
+        data
+    }
 
-    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>> = api.getActions(offerId, bookingId)
+    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>> = GlobalScope.async {
+        val data = performRequest {api.getActions(offerId, bookingId)}
+        data
+    }
 
-    override fun getIntervals(placeId: Long, date: String) =
-            api.getIntervals(placeId, date)
+    override fun getIntervals(placeId: Long, date: String) : Deferred<IntervalsWrapper> = GlobalScope.async {
+        val data = performRequest {api.getIntervals(placeId, date)}
+        data
+    }
 
-    override fun getOffersForBooking(placeId: Long, bookingId: Long) =
-            api.getOffersForBooking(placeId, bookingId)
+    override fun getOffersForBooking(placeId: Long, bookingId: Long): Deferred<List<OfferInfo>> = GlobalScope.async {
+        val data = performRequest { api.getOffersForBooking(placeId, bookingId) }
+        data
+    }
 
     override fun addOfferToBook(bookId: Long, offerId: Long) = performRequest {
         api.addOfferToBook(bookId, OfferToBook(offerId))
     }
 
-    override fun getBadgeCount(): Deferred<BadgeInfo> {
+    override fun getBadgeCount(): Deferred<BadgeInfo> = GlobalScope.async {
         val id = getUserInfo().id
-
-        return api.getBadgeCount(id)
+        val data = performRequest { api.getBadgeCount(id) }
+        data
     }
 
-    override fun getFeedbackContent(placeId: Long) = api.getFeedbackBody(placeId)
+    override fun getFeedbackContent(placeId: Long): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.getFeedbackBody(placeId) }
+        data
+    }
 
-    override fun getPlaceOffers(placeId: Long) = api.getPlaceOffers(placeId)
+    override fun getPlaceOffers(placeId: Long): Deferred<List<OfferInfo>> = GlobalScope.async {
+        val data = performRequest { api.getPlaceOffers(placeId) }
+        data
+    }
 
     override fun addReview(offerId: Long, info: ReviewInfo) = performRequest {
         api.addReview(offerId, info)
@@ -97,16 +112,23 @@ class ActualRepository(private val api: ApiService,
         localManager.setAvatarUrl(url)
     }
 
-    override fun getRedemption(redemptionId: Long) = api.getRedemption(redemptionId)
+    override fun getRedemption(redemptionId: Long): Deferred<RedemptionFull> = GlobalScope.async {
+        val data = performRequest { api.getRedemption(redemptionId) }
+        data
+    }
 
     override fun clearUserData() {
         localManager.clearUserData()
     }
 
-    override fun deleteRedemption(id: Long) = api.deleteRedemption(id)
+    override fun deleteRedemption(id: Long): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.deleteRedemption(id) }
+        data
+    }
 
-    override fun getRedemptions(): Deferred<List<RedemptionInfo>> {
-        return api.getRedemptions(getUserInfo().id)
+    override fun getRedemptions(): Deferred<List<RedemptionInfo>> = GlobalScope.async {
+        val data = performRequest { api.getRedemptions(getUserInfo().id) }
+        data
     }
 
     override fun setUserId(id: Long) {
@@ -115,12 +137,12 @@ class ActualRepository(private val api: ApiService,
 
     override fun book(placeId: Long, bookInfo: BookInfo): Deferred<MessageResponse> = GlobalScope.async {
         val data = performRequestCheckingMessage { api.book(placeId, bookInfo) }
-
         data
     }
 
-    override fun getPlace(id: Long): Deferred<Place> {
-        return api.getPlace(id)
+    override fun getPlace(id: Long): Deferred<Place> = GlobalScope.async {
+        val data = performRequest { api.getPlace(id) }
+        data
     }
 
     override fun getPlaces(): Deferred<List<Place>> = GlobalScope.async {
@@ -139,7 +161,10 @@ class ActualRepository(private val api: ApiService,
         localManager.setLoggedIn(isLogged)
     }
 
-    override fun getCurrentUser(): Deferred<Profile.User> = api.getCurrentProfile()
+    override fun getCurrentUser(): Deferred<Profile.User> = GlobalScope.async {
+        val data = performRequest { api.getCurrentProfile() }
+        data
+    }
 
     override fun isProfileFilled() = localManager.isProfileFilled()
 
@@ -181,14 +206,16 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun resetPassword(authData: AuthData) = api.resetPassword(authData)
+    override fun resetPassword(authData: AuthData): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.resetPassword(authData) }
+        data
+    }
 
     override fun introDisplayed() {
         localManager.setShouldDisplayIntro(false)
     }
 
     override fun shouldDisplayIntro(): Boolean = localManager.shouldDisplayIntro()
-
 
     override fun isLoggedIn(): Boolean = localManager.isLoggedIn()
 
@@ -212,9 +239,12 @@ class ActualRepository(private val api: ApiService,
         return result
     }
 
-    override fun removePhoto(userId: Long, photoId: PhotoId) = api.removePhoto(userId, photoId.imageId)
+    override fun removePhoto(userId: Long, photoId: PhotoId): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.removePhoto(userId, photoId.imageId) }
+        data
+    }
 
-    override fun addPhoto(userId: Long, imageBytes: ByteArray): Deferred<Images> {
+    override fun addPhoto(userId: Long, imageBytes: ByteArray): Deferred<Images> = GlobalScope.async {
         // create RequestBody instance from file
         val requestFile = RequestBody.create(
                 MediaType.parse("image/*"),
@@ -224,7 +254,13 @@ class ActualRepository(private val api: ApiService,
         // MultipartBody.Part is used to send also the actual file name
         val body = MultipartBody.Part.createFormData("images", "", requestFile)
 
-        return api.addPhoto(userId, body)
+        val data = performRequest { api.addPhoto(userId, body) }
+        data
     }
-    override fun setPhotoAsMain(userId: Long, photoId: String) = api.setPhotoAsMain(userId, photoId)
+
+    override fun setPhotoAsMain(userId: Long, photoId: String): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.setPhotoAsMain(userId, photoId) }
+        data
+    }
+
 }

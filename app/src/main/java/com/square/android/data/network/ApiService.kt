@@ -3,11 +3,9 @@ package com.square.android.data.network
 import com.square.android.data.network.response.AuthResponse
 import com.square.android.data.network.response.MessageResponse
 import com.square.android.data.pojo.*
-import kotlinx.coroutines.Deferred
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
-
 
 interface ApiService {
 
@@ -18,10 +16,10 @@ interface ApiService {
     fun loginUser(@Body authData: AuthData): Call<AuthResponse>
 
     @POST("user/forgotPassword")
-    fun resetPassword(@Body authData: AuthData): Deferred<MessageResponse>
+    fun resetPassword(@Body authData: AuthData): Call<MessageResponse>
 
     @GET("user/current")
-    fun getCurrentProfile(): Deferred<Profile.User>
+    fun getCurrentProfile(): Call<Profile.User>
 
     @PUT("user/current")
     fun editProfile(@Body body: ProfileInfo): Call<MessageResponse>
@@ -30,7 +28,7 @@ interface ApiService {
     fun getPlaces(): Call<List<Place>>
 
     @GET("place/{id}")
-    fun getPlace(@Path("id") id: Long): Deferred<Place>
+    fun getPlace(@Path("id") id: Long): Call<Place>
 
     @POST("v2/place/{id}/book")
     fun book(@Path("id") id: Long,
@@ -38,25 +36,25 @@ interface ApiService {
 
     @GET("place/{placeId}/booking/{bookingId}/offers")
     fun getOffersForBooking(@Path("placeId") placeId: Long,
-                            @Path("bookingId") bookingId: Long): Deferred<List<OfferInfo>>
+                            @Path("bookingId") bookingId: Long): Call<List<OfferInfo>>
 
     @GET("place/{placeId}/booking/{bookingId}/offers")
     fun getOffersFor(@Path("placeId") placeId: Long,
                             @Path("bookingId") bookingId: Long,
                             @Query("start") start: String,
-                            @Query("end") end: String): Deferred<List<OfferInfo>>
+                            @Query("end") end: String): Call<List<OfferInfo>>
 
     @GET("user/{id}/bookings")
-    fun getRedemptions(@Path("id") userId: Long) : Deferred<List<RedemptionInfo>>
+    fun getRedemptions(@Path("id") userId: Long) : Call<List<RedemptionInfo>>
 
     @GET("place/book/{id}")
-    fun getRedemption(@Path("id") id: Long) : Deferred<RedemptionFull>
+    fun getRedemption(@Path("id") id: Long) : Call<RedemptionFull>
 
     @GET("place/{id}/offer")
-    fun getPlaceOffers(@Path("id") id: Long): Deferred<List<OfferInfo>>
+    fun getPlaceOffers(@Path("id") id: Long): Call<List<OfferInfo>>
 
     @DELETE("place/book/{id}")
-    fun deleteRedemption(@Path("id") id: Long) : Deferred<MessageResponse>
+    fun deleteRedemption(@Path("id") id: Long) : Call<MessageResponse>
 
     @PUT("place/book/{id}/claim")
     fun claimRedemption(@Path("id") id: Long) : Call<MessageResponse>
@@ -70,10 +68,10 @@ interface ApiService {
                   @Body info: ReviewInfo) : Call<MessageResponse>
 
     @GET("place/{id}/sample")
-    fun getFeedbackBody(@Path("id") id: Long) : Deferred<MessageResponse>
+    fun getFeedbackBody(@Path("id") id: Long) : Call<MessageResponse>
 
     @GET("user/{id}/bookNum")
-    fun getBadgeCount(@Path("id") id: Long) : Deferred<BadgeInfo>
+    fun getBadgeCount(@Path("id") id: Long) : Call<BadgeInfo>
 
     @PUT("place/book/{id}/offer")
     fun addOfferToBook(@Path("id") bookId: Long,
@@ -81,30 +79,30 @@ interface ApiService {
 
     @GET("place/{id}/intervals")
     fun getIntervals(@Path("id") placeId: Long,
-                     @Query("date") date: String) : Deferred<IntervalsWrapper>
+                     @Query("date") date: String) : Call<IntervalsWrapper>
 
     @GET("place/{id}/book/slots")
     fun getIntervalSlots(@Path("id") placeId: Long,
-                         @Query("date") date: String) : Deferred<List<Place.Interval>>
+                         @Query("date") date: String) : Call<List<Place.Interval>>
 
     @GET("offer/{id}/booking/{bookingId}/actions")
     fun getActions(@Path("id") offerId: Long,
-                   @Path("bookingId") bookingId: Long) : Deferred<List<ReviewNetType>>
+                   @Path("bookingId") bookingId: Long) : Call<List<ReviewNetType>>
 
     @DELETE("user/{id}/images")
     fun removePhoto(@Path("id") userId: Long,
-                    @Query("imageId") photoId: String) : Deferred<MessageResponse>
+                    @Query("imageId") photoId: String) : Call<MessageResponse>
 
     @Multipart
     @POST("user/{id}/images")
     fun addPhoto(@Path("id") userId: Long,
-                 @Part photo: MultipartBody.Part) : Deferred<Images>
+                 @Part photo: MultipartBody.Part) : Call<Images>
 
     @PUT("user/{id}/images/{imageId}/main")
     fun setPhotoAsMain(@Path("id") userId: Long,
-                       @Path("imageId") imageId: String) : Deferred<MessageResponse>
+                       @Path("imageId") imageId: String) : Call<MessageResponse>
 
     @PUT("user/{id}/device")
     fun sendFcmToken(@Path("id") userId: Long,
-                     @Body fcmTokenData: FcmTokenData) : Deferred<MessageResponse>
+                     @Body fcmTokenData: FcmTokenData) : Call<MessageResponse>
 }
