@@ -17,13 +17,18 @@ class OfferInfo(
         var mainImage: String? = "",
         var place: Int = 0,
         var price: Int = 0,
-        var user: Int = 0
+        var user: Int = 0,
+        var timeframes: List<String>? = null
 ) {
     fun compositionAsList() = buildString {
         composition.forEachIndexed { index, component ->
             append("${index + 1}. $component\n")
         }
     }
+
+    fun stringTimeframes() = timeframes
+            ?.filter(String::isNotEmpty)
+            ?.joinToString(separator = "\n")
 
     fun compositionAsString() = composition.joinToString(separator = ",")
 

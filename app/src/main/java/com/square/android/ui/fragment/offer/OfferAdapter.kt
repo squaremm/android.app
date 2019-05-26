@@ -1,12 +1,14 @@
 package com.square.android.ui.fragment.offer
 
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.square.android.R
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.extensions.loadImage
 import com.square.android.ui.base.BaseAdapter
+import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.offer_card.*
-
 
 class OfferAdapter(data: List<OfferInfo>,
                    private val handler: Handler?) : BaseAdapter<OfferInfo, OfferAdapter.OfferHolder>(data) {
@@ -55,8 +57,15 @@ class OfferAdapter(data: List<OfferInfo>,
 
             offerImage.loadImage(item.mainImage ?: item.photo)
 
-            //TODO change when API done
-            offerHours.text = "Friday - Sunday: 19.00 - 23.00"
+            if (item.timeframes.isNullOrEmpty()){
+                offerTimeframesRv.visibility = View.GONE
+            } else {
+                offerTimeframesRv.visibility = View.VISIBLE
+
+                offerTimeframesRv.adapter = TimeframeAdapter(item.timeframes!!)
+                offerTimeframesRv.layoutManager = LinearLayoutManager(offerTimeframesRv.context, RecyclerView.HORIZONTAL,false)
+                offerTimeframesRv.addItemDecoration(MarginItemDecorator(offerTimeframesRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+            }
         }
 
         fun bindSelected(selectedPosition: Int?) {

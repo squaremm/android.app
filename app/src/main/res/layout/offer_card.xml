@@ -81,28 +81,17 @@
             app:layout_constraintStart_toStartOf="@+id/offerPrice"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/offerHours"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/offerTimeframesRv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Models14Text"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/round_bg_pink_red"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Friday - Sunday: 19.00 - 23.00" />
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            tools:layout_height="72dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

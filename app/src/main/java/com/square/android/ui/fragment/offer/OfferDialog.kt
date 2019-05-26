@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.square.android.R
@@ -34,8 +35,12 @@ class OfferDialog(private val context: Context) {
         view.offerDialogCredits.text = offer.price.toString()
         view.offerDialogComponents.text = offer.compositionAsStr()
 
-        //TODO change when API done
-        view.offerHours.text = "Friday - Sunday: 19.00 - 23.00"
+        if(offer.timeframes.isNullOrEmpty()){
+            view.offerDialogAvailability.visibility = View.GONE
+        } else{
+            view.offerDialogAvailability.visibility = View.VISIBLE
+            view.offerHours.text = offer.stringTimeframes()
+        }
 
         dialog.show()
     }

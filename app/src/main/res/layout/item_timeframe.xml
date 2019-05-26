@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/timeframeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Models14Text"
+        android:textColor="@android:color/white"
+        android:background="@drawable/round_bg_pink_red"
+        android:maxLines="1"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        tools:text="Friday - Sunday: 19.00 - 23.00" />
+</LinearLayout>

@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="48dp" >
 
         <ImageView
             android:id="@+id/offerDialogImg"
@@ -76,69 +77,86 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/offerDialogPlace" />
 
-
-        <TextView
-            android:id="@+id/offerDialogComponents"
-            style="@style/Models18Text"
+        <com.square.android.utils.widget.ScrollViewMaxHeight
+            android:id="@+id/offerDialogSv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:max_height="56dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:scrollbars="none"
+            android:overScrollMode="never" >
+        <TextView
+            android:id="@+id/offerDialogComponents"
+            style="@style/Models18Text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="1X Pizza\n1X Water\n2X Beer\n1X Burger" />
+        </com.square.android.utils.widget.ScrollViewMaxHeight>
 
         <LinearLayout
+            android:id="@+id/offerDialogAvailability"
             android:layout_width="match_parent"
-            android:layout_height="0.01dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="48dp"
-            android:layout_marginTop="24dp"
-            android:orientation="vertical"
-            android:padding="24dp"
             android:background="@drawable/background_rounded_4dp"
             android:backgroundTint="@color/redish_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/offerDialogComponents"
-            app:layout_constraintVertical_bias="0.0"
-            android:gravity="center">
+            app:layout_constraintTop_toBottomOf="@+id/offerDialogSv">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center" >
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_warning"
-                    android:tint="@color/blueish_gray"
-                    android:layout_marginEnd="8dp" />
+                    android:tint="@color/blueish_gray" />
+
                 <TextView
                     style="@style/Models18Text"
-                    android:textColor="@color/blueish_gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/offer_availability"
-                    tools:layout_editor_absoluteX="156dp"
-                    tools:layout_editor_absoluteY="478dp" />
+                    android:textColor="@color/blueish_gray" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/offerHours"
-                style="@style/Models18Text"
-                android:textColor="@color/blueish_gray"
+            <com.square.android.utils.widget.ScrollViewMaxHeight
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:gravity="center"
-                tools:text="Friday - Sunday: 19.00 - 23.00"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
+                app:max_height="56dp">
+
+                <TextView
+                    android:id="@+id/offerHours"
+                    style="@style/Models18Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:textColor="@color/blueish_gray"
+                    tools:text="Friday - Sunday: 19.00 - 23.00" />
+            </com.square.android.utils.widget.ScrollViewMaxHeight>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,8 @@ class Offer(
         var price: Int = 0,
         var user: Int = 0,
         var instaUser: String = "",
-        var posts: MutableList<Post> = mutableListOf()
+        var posts: MutableList<Post> = mutableListOf(),
+        var timeframes: List<String>? = null
 ) {
     @JsonIgnoreProperties(ignoreUnknown = true)
     class Post(
@@ -39,6 +40,10 @@ class Offer(
             var type: String = "",
             var user: Long = 0
     )
+
+    fun stringTimeframes() = timeframes
+            ?.filter(String::isNotEmpty)
+            ?.joinToString(separator = "\n")
 
     fun compositionAsString() = composition.joinToString(separator = "\n")
 }
