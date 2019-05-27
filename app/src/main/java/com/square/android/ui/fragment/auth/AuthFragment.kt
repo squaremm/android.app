@@ -57,10 +57,7 @@ class AuthFragment : BaseFragment(), AuthView {
 
         pending_text_2.movementMethod = LinkMovementMethod.getInstance()
         read_acceptation_policy.movementMethod = LinkMovementMethod.getInstance()
-        pending_button_video.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_tutorial)))
-            startActivity(browserIntent)
-        }
+        pending_button_video.setOnClickListener { presenter.navigateTutorialVideos() }
 
         do_action_button.setOnClickListener {
             val authData = AuthData(et_email.content, et_password.content, et_confirm_password.content)

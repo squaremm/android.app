@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp" >
+        <ImageView
+            android:id="@+id/tutorialVideosBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:tint="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/chevron_left" />
+        <TextView
+            android:id="@+id/tutorialVideosTitle"
+            style="@style/Models22BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAllCaps="true"
+            android:text="@string/tutorials"
+            android:textColor="@color/nice_pink" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="24dp"
+        android:id="@+id/tutorialVideosRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        tools:listitem="@layout/item_tutorial_video"
+        tools:context=".ui.activity.tutorialVideos.TutorialVideosActivity" />
+
+</LinearLayout>
+

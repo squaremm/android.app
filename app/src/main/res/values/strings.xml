@@ -192,6 +192,20 @@
     <string name="connect_to_an">Connect to an internet source\nto use Square correctly</string>
     <string name="try_again">Try again</string>
 
+    <string name="how_it_works">How it works</string>
+
+    <string name="tutorials">Tutorials</string>
+    <string name="how_to_credits">How to earn credits</string>
+    <string name="how_to_review">How to make a review</string>
+    <string name="how_to_instagram_story">How to make an Instagram story</string>
+
+    <string name="youtube_how_to_credits">https://www.youtube.com/watch?v=emSwZ71NGE8</string>
+    <string name="youtube_how_to_review">https://www.youtube.com/watch?v=1uXGxvgioPg</string>
+    <string name="youtube_how_to_instagram_story">https://www.youtube.com/watch?v=8g3ucibKWRA</string>
+
+    <string name="thumbnail_how_to_credits">https://img.youtube.com/vi/emSwZ71NGE8/hqdefault.jpg</string>
+    <string name="thumbnail_how_to_review">https://img.youtube.com/vi/1uXGxvgioPg/hqdefault.jpg</string>
+    <string name="thumbnail_how_to_instagram_story">https://img.youtube.com/vi/8g3ucibKWRA/hqdefault.jpg</string>
 
     <string name="review_instagram_post_body">
         <![CDATA[
@@ -275,7 +289,7 @@
     <string name="thank_you_for_interest">Thank you for your interest in joining our community!</string>
     <string name="pending_text_1">We are continually reviewing applications and will notify you as soon as we can.</string>
     <string name="pending_text_2">In the meantime, you can follow us on <a href="https://instagram.com/square.app"><u><b>Instagram</b></u></a>.</string>
-    <string name="watch_our_video">Watch our video</string>
+    <string name="watch_our_videos">Watch our videos</string>
     <string name="read_acceptation_policy">Read the <a href="https://squaremm.com/approvalpolicy.php"><u>Acceptation Policy</u></a>.</string>
 
     <string name="youtube_tutorial">https://www.youtube.com/watch?v=6VCsX_Hw9js</string>

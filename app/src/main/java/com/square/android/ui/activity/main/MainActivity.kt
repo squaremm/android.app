@@ -1,9 +1,6 @@
 package com.square.android.ui.activity.main
 
-
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
@@ -38,6 +35,7 @@ import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
 import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
 import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.activity.start.StartActivity
+import com.square.android.ui.activity.tutorialVideos.TutorialVideosActivity
 import com.square.android.ui.dialogs.LostCreditsDialog
 import com.square.android.ui.fragment.map.MapFragment
 import com.square.android.ui.fragment.places.PlacesFragment
@@ -69,10 +67,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
         pending_text_2.movementMethod = LinkMovementMethod.getInstance()
         read_acceptation_policy.movementMethod = LinkMovementMethod.getInstance()
-        pending_button_video.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_tutorial)))
-            startActivity(browserIntent)
-        }
+        pending_button_video.setOnClickListener { presenter.navigateTutorialVideos() }
 
         setUpNavigation()
         setUpNotifications()
@@ -183,6 +178,9 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
                     SCREENS.NO_CONNECTION ->
                         context.intentFor<NoConnectionActivity>()
+
+                    SCREENS.TUTORIAL_VIDEOS ->
+                        context.intentFor<TutorialVideosActivity>()
 
                     else -> null
                 }

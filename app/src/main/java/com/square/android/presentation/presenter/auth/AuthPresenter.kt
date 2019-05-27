@@ -133,4 +133,8 @@ class AuthPresenter : BasePresenter<AuthView>() {
         }
     }
 
+    fun navigateTutorialVideos(){
+        router.navigateTo(SCREENS.TUTORIAL_VIDEOS)
+    }
+
 }

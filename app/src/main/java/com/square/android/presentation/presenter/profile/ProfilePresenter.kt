@@ -48,4 +48,8 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
     override fun onDestroy() {
         eventBus.unregister(this)
     }
+
+    fun navigateTutorialVideos(){
+        router.navigateTo(SCREENS.TUTORIAL_VIDEOS)
+    }
 }

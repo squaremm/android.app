@@ -71,6 +71,8 @@ class ProfileFragment : BaseFragment(), ProfileView {
         container_invite.setOnClickListener { share(user.referralCode) }
 
         profileSettings.setOnClickListener { presenter.openSettings() }
+
+        how_it_works.setOnClickListener { presenter.navigateTutorialVideos() }
     }
 
     private fun share(referralCode: String) {

@@ -53,6 +53,10 @@ class MainPresenter : BasePresenter<MainView>() {
         }
     }
 
+    fun navigateTutorialVideos(){
+        router.navigateTo(SCREENS.TUTORIAL_VIDEOS)
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onBadgeStateChanged(event: BadgeStateChangedEvent) {
         loadBadgeCount()
