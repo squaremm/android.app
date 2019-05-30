@@ -105,9 +105,10 @@ class BookingFragment : BaseFragment(), BookingView {
         changeSelected(current, true)
     }
 
-    private fun itemClicked(position: Int) {
+    private fun itemClicked(position: Int, enabled: Boolean) {
         presenter.itemClicked(position)
-        bookingBook.isEnabled = true
+
+        bookingBook.isEnabled = enabled
     }
 
     private fun changeSelected(view: View?, isSelected: Boolean) {
@@ -124,15 +125,12 @@ class BookingFragment : BaseFragment(), BookingView {
         data.forEachIndexed { index, interval ->
             val view = inflater.inflate(R.layout.item_interval, bookingIntervalList, false)
 
-            var active = true
+            var active = interval.slots > 0
 
             view.bookingInterval.text = getString(R.string.time_range, interval.start, interval.end)
 
             when(interval.slots){
-                0 -> {
-                    view.bookingSpots.text = getString(R.string.full)
-                    active = false
-                }
+                0 -> { view.bookingSpots.text = getString(R.string.full) }
                 1 -> view.bookingSpots.text = getString(R.string.spot_one_format, interval.slots)
                 else -> view.bookingSpots.text = getString(R.string.spot_format, interval.slots)
             }
@@ -141,7 +139,7 @@ class BookingFragment : BaseFragment(), BookingView {
 
             updateInterval(view, active)
 
-            view.setOnClickListener { itemClicked(index) }
+            view.setOnClickListener {itemClicked(index,active)}
 
             bookingIntervalList.addView(view)
         }

@@ -59,7 +59,13 @@ class DaysAdapter(data: List<Day>,
             bindSelected(item, selectedPosition, selectedMonth)
 
             itemDayName.text = item.dayName
-            itemDayValue.text = item.dayValue.toString()
+
+            if(item.dayValue<10){
+                itemDayValue.text = " "+item.dayValue.toString()
+            } else{
+                itemDayValue.text = item.dayValue.toString()
+            }
+
             itemDayValue.checkMarkDrawable = null
         }
 

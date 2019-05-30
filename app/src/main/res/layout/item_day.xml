@@ -31,7 +31,7 @@
             android:layout_height="40dp"
             android:background="@drawable/item_day_selector"
             android:gravity="center"
-            android:paddingStart="11dp"
+            android:paddingStart="11.5dp"
             android:textColor="@color/day_text_color"
             app:layout_constraintEnd_toEndOf="@+id/itemDayName"
             app:layout_constraintStart_toStartOf="@+id/itemDayName"
