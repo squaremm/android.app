@@ -36,7 +36,7 @@ abstract class LocationFragment : BaseFragment(), LocationEngineCallback<Locatio
     }
 
     private fun tryInitLocation() {
-        if (PermissionsManager.areLocationPermissionsGranted(activity)) {
+        if (PermissionsManager.areLocationPermissionsGranted(context)) {
             initLocation()
 
             locationAllowed()

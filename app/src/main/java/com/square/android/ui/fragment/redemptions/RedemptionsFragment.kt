@@ -79,39 +79,42 @@ class RedemptionsFragment : LocationFragment(), RedemptionsView, RedemptionsAdap
         get() = 1340
 
     override val tutorial: Tutorial?
-        get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REDEMPTIONS)
-                .addNextStep(TutorialStep(
-                        // width percentage, height percentage for text with arrow
-                        floatArrayOf(0.50f, 0.78f),
-                        getString(R.string.tut_3_1),
-                        TutorialStep.ArrowPos.TOP,
-                        R.drawable.arrow_bottom_right_x_top_left,
-                        0.35f,
-                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
-                        // 0f,0f,0f,0f for covering entire screen
-                        floatArrayOf(0f,0f,0.30f,500f),
-                        1,
-                        // delay before showing view in ms
-                        0f))
-                .addNextStep(TutorialStep(
-                        // width percentage, height percentage for text with arrow
-                        floatArrayOf(0.50f, 0.38f),
-                        getString(R.string.tut_3_2),
-                        TutorialStep.ArrowPos.TOP,
-                        R.drawable.arrow_bottom_right_x_top_left,
-                        0.35f,
-                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
-                        // 0f,0f,0f,0f for covering entire screen
-                        floatArrayOf(0f,0f,0.1f,190f),
-                        1,
-                        // delay before showing view in ms
-                        500f,
-                        0))
-                .setOnNextStepIsChangingListener {
+        get() = when {
+            !presenter.data.isNullOrEmpty() -> null
+            else -> Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REDEMPTIONS)
+                    .addNextStep(TutorialStep(
+                            // width percentage, height percentage for text with arrow
+                            floatArrayOf(0.50f, 0.78f),
+                            getString(R.string.tut_3_1),
+                            TutorialStep.ArrowPos.TOP,
+                            R.drawable.arrow_bottom_right_x_top_left,
+                            0.35f,
+                            // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                            // 0f,0f,0f,0f for covering entire screen
+                            floatArrayOf(0f, 0f, 0.30f, 500f),
+                            1,
+                            // delay before showing view in ms
+                            0f))
+                    .addNextStep(TutorialStep(
+                            // width percentage, height percentage for text with arrow
+                            floatArrayOf(0.50f, 0.38f),
+                            getString(R.string.tut_3_2),
+                            TutorialStep.ArrowPos.TOP,
+                            R.drawable.arrow_bottom_right_x_top_left,
+                            0.35f,
+                            // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+                            // 0f,0f,0f,0f for covering entire screen
+                            floatArrayOf(0f, 0f, 0.1f, 190f),
+                            1,
+                            // delay before showing view in ms
+                            500f,
+                            0))
+                    .setOnNextStepIsChangingListener {
 
-                }
-                .setOnContinueTutorialListener {
-                    presenter.claimClicked(1)
-                }
-                .build()
+                    }
+                    .setOnContinueTutorialListener {
+                        presenter.claimClicked(1)
+                    }
+                    .build()
+        }
 }

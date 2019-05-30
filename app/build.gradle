@@ -18,8 +18,8 @@ static def getDate() {
 }
 
 def versionMajor = 0
-def versionMinor = 1
-def versionPatch = 8
+def versionMinor = 2
+def versionPatch = 0
 
 def versionNameVal = "${versionMajor}.${versionMinor}.${versionPatch}"
 
@@ -30,7 +30,7 @@ android {
         applicationId "com.squaremm.android"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 5
+        versionCode 7
         versionName versionNameVal
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

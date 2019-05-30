@@ -35,7 +35,7 @@ private const val MAXIMAL_DISTANCE = 75_000_000 // TODO change before release to
 class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
     private val eventBus: EventBus by inject()
 
-    private var data: MutableList<Any>? = null
+    var data: MutableList<Any>? = null
 
     private var groups: MutableMap<String, MutableList<RedemptionInfo>>? = null
 

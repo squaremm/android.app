@@ -92,7 +92,6 @@ class BookingPresenter : BasePresenter<BookingView>() {
         }
     }
 
-
     fun getStringDate() = calendar2.getStringDate()
 
 

@@ -37,8 +37,19 @@ class TutorialService : Service() {
     private var tutorial: Tutorial? = null
 
     private lateinit var serviceTutorialView: TutorialView
-    private var mWindowManager: WindowManager? = null
+    private var windowManager: WindowManager? = null
     private var windowLayoutParams: WindowManager.LayoutParams? = null
+
+    private val tutorialViewClickListener = object : View.OnTouchListener{
+        override fun onTouch(v: View, event: MotionEvent): Boolean {
+            if (event.action == MotionEvent.ACTION_UP) {
+                serviceTutorialView.onTouchEvent(event)
+
+                return true
+            }
+            return false
+        }
+    }
 
     override fun onBind(intent: Intent): IBinder? = null
 
@@ -71,7 +82,7 @@ class TutorialService : Service() {
     }
 
     private fun setupService() {
-        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager?
+        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager?
 
         if (android.os.Build.VERSION.SDK_INT < 26) {
             windowLayoutParams = WindowManager.LayoutParams(
@@ -88,17 +99,11 @@ class TutorialService : Service() {
             windowLayoutParams!!.gravity = Gravity.CENTER or Gravity.TOP
         }
 
-        serviceTutorialView = TutorialView(this)
-        serviceTutorialView.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View, event: MotionEvent): Boolean {
-                if (event.action == MotionEvent.ACTION_UP) {
-                    serviceTutorialView.onTouchEvent(event)
+        serviceTutorialView = createTutorialView()
+    }
 
-                    return true
-                }
-                return false
-            }
-        })
+    private fun createTutorialView() = TutorialView(this).apply {
+        setOnTouchListener(tutorialViewClickListener)
     }
 
     override fun onStartCommand(intent: Intent?, flag: Int, startId: Int): Int {
@@ -130,7 +135,11 @@ class TutorialService : Service() {
         }
 
         Handler(Looper.getMainLooper()).post {
-            mWindowManager!!.addView(serviceTutorialView, windowLayoutParams)
+            try {
+                windowManager!!.addView(serviceTutorialView, windowLayoutParams)
+            } catch (e: Exception) {
+                serviceTutorialView = createTutorialView()
+            }
             show()
         }
     }
@@ -142,7 +151,7 @@ class TutorialService : Service() {
 
         //TODO: is this handler necessary?
         Handler(Looper.getMainLooper()).post {
-            mWindowManager!!.removeViewImmediate(serviceTutorialView)
+            windowManager!!.removeViewImmediate(serviceTutorialView)
             repository.setTutorialDontShowAgain(tutorialKey, dontShowAgain)
         }
 
