@@ -31,8 +31,8 @@ class MainPresenter : BasePresenter<MainView>() {
     }
 
     fun checkPending() = launch {
-        if(!repository.isLoggedIn() && !repository.isProfileFilled()){
-            router.replaceScreen(SCREENS.START)
+        if(!repository.isLoggedIn() || !repository.isProfileFilled()){
+            navigationClicked(SCREENS.START)
         } else {
             val user = repository.getCurrentUser().await()
             if (user.isAcceptationPending) {

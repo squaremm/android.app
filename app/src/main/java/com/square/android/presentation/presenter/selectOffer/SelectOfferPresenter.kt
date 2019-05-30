@@ -59,6 +59,6 @@ class SelectOfferPresenter(private val redemptionId: Long) : BasePresenter<Selec
 
         router.replaceScreen(SCREENS.REVIEW, extras)
 
-        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.ACTIONS_OPENED, hashMapOf("id" to id.toString())), repository)
+        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.ACTIONS_OPENED.apply { venueName = data?.redemption?.place?.name }, hashMapOf("id" to id.toString())), repository)
     }
 }

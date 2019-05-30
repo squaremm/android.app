@@ -7,7 +7,7 @@ import com.square.android.data.Repository
 import org.json.JSONObject
 
 
-enum class AnalyticsEvents {
+enum class AnalyticsEvents(var venueName: String? = null) {
     VENUE_CLICKED,
     BOOKING_MADE,
     RESTAURANT_OPENED_FROM_MAP,
@@ -35,6 +35,9 @@ object AnalyticsManager {
         Answers.getInstance().logCustom(fabricEvent)
 
         mixpanelEvent.put("username", repository.getUserInfo().name)
+        analyticsEvent.eventName.venueName?.run {
+            mixpanelEvent.put("VENUE_NAME", this)
+        }
         App.INSTANCE.mixpanel.track(eventName, mixpanelEvent)
     }
 }
