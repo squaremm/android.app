@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mukesh.countrypicker.Country
 import com.mukesh.countrypicker.CountryPicker
 import com.mukesh.countrypicker.listeners.OnCountryPickerListener
 import com.square.android.R
+import com.square.android.data.pojo.ProfileInfo
 import com.square.android.extensions.content
 import com.square.android.extensions.toOrdinalString
 import com.square.android.presentation.presenter.fillProfileFirst.FillProfileFirstPresenter
@@ -18,12 +20,39 @@ import com.square.android.ui.fragment.BaseFragment
 import com.square.android.utils.ValidationCallback
 import kotlinx.android.synthetic.main.fragment_fill_profile_1.*
 import kotlinx.android.synthetic.main.profile_form_1.view.*
+import org.jetbrains.anko.bundleOf
 import java.util.*
+
+private const val EXTRA_MODEL = "EXTRA_MODEL"
 
 class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  ValidationCallback<CharSequence>, OnCountryPickerListener  {
 
+    override fun showData(profileInfo: ProfileInfo) {
+        form.formProfileName.setText(profileInfo.name)
+        form.formProfileLastName.setText(profileInfo.surname)
+        form.formProfileNationality.text = profileInfo.nationality
+        form.formProfileBirth.text = profileInfo.displayBirthday
+        form.formProfileGender.text = profileInfo.gender
+    }
+
+    companion object {
+
+        @Suppress("DEPRECATION")
+        fun newInstance(info: ProfileInfo): FillProfileFirstFragment {
+            val fragment = FillProfileFirstFragment()
+
+            val args = bundleOf(EXTRA_MODEL to info)
+            fragment.arguments = args
+
+            return fragment
+        }
+
+    }
     @InjectPresenter
     lateinit var presenter: FillProfileFirstPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): FillProfileFirstPresenter = FillProfileFirstPresenter(getModel())
 
     private var dialog: SelectGenderDialog? = null
 
@@ -135,5 +164,26 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
 
                     presenter.birthSelected(modelBirthday, displayBirthday)
                 }
+    }
+
+    private fun getModel(): ProfileInfo {
+        return arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
+    }
+
+    override fun onStop() {
+
+        val profileInfo = presenter.info
+
+        if(isValid( form.formProfileName.content)){
+          profileInfo.name = form.formProfileName.content
+        }
+
+        if(isValid( form.formProfileLastName.content)){
+          profileInfo.surname =  form.formProfileLastName.content
+        }
+
+        presenter.saveState(profileInfo, 1)
+
+        super.onStop()
     }
 }

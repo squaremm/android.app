@@ -29,6 +29,11 @@ private const val POSITION_PROGRESS = 1
 private const val CODE_LENGTH = 4
 
 class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, ValidationCallback<CharSequence> {
+
+    override fun showData(profileInfo: ProfileInfo) {
+     codeField.setText(profileInfo.referral)
+    }
+
     override fun sendFcmToken() {
         if (presenter.repository.getUserInfo().id != 0L) {
             FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(activity as Activity) { instanceIdResult ->
@@ -115,5 +120,16 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
             return fragment
         }
 
+    }
+
+    override fun onStop() {
+        val profileInfo = presenter.info
+        profileInfo.referral = codeField.content
+        profileInfo.images = null
+
+        //this must be be 3 not 4
+        presenter.saveState(profileInfo, 3)
+
+        super.onStop()
     }
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="32dp"
+    android:paddingEnd="32dp"
+    tools:showIn="@layout/fragment_fill_profile_3">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Models14Text"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/grey_dark"
+        android:text="@string/add_three_photos" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp" >
+       
+        <ImageView
+            android:id="@+id/form3Img1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/image_holder"
+            android:layout_weight="1"
+            android:layout_marginEnd="16dp" />
+
+        <ImageView
+            android:id="@+id/form3Img2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/image_holder"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/form3Img3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/image_holder"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/form3PhotoMissing"
+        style="@style/Models14Text"
+        android:textColor="@color/nice_red"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/photo_missing"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</LinearLayout>

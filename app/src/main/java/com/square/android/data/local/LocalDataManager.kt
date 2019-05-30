@@ -19,6 +19,9 @@ private const val KEY_SOCIAL_LINK = "KEY_SOCIAL_LINK"
 
 private const val KEY_TUTORIAL = "KEY_TUTORIAL"
 
+private const val KEY_PROFILE_INFO = "KEY_PROFILE_INFO"
+private const val KEY_FRAGMENT_NUMBER = "KEY_FRAGMENT_NUMBER"
+
 private const val DISPLAY_INTRO_DEFAULT = true
 private const val PROFILE_FILLED_DEFAULT = false
 private const val LOGGED_IN_DEFAULT = false
@@ -106,6 +109,25 @@ class LocalDataManager(context: Context) {
                 .apply()
     }
 
+    fun getProfileInfo(): String {
+        return preferences.getString(KEY_PROFILE_INFO, null)
+                ?: throw IllegalArgumentException("No key is stored")
+    }
+
+    fun getFragmentNumber(): Int {
+        return preferences.getInt(KEY_FRAGMENT_NUMBER, 0)
+    }
+
+    fun setProfileInfo(profileInfo: String, fragmentNumber: Int) {
+        preferences.edit()
+                .putString(KEY_PROFILE_INFO, profileInfo)
+                .apply()
+
+        preferences.edit()
+                .putInt(KEY_FRAGMENT_NUMBER, fragmentNumber)
+                .apply()
+    }
+
     fun isProfileFilled() = preferences.getBoolean(KEY_PROFILE_FILLED, PROFILE_FILLED_DEFAULT)
 
     fun isTokenPresent() = preferences.contains(KEY_AUTH_TOKEN)
@@ -144,5 +166,5 @@ class LocalDataManager(context: Context) {
         return preferences.getString(KEY_SOCIAL_LINK, null)
     }
 
-    private fun getId() = preferences.getLong(KEY_ID, ID_DEFAULT)
+    fun getId() = preferences.getLong(KEY_ID, ID_DEFAULT)
 }

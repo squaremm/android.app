@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.fragment.fillProfileSecond.FillProfileSecondFragment"
+    tools:context=".ui.fragment.fillProfileThird.FillProfileThirdFragment"
     android:background="@color/white" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,25 +46,40 @@
 
     <include
         android:id="@+id/form"
-        layout="@layout/profile_form_2" />
+        layout="@layout/profile_form_3" />
 
-    <Button
-        android:id="@+id/fillProfile2Next"
-        style="@style/Models16BoldText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/nice_button_red_pink_alpha"
-        android:text="@string/next"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginEnd="32dp" >
+
+        <ProgressBar
+            android:id="@+id/fillProfile3Progress"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:indeterminateTint="@color/nice_pink"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
+        <Button
+            android:id="@+id/fillProfile3Next"
+            style="@style/Models16BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/nice_button_red_pink_alpha"
+            android:text="@string/next"
+            android:enabled="false"
+            android:visibility="visible"
+            tools:visibility="visible"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"

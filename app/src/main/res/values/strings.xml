@@ -188,6 +188,10 @@
     <string name="tut_5_1">Select which social media\nactions you would like to do.</string>
 
 
+    <string name="add_three_photos">Add 3 of your photos</string>
+    <string name="photo_missing">One of the 3 photos is missing.</string>
+
+
     <string name="seems_offline">It seems you are offline!</string>
     <string name="connect_to_an">Connect to an internet source\nto use Square correctly</string>
     <string name="try_again">Try again</string>

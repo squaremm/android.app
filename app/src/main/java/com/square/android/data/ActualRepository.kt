@@ -135,6 +135,22 @@ class ActualRepository(private val api: ApiService,
         localManager.setId(id)
     }
 
+    override fun getUserId(): Long  {
+        return localManager.getId()
+    }
+
+    override fun getProfileInfo(): String {
+       return localManager.getProfileInfo()
+    }
+
+    override fun saveProfileInfo(profileInfo: String, fragmentNumber: Int) {
+        localManager.setProfileInfo(profileInfo, fragmentNumber)
+    }
+
+    override fun getFragmentNumber(): Int {
+        return localManager.getFragmentNumber()
+    }
+
     override fun book(placeId: Long, bookInfo: BookInfo): Deferred<MessageResponse> = GlobalScope.async {
         val data = performRequestCheckingMessage { api.book(placeId, bookInfo) }
         data

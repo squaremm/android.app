@@ -52,6 +52,19 @@ fun ImageView.loadImage(url: String,
     }
 }
 
+fun ImageView.loadImage(uri: Uri,
+                        @ColorRes placeholder: Int = R.color.placeholder,
+                        roundedCornersRadiusPx: Int = 0,
+                        whichCornersToRound: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL) {
+        Picasso.get()
+                .load(uri)
+                .fit()
+                .centerCrop()
+                .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
+                .placeholder(placeholder)
+                .into(this)
+}
+
 fun ImageView.loadImage(@DrawableRes drawableRes: Int,
                         withoutCropping: Boolean = false,
                         roundedCornersRadiusPx: Int = 0,

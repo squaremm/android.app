@@ -8,30 +8,34 @@ import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.fillProfileFirst.FillProfileFirstView
 
 @InjectViewState
-class FillProfileFirstPresenter : BasePresenter<FillProfileFirstView>() {
-    private val model = ProfileInfo()
+class FillProfileFirstPresenter(val info: ProfileInfo) : BasePresenter<FillProfileFirstView>() {
+
+    init {
+        viewState.showData(info)
+    }
 
     fun birthSelected(modelBirthday: String, displayBirthday: String) {
-        model.birthDate = modelBirthday
+        info.birthDate = modelBirthday
+        info.displayBirthday = displayBirthday
 
         viewState.showBirthday(displayBirthday)
     }
 
     fun nextClicked(name: String, surname: String) {
-        model.name = name
-        model.surname = surname
+        info.name = name
+        info.surname = surname
 
-        router.navigateTo(SCREENS.FILL_PROFILE_SECOND, model)
+        router.navigateTo(SCREENS.FILL_PROFILE_SECOND, info)
     }
 
     fun countrySelected(country: Country) {
-        model.nationality = country.name
+        info.nationality = country.name
 
         viewState.displayNationality(country)
     }
 
     fun genderSelected(gender: String) {
-        model.gender = gender
+        info.gender = gender
         viewState.displayGender(gender)
     }
 }

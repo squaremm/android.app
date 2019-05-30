@@ -32,6 +32,9 @@ interface Repository {
     fun getPlaces(): Deferred<List<Place>>
 
     fun setUserId(id: Long)
+
+    fun getUserId(): Long
+
     fun setAvatarUrl(url: String?)
     fun setUserName(name: String, surname: String)
     fun setSocialLink(username: String)
@@ -76,6 +79,12 @@ interface Repository {
 
     fun saveFcmToken(fcmToken: String?)
     fun getFcmToken(): String?
+
+    fun saveProfileInfo(profileInfo: String, fragmentNumber: Int)
+
+    fun getProfileInfo(): String
+
+    fun getFragmentNumber(): Int
 
     fun sendFcmToken(uuid: String, newFcmToken: String?, oldToken: String?): Deferred<MessageResponse>
     fun getOffersForBooking(placeId: Long, bookingId: Long): Deferred<List<OfferInfo>>

@@ -4,15 +4,16 @@ import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.network.errorMessage
 import com.square.android.data.pojo.ProfileInfo
-
 import com.square.android.presentation.presenter.BasePresenter
-
 import com.square.android.presentation.view.fillProfileReferral.FillProfileReferralView
 
-
 @InjectViewState
-class FillProfileReferralPresenter(private val info: ProfileInfo)
+class FillProfileReferralPresenter(val info: ProfileInfo)
     : BasePresenter<FillProfileReferralView>() {
+
+    init {
+        viewState.showData(info)
+    }
 
     fun confirmClicked(referral: String) {
         info.referral = referral
@@ -32,10 +33,17 @@ class FillProfileReferralPresenter(private val info: ProfileInfo)
 
             val response = repository.fillProfile(info).await()
 
+            val userId = repository.getUserId()
+            info.images?.let {
+                for(bytes in it){
+                    repository.addPhoto(userId, bytes).await()
+                }
+            }
+
             viewState.hideProgress()
 
-
             repository.setProfileFilled(true)
+            repository.saveProfileInfo("",0)
 
             router.showSystemMessage(response.message)
             viewState.sendFcmToken()

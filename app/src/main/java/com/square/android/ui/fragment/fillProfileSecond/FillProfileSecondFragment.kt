@@ -2,6 +2,7 @@ package com.square.android.ui.fragment.fillProfileSecond
 
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,21 @@ private const val EXTRA_MODEL = "EXTRA_MODEL"
 private const val COUNTRY_DEFAULT_ISO = "US"
 
 class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCountryPickerListener {
+
+    override fun showData(profileInfo: ProfileInfo) {
+        form.formProfileAccount.setText(profileInfo.email)
+        form.formDialPhoneNumber.setText(profileInfo.phoneN)
+
+        if(!TextUtils.isEmpty(profileInfo.phoneC)){
+            form.formDialCode.text = profileInfo.phoneC
+        }
+        if(profileInfo.flagCode != -1){
+            form.formDialFlag.setImageResource(profileInfo.flagCode)
+        }
+        form.formProfileMotherAgency.setText(profileInfo.motherAgency)
+        form.formProfileCurrentAgency.setText(profileInfo.currentAgency)
+    }
+
     companion object {
 
         @Suppress("DEPRECATION")
@@ -126,6 +142,9 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
 
             val phone = "${form.formDialCode.content} ${form.formDialPhoneNumber.content}"
 
+            val phoneN = form.formDialPhoneNumber.content
+            val phoneC = form.formDialCode.content
+
             val motherAgency = form.formProfileMotherAgency.content
 
             val currentAgency = form.formProfileCurrentAgency.content
@@ -133,7 +152,9 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
             presenter.nextClicked(account = account,
                     phone = phone,
                     motherAgency = motherAgency,
-                    currentAgency = currentAgency)
+                    currentAgency = currentAgency,
+                    phoneN = phoneN,
+                    phoneC = phoneC)
 
             activity?.hideKeyboard()
         }
@@ -141,5 +162,33 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
 
     private fun getModel(): ProfileInfo {
         return arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
+    }
+
+
+    override fun onStop() {
+        val profileInfo = presenter.info
+
+        if(isValid(form.formProfileAccount.content)){
+           profileInfo.email = form.formProfileAccount.content
+        }
+
+        if(isValid(form.formDialPhoneNumber.content)){
+           profileInfo.phone = "${form.formDialCode.content} ${form.formDialPhoneNumber.content}"
+        }
+
+        if(isValid(form.formProfileMotherAgency.content)){
+            profileInfo.motherAgency = form.formProfileMotherAgency.content
+        }
+
+        if(isValid(form.formProfileCurrentAgency.content)){
+            profileInfo.currentAgency = form.formProfileCurrentAgency.content
+        }
+
+        profileInfo.phoneN = form.formDialPhoneNumber.content
+        profileInfo.phoneC = form.formDialCode.content
+
+        presenter.saveState(profileInfo, 2)
+
+        super.onStop()
     }
 }

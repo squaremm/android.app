@@ -1,6 +1,5 @@
 package com.square.android.ui.activity.start
 
-
 import android.content.Context
 import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -16,10 +15,10 @@ import com.square.android.ui.fragment.auth.AuthFragment
 import com.square.android.ui.fragment.fillProfileFirst.FillProfileFirstFragment
 import com.square.android.ui.fragment.fillProfileReferral.FillProfileReferralFragment
 import com.square.android.ui.fragment.fillProfileSecond.FillProfileSecondFragment
+import com.square.android.ui.fragment.fillProfileThird.FillProfileThirdFragment
 import com.square.android.ui.fragment.intro.IntroFragment
 import org.jetbrains.anko.intentFor
 import ru.terrakok.cicerone.Navigator
-
 
 class StartActivity : BaseActivity(), StartView {
 
@@ -32,7 +31,6 @@ class StartActivity : BaseActivity(), StartView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
-
     }
 
     private class StartNavigator(activity: androidx.fragment.app.FragmentActivity) : AppNavigator(activity, R.id.start_container) {
@@ -46,9 +44,10 @@ class StartActivity : BaseActivity(), StartView {
                 when (screenKey) {
                     SCREENS.INTRO -> IntroFragment()
                     SCREENS.AUTH -> AuthFragment()
-                    SCREENS.FILL_PROFILE_FIRST -> FillProfileFirstFragment()
+                    SCREENS.FILL_PROFILE_FIRST -> FillProfileFirstFragment.newInstance(data as ProfileInfo)
                     SCREENS.FILL_PROFILE_SECOND -> FillProfileSecondFragment.newInstance(data as ProfileInfo)
-                    SCREENS.FILL_PROFILE_THIRD -> FillProfileReferralFragment.newInstance(data as ProfileInfo)
+                    SCREENS.FILL_PROFILE_THIRD -> FillProfileThirdFragment.newInstance(data as ProfileInfo)
+                    SCREENS.FILL_PROFILE_REFERRAL -> FillProfileReferralFragment.newInstance(data as ProfileInfo)
                     else -> throw IllegalArgumentException("Unknown screen key: $screenKey")
                 }
     }

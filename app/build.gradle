@@ -157,6 +157,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:16.0.1'
 
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation ('com.alimuzaffar.lib:pinentryedittext:1.3.10') {
         // Exclude is only needed if you already have

@@ -1,21 +1,14 @@
 package com.square.android.presentation.presenter.auth
 
-import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.network.errorMessage
 import com.square.android.data.network.response.AuthResponse
 import com.square.android.data.pojo.AuthData
-
 import com.square.android.presentation.presenter.BasePresenter
-
 import com.square.android.presentation.view.auth.AuthView
-import com.google.firebase.internal.FirebaseAppHelper.getToken
-import com.google.firebase.iid.InstanceIdResult
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.iid.FirebaseInstanceId
-
-
+import com.square.android.data.pojo.ProfileInfo
 
 enum class AuthAction {
     REGISTER, LOGIN, RESET_PASSWORD, NONE
@@ -104,11 +97,12 @@ class AuthPresenter : BasePresenter<AuthView>() {
             viewState.hideProgress()
 
             when {
-                profile.newUser -> router.replaceScreen(SCREENS.FILL_PROFILE_FIRST)
+                profile.newUser -> router.replaceScreen(SCREENS.FILL_PROFILE_FIRST, ProfileInfo())
                 profile.isAcceptationPending -> viewState.showPendingUser()
                 else -> {
                     viewState.hideUserPending()
                     repository.setProfileFilled(true)
+
                     router.replaceScreen(SCREENS.MAIN)
                 }
             }

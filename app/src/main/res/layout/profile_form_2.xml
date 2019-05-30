@@ -39,6 +39,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 tools:src="@drawable/flag_ac" />
+
             <TextView
                 android:id="@+id/formDialCode"
                 style="@style/Models14Text"
@@ -46,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                tools:text="+44" />
+                android:text="+1" />
         </LinearLayout>
 
         <View

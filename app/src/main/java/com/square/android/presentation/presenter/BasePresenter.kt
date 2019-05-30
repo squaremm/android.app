@@ -2,9 +2,11 @@ package com.square.android.presentation.presenter
 
 import android.text.TextUtils
 import com.arellomobile.mvp.MvpPresenter
+import com.google.gson.Gson
 import com.square.android.SCREENS
 import com.square.android.data.Repository
 import com.square.android.data.network.errorMessage
+import com.square.android.data.pojo.ProfileInfo
 import com.square.android.presentation.view.BaseView
 import com.square.android.presentation.view.ProgressView
 import kotlinx.coroutines.CoroutineScope
@@ -82,4 +84,11 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
         super.onDestroy()
     }
 
+
+    fun saveState(profileInfo: ProfileInfo, fragmentNumber: Int){
+        val gson = Gson()
+        val stringProfileInfo = gson.toJson(profileInfo)
+
+        repository.saveProfileInfo(stringProfileInfo,fragmentNumber)
+    }
 }
