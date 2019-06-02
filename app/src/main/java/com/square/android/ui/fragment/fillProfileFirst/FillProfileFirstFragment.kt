@@ -174,11 +174,11 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
 
         val profileInfo = presenter.info
 
-        if(isValid( form.formProfileName.content)){
+        if(isValid(form.formProfileName.content)){
           profileInfo.name = form.formProfileName.content
         }
 
-        if(isValid( form.formProfileLastName.content)){
+        if(isValid(form.formProfileLastName.content)){
           profileInfo.surname =  form.formProfileLastName.content
         }
 

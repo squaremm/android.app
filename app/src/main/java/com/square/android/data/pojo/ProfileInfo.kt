@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class ProfileInfo(var name: String = "",
+data class ProfileInfo(var name: String = "",
                   var surname: String = "",
                   var birthDate: String = "",
                   var gender: String = "",
                   var nationality: String = "",
                   var email: String = "",
+                  var instagramName: String = "",
                   var phone: String = "",
                   var motherAgency: String = "",
                   var currentAgency: String = "",
@@ -29,4 +30,4 @@ class ProfileInfo(var name: String = "",
                   var phoneC: String = "",
                   @JsonIgnore
                   var flagCode: Int = -1
-) : Parcelable
+): Parcelable

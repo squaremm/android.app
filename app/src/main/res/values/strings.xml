@@ -52,7 +52,7 @@
     <string name="credits_plus_format">+ %d credits</string>
 
 
-    <string name="shareContent">Join us: https://square-app-api.herokuapp.com\nReferral code: %s</string>
+    <string name="shareContent">Join us: https://play.google.com/store/apps/details?id=com.squaremm.android\nReferral code: %s</string>
     <string name="hint_referral">Referral</string>
     <string name="permsission_needed">We need location permissions to show places near to you!</string>
     <string name="location_failed_message">Failed to get location</string>

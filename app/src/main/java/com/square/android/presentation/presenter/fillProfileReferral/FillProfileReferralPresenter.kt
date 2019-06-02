@@ -1,5 +1,6 @@
 package com.square.android.presentation.presenter.fillProfileReferral
 
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.network.errorMessage
@@ -8,8 +9,11 @@ import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.fillProfileReferral.FillProfileReferralView
 
 @InjectViewState
-class FillProfileReferralPresenter(val info: ProfileInfo)
-    : BasePresenter<FillProfileReferralView>() {
+class FillProfileReferralPresenter(
+        val info: ProfileInfo
+) : BasePresenter<FillProfileReferralView>() {
+
+    var keptImages: List<ByteArray>? = null
 
     init {
         viewState.showData(info)
@@ -34,10 +38,8 @@ class FillProfileReferralPresenter(val info: ProfileInfo)
             val response = repository.fillProfile(info).await()
 
             val userId = repository.getUserId()
-            info.images?.let {
-                for(bytes in it){
-                    repository.addPhoto(userId, bytes).await()
-                }
+            info.images?.forEach {
+                repository.addPhoto(userId, it).await()
             }
 
             viewState.hideProgress()

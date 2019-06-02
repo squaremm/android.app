@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.PresenterType
 import com.square.android.R
+import com.square.android.data.pojo.RedemptionInfo
 import com.square.android.presentation.presenter.redemptions.RedemptionsPresenter
 import com.square.android.presentation.view.redemptions.RedemptionsView
 import com.square.android.ui.base.tutorial.Tutorial
@@ -80,7 +81,9 @@ class RedemptionsFragment : LocationFragment(), RedemptionsView, RedemptionsAdap
 
     override val tutorial: Tutorial?
         get() = when {
-            !presenter.data.isNullOrEmpty() -> null
+            presenter.data
+                    ?.filterIsInstance<RedemptionInfo>()
+                    ?.isNullOrEmpty() == true -> null
             else -> Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REDEMPTIONS)
                     .addNextStep(TutorialStep(
                             // width percentage, height percentage for text with arrow

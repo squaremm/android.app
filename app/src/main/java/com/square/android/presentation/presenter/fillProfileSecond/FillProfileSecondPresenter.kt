@@ -15,7 +15,7 @@ class FillProfileSecondPresenter(val info: ProfileInfo) : BasePresenter<FillProf
     }
 
     fun nextClicked(account: String, phone: String, motherAgency: String, currentAgency: String, phoneN: String, phoneC: String) {
-        info.email = account
+        info.instagramName = account
         info.phone = phone
         info.motherAgency = motherAgency
         info.currentAgency = currentAgency

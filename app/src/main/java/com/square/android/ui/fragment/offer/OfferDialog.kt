@@ -30,7 +30,7 @@ class OfferDialog(private val context: Context) {
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(context, R.color.black_trans_75)))
 
-        view.offerDialogImg.loadImage(offer.photo)
+        view.offerDialogImg.loadImage(offer.mainImage ?: offer.photo)
         view.offerDialogPlace.text = offer.name
         view.offerDialogCredits.text = offer.price.toString()
         view.offerDialogComponents.text = offer.compositionAsStr()

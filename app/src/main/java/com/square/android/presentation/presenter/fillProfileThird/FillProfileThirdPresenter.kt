@@ -1,6 +1,7 @@
 package com.square.android.presentation.presenter.fillProfileThird
 
 import android.net.Uri
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.pojo.ProfileInfo

@@ -7,7 +7,7 @@ const val TYPE_FACEBOOK_POST = "fbPost"
 const val TYPE_INSTAGRAM_POST = "instaPost"
 const val TYPE_INSTAGRAM_STORY = "instaStories"
 const val TYPE_TRIP_ADVISOR = "tripAdvisorPost"
-const val TYPE_GOOGLE_PLACES = "googlePlacesPost"
+const val TYPE_GOOGLE_PLACES = "gPost"
 const val TYPE_YELP = "yelpPost"
 
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -98,7 +98,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
 
         val used = data.posts.map { it.type }
 
-        filteredTypes = reviewTypes.filter { it.key in data.credits && it.key !in used }
+        filteredTypes = reviewTypes.filter { it.key in data.credits && (it.key !in used || it.key == TYPE_INSTAGRAM_STORY) }
 
         adapter = ReviewAdapter(filteredTypes!!, data.credits, this)
 

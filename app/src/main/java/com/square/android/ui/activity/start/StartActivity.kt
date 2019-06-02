@@ -33,6 +33,18 @@ class StartActivity : BaseActivity(), StartView {
         setContentView(R.layout.activity_start)
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.fragments.last() is FillProfileFirstFragment
+                || supportFragmentManager.fragments.last() is AuthFragment
+                || supportFragmentManager.fragments.last() is IntroFragment) {
+            finishAffinity()
+
+            System.exit(0)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private class StartNavigator(activity: androidx.fragment.app.FragmentActivity) : AppNavigator(activity, R.id.start_container) {
         override fun createActivityIntent(context: Context, screenKey: String, data: Any?) =
                 when (screenKey) {

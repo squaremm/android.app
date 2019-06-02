@@ -10,8 +10,10 @@ import java.lang.Exception
 
 @InjectViewState
 class StartPresenter : BasePresenter<StartView>() {
+
+
     init {
-        if( repository.shouldDisplayIntro()){
+        if(repository.shouldDisplayIntro()){
             router.replaceScreen(SCREENS.INTRO)
         } else if(!repository.isLoggedIn() && repository.getFragmentNumber() <= 0){
             router.replaceScreen(SCREENS.AUTH)

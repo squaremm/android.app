@@ -2,6 +2,7 @@ package com.square.android.ui.fragment.fillProfileReferral
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -105,9 +106,7 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
         addTextValidation(listOf(codeField), this)
     }
 
-    private fun getModel(): ProfileInfo {
-        return arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
-    }
+    private fun getModel() = arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
 
     companion object {
         @Suppress("DEPRECATION")
@@ -125,10 +124,13 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
     override fun onStop() {
         val profileInfo = presenter.info
         profileInfo.referral = codeField.content
+        presenter.keptImages = profileInfo.images
         profileInfo.images = null
 
         //this must be be 3 not 4
         presenter.saveState(profileInfo, 3)
+
+        profileInfo.images = presenter.keptImages
 
         super.onStop()
     }

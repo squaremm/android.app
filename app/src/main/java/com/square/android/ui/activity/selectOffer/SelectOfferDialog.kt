@@ -14,7 +14,7 @@ import android.graphics.Color
 
 class SelectOfferDialog(private val context: Context) {
     @SuppressLint("InflateParams")
-    fun show(offer: OfferInfo, place: PlaceInfo, onAction: () ->Unit) {
+    fun show(offer: OfferInfo, place: PlaceInfo, onAction: () -> Unit) {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.select_offer_dialog, null, false)
 
@@ -25,7 +25,7 @@ class SelectOfferDialog(private val context: Context) {
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        view.offerDialogImg.loadImage(offer.photo)
+        view.offerDialogImg.loadImage(offer.mainImage ?: offer.photo)
 
         view.offerDialogSubmit.setOnClickListener { dialog.dismiss()
             onAction.invoke() }

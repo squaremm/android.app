@@ -89,9 +89,9 @@ class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, Permission
 
         fillProfile3Next.setOnClickListener { nextClicked() }
 
-        form3Img1.setOnClickListener {imageClicked(0)}
-        form3Img2.setOnClickListener {imageClicked(1)}
-        form3Img3.setOnClickListener {imageClicked(2)}
+        form3Img1.setOnClickListener { imageClicked(0) }
+        form3Img2.setOnClickListener { imageClicked(1) }
+        form3Img3.setOnClickListener { imageClicked(2) }
     }
 
     private fun imageClicked(index: Int){
@@ -104,7 +104,7 @@ class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, Permission
     }
 
     private fun deleteImage(index: Int){
-        val drawable = ContextCompat.getDrawable(form3Img1.context,R.drawable.image_holder)
+        val drawable = ContextCompat.getDrawable(form3Img1.context, R.drawable.image_holder)
 
         when(index){
             0 -> form3Img1.setImageDrawable(drawable)
@@ -158,14 +158,9 @@ class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, Permission
         }
     }
 
-    private fun checkImagesFilled(): Boolean{
-       return images.filterNotNull().size == 3
-    }
+    private fun checkImagesFilled() = images.filterNotNull().size == 3
 
-    private fun getModel(): ProfileInfo {
-        return arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
-
-    }
+    private fun getModel() = arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
 
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {

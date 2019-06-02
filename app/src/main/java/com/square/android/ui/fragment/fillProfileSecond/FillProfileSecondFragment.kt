@@ -169,7 +169,7 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
         val profileInfo = presenter.info
 
         if(isValid(form.formProfileAccount.content)){
-           profileInfo.email = form.formProfileAccount.content
+           profileInfo.instagramName = form.formProfileAccount.content
         }
 
         if(isValid(form.formDialPhoneNumber.content)){

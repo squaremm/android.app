@@ -10,6 +10,7 @@ import com.square.android.R
 import com.square.android.data.pojo.Place
 import com.square.android.extensions.asDistance
 import com.square.android.extensions.loadFirstOrPlaceholder
+import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.placeDetail.PlaceDetailPresenter
 import com.square.android.presentation.view.placeDetail.PlaceDetailView
 import com.square.android.ui.activity.LocationActivity
@@ -67,7 +68,7 @@ class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
 
         setUpPager()
 
-        placeDetailAvatar.loadFirstOrPlaceholder(place.photos)
+        placeDetailAvatar.loadImage(place.mainImage ?: (place.photos?.firstOrNull() ?: ""))
 
         placeDetailName.text = place.name
         placeDetailAddress.text = place.address
