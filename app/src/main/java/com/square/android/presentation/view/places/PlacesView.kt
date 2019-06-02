@@ -5,5 +5,6 @@ import com.square.android.presentation.view.ProgressView
 
 interface PlacesView : ProgressView {
     fun updateDistances()
-    fun showPlaces(data: List<Place>)
+    fun showPlaces(data: List<Place>, types: MutableList<String>)
+    fun updatePlaces(data: List<Place>)
 }

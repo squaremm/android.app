@@ -198,6 +198,10 @@
 
     <string name="how_it_works">How it works</string>
 
+
+    <string name="filters">Filters</string>
+    <string name="clear">Clear</string>
+
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
     <string name="how_to_review">How to make a review</string>

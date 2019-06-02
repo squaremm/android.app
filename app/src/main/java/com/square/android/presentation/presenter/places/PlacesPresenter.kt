@@ -2,14 +2,10 @@ package com.square.android.presentation.presenter.places
 
 import android.location.Location
 import com.arellomobile.mvp.InjectViewState
-import com.crashlytics.android.answers.Answers
-import com.crashlytics.android.answers.CustomEvent
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.SCREENS
 import com.square.android.data.pojo.Place
-
 import com.square.android.presentation.presenter.BasePresenter
-
 import com.square.android.presentation.view.places.PlacesView
 import com.square.android.utils.AnalyticsEvent
 import com.square.android.utils.AnalyticsEvents
@@ -18,16 +14,20 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
-
 @InjectViewState
 class PlacesPresenter : BasePresenter<PlacesView>() {
     init {
         loadData()
     }
 
+    var types: MutableList<String> = mutableListOf()
+    var filteredTypes: List<String> = mutableListOf()
+
     private var locationPoint: LatLng? = null
 
     private var data: List<Place>? = null
+
+    private var filteredData: List<Place>? = null
 
     fun locationGotten(lastLocation: Location?) {
         lastLocation?.let {
@@ -35,6 +35,20 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
             if (data != null) {
                 updateDistances()
+            }
+        }
+    }
+
+    fun saveClicked(selectedTypes: List<String>){
+        filteredTypes = selectedTypes
+
+        if(filteredTypes.isEmpty()){
+            data?.let {viewState.updatePlaces(it) }
+        } else{
+            data?.let {
+                filteredData = data!!.filter { it.type in filteredTypes }
+
+                filteredData?.let { viewState.updatePlaces(it) }
             }
         }
     }
@@ -53,9 +67,16 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
             if (locationPoint != null) fillDistances().await()
 
+            data?.let {
+                for(place in it){
+                    if(!types.contains(place.type)){
+                        types.add(place.type)
+                    }
+                }
+            }
 
             viewState.hideProgress()
-            viewState.showPlaces(data!!)
+            viewState.showPlaces(data!!, types)
         }
     }
 

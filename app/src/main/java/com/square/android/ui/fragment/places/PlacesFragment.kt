@@ -15,10 +15,13 @@ import com.square.android.ui.fragment.LocationFragment
 import kotlinx.android.synthetic.main.fragment_places.*
 
 class PlacesFragment : LocationFragment(), PlacesView, PlacesAdapter.Handler {
+
     @InjectPresenter(type = PresenterType.GLOBAL, tag = "PlacesPresenter")
     lateinit var presenter: PlacesPresenter
 
     private var adapter: PlacesAdapter? = null
+
+    private var filtersDialog: FiltersDialog? = null
 
     override fun showProgress() {
         placesProgress.visibility = View.VISIBLE
@@ -28,9 +31,25 @@ class PlacesFragment : LocationFragment(), PlacesView, PlacesAdapter.Handler {
         placesProgress.visibility = View.GONE
     }
 
-    override fun showPlaces(data: List<Place>) {
+    override fun showPlaces(data: List<Place>, types: MutableList<String>) {
         placesList.visibility = View.VISIBLE
 
+        adapter = PlacesAdapter(data, this)
+        placesList.adapter = adapter
+
+        filtersDialog = FiltersDialog(context!!, types){
+            presenter.saveClicked(it)
+
+            if (it.isEmpty()) {
+                placeBadge.visibility = View.GONE
+            } else {
+                placeBadge.visibility = View.VISIBLE
+                placeBadge.text = if(it.size > 9) "9+" else it.size.toString()
+            }
+        }
+    }
+
+    override fun updatePlaces(data: List<Place>) {
         adapter = PlacesAdapter(data, this)
         placesList.adapter = adapter
     }
@@ -52,6 +71,9 @@ class PlacesFragment : LocationFragment(), PlacesView, PlacesAdapter.Handler {
         super.onViewCreated(view, savedInstanceState)
 
         placesList.setHasFixedSize(true)
+
+        placesFilter.setOnClickListener{filtersDialog?.show(presenter.filteredTypes)}
+        placeBadge.setOnClickListener{placesFilter.performClick()}
     }
 
     override fun itemClicked(position: Int) {

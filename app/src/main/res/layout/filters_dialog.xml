@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="false"
+    android:background="@android:color/white" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/filtersLabel"
+            style="@style/Models24BoldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/filters" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/filtersRv"
+            android:layout_width="match_parent"
+            android:padding="24dp"
+            android:clipToPadding="false"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/filtersLabel"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            tools:listitem="@layout/item_filter"
+            tools:itemCount="3" />
+
+        <Button
+            android:id="@+id/filtersSave"
+            style="@style/Models16BoldText"
+            android:layout_width="128dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/nice_button_pink_red"
+            android:text="@string/save"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/filtersLabel"
+            app:layout_constraintStart_toStartOf="@+id/filtersLabel"
+            app:layout_constraintTop_toBottomOf="@+id/filtersRv"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/filtersClear"
+            style="@style/Models16Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear"
+            android:layout_marginEnd="24dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textColor="@color/nice_pink"
+            app:layout_constraintBottom_toBottomOf="@+id/filtersSave"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/filtersSave" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
