@@ -51,6 +51,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                 filteredData?.let { viewState.updatePlaces(it) }
             }
         }
+
+        viewState.showBadge(filteredTypes.size)
     }
 
     private fun updateDistances() {

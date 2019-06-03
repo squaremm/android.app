@@ -37,15 +37,15 @@ class PlacesFragment : LocationFragment(), PlacesView, PlacesAdapter.Handler {
         adapter = PlacesAdapter(data, this)
         placesList.adapter = adapter
 
-        filtersDialog = FiltersDialog(context!!, types){
-            presenter.saveClicked(it)
+        filtersDialog = FiltersDialog(context!!, types){ presenter.saveClicked(it) }
+    }
 
-            if (it.isEmpty()) {
-                placeBadge.visibility = View.GONE
-            } else {
-                placeBadge.visibility = View.VISIBLE
-                placeBadge.text = if(it.size > 9) "9+" else it.size.toString()
-            }
+    override fun showBadge(number: Int) {
+        if(number <= 0){
+            placeBadge.visibility = View.GONE
+        } else{
+            placeBadge.visibility = View.VISIBLE
+            placeBadge.text = if(number > 9) "9+" else number.toString()
         }
     }
 
@@ -74,6 +74,8 @@ class PlacesFragment : LocationFragment(), PlacesView, PlacesAdapter.Handler {
 
         placesFilter.setOnClickListener{filtersDialog?.show(presenter.filteredTypes)}
         placeBadge.setOnClickListener{placesFilter.performClick()}
+
+        showBadge(presenter.filteredTypes.size)
     }
 
     override fun itemClicked(position: Int) {
