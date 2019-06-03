@@ -36,6 +36,10 @@ class FiltersDialog(private val context: Context, types: MutableList<String>, pr
             for(filter in filters){
                 filter.activated = false
             }
+        } else{
+            for(filter in filters){
+                filter.activated = filter.text in filteredTypes
+            }
         }
 
         val inflater = LayoutInflater.from(context)
