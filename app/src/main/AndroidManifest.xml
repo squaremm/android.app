@@ -79,6 +79,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 
+        <activity
+            android:name=".ui.activity.jobs.JobsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteStatusActivity" />
+
+        <activity
+            android:name=".ui.activity.jobDetails.JobDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CollapsingToolbarAlphaStatusActivity" />
+
         <service android:name=".data.network.fcm.FirebaseMessagingService"
             android:stopWithTask="false"
             android:exported="true">

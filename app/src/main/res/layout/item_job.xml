@@ -14,12 +14,12 @@
     app:layout_constraintStart_toStartOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/offerContainer"
+        android:id="@+id/jobContainer"
         android:layout_width="match_parent"
         android:layout_height="200dp" >
 
         <ImageView
-            android:id="@+id/offerImage"
+            android:id="@+id/jobImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
@@ -34,64 +34,53 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:background="@drawable/shadow_top"
-            app:layout_constraintBottom_toBottomOf="@+id/offerPriceLabel"
+            app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/offerTitle"
+            android:id="@+id/jobTitle"
             style="@style/Models24BoldText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            tools:text="@string/price"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/offerPriceLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/offerPrice"
-            style="@style/Models24BoldText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/offerTitle"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="10" />
+            tools:text="Mongobambo Campaign" />
 
         <TextView
-            android:id="@+id/offerPriceLabel"
-            style="@style/Models12Text"
+            android:id="@+id/jobType"
+            style="@style/Models14Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:maxLines="1"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
             android:paddingBottom="8dp"
-            android:text="@string/credits"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="@+id/offerPrice"
-            app:layout_constraintStart_toStartOf="@+id/offerPrice"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/offerTimeframesRv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:overScrollMode="never"
-            android:clipToPadding="false"
-            tools:layout_height="72dp" />
+            tools:background="@drawable/round_bg_pink_pinkish"
+            tools:text="Gifting Campaign" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

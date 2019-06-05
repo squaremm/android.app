@@ -32,6 +32,11 @@
     <color name="gray_purple">#F7ECFC</color>
     <color name="nice_red">#F7425C</color>
     <color name="nice_pink">#E82E90</color>
+    <color name="nice_pinkish">#E95B81</color>
+    <color name="nice_purple">#B833E6</color>
+    <color name="nice_violet">#9550E7</color>
+    <color name="nice_violet_trans">#F4EBFC</color>
+    <color name="nice_purpleish">#E95FD9</color>
     <color name="nice_red_alpha">#80F7425C</color>
     <color name="nice_pink_alpha_50">#80E82E90</color>
     <color name="nice_pink_alpha_40">#66E82E90</color>
@@ -40,6 +45,8 @@
     <color name="nice_pink_trans_20">#32E82E90</color>
     <color name="black_trans_75">#BF000000</color>
     <color name="black_trans_50">#80000000</color>
+
+    <color name="black_trans_30">#4D000000</color>
 
     <color name="grey_dark">#888888</color>
     <color name="grey_background_field">#F8F8F8</color>

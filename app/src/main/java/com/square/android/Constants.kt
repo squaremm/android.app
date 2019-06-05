@@ -29,6 +29,8 @@ object SCREENS {
     const val NO_CONNECTION = "NO_CONNECTION"
 
     const val TUTORIAL_VIDEOS = "TUTORIAL_VIDEOS"
+
+    const val JOB_DETAILS = "JOB_DETAILS"
 }
 
 object Network {

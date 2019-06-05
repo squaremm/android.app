@@ -65,6 +65,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
     private fun loadData() {
         launch {
+            viewState.showProgress()
+
             data = repository.getPlaces().await()
 
             if (locationPoint != null) fillDistances().await()

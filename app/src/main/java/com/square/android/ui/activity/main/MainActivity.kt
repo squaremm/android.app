@@ -29,6 +29,8 @@ import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivit
 import com.square.android.ui.activity.editProfile.EditProfileFragment
 import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
+import com.square.android.ui.activity.jobDetails.JobDetailsActivity
+import com.square.android.ui.activity.jobs.JOB_EXTRA_ID
 import com.square.android.ui.activity.noConnection.NoConnectionActivity
 import com.square.android.ui.activity.placeDetail.PLACE_EXTRA_ID
 import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
@@ -36,7 +38,6 @@ import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
 import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.activity.start.StartActivity
 import com.square.android.ui.activity.tutorialVideos.TutorialVideosActivity
-import com.square.android.ui.dialogs.LostCreditsDialog
 import com.square.android.ui.fragment.map.MapFragment
 import com.square.android.ui.fragment.places.PlacesFragment
 import com.square.android.ui.fragment.profile.ProfileFragment
@@ -181,6 +182,9 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
                     SCREENS.TUTORIAL_VIDEOS ->
                         context.intentFor<TutorialVideosActivity>()
+
+                    SCREENS.JOB_DETAILS ->
+                        context.intentFor<JobDetailsActivity>(JOB_EXTRA_ID to data as Long)
 
                     else -> null
                 }
