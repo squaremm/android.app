@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/winnerLabel"
+        style="@style/Models24Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/the_winner"
+        android:textAllCaps="true"
+        android:paddingStart="64dp"
+        android:paddingEnd="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/gray_divider"
+        app:layout_constraintEnd_toEndOf="@+id/winnerLabel"
+        app:layout_constraintStart_toStartOf="@+id/winnerLabel"
+        app:layout_constraintTop_toBottomOf="@+id/winnerLabel" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_medal"
+        app:layout_constraintBottom_toBottomOf="@+id/winnerLabel"
+        app:layout_constraintEnd_toStartOf="@+id/winnerLabel"
+        app:layout_constraintStart_toStartOf="@+id/winnerLabel"
+        app:layout_constraintTop_toTopOf="@+id/winnerLabel" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_medal"
+        app:layout_constraintBottom_toBottomOf="@+id/winnerLabel"
+        app:layout_constraintEnd_toEndOf="@+id/winnerLabel"
+        app:layout_constraintStart_toEndOf="@+id/winnerLabel"
+        app:layout_constraintTop_toTopOf="@+id/winnerLabel" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/winnerImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"
+        tools:src="@drawable/auth_background"
+        tools:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

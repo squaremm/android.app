@@ -1,12 +1,12 @@
-package com.square.android.presentation.presenter.jobDetails
+package com.square.android.presentation.presenter.jobFinished
 
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.data.pojo.Job
 import com.square.android.presentation.presenter.BasePresenter
-import com.square.android.presentation.view.jobDetails.JobDetailsView
+import com.square.android.presentation.view.jobFinished.JobFinishedView
 
 @InjectViewState
-class JobDetailsPresenter(val jobId: Long): BasePresenter<JobDetailsView>(){
+class JobFinishedPresenter(private val jobId: Long): BasePresenter<JobFinishedView>() {
 
     private var data: Job? = null
 
@@ -21,9 +21,4 @@ class JobDetailsPresenter(val jobId: Long): BasePresenter<JobDetailsView>(){
 //            viewState.showData(data!!)
         }
     }
-
-    fun participateClicked(){
-
-    }
-
 }

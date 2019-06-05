@@ -10,5 +10,7 @@ import kotlinx.android.parcel.Parcelize
 data class Job(var id: Long = 0,
                var name: String = "",
                var mainImage: String? = null,
-               var type: Int = 0
+               var winnerImage: String? = null,
+               var type: Int = 0,
+               var available: Boolean = true
 ): Parcelable

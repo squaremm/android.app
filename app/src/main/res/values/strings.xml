@@ -205,6 +205,11 @@
     <string name="model_type">Model Type</string>
     <string name="task">Task</string>
     <string name="participate">Participate</string>
+    <string name="ended">Ended</string>
+
+    <string name="entries">Entries</string>
+    <string name="the_winner">The Winner</string>
+
 
 
     <string name="thanks_applying">Thanks for applying!</string>

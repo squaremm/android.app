@@ -24,6 +24,8 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
+            tools:src="@drawable/auth_background"
+            tools:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,10 +52,31 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/jobEndedLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Mongobambo Campaign" />
+
+        <TextView
+            android:id="@+id/jobEndedLabel"
+            style="@style/Models14Text"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@drawable/referral_field_background"
+            android:backgroundTint="@color/black_trans_50"
+            android:text="@string/ended"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/jobTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/jobTitle" />
 
         <TextView
             android:id="@+id/jobType"

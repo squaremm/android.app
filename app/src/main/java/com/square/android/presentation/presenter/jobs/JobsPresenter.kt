@@ -1,10 +1,12 @@
 package com.square.android.presentation.presenter.jobs
 
+import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.pojo.Job
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.jobs.JobsView
 
+@InjectViewState
 class JobsPresenter: BasePresenter<JobsView>() {
 
     private var data: List<Job>? = null

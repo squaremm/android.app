@@ -40,6 +40,8 @@ class JobsAdapter(data: List<Job>,
             }
 
             item.mainImage?.let { jobImage.loadImage(it)}
+
+            jobEndedLabel.visibility = if(item.available) View.GONE else View.VISIBLE
         }
     }
 
