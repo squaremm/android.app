@@ -30,7 +30,7 @@ object SCREENS {
 
     const val TUTORIAL_VIDEOS = "TUTORIAL_VIDEOS"
 
-    const val JOB_DETAILS = "JOB_DETAILS"
+    const val CAMPAIGN_DETAILS = "CAMPAIGN_DETAILS"
 }
 
 object Network {

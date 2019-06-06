@@ -8,7 +8,7 @@
     android:background="@color/white" >
 
     <ProgressBar
-        android:id="@+id/jobsProgress"
+        android:id="@+id/campaignsProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
@@ -16,11 +16,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobsTitle"
+        app:layout_constraintTop_toBottomOf="@+id/campaignsTitle"
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/jobsTitle"
+        android:id="@+id/campaignsTitle"
         style="@style/Models22BoldText"
         android:textColor="@color/nice_pink"
         android:layout_width="0dp"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/jobsList"
+        android:id="@+id/campaignsList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -50,5 +50,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/campaignsTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

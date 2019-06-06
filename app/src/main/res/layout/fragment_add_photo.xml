@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="24dp" >
+
+    <TextView
+        android:id="@+id/addPhotoLabel"
+        style="@style/Models18BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="64dp"
+        android:paddingEnd="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/add_a_photo"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/gray_divider"
+        app:layout_constraintEnd_toEndOf="@+id/addPhotoLabel"
+        app:layout_constraintStart_toStartOf="@+id/addPhotoLabel"
+        app:layout_constraintTop_toBottomOf="@+id/addPhotoLabel" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/addPhotoRv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_gallery"
+        tools:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <Button
+        android:id="@+id/addPhotoUpload"
+        style="@style/Models16BoldText"
+        android:layout_width="172dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="32dp"
+        android:enabled="false"
+        android:background="@drawable/nice_button_red_pink_alpha"
+        android:text="@string/upload"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addPhotoRv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

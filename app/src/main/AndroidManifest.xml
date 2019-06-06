@@ -80,17 +80,17 @@
             android:theme="@style/WhiteStatusActivity" />
 
         <activity
-            android:name=".ui.activity.jobs.JobsActivity"
+            android:name=".ui.activity.campaigns.CampaignsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 
         <activity
-            android:name=".ui.activity.jobDetails.JobDetailsActivity"
+            android:name=".ui.activity.campaignDetails.CampaignDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CollapsingToolbarAlphaStatusActivity" />
 
         <activity
-            android:name=".ui.activity.jobFinished.JobFinishedActivity"
+            android:name=".ui.activity.campaignFinished.CampaignFinishedActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 

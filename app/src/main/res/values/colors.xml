@@ -27,6 +27,13 @@
     <color name="filter_gray">#E8E8E8</color>
 
 
+
+    <color name="status_yellow">#F3BC23</color>
+    <color name="status_orange">#E36518</color>
+    <color name="status_green">#37B564</color>
+    <color name="status_red">#E12B2A</color>
+
+
     <color name="gray_light">#F6F6F6</color>
     <color name="gray_divider"> #EAEAEA</color>
     <color name="gray_purple">#F7ECFC</color>

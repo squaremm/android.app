@@ -14,12 +14,12 @@
     app:layout_constraintStart_toStartOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/jobContainer"
+        android:id="@+id/campaignContainer"
         android:layout_width="match_parent"
         android:layout_height="200dp" >
 
         <ImageView
-            android:id="@+id/jobImage"
+            android:id="@+id/campaignImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
@@ -42,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/jobTitle"
+            android:id="@+id/campaignTitle"
             style="@style/Models24BoldText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -52,13 +52,13 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@id/jobEndedLabel"
+            app:layout_constraintEnd_toStartOf="@id/campaignEndedLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Mongobambo Campaign" />
 
         <TextView
-            android:id="@+id/jobEndedLabel"
+            android:id="@+id/campaignEndedLabel"
             style="@style/Models14Text"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
@@ -74,12 +74,12 @@
             android:text="@string/ended"
             android:visibility="gone"
             tools:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/jobTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/campaignTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/jobTitle" />
+            app:layout_constraintTop_toTopOf="@+id/campaignTitle" />
 
         <TextView
-            android:id="@+id/jobType"
+            android:id="@+id/campaignType"
             style="@style/Models14Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

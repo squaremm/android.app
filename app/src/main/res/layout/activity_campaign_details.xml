@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true" >
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/jobDetailsAppbar"
+        android:id="@+id/campaignDetailsAppbar"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:fitsSystemWindows="true"
@@ -17,7 +17,7 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             app:statusBarScrim="@color/black_trans_30"
-            android:id="@+id/jobDetailsCollapsing"
+            android:id="@+id/campaignDetailsCollapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -31,7 +31,7 @@
                 android:fitsSystemWindows="true">
 
                 <ImageView
-                    android:id="@+id/jobDetailsImage"
+                    android:id="@+id/campaignDetailsImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
@@ -43,7 +43,7 @@
                     app:layout_collapseMode="parallax" />
 
                 <TextView
-                    android:id="@+id/jobDetailsJobType"
+                    android:id="@+id/campaignDetailsType"
                     style="@style/Models14Text"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
@@ -64,7 +64,7 @@
             </RelativeLayout>
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/jobDetailsToolbar"
+                android:id="@+id/campaignDetailsToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
@@ -75,7 +75,7 @@
                 app:title="@null" >
 
                 <ImageView
-                    android:id="@+id/jobDetailsBack"
+                    android:id="@+id/campaignDetailsBack"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginStart="16dp"
@@ -85,7 +85,7 @@
                     app:srcCompat="@drawable/chevron_left" />
 
                 <TextView
-                    android:id="@+id/jobDetailsName"
+                    android:id="@+id/campaignDetailsName"
                     style="@style/Models20BoldText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
             android:clipToPadding="false" >
             <TextView
                 style="@style/Models16Text"
-                android:id="@+id/jobDetailsDescription"
+                android:id="@+id/campaignDetailsDescription"
                 android:layout_width="0dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
@@ -131,17 +131,17 @@
                 tools:text="Mangobambo is a fresh brand, launching a new line of shoes." />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/jobDetailsContent"
+                android:id="@+id/campaignDetailsContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:visibility="visible"
-                android:layout_below="@+id/jobDetailsDescription"
+                android:layout_below="@+id/campaignDetailsDescription"
                 android:clipToPadding="false" >
 
                 <TextView
                     style="@style/Models20BoldText"
-                    android:id="@+id/jobDetailsRewardsLabel"
+                    android:id="@+id/campaignDetailsRewardsLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/rewards"
@@ -150,7 +150,7 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <LinearLayout
-                    android:id="@+id/jobDetailsRewardLl"
+                    android:id="@+id/campaignDetailsRewardLl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -158,7 +158,7 @@
                     android:background="@drawable/referral_field_background"
                     android:backgroundTint="@color/nice_violet"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/jobDetailsRewardsLabel"
+                    app:layout_constraintTop_toBottomOf="@+id/campaignDetailsRewardsLabel"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" >
 
@@ -168,7 +168,7 @@
                         android:src="@drawable/auth_background" />
 
                     <TextView
-                        android:id="@+id/jobDetailsRewards"
+                        android:id="@+id/campaignDetailsRewards"
                         style="@style/Models18Text"
                         android:textColor="@android:color/white"
                         android:layout_width="match_parent"
@@ -180,13 +180,14 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/jobDetailsRewardImage"
+                    android:id="@+id/campaignDetailsRewardImage"
                     android:layout_width="0dp"
                     android:layout_height="200dp"
-                    app:layout_constraintTop_toBottomOf="@id/jobDetailsRewardLl"
+                    app:layout_constraintTop_toBottomOf="@id/campaignDetailsRewardLl"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:src="@drawable/auth_background"
+                    tools:visibility="gone"
                     tools:scaleType="centerCrop"
                     android:layout_marginTop="16dp" />
 
@@ -196,45 +197,40 @@
                     android:layout_height="1dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/gray_divider"
-                    app:layout_constraintTop_toBottomOf="@+id/jobDetailsRewardImage"
+                    app:layout_constraintTop_toBottomOf="@+id/campaignDetailsRewardImage"
                     android:layout_marginTop="24dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/jobDetailsDaysLabel"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/campaignDetailsDaysLeft"
+                    style="@style/Models30BoldText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:gravity="center"
-                    app:layout_constraintTop_toBottomOf="@+id/divider1" >
+                    app:layout_constraintTop_toBottomOf="@+id/divider1"
+                    tools:text="12" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_date" />
-
-                    <TextView
-                        android:layout_marginStart="16dp"
-                        android:id="@+id/jobDetailsDaysLeft"
-                        style="@style/Models30BoldText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="12" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintTop_toTopOf="@+id/campaignDetailsDaysLeft"
+                    app:layout_constraintBottom_toBottomOf="@+id/campaignDetailsDaysLeft"
+                    app:layout_constraintEnd_toStartOf="@+id/campaignDetailsDaysLeftLabel"
+                    android:src="@drawable/ic_date" />
 
                 <TextView
-                    android:id="@+id/jobDetailsDaysLeftLabel"
+                    android:id="@+id/campaignDetailsDaysLeftLabel"
                     style="@style/Models20Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/days_left"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/jobDetailsDaysLabel" />
+                    app:layout_constraintTop_toBottomOf="@+id/campaignDetailsDaysLeft" />
 
                 <View
                     android:id="@+id/divider2"
@@ -242,7 +238,7 @@
                     android:layout_height="1dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/gray_divider"
-                    app:layout_constraintTop_toBottomOf="@+id/jobDetailsDaysLeftLabel"
+                    app:layout_constraintTop_toBottomOf="@+id/campaignDetailsDaysLeftLabel"
                     android:layout_marginTop="14dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -258,7 +254,7 @@
                     android:layout_marginTop="24dp" />
 
                 <LinearLayout
-                    android:id="@+id/jobDetailsImagesLl"
+                    android:id="@+id/campaignDetailsImagesLl"
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
@@ -268,7 +264,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/jobDetailsImv1"
+                        android:id="@+id/campaignDetailsImv1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -277,7 +273,7 @@
                         android:layout_weight="1" />
 
                     <ImageView
-                        android:id="@+id/jobDetailsImv2"
+                        android:id="@+id/campaignDetailsImv2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -286,7 +282,7 @@
                         tools:src="@drawable/auth_background"
                         android:layout_weight="1" />
                     <ImageView
-                        android:id="@+id/jobDetailsImv3"
+                        android:id="@+id/campaignDetailsImv3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
@@ -302,11 +298,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/task"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/jobDetailsImagesLl"
+                    app:layout_constraintTop_toBottomOf="@+id/campaignDetailsImagesLl"
                     android:layout_marginTop="24dp" />
 
                 <LinearLayout
-                    android:id="@+id/jobDetailsTaskLl"
+                    android:id="@+id/campaignDetailsTaskLl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -319,7 +315,7 @@
                     app:layout_constraintEnd_toEndOf="parent" >
 
                     <TextView
-                        android:id="@+id/jobDetailsTaskLeft"
+                        android:id="@+id/campaignDetailsTaskLeft"
                         style="@style/Models18BoldText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -327,7 +323,7 @@
                         tools:text="Stories:\nPost:" />
 
                     <TextView
-                        android:id="@+id/jobDetailsTaskRight"
+                        android:id="@+id/campaignDetailsTaskRight"
                         style="@style/Models18Text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -344,11 +340,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/how_it_works"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/jobDetailsTaskLl"
+                    app:layout_constraintTop_toBottomOf="@+id/campaignDetailsTaskLl"
                     android:layout_marginTop="24dp" />
 
                 <TextView
-                    android:id="@+id/jobDetailsHowItWorks"
+                    android:id="@+id/campaignDetailsHowItWorks"
                     style="@style/Models18Text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -363,7 +359,7 @@
                     tools:text="How it works"/>
 
                 <Button
-                    android:id="@+id/jobDetailsParticipate"
+                    android:id="@+id/campaignDetailsParticipate"
                     style="@style/Models16BoldText"
                     android:layout_width="172dp"
                     android:layout_height="42dp"
@@ -372,15 +368,15 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:layout_marginTop="32dp"
-                    app:layout_constraintTop_toBottomOf="@+id/jobDetailsHowItWorks"
+                    app:layout_constraintTop_toBottomOf="@+id/campaignDetailsHowItWorks"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:id="@+id/jobDetailsThanks"
-                android:layout_below="@+id/jobDetailsContent"
+                android:id="@+id/campaignDetailsThanks"
+                android:layout_below="@+id/campaignDetailsContent"
                 android:layout_width="match_parent"
                 android:layout_marginTop="128dp"
                 android:gravity="center"

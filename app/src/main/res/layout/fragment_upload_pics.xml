@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="24dp" >
+
+    <TextView
+        android:id="@+id/picsLabel"
+        style="@style/Models18BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/upload_pics"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/picsRv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_gallery"
+        tools:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/picsLabel" />
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/gray_divider"
+        app:layout_constraintTop_toBottomOf="@+id/picsRv"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintTop_toTopOf="@+id/picsDaysLeft"
+        app:layout_constraintBottom_toBottomOf="@+id/picsDaysLeft"
+        app:layout_constraintEnd_toStartOf="@+id/picsDaysLeftLabel"
+        android:src="@drawable/ic_date"
+        android:tint="@color/nice_pink" />
+
+    <TextView
+        android:id="@+id/picsDaysLeft"
+        style="@style/Models40BoldText"
+        android:textColor="@color/nice_pink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider1"
+        tools:text="12" />
+
+    <TextView
+        android:id="@+id/picsDaysLeftLabel"
+        style="@style/Models16Text"
+        android:textColor="@color/nice_pink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/days_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/picsDaysLeft" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/gray_divider"
+        app:layout_constraintTop_toBottomOf="@+id/picsDaysLeftLabel"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/picsSend"
+        style="@style/Models16BoldText"
+        android:layout_width="192dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/nice_button_red_pink"
+        android:text="@string/send_over_review"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

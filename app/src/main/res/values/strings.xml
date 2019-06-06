@@ -191,7 +191,6 @@
     <string name="add_three_photos">Add 3 of your photos</string>
     <string name="photo_missing">One of the 3 photos is missing.</string>
 
-
     <string name="seems_offline">It seems you are offline!</string>
     <string name="connect_to_an">Connect to an internet source\nto use Square correctly</string>
     <string name="try_again">Try again</string>
@@ -210,7 +209,13 @@
     <string name="entries">Entries</string>
     <string name="the_winner">The Winner</string>
 
-
+    <string name="upload_pics">Upload Pics</string>
+    <string name="add_a_photo">Add a photo</string>
+    <string name="send_over_review">Send over review</string>
+    <string name="upload">Upload</string>
+    <string name="approval">Approval</string>
+    <string name="request_status_is">The status of your request is:</string>
+    <string name="thanks_for_interest">Thank you for your interest\nin joining our participation!</string>
 
     <string name="thanks_applying">Thanks for applying!</string>
     <string name="we_will_let">We will let you know soon if you are accepted</string>
