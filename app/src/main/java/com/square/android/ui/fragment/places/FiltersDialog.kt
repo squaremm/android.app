@@ -75,7 +75,7 @@ class FiltersDialog(private val context: Context, types: MutableList<String>, pr
 
         view.filtersRv.layoutManager = GridLayoutManager(context, 3)
         view.filtersRv.adapter = filtersAdapter
-        view.filtersRv.addItemDecoration(GridItemDecoration(3,view.filtersRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+        view.filtersRv.addItemDecoration(GridItemDecoration(3,view.filtersRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false, 1.5f))
 
         dialog.show()
     }

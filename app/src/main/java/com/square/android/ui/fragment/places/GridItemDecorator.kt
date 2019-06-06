@@ -5,7 +5,7 @@ import android.view.View
 import androidx.annotation.Px
 import androidx.recyclerview.widget.RecyclerView
 
-class GridItemDecoration(private val columnCount: Int, @Px preferredSpace: Int, private val includeEdge: Boolean): RecyclerView.ItemDecoration() {
+class GridItemDecoration(private val columnCount: Int, @Px preferredSpace: Int, private val includeEdge: Boolean, private val topSpaceMultiplier: Float = 1f): RecyclerView.ItemDecoration() {
 
     private val space = if (preferredSpace % 3 == 0) preferredSpace else (preferredSpace + (3 - preferredSpace % 3))
 
@@ -30,7 +30,7 @@ class GridItemDecoration(private val columnCount: Int, @Px preferredSpace: Int, 
             }
 
             if (position < columnCount) {
-                outRect.top = space
+                outRect.top = (space * topSpaceMultiplier).toInt()
             }
 
             outRect.bottom = space
@@ -47,7 +47,7 @@ class GridItemDecoration(private val columnCount: Int, @Px preferredSpace: Int, 
             }
 
             if (position >= columnCount) {
-                outRect.top = (space * 1.5).toInt()
+                outRect.top = (space * topSpaceMultiplier).toInt()
             }
         }
     }
