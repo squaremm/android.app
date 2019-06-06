@@ -21,4 +21,8 @@ class JobFinishedPresenter(private val jobId: Long): BasePresenter<JobFinishedVi
 //            viewState.showData(data!!)
         }
     }
+
+    fun exit() {
+        router.exit()
+    }
 }

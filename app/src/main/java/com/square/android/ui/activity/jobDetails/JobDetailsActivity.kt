@@ -72,7 +72,7 @@ class JobDetailsActivity: BaseActivity(), JobDetailsView {
             }
         })
 
-        jobDetailsBack.setOnClickListener {onBackPressed()}
+        jobDetailsBack.setOnClickListener {presenter.exit()}
         jobDetailsParticipate.setOnClickListener {presenter.participateClicked()}
     }
 

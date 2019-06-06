@@ -22,6 +22,12 @@ class JobDetailsPresenter(val jobId: Long): BasePresenter<JobDetailsView>(){
         }
     }
 
+
+    fun exit(){
+        router.exit()
+    }
+
+
     fun participateClicked(){
 
     }

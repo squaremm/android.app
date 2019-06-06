@@ -30,6 +30,8 @@ class JobFinishedActivity: BaseActivity(), JobFinishedView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job_finished)
+
+        finishedBack.setOnClickListener {presenter.exit()}
     }
 
     override fun showData(job: Job) {
@@ -38,6 +40,8 @@ class JobFinishedActivity: BaseActivity(), JobFinishedView {
         setUpPager()
 
         job.mainImage?.let { finishedBg.loadImage(it)}
+
+        finishedName.text = job.name
     }
 
     private fun setUpPager() {

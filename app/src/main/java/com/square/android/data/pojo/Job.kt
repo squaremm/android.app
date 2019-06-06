@@ -12,5 +12,7 @@ data class Job(var id: Long = 0,
                var mainImage: String? = null,
                var winnerImage: String? = null,
                var type: Int = 0,
-               var available: Boolean = true
+               var available: Boolean = true,
+               var participantsImages: List<String>? = null
+
 ): Parcelable

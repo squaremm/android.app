@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.R
 import com.square.android.data.pojo.Job
 import com.square.android.presentation.presenter.entries.EntriesPresenter
 import com.square.android.presentation.view.entries.EntriesView
 import com.square.android.ui.fragment.BaseFragment
+import com.square.android.ui.fragment.places.GridItemDecoration
+import kotlinx.android.synthetic.main.fragment_page_entries.*
 
 
 class EntriesFragment(private val job: Job?): BaseFragment(), EntriesView {
@@ -27,10 +30,13 @@ class EntriesFragment(private val job: Job?): BaseFragment(), EntriesView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //TODO load entry image with roundedCornersRadiusPx = context!!.dimen(R.dimen.value_4dp)
+        job?.participantsImages?.let {
+            adapter = EntriesAdapter(it)
 
-
-        //TODO load job entries to adapter and setup rv with adapter, add GridLayout(3 columns) and GridMargin decorator with total padding 8
+            entriesRv.layoutManager = GridLayoutManager(context, 3)
+            entriesRv.adapter = adapter
+            entriesRv.addItemDecoration(GridItemDecoration(3,entriesRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+        }
     }
 
 }
