@@ -16,13 +16,11 @@ class CampaignFinishedPresenter(private val campaignId: Long): BasePresenter<Cam
 
     private fun loadData() {
         launch {
+
+            //TODO uncomment later
 //            data = repository.getCampaign(campaignId).await()
 //
 //            viewState.showData(data!!)
         }
-    }
-
-    fun exit() {
-        router.exit()
     }
 }

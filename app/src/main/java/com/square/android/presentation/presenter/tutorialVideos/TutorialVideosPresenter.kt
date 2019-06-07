@@ -39,10 +39,6 @@ class TutorialVideosPresenter: BasePresenter<TutorialVideosView>(){
         viewState.showData(data.toList())
     }
 
-    //TODO doesn't work
-//    fun backClicked() {
-//        router.exit()
-//    }
 }
 
 

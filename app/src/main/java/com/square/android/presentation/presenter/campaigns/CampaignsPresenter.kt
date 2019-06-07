@@ -17,6 +17,8 @@ class CampaignsPresenter: BasePresenter<CampaignsView>() {
 
     private fun loadData() {
         launch {
+
+            //TODO uncomment later
 //            viewState.showProgress()
 
 //            data = repository.getCampaigns().await()

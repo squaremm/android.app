@@ -31,7 +31,7 @@ class CampaignFinishedActivity: BaseActivity(), CampaignFinishedView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_campaign_finished)
 
-        finishedBack.setOnClickListener {presenter.exit()}
+        finishedBack.setOnClickListener {onBackPressed()}
     }
 
     override fun showData(campaign: Campaign) {

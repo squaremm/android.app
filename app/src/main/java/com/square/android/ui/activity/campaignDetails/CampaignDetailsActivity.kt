@@ -31,8 +31,8 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView {
     override fun provideNavigator(): Navigator = object : SimpleNavigator {}
 
     private val PERCENTAGE_TO_COLOR = 65
-    private var mMaxScrollSize: Int = 0
-    private var mIsElementWhite: Boolean = true
+    private var maxScrollSize: Int = 0
+    private var isElementWhite: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,14 +45,14 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView {
         placeDetailAppbar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             override fun onOffsetChanged(p0: AppBarLayout?, p1: Int) {
 
-                if (mMaxScrollSize == 0)
-                    mMaxScrollSize = placeDetailAppbar.totalScrollRange
+                if (maxScrollSize == 0)
+                    maxScrollSize = placeDetailAppbar.totalScrollRange
 
-                val currentScrollPercentage = Math.abs(p1) * 100 / mMaxScrollSize
+                val currentScrollPercentage = Math.abs(p1) * 100 / maxScrollSize
 
                 if (currentScrollPercentage >= PERCENTAGE_TO_COLOR) {
-                    if (!mIsElementWhite) {
-                        mIsElementWhite = true
+                    if (!isElementWhite) {
+                        isElementWhite = true
                         campaignDetailsName.setTextColor(ContextCompat.getColor(campaignDetailsName.context, R.color.nice_pink))
                         campaignDetailsBack.imageTintList = ColorStateList.valueOf(Color.BLACK)
                         placeDetailToolbar.setBackgroundColor(ContextCompat.getColor(placeDetailToolbar.context, android.R.color.transparent))
@@ -61,8 +61,8 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView {
                 }
 
                 if (currentScrollPercentage < PERCENTAGE_TO_COLOR) {
-                    if (mIsElementWhite) {
-                        mIsElementWhite = false
+                    if (isElementWhite) {
+                        isElementWhite = false
                         campaignDetailsName.setTextColor(ContextCompat.getColor(campaignDetailsName.context, R.color.white))
                         campaignDetailsBack.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(campaignDetailsBack.context, R.color.white))
                         placeDetailToolbar.setBackgroundColor(ContextCompat.getColor(placeDetailToolbar.context, R.color.black_trans_30))
@@ -72,7 +72,7 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView {
             }
         })
 
-        campaignDetailsBack.setOnClickListener {presenter.exit()}
+        campaignDetailsBack.setOnClickListener {onBackPressed()}
         campaignDetailsParticipate.setOnClickListener {presenter.participateClicked()}
     }
 

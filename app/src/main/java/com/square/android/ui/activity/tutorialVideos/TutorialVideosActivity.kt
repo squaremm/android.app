@@ -36,9 +36,6 @@ class TutorialVideosActivity: BaseActivity(), TutorialVideosView, TutorialVideoA
 
 
         tutorialVideosBack.setOnClickListener{onBackPressed()}
-
-        //TODO doesn't work
-//        tutorialVideosBack.setOnClickListener{presenter.backClicked()}
     }
 
     override fun showData(data: List<TutorialVideo>) {

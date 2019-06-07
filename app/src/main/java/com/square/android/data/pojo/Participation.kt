@@ -9,6 +9,7 @@ import kotlinx.android.parcel.Parcelize
 data class Participation(var id: Long = 0,
                          var name: String = "",
                          var mainImage: String? = null,
-                         var active: Boolean = true
+                         var active: Boolean = true,
+                         var photos: List<String>? = null
 
 ) : Parcelable

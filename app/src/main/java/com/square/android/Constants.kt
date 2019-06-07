@@ -31,6 +31,10 @@ object SCREENS {
     const val TUTORIAL_VIDEOS = "TUTORIAL_VIDEOS"
 
     const val CAMPAIGN_DETAILS = "CAMPAIGN_DETAILS"
+
+    const val UPLOAD_PICS = "UPLOAD_PICS"
+    const val ADD_PHOTO = "ADD_PHOTO"
+    const val APPROVAL = "APPROVAL"
 }
 
 object Network {

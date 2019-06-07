@@ -16,17 +16,11 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
 
     private fun loadData() {
         launch {
+            //TODO uncomment later
 //            data = repository.getCampaign(campaignId).await()
-//
 //            viewState.showData(data!!)
         }
     }
-
-
-    fun exit(){
-        router.exit()
-    }
-
 
     fun participateClicked(){
 
