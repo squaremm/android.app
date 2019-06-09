@@ -14,13 +14,11 @@ class CampaignFinishedPresenter(private val campaignId: Long): BasePresenter<Cam
         loadData()
     }
 
-    private fun loadData() {
-        launch {
+    private fun loadData() = launch {
 
             //TODO uncomment later
 //            data = repository.getCampaign(campaignId).await()
 //
 //            viewState.showData(data!!)
         }
-    }
 }

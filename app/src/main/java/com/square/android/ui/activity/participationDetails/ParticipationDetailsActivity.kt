@@ -18,11 +18,12 @@ import com.square.android.presentation.presenter.participationDetails.Participat
 import com.square.android.presentation.view.participationDetails.ParticipationDetailsView
 import com.square.android.ui.activity.BaseActivity
 import com.square.android.ui.fragment.addPhoto.AddPhotoFragment
+import com.square.android.ui.fragment.approval.ApprovalFragment
 import com.square.android.ui.fragment.uploadPics.UploadPicsFragment
 import kotlinx.android.synthetic.main.activity_participation_details.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
-
+import ru.terrakok.cicerone.commands.Forward
 
 const val EXTRA_PARTICIPATION = "EXTRA_PARTICIPATION"
 
@@ -63,7 +64,6 @@ class ParticipationDetailsActivity: BaseActivity(), ParticipationDetailsView{
 
     override fun showProgress() {
         participationDetailsCardView.visibility = View.GONE
-        participationDetailsProgress.bringToFront()
         participationDetailsProgress.visibility =  View.VISIBLE
     }
 
@@ -75,7 +75,7 @@ class ParticipationDetailsActivity: BaseActivity(), ParticipationDetailsView{
     private class ParticipationDetailsNavigator(activity: FragmentActivity) : AppNavigator(activity, R.id.participationDetailsContainer) {
 
         override fun createActivityIntent(context: Context, screenKey: String, data: Any?): Intent? {
-            throw UnsupportedOperationException("No forward navigation here")
+            return null
         }
 
         override fun createFragment(screenKey: String, data: Any?) = when (screenKey) {
@@ -90,12 +90,19 @@ class ParticipationDetailsActivity: BaseActivity(), ParticipationDetailsView{
                                                        nextFragment: Fragment,
                                                        fragmentTransaction: FragmentTransaction) {
 
-            //TODO different animations for different fragments
-            fragmentTransaction.setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right)
+            if(command is Forward){
+                fragmentTransaction.setCustomAnimations(
+                        R.anim.enter_from_right,
+                        R.anim.exit_to_left,
+                        R.anim.enter_from_left,
+                        R.anim.exit_to_right)
+            } else{
+                fragmentTransaction.setCustomAnimations(R.anim.fade_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.fade_out)
+            }
+
         }
     }
 

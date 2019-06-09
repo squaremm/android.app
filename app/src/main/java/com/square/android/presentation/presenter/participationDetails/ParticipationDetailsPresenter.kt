@@ -31,22 +31,21 @@ class ParticipationDetailsPresenter(val participationId: Long): BasePresenter<Pa
         loadData()
     }
 
-    private fun loadData() {
-        launch {
+    private fun loadData() = launch {
             viewState.showProgress()
 
             //TODO uncomment later
 //            data = repository.getParticipation(participationId).await()
+//
 //            viewState.showData(data!!)
 //                if (data!!.active) {
 //                    router.replaceScreen(SCREENS.UPLOAD_PICS, data)
 //                } else {
 //                    router.replaceScreen(SCREENS.APPROVAL, data)
 //                }
-
-            viewState.hideProgress()
+//
+//            viewState.hideProgress()
         }
-    }
 
     fun exit(){
         router.exit()

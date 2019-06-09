@@ -10,12 +10,11 @@ import org.greenrobot.eventbus.EventBus
 import org.koin.standalone.inject
 
 @InjectViewState
-class AddPhotoPresenter(val participation: Participation): BasePresenter<AddPhotoView>() {
+class AddPhotoPresenter(var participation: Participation): BasePresenter<AddPhotoView>() {
 
     private val eventBus: EventBus by inject()
 
-    fun uploadPhotos(bytes: List<ByteArray>){
-        launch {
+    fun uploadPhotos(bytes: List<ByteArray>) = launch {
             viewState.showProgress()
 
             //TODO uncomment later
@@ -27,5 +26,5 @@ class AddPhotoPresenter(val participation: Participation): BasePresenter<AddPhot
 
             router.backTo(SCREENS.UPLOAD_PICS)
         }
-    }
+
 }

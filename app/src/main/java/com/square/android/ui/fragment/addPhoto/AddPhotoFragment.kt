@@ -93,13 +93,17 @@ class AddPhotoFragment: BaseFragment(), AddPhotoView, PermissionsListener, AddPh
     }
 
     private fun deleteImage(index: Int){
+        val shouldAddEmpty: Boolean = imagesUri.filterNotNull().size >= photosLeft
+
         imagesUri.removeAt(index)
         adapter!!.notifyItemRemoved(index)
 
-        if(imagesUri.size == photosLeft && imagesUri.filterNotNull().isEmpty()){
+        if(shouldAddEmpty){
             imagesUri.add(null)
             adapter!!.notifyItemInserted(imagesUri.size - 1)
         }
+
+        addPhotoUpload.isEnabled = !imagesUri.filterNotNull().isEmpty()
     }
 
     override fun showProgress() {
@@ -128,12 +132,14 @@ class AddPhotoFragment: BaseFragment(), AddPhotoView, PermissionsListener, AddPh
     }
 
     private fun assignPhoto(uri: Uri){
-        imagesUri[imagesUri.size - 1] = uri
-        adapter!!.notifyItemChanged(imagesUri.size - 1)
+        var index: Int = imagesUri.size - 1
+
+        imagesUri[index] = uri
+        adapter!!.notifyItemChanged(index)
 
         if (imagesUri.filterNotNull().size < photosLeft) {
             imagesUri.add(null)
-            adapter!!.notifyItemInserted(imagesUri.size - 1)
+            adapter!!.notifyItemInserted(index)
         }
 
         if(!addPhotoUpload.isEnabled) addPhotoUpload.isEnabled = true

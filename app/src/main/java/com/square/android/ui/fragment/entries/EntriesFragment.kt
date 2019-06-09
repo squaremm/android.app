@@ -14,12 +14,12 @@ import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.places.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_page_entries.*
 
-class EntriesFragment(private val campaign: Campaign?): BaseFragment(), EntriesView, ImagesAdapter.Handler {
+class EntriesFragment(private val campaign: Campaign?): BaseFragment(), EntriesView, SquareImagesAdapter.Handler {
 
     @InjectPresenter
     lateinit var presenter: EntriesPresenter
 
-    private var adapter: ImagesAdapter? = null
+    private var adapter: SquareImagesAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -30,7 +30,7 @@ class EntriesFragment(private val campaign: Campaign?): BaseFragment(), EntriesV
         super.onViewCreated(view, savedInstanceState)
 
         campaign?.participantsImages?.let {
-            adapter = ImagesAdapter(it, this)
+            adapter = SquareImagesAdapter(it, this)
 
             entriesRv.layoutManager = GridLayoutManager(context, 3)
             entriesRv.adapter = adapter
@@ -39,7 +39,7 @@ class EntriesFragment(private val campaign: Campaign?): BaseFragment(), EntriesV
     }
 
     override fun itemClicked(url: String) {
-
+        //TODO show photo in dialog like in ApprovalFragment?
     }
 
 }

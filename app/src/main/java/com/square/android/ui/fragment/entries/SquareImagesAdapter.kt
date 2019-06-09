@@ -9,9 +9,9 @@ import com.square.android.R
 import com.square.android.extensions.loadImage
 import org.jetbrains.anko.dimen
 
-class ImagesAdapter (var imageUrls: List<String>, private val handler: Handler?) : RecyclerView.Adapter<ImagesAdapter.ViewHolder>(){
+class SquareImagesAdapter (var imageUrls: List<String>, private val handler: Handler?) : RecyclerView.Adapter<SquareImagesAdapter.ViewHolder>(){
 
-    fun setUrls(urls: List<String>){
+    fun assignUrls(urls: List<String>){
         imageUrls = urls
         notifyDataSetChanged()
     }
@@ -21,7 +21,7 @@ class ImagesAdapter (var imageUrls: List<String>, private val handler: Handler?)
         var container: ViewGroup = v.findViewById(R.id.itemPhotoContainer) as ViewGroup
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImagesAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SquareImagesAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_photo_square, parent, false)
         return ViewHolder(v)
     }

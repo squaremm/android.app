@@ -15,8 +15,7 @@ class CampaignsPresenter: BasePresenter<CampaignsView>() {
         loadData()
     }
 
-    private fun loadData() {
-        launch {
+    private fun loadData() = launch {
 
             //TODO uncomment later
 //            viewState.showProgress()
@@ -26,7 +25,6 @@ class CampaignsPresenter: BasePresenter<CampaignsView>() {
 //            viewState.hideProgress()
 //            viewState.showCampaigns(data!!)
         }
-    }
 
 
     fun itemClicked(position: Int) {

@@ -1,6 +1,5 @@
-package com.square.android.ui.fragment.addPhoto
+package com.square.android.ui.fragment.uploadPics
 
-import android.net.Uri
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -10,14 +9,19 @@ import com.square.android.R
 import com.square.android.extensions.loadImage
 import org.jetbrains.anko.dimen
 
-class AddPhotoAdapter (var images: MutableList<Uri?>, private val handler: Handler?) : RecyclerView.Adapter<AddPhotoAdapter.ViewHolder>(){
+class UploadPicsAdapter (var images: MutableList<String?>, private val handler: Handler?) : RecyclerView.Adapter<UploadPicsAdapter.ViewHolder>(){
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var image: ImageView = v.findViewById(R.id.itemPhotoImv) as ImageView
         var container: ViewGroup = v.findViewById(R.id.itemPhotoContainer) as ViewGroup
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddPhotoAdapter.ViewHolder {
+    fun assignImages(images: MutableList<String?>){
+        this.images = images
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UploadPicsAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_photo_square, parent, false)
         return ViewHolder(v)
     }
@@ -29,7 +33,7 @@ class AddPhotoAdapter (var images: MutableList<Uri?>, private val handler: Handl
             holder.image.loadImage(images[position]!!, roundedCornersRadiusPx = holder.image.context!!.dimen(R.dimen.value_4dp))
         }
 
-        holder.container.setOnClickListener {handler?.itemClicked(holder.adapterPosition,images[holder.adapterPosition] == null )}
+        holder.container.setOnClickListener{handler?.itemClicked(holder.adapterPosition,images[holder.adapterPosition] == null)}
     }
 
     override fun getItemCount(): Int {

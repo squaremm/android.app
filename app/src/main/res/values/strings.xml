@@ -216,6 +216,11 @@
     <string name="approval">Approval</string>
     <string name="request_status_is">The status of your request is:</string>
     <string name="thanks_for_interest">Thank you for your interest\nin joining our participation!</string>
+    <string name="status_waiting">Waiting for review</string>
+    <string name="status_under_review">Under review</string>
+    <string name="status_approved">Approved</string>
+    <string name="status_rejected">Rejected</string>
+
 
     <string name="thanks_applying">Thanks for applying!</string>
     <string name="we_will_let">We will let you know soon if you are accepted</string>
