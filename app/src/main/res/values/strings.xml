@@ -136,7 +136,7 @@
     <string name="place_name_comma">%s,</string>
 
 
-    <string name="congratulations">Congratulations</string>
+    <string name="congratulations">Congratulations!</string>
     <string name="we_will_notify">We will notify you when your review is accepted.</string>
     <string name="you_lost_credits">You\'ve lost credits</string>
     <string name="lost_credits_message_format">Since you didn\'t show up at %s have lost credits.</string>
@@ -240,6 +240,15 @@
     <string name="pass_features_one">Free access to all our Venues, Gyms, Hairdressers</string>
     <string name="pass_features_two">Access to our organic growth plan</string>
     <string name="pay">Pay</string>
+
+    <string name="_continue">Continue</string>
+    <string name="oh_no">Oh no!</string>
+    <string name="dialog_rejected_text">We\'re sorry but your item\nhas ben rejected!</string>
+    <string name="dialog_accepted_text">You have been accepted for the\ncampaign!</string>
+
+    <string name="earned_credits_format">You\'ve earned %d credits!</string>
+    <string name="dialog_earned_text_format">Since you completed this gifting campaign you have earned %d credits.</string>
+    <string name="dialog_winner_text">You\'re the winner of this campaign!\nYou\'ve won:</string>
 
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
