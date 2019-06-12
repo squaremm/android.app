@@ -13,7 +13,7 @@
         <objectAnimator
             android:duration="200"
             android:propertyName="translationZ"
-            android:valueTo="2dp"
+            android:valueTo="1dp"
             android:valueType="floatType" />
     </item>
 

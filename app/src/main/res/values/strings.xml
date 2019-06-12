@@ -230,6 +230,17 @@
     <string name="filters">Filters</string>
     <string name="clear">Clear</string>
 
+
+    <string name="you_have_x_followers">You have 4000\-5000 followers!</string>
+    <string name="good_news">Good news!</string>
+    <string name="you_are_eligible">You are eligible for the</string>
+    <string name="square_pass_program">SQUARE Pass Program</string>
+    <string name="square_pass_price">€10</string>
+    <string name="slash_week">/week</string>
+    <string name="pass_features_one">Free access to all our Venues, Gyms, Hairdressers</string>
+    <string name="pass_features_two">Access to our organic growth plan</string>
+    <string name="pay">Pay</string>
+
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
     <string name="how_to_review">How to make a review</string>
