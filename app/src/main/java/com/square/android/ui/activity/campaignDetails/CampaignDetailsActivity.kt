@@ -38,68 +38,72 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_campaign_details)
 
-        setSupportActionBar(campaignDetailsToolbar)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-
-        placeDetailAppbar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            override fun onOffsetChanged(p0: AppBarLayout?, p1: Int) {
-
-                if (maxScrollSize == 0)
-                    maxScrollSize = placeDetailAppbar.totalScrollRange
-
-                val currentScrollPercentage = Math.abs(p1) * 100 / maxScrollSize
-
-                if (currentScrollPercentage >= PERCENTAGE_TO_COLOR) {
-                    if (!isElementWhite) {
-                        isElementWhite = true
-                        campaignDetailsName.setTextColor(ContextCompat.getColor(campaignDetailsName.context, R.color.nice_pink))
-                        campaignDetailsBack.imageTintList = ColorStateList.valueOf(Color.BLACK)
-                        placeDetailToolbar.setBackgroundColor(ContextCompat.getColor(placeDetailToolbar.context, android.R.color.transparent))
-                        campaignDetailsType.visibility = View.INVISIBLE
-                    }
-                }
-
-                if (currentScrollPercentage < PERCENTAGE_TO_COLOR) {
-                    if (isElementWhite) {
-                        isElementWhite = false
-                        campaignDetailsName.setTextColor(ContextCompat.getColor(campaignDetailsName.context, R.color.white))
-                        campaignDetailsBack.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(campaignDetailsBack.context, R.color.white))
-                        placeDetailToolbar.setBackgroundColor(ContextCompat.getColor(placeDetailToolbar.context, R.color.black_trans_30))
-                        campaignDetailsType.visibility = View.VISIBLE
-                    }
-                }
-            }
-        })
-
-        campaignDetailsBack.setOnClickListener {onBackPressed()}
-        campaignDetailsParticipate.setOnClickListener {presenter.participateClicked()}
+//        setSupportActionBar(campaignDetailsToolbar)
+//
+//        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+//
+//        placeDetailAppbar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+//            override fun onOffsetChanged(p0: AppBarLayout?, p1: Int) {
+//
+//                if (maxScrollSize == 0)
+//                    maxScrollSize = placeDetailAppbar.totalScrollRange
+//
+//                val currentScrollPercentage = Math.abs(p1) * 100 / maxScrollSize
+//
+//                if (currentScrollPercentage >= PERCENTAGE_TO_COLOR) {
+//                    if (!isElementWhite) {
+//                        isElementWhite = true
+//                        campaignDetailsName.setTextColor(ContextCompat.getColor(campaignDetailsName.context, R.color.nice_pink))
+//                        campaignDetailsBack.imageTintList = ColorStateList.valueOf(Color.BLACK)
+//                        placeDetailToolbar.setBackgroundColor(ContextCompat.getColor(placeDetailToolbar.context, android.R.color.transparent))
+//                        campaignDetailsType.visibility = View.INVISIBLE
+//                    }
+//                }
+//
+//                if (currentScrollPercentage < PERCENTAGE_TO_COLOR) {
+//                    if (isElementWhite) {
+//                        isElementWhite = false
+//                        campaignDetailsName.setTextColor(ContextCompat.getColor(campaignDetailsName.context, R.color.white))
+//                        campaignDetailsBack.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(campaignDetailsBack.context, R.color.white))
+//                        placeDetailToolbar.setBackgroundColor(ContextCompat.getColor(placeDetailToolbar.context, R.color.black_trans_30))
+//                        campaignDetailsType.visibility = View.VISIBLE
+//                    }
+//                }
+//            }
+//        })
+//
+//        campaignDetailsBack.setOnClickListener {onBackPressed()}
+//        campaignDetailsParticipate.setOnClickListener {presenter.participateClicked()}
     }
 
     override fun showData(campaign: Campaign) {
+        campaignProgress.visibility = View.VISIBLE
+        svContent.visibility = View.VISIBLE
 
-        when(campaign.type){
-            1 ->{
-                campaignDetailsType.text = campaignDetailsType.context.getString(R.string.gifting_campaign)
-                campaignDetailsType.background = ContextCompat.getDrawable(campaignDetailsType.context, R.drawable.round_bg_pink_pinkish)
-            }
-            2 ->{
-                campaignDetailsType.text = campaignDetailsType.context.getString(R.string.influencer_campaign)
-                campaignDetailsType.background = ContextCompat.getDrawable(campaignDetailsType.context, R.drawable.round_bg_purple_purpleish)
-            }
-        }
 
-        campaign.mainImage?.let {campaignDetailsImage.loadImage(it)}
 
-        campaignDetailsName.text = campaign.name
-
-//        campaignDetailsDescription.text = campaign.description
-//        campaignDetailsRewards.text = campaign.rewards
-//        campaign.rewardImage?.let {campaignDetailsRewardImage.loadImage(it)}
-//        campaignDetailsDaysLeft.text = campaign.daysLeft
-//        campaignDetailsTaskLeft.text = campaign.taskname
-//        campaignDetailsTaskRight.text = campaign.tasks
-//        campaignDetailsHowItWorks.text = campaign.howItWorks
+//        when(campaign.type){
+//            1 ->{
+//                campaignDetailsType.text = campaignDetailsType.context.getString(R.string.gifting_campaign)
+//                campaignDetailsType.background = ContextCompat.getDrawable(campaignDetailsType.context, R.drawable.round_bg_pink_pinkish)
+//            }
+//            2 ->{
+//                campaignDetailsType.text = campaignDetailsType.context.getString(R.string.influencer_campaign)
+//                campaignDetailsType.background = ContextCompat.getDrawable(campaignDetailsType.context, R.drawable.round_bg_purple_purpleish)
+//            }
+//        }
+//
+//        campaign.mainImage?.let {campaignDetailsImage.loadImage(it)}
+//
+//        campaignDetailsName.text = campaign.name
+//
+////        campaignDetailsDescription.text = campaign.description
+////        campaignDetailsRewards.text = campaign.rewards
+////        campaign.rewardImage?.let {campaignDetailsRewardImage.loadImage(it)}
+////        campaignDetailsDaysLeft.text = campaign.daysLeft
+////        campaignDetailsTaskLeft.text = campaign.taskname
+////        campaignDetailsTaskRight.text = campaign.tasks
+////        campaignDetailsHowItWorks.text = campaign.howItWorks
     }
 
     private fun getCampaignId() = intent.getLongExtra(CAMPAIGN_EXTRA_ID, 0)

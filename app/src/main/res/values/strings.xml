@@ -250,6 +250,12 @@
     <string name="dialog_earned_text_format">Since you completed this gifting campaign you have earned %d credits.</string>
     <string name="dialog_winner_text">You\'re the winner of this campaign!\nYou\'ve won:</string>
 
+
+    <string name="join_now">Join now</string>
+    <string name="description">Description</string>
+
+
+
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
     <string name="how_to_review">How to make a review</string>
