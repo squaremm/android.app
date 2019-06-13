@@ -253,6 +253,18 @@
 
     <string name="join_now">Join now</string>
     <string name="description">Description</string>
+    <string name="first_winner">The first winner</string>
+    <string name="deadlines">Deadlines</string>
+    <string name="to_participate">To participate:</string>
+    <string name="to_upload_pics">To upload pics:</string>
+    <string name="to_upload_pics_ig">To upload pics on IG:</string>
+    <string name="days">Days</string>
+    <string name="stories">Stories:</string>
+    <string name="posts">Posts:</string>
+    <string name="at_least">at least</string>
+    <string name="make_at_least">make at least</string>
+    <string name="when_publishing_tag">When publishing the content produced for the campaign, remember to tag</string>
+    <string name="moodboard">Moodboard</string>
 
 
 
