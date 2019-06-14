@@ -265,6 +265,10 @@
     <string name="make_at_least">make at least</string>
     <string name="when_publishing_tag">When publishing the content produced for the campaign, remember to tag</string>
     <string name="moodboard">Moodboard</string>
+    <string name="stories_lowercase">stories</string>
+    <string name="story">story</string>
+    <string name="ig_post">Instagram post</string>
+    <string name="ig_posts">Instagram posts</string>
 
 
 

@@ -17,7 +17,7 @@
         android:background="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" >
 
         <ImageView
             android:id="@+id/campaignBack"
@@ -94,7 +94,7 @@
                 android:layout_width="204dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="156dp"
-                tools:visibility="gone"
+                android:layout_marginBottom="88dp"
                 android:background="@drawable/background_rounded_max"
                 android:text="@string/join_now"
                 android:textAllCaps="true"
@@ -105,10 +105,9 @@
                 android:id="@+id/cvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="104dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/white"
                 app:cardCornerRadius="12dp"
-                tools:visibility="gone"
                 app:cardElevation="1dp"
                 app:cardUseCompatPadding="false" >
                 <LinearLayout
@@ -151,7 +150,6 @@
                 android:layout_marginTop="16dp"
                 android:background="@android:color/white"
                 app:cardCornerRadius="12dp"
-                tools:visibility="gone"
                 app:cardElevation="1dp"
                 app:cardUseCompatPadding="false" >
                 <LinearLayout
@@ -175,6 +173,7 @@
                         android:background="@color/gray_divider" />
 
                     <LinearLayout
+                        android:id="@+id/cvRewardsLl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
@@ -217,6 +216,7 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/cvRewardsDivider"
                         android:layout_width="216dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="24dp"
@@ -226,7 +226,7 @@
                         android:id="@+id/cvRewardsRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:clipToPadding="false"
                         android:orientation="vertical"
                         android:overScrollMode="never"
@@ -244,7 +244,6 @@
                 android:layout_marginTop="16dp"
                 android:background="@android:color/white"
                 app:cardCornerRadius="12dp"
-                tools:visibility="gone"
                 app:cardElevation="1dp"
                 app:cardUseCompatPadding="false" >
                 <LinearLayout
@@ -289,7 +288,7 @@
                         android:id="@+id/cvWinnerRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:clipToPadding="false"
                         android:orientation="vertical"
                         android:overScrollMode="never"
@@ -304,7 +303,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@android:color/white"
-                tools:visibility="gone"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="1dp"
                 app:cardUseCompatPadding="false" >
@@ -483,7 +481,6 @@
                 android:layout_marginTop="16dp"
                 android:background="@android:color/white"
                 app:cardCornerRadius="12dp"
-                tools:visibility="gone"
                 app:cardElevation="1dp"
                 app:cardUseCompatPadding="false" >
                 <LinearLayout
@@ -510,7 +507,7 @@
                         android:id="@+id/cvModelRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:clipToPadding="false"
                         android:orientation="horizontal"
                         android:overScrollMode="never"
@@ -527,7 +524,6 @@
                 android:layout_marginTop="16dp"
                 android:background="@android:color/white"
                 app:cardCornerRadius="12dp"
-                tools:visibility="gone"
                 app:cardElevation="1dp"
                 app:cardUseCompatPadding="false" >
                 <LinearLayout
@@ -551,6 +547,7 @@
                         android:background="@color/gray_divider" />
 
                     <LinearLayout
+                        android:id="@+id/cvTaskStoriesLl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -581,6 +578,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/cvTaskPostsLl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -616,7 +614,6 @@
                         android:layout_marginTop="16dp"
                         android:background="@color/gray_divider" />
 
-  <!--         TODO: remember to text = @string/when_publishing_tag + @*campaignName* spannable nice_pink        -->
                     <TextView
                         android:id="@+id/cvTaskTag"
                         style="@style/Models16Text"
@@ -644,11 +641,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:padding="16dp" >
+                    android:padding="12dp" >
 
                     <TextView
                         style="@style/Models20BoldText"
                         android:textAllCaps="true"
+                        android:paddingTop="4dp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/moodboard" />
@@ -659,19 +659,34 @@
                         android:layout_marginTop="8dp"
                         android:background="@color/gray_divider" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/cvMoodRv"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:clipToPadding="false"
-                        android:orientation="vertical"
-                        android:overScrollMode="never"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        android:gravity="center"
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal" >
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/cvMoodRv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:orientation="vertical"
+                            android:overScrollMode="never"
+                            android:visibility="gone"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                        <ProgressBar
+                            android:id="@+id/cvMoodProgress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true"
+                            android:paddingBottom="4dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
 <!--    How it works    -->
             <androidx.cardview.widget.CardView
