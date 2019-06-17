@@ -136,6 +136,7 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="8dp"
                         android:gravity="center_horizontal"
+                        android:lineSpacingExtra="6dp"
                         tools:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor."
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -229,8 +230,7 @@
                         android:layout_marginTop="24dp"
                         android:clipToPadding="false"
                         android:orientation="vertical"
-                        android:overScrollMode="never"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        android:overScrollMode="never" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -291,8 +291,8 @@
                         android:layout_marginTop="24dp"
                         android:clipToPadding="false"
                         android:orientation="vertical"
-                        android:overScrollMode="never"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        android:overScrollMode="never" />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -506,12 +506,10 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/cvModelRv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="96dp"
                         android:layout_marginTop="24dp"
                         android:clipToPadding="false"
-                        android:orientation="horizontal"
-                        android:overScrollMode="never"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        android:overScrollMode="never" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -563,7 +561,7 @@
 
                         <TextView
                             style="@style/Models16Text"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="4dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/at_least" />
@@ -571,7 +569,7 @@
                         <TextView
                             android:id="@+id/cvTaskStories"
                             style="@style/Models16BoldText"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="4dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="3 stories" />
@@ -594,7 +592,7 @@
 
                         <TextView
                             style="@style/Models16Text"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="4dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/make_at_least" />
@@ -602,7 +600,7 @@
                         <TextView
                             android:id="@+id/cvTaskPosts"
                             style="@style/Models16BoldText"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="4dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="one Instagram post" />
@@ -620,6 +618,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
+                        android:lineSpacingExtra="6dp"
                         android:layout_marginTop="16dp"
                         tools:text="@string/when_publishing_tag" />
 
@@ -663,7 +662,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="horizontal" >
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -671,18 +670,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clipToPadding="false"
-                            android:orientation="vertical"
                             android:overScrollMode="never"
-                            android:visibility="gone"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                            android:visibility="visible" />
 
                         <ProgressBar
                             android:id="@+id/cvMoodProgress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:indeterminate="true"
+                            android:layout_marginTop="4dp"
                             android:paddingBottom="4dp"
-                            android:visibility="visible" />
+                            android:visibility="gone" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -738,6 +736,61 @@
                         app:tabBackground="@drawable/tab_selector"
                         app:tabIndicatorHeight="0dp"
                         app:tabRippleColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+<!--    Thanks    -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvThanks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="156dp"
+                android:background="@android:color/white"
+                app:cardCornerRadius="12dp"
+                android:visibility="gone"
+                app:cardElevation="1dp"
+                app:cardUseCompatPadding="false" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="16dp" >
+
+                    <TextView
+                        style="@style/Models20BoldText"
+                        android:textAllCaps="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/thanks" />
+
+                    <View
+                        android:layout_width="216dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/gray_divider" />
+
+                    <TextView
+                        android:id="@+id/cvThanksLabel"
+                        style="@style/Models18BoldText"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center_horizontal"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/thanks_applying"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/cvThanksText"
+                        style="@style/Models16Text"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center_horizontal"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/we_will_let"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

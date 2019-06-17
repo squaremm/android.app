@@ -10,6 +10,7 @@ import com.square.android.R
 import com.square.android.data.pojo.Reward
 import com.square.android.extensions.loadImage
 import com.square.android.extensions.setTextColorRes
+import org.jetbrains.anko.dimen
 
 class RewardsAdapter (var rewards: List<Reward>, private val handler: Handler?, var coloredText: Boolean = false) : RecyclerView.Adapter<RewardsAdapter.ViewHolder>(){
 
@@ -26,7 +27,7 @@ class RewardsAdapter (var rewards: List<Reward>, private val handler: Handler?, 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.image.loadImage(rewards[position].imageUrl)
+        holder.image.loadImage(rewards[position].imageUrl, roundedCornersRadiusPx = holder.image.context!!.dimen(R.dimen.value_4dp))
         holder.name.text = rewards[position].name
         if (coloredText) holder.name.setTextColorRes(R.color.nice_pink)
 

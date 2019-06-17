@@ -15,85 +15,173 @@
         style="@style/Models18BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="64dp"
+        android:paddingEnd="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/upload_pics"
         android:textAllCaps="true"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/gray_divider"
+        app:layout_constraintEnd_toEndOf="@+id/picsLabel"
+        app:layout_constraintStart_toStartOf="@+id/picsLabel"
+        app:layout_constraintTop_toBottomOf="@+id/picsLabel" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/picsRv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:clipToPadding="false"
         tools:listitem="@layout/item_gallery"
         tools:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/picsLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <View
-        android:id="@+id/divider1"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_divider"
+    <TextView
+        android:id="@+id/picsNotEnough"
+        style="@style/Models14Text"
+        android:textColor="@color/nice_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/not_enough_pictures"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/picsRv"
-        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintTop_toTopOf="@+id/picsDaysLeft"
-        app:layout_constraintBottom_toBottomOf="@+id/picsDaysLeft"
-        app:layout_constraintEnd_toStartOf="@+id/picsDaysLeftLabel"
-        android:src="@drawable/ic_date"
-        android:tint="@color/nice_pink" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/picsDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/picsNotEnough"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" >
 
-    <TextView
-        android:id="@+id/picsDaysLeft"
-        style="@style/Models40BoldText"
-        android:textColor="@color/nice_pink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider1"
-        tools:text="12" />
+            <View
+                android:id="@+id/picsDivider1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/gray_divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/picsDaysLeftLabel"
-        style="@style/Models16Text"
-        android:textColor="@color/nice_pink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/days_left"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/picsDaysLeft" />
+            <TextView
+                android:id="@+id/picsDays1"
+                style="@style/Models16Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/days"
+                android:textAllCaps="true"
+                android:textColor="@color/nice_pink"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/picsDaysValue1"
+                app:layout_constraintBottom_toBottomOf="@+id/picsDaysValue1" />
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_divider"
-        app:layout_constraintTop_toBottomOf="@+id/picsDaysLeftLabel"
-        android:layout_marginTop="14dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                android:id="@+id/picsDaysValue1"
+                style="@style/Models30BoldText"
+                android:textColor="@color/nice_pink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:includeFontPadding="false"
+                tools:text="12"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/picsDays1"
+                app:layout_constraintTop_toBottomOf="@+id/picsDivider1" />
+
+            <TextView
+                android:id="@+id/picsDaysLabel1"
+                style="@style/Models16Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to_upload_pics"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toTopOf="@+id/picsDaysValue1"
+                app:layout_constraintBottom_toBottomOf="@+id/picsDaysValue1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/picsDaysValue1" />
+
+            <View
+                android:id="@+id/picsDivider2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray_divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/picsDaysValue1" />
+
+            <TextView
+                android:id="@+id/picsDays2"
+                style="@style/Models16Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/days"
+                android:textAllCaps="true"
+                android:textColor="@color/nice_pink"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/picsDaysValue2"
+                app:layout_constraintBottom_toBottomOf="@+id/picsDaysValue2" />
+
+            <TextView
+                android:id="@+id/picsDaysValue2"
+                style="@style/Models30BoldText"
+                android:textColor="@color/nice_pink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:includeFontPadding="false"
+                tools:text="20"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/picsDays2"
+                app:layout_constraintTop_toBottomOf="@+id/picsDivider2" />
+
+            <TextView
+                android:id="@+id/picsDaysLabel2"
+                style="@style/Models16Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to_upload_pics_ig"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toTopOf="@+id/picsDaysValue2"
+                app:layout_constraintBottom_toBottomOf="@+id/picsDaysValue2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/picsDaysValue2" />
+
+            <View
+                android:id="@+id/picsDivider3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray_divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/picsDaysValue2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/picsSend"
         style="@style/Models16BoldText"
         android:layout_width="192dp"
         android:layout_height="42dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/nice_button_red_pink_alpha"
         android:text="@string/send_over_review"
         android:textAllCaps="false"
@@ -101,7 +189,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/picsDays" />
 
     <ProgressBar
         android:id="@+id/picsProgress"
@@ -109,10 +197,10 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="38dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:layout_constraintTop_toBottomOf="@+id/picsDays"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

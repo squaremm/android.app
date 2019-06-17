@@ -30,6 +30,7 @@ const val EXTRA_PARTICIPATION = "EXTRA_PARTICIPATION"
 const val PARTICIPATION_EXTRA_ID = "PARTICIPATION_EXTRA_ID"
 
 const val PARTICIPATION_MAX_PHOTOS_VALUE = 6
+const val PARTICIPATION_MIN_PHOTOS_VALUE = 3
 
 class ParticipationDetailsActivity: BaseActivity(), ParticipationDetailsView{
 

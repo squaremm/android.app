@@ -13,6 +13,7 @@ import com.square.android.presentation.presenter.uploadPics.UploadPicsPresenter
 import com.square.android.presentation.view.uploadPics.UploadPicsView
 import com.square.android.ui.activity.participationDetails.EXTRA_PARTICIPATION
 import com.square.android.ui.activity.participationDetails.PARTICIPATION_MAX_PHOTOS_VALUE
+import com.square.android.ui.activity.participationDetails.PARTICIPATION_MIN_PHOTOS_VALUE
 import com.square.android.ui.activity.participationDetails.ParticipationDetailsActivity
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.places.GridItemDecoration
@@ -55,12 +56,18 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        picsDaysLeft.text = presenter.participation.daysLeft.toString()
+        picsDaysValue1.text = presenter.participation.toUpload.toString()
+        picsDaysValue2.text = presenter.participation.toUploadIg.toString()
 
         photosLeft = if (presenter.participation.photos.isNullOrEmpty()) PARTICIPATION_MAX_PHOTOS_VALUE else (PARTICIPATION_MAX_PHOTOS_VALUE - presenter.participation.photos!!.size)
 
         if(photosLeft < PARTICIPATION_MAX_PHOTOS_VALUE){
-            picsSend.isEnabled = true
+
+            if(photosLeft >= PARTICIPATION_MIN_PHOTOS_VALUE){
+                picsSend.isEnabled = true
+
+                picsNotEnough.visibility = View.INVISIBLE
+            }
 
             images = presenter.participation.photos!!.map {it.url}.toMutableList()
 
@@ -81,12 +88,16 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
     }
 
     override fun reloadData(participation: Participation) {
-        picsDaysLeft.text = participation.daysLeft.toString()
+
+        picsDaysValue1.text = participation.toUpload.toString()
+        picsDaysValue2.text = participation.toUploadIg.toString()
 
         photosLeft = if (participation.photos.isNullOrEmpty()) PARTICIPATION_MAX_PHOTOS_VALUE else (PARTICIPATION_MAX_PHOTOS_VALUE - participation.photos!!.size)
 
         if(photosLeft < PARTICIPATION_MAX_PHOTOS_VALUE){
-            picsSend.isEnabled = true
+
+            picsSend.isEnabled = photosLeft >= PARTICIPATION_MIN_PHOTOS_VALUE
+            picsNotEnough.visibility = if(photosLeft >= PARTICIPATION_MIN_PHOTOS_VALUE) View.INVISIBLE else View.VISIBLE
 
             images = participation.photos!!.map {it.url}.toMutableList()
 
@@ -96,6 +107,7 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
 
         } else{
             picsSend.isEnabled = false
+            picsNotEnough.visibility = View.VISIBLE
             images = mutableListOf(null)
         }
 

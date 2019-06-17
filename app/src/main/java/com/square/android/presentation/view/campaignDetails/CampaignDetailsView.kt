@@ -5,4 +5,7 @@ import com.square.android.presentation.view.BaseView
 
 interface CampaignDetailsView : BaseView {
     fun showData(campaign: Campaign)
+    fun showThanks()
+    fun showProgress()
+    fun hideProgress()
 }

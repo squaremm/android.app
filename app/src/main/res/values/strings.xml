@@ -223,7 +223,7 @@
 
 
     <string name="thanks_applying">Thanks for applying!</string>
-    <string name="we_will_let">We will let you know soon if you are accepted</string>
+    <string name="we_will_let">We will let you know soon\nif you are accepted</string>
 
     <string name="days_left">Days Left</string>
 
@@ -263,13 +263,15 @@
     <string name="posts">Posts:</string>
     <string name="at_least">at least</string>
     <string name="make_at_least">make at least</string>
-    <string name="when_publishing_tag">When publishing the content produced for the campaign, remember to tag</string>
+    <string name="when_publishing_tag">When publishing the content produced\nfor the campaign, remember\nto tag</string>
     <string name="moodboard">Moodboard</string>
     <string name="stories_lowercase">stories</string>
     <string name="story">story</string>
     <string name="ig_post">Instagram post</string>
     <string name="ig_posts">Instagram posts</string>
+    <string name="thanks">Thanks!</string>
 
+    <string name="not_enough_pictures">There\'s not enough pictures.</string>
 
 
     <string name="tutorials">Tutorials</string>

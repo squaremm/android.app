@@ -12,5 +12,7 @@ data class Participation(var id: Long = 0,
                          var active: Boolean = true,
                          var photos: List<Photo>? = null,
                          var daysLeft: Int = 0,
-                         var status: Int = 0
+                         var status: Int = 0,
+                         var toUpload: Int = 0,
+                         var toUploadIg: Int = 0
 ) : Parcelable
