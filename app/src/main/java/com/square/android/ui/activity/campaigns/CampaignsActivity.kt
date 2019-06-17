@@ -5,7 +5,7 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
-import com.square.android.data.pojo.Campaign
+import com.square.android.data.pojo.OldCampaign
 import com.square.android.presentation.presenter.campaigns.CampaignsPresenter
 import com.square.android.presentation.view.campaigns.CampaignsView
 import com.square.android.ui.activity.BaseActivity
@@ -33,7 +33,7 @@ class CampaignsActivity: BaseActivity(), CampaignsView, CampaignsAdapter.Handler
         setContentView(R.layout.activity_campaigns)
     }
 
-    override fun showCampaigns(data: List<Campaign>) {
+    override fun showCampaigns(data: List<OldCampaign>) {
 
         adapter = CampaignsAdapter(data, this)
 

@@ -279,4 +279,61 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
+// Campaign
+    override fun getCampaigns(): Deferred<List<Campaign>> = GlobalScope.async {
+        val data = performRequest { api.getCampaigns(localManager.getAuthToken()) }
+        data
+    }
+
+    override fun getCampaign(campaignId: Long): Deferred<Campaign> = GlobalScope.async {
+        val data = performRequest { api.getCampaign(localManager.getAuthToken(), campaignId) }
+        data
+    }
+
+    override fun joinCampaign(campaignId: Long): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.joinCampaign(localManager.getAuthToken(), campaignId) }
+        data
+    }
+
+    override fun requestReview(campaignId: Long): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.requestReview(localManager.getAuthToken(), campaignId) }
+        data
+    }
+
+    override fun addCampaignImage(campaignId: Long, imageBytes: ByteArray): Deferred<Images> = GlobalScope.async {
+        val requestFile = RequestBody.create(
+                MediaType.parse("image/*"),
+                imageBytes
+        )
+
+        val body = MultipartBody.Part.createFormData("images", "", requestFile)
+
+        val data = performRequest { api.addCampaignImage(localManager.getAuthToken(), campaignId, body) }
+        data
+    }
+
+    override fun removeCampaignImage(campaignId: Long, imageId: String): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.removeCampaignImage(localManager.getAuthToken(), campaignId, imageId) }
+        data
+    }
+
+    override fun getCampaignPhotos(campaignId: Long): Deferred<List<String>> = GlobalScope.async {
+        val data = performRequest { api.getCampaignPhotos(localManager.getAuthToken(), campaignId) }
+        data
+    }
+
+    override fun getCampaignLocations(campaignId: Long): Deferred<List<CampaignLocationWrapper>> = GlobalScope.async {
+        val data = performRequest { api.getCampaignLocations(localManager.getAuthToken(), campaignId) }
+        data
+    }
+
+    override fun getCampaignSlots(campaignId: Long, intervalId: String, date: String): Deferred<List<CampaignInterval.Slot>> = GlobalScope.async {
+        val data = performRequest { api.getCampaignSlots(localManager.getAuthToken(), campaignId, intervalId, date) }
+        data
+    }
+
+    override fun campaignBook(campaignId: Long, intervalId: String, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.campaignBook(localManager.getAuthToken(), campaignId, intervalId, campaignBookInfo) }
+        data
+    }
 }

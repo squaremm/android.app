@@ -1,14 +1,14 @@
 package com.square.android.presentation.presenter.campaignFinished
 
 import com.arellomobile.mvp.InjectViewState
-import com.square.android.data.pojo.Campaign
+import com.square.android.data.pojo.OldCampaign
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.campaignFinished.CampaignFinishedView
 
 @InjectViewState
 class CampaignFinishedPresenter(private val campaignId: Long): BasePresenter<CampaignFinishedView>() {
 
-    private var data: Campaign? = null
+    private var data: OldCampaign? = null
 
     init {
         loadData()

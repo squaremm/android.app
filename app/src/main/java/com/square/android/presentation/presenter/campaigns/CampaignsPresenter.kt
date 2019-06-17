@@ -2,14 +2,14 @@ package com.square.android.presentation.presenter.campaigns
 
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
-import com.square.android.data.pojo.Campaign
+import com.square.android.data.pojo.OldCampaign
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.campaigns.CampaignsView
 
 @InjectViewState
 class CampaignsPresenter: BasePresenter<CampaignsView>() {
 
-    private var data: List<Campaign>? = null
+    private var data: List<OldCampaign>? = null
 
     init {
         loadData()

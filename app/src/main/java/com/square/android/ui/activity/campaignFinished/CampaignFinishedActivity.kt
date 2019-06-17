@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
-import com.square.android.data.pojo.Campaign
+import com.square.android.data.pojo.OldCampaign
 import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.campaignFinished.CampaignFinishedPresenter
 import com.square.android.presentation.view.campaignFinished.CampaignFinishedView
@@ -23,7 +23,7 @@ class CampaignFinishedActivity: BaseActivity(), CampaignFinishedView {
     @ProvidePresenter
     fun providePresenter() = CampaignFinishedPresenter(getId())
 
-    var campaign: Campaign? = null
+    var campaign: OldCampaign? = null
 
     override fun provideNavigator(): Navigator = object : SimpleNavigator {}
 
@@ -34,14 +34,14 @@ class CampaignFinishedActivity: BaseActivity(), CampaignFinishedView {
         finishedBack.setOnClickListener {onBackPressed()}
     }
 
-    override fun showData(campaign: Campaign) {
-        this.campaign = campaign
+    override fun showData(oldCampaign: OldCampaign) {
+        this.campaign = oldCampaign
 
         setUpPager()
 
-        campaign.mainImage?.let { finishedBg.loadImage(it)}
+        oldCampaign.mainImage?.let { finishedBg.loadImage(it)}
 
-        finishedName.text = campaign.name
+        finishedName.text = oldCampaign.name
     }
 
     private fun setUpPager() {

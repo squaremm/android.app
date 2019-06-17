@@ -3,13 +3,13 @@ package com.square.android.ui.activity.campaigns
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.square.android.R
-import com.square.android.data.pojo.Campaign
+import com.square.android.data.pojo.OldCampaign
 import com.square.android.extensions.loadImage
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.item_campaign.*
 
-class CampaignsAdapter(data: List<Campaign>,
-                       private val handler: Handler) : BaseAdapter<Campaign, CampaignsAdapter.JobsHolder>(data) {
+class CampaignsAdapter(data: List<OldCampaign>,
+                       private val handler: Handler) : BaseAdapter<OldCampaign, CampaignsAdapter.JobsHolder>(data) {
 
     override fun getLayoutId(viewType: Int) = R.layout.item_campaign
 
@@ -18,13 +18,13 @@ class CampaignsAdapter(data: List<Campaign>,
     override fun instantiateHolder(view: View): JobsHolder = JobsHolder(view, handler)
 
     class JobsHolder(containerView: View,
-                       handler: Handler) : BaseHolder<Campaign>(containerView) {
+                       handler: Handler) : BaseHolder<OldCampaign>(containerView) {
 
         init {
             campaignContainer.setOnClickListener {handler.itemClicked(adapterPosition)}
         }
 
-        override fun bind(item: Campaign, vararg extras: Any?) {
+        override fun bind(item: OldCampaign, vararg extras: Any?) {
 
             campaignTitle.text = item.name
 

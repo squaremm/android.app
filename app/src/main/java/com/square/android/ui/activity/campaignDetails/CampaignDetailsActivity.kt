@@ -9,7 +9,7 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
-import com.square.android.data.pojo.Campaign
+import com.square.android.data.pojo.OldCampaign
 import com.square.android.presentation.presenter.campaignDetails.CampaignDetailsPresenter
 import com.square.android.presentation.view.campaignDetails.CampaignDetailsView
 import com.square.android.ui.activity.BaseActivity
@@ -49,91 +49,91 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView {
         campaignJoinBtn.setOnClickListener {presenter.joinClicked()}
     }
 
-    override fun showData(campaign: Campaign) {
+    override fun showData(oldCampaign: OldCampaign) {
 
-        campaignName.text = campaign.name
-        campaign.mainImage?.let {campaignBg.loadImage(it)}
+        campaignName.text = oldCampaign.name
+        oldCampaign.mainImage?.let {campaignBg.loadImage(it)}
 
-        if(campaign.participated){
+        if(oldCampaign.participated){
             showThanks()
 
         } else{
-            if(TextUtils.isEmpty(campaign.description)){
+            if(TextUtils.isEmpty(oldCampaign.description)){
                 cvDescription.visibility = View.GONE
             } else{
-                cvDescriptionText.text = campaign.description
+                cvDescriptionText.text = oldCampaign.description
             }
 
-            if(campaign.credits <= 0 && campaign.rewards.isNullOrEmpty()){
+            if(oldCampaign.credits <= 0 && oldCampaign.rewards.isNullOrEmpty()){
                 cvRewards.visibility = View.GONE
             } else{
 
-                if(campaign.credits <= 0){
+                if(oldCampaign.credits <= 0){
                     cvRewardsLl.visibility = View.GONE
                     cvRewardsDivider.visibility = View.GONE
                 } else{
-                    cvRewardsCredits.text = campaign.credits.toString()
+                    cvRewardsCredits.text = oldCampaign.credits.toString()
                 }
 
-                if(campaign.rewards.isNullOrEmpty()){
+                if(oldCampaign.rewards.isNullOrEmpty()){
                     cvRewardsDivider.visibility =  View.GONE
                     cvRewardsRv.visibility =  View.GONE
                 } else{
-                    rewardsAdapter = RewardsAdapter(campaign.rewards!!, null)
+                    rewardsAdapter = RewardsAdapter(oldCampaign.rewards!!, null)
                     cvRewardsRv.adapter = rewardsAdapter
                     cvRewardsRv.layoutManager = LinearLayoutManager(cvRewardsRv.context, RecyclerView.VERTICAL,false)
                     cvRewardsRv.addItemDecoration(MarginItemDecorator(cvRewardsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), true))
                 }
             }
 
-            if(campaign.winnerRewards.isNullOrEmpty()){
+            if(oldCampaign.winnerRewards.isNullOrEmpty()){
                 cvWinner.visibility = View.GONE
             } else{
-                winnerAdapter = RewardsAdapter(campaign.winnerRewards!!, null, true)
+                winnerAdapter = RewardsAdapter(oldCampaign.winnerRewards!!, null, true)
                 cvWinnerRv.adapter = winnerAdapter
                 cvWinnerRv.layoutManager = LinearLayoutManager(cvWinnerRv.context, RecyclerView.VERTICAL,false)
                 cvWinnerRv.addItemDecoration(MarginItemDecorator(cvWinnerRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), true))
             }
 
-            cvDeadlinesDaysValue1.text = campaign.participateDays.toString()
-            cvDeadlinesDaysValue2.text = campaign.uploadPicsDays.toString()
-            cvDeadlinesDaysValue3.text = campaign.uploadIgDays.toString()
+            cvDeadlinesDaysValue1.text = oldCampaign.participateDays.toString()
+            cvDeadlinesDaysValue2.text = oldCampaign.uploadPicsDays.toString()
+            cvDeadlinesDaysValue3.text = oldCampaign.uploadIgDays.toString()
 
-            if(campaign.modelTypeImages.isNullOrEmpty()){
+            if(oldCampaign.modelTypeImages.isNullOrEmpty()){
                 cvModel.visibility = View.GONE
             } else{
-                modelTypeAdapter = SquareWrapWidthImagesAdapter(campaign.modelTypeImages!!, null)
+                modelTypeAdapter = SquareWrapWidthImagesAdapter(oldCampaign.modelTypeImages!!, null)
                 cvModelRv.adapter = modelTypeAdapter
                 cvModelRv.layoutManager = LinearLayoutManager(cvModelRv.context, RecyclerView.HORIZONTAL,false)
                 cvModelRv.addItemDecoration(MarginItemDecorator(cvModelRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
             }
 
-            if(campaign.storiesRequired <= 0 && campaign.postsRequired <= 0){
+            if(oldCampaign.storiesRequired <= 0 && oldCampaign.postsRequired <= 0){
                 cvTask.visibility = View.GONE
             } else{
-                if(campaign.storiesRequired <= 0){
+                if(oldCampaign.storiesRequired <= 0){
                     cvTaskStoriesLl.visibility = View.GONE
                 } else {
-                    cvTaskStories.text = if(campaign.storiesRequired == 1) campaign.storiesRequired.toString() + " "+ getString(R.string.story) else campaign.storiesRequired.toString() + " "+ getString(R.string.stories_lowercase)
+                    cvTaskStories.text = if(oldCampaign.storiesRequired == 1) oldCampaign.storiesRequired.toString() + " "+ getString(R.string.story) else oldCampaign.storiesRequired.toString() + " "+ getString(R.string.stories_lowercase)
                 }
 
-                if(campaign.postsRequired <= 0){
+                if(oldCampaign.postsRequired <= 0){
                     cvTaskPostsLl.visibility = View.GONE
                 } else {
-                    cvTaskPosts.text = if(campaign.postsRequired == 1) campaign.postsRequired.toString() + " "+ getString(R.string.ig_post) else campaign.postsRequired.toString() + " "+ getString(R.string.ig_posts)
+                    cvTaskPosts.text = if(oldCampaign.postsRequired == 1) oldCampaign.postsRequired.toString() + " "+ getString(R.string.ig_post) else oldCampaign.postsRequired.toString() + " "+ getString(R.string.ig_posts)
                 }
 
-                val ss = SpannableString(getString(R.string.when_publishing_tag)+" @"+(campaign.name).toLowerCase())
+                val ss = SpannableString(getString(R.string.when_publishing_tag)+" @"+(oldCampaign.name).toLowerCase())
 
-                ss.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, R.color.nice_pink)), ss.length - (campaign.name.length +1) , ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                ss.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, R.color.nice_pink)), ss.length - (oldCampaign.name.length +1) , ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
                 cvTaskTag.text = ss
             }
 
-            if(campaign.moodboardImages.isNullOrEmpty()){
+            if(oldCampaign.moodboardImages.isNullOrEmpty()){
                 cvMood.visibility = View.GONE
             } else{
-                moodboardAdapter = SquareImagesAdapter(campaign.moodboardImages!!, null)
+                moodboardAdapter = SquareImagesAdapter(oldCampaign.moodboardImages!!, null)
 
                 cvMoodRv.layoutManager = GridLayoutManager(this, 3)
                 cvMoodRv.adapter = moodboardAdapter

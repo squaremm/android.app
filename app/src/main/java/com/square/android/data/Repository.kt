@@ -6,7 +6,6 @@ import com.square.android.data.network.response.MessageResponse
 import com.square.android.data.pojo.*
 import com.square.android.ui.base.tutorial.TutorialService
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 
 interface Repository {
     fun shouldDisplayIntro(): Boolean
@@ -91,4 +90,25 @@ interface Repository {
 
     fun setTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey, dontShowAgain: Boolean)
     fun getTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey): Boolean
+
+// Campaign
+    fun getCampaigns(): Deferred<List<Campaign>>
+
+    fun getCampaign(campaignId: Long): Deferred<Campaign>
+
+    fun joinCampaign(campaignId: Long): Deferred<MessageResponse>
+
+    fun requestReview(campaignId: Long): Deferred<MessageResponse>
+
+    fun addCampaignImage(campaignId: Long, imageBytes: ByteArray): Deferred<Images>
+
+    fun removeCampaignImage(campaignId: Long, imageId: String): Deferred<MessageResponse>
+
+    fun getCampaignPhotos(campaignId: Long): Deferred<List<String>>
+
+    fun getCampaignLocations(campaignId: Long): Deferred<List<CampaignLocationWrapper>>
+
+    fun getCampaignSlots(campaignId: Long, intervalId: String, date: String): Deferred<List<CampaignInterval.Slot>>
+
+    fun campaignBook(campaignId: Long, intervalId: String, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse>
 }

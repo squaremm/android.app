@@ -1,30 +1,46 @@
 package com.square.android.data.pojo
 
 import android.os.Parcelable
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.android.parcel.Parcelize
 
-
-//TODO: update when API done
-
 @Parcelize
-data class Campaign(var id: Long = 0,
-                    var name: String = "",
-                    var description: String? = null,
-                    var mainImage: String? = null,
-                    var winnerImage: String? = null,
-                    var type: Int = 0,
-                    var available: Boolean = true,
-                    var participated: Boolean = false,
-                    var participantsImages: List<String>? = null,
-                    var credits: Int = 0,
-                    var rewards: List<Reward>? = null,
-                    var winnerRewards: List<Reward>? = null,
-                    var modelTypeImages: List<String>? = null,
-                    var storiesRequired: Int = 0,
-                    var postsRequired: Int = 0,
-                    var participateDays: Int = 0,
-                    var uploadPicsDays: Int = 0,
-                    var uploadIgDays: Int = 0,
-                    var moodboardImages: List<String>? = null
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Campaign(
+        @field:JsonProperty("_id")
+        var id: Long = 0,
+        var title: String = "",
+        var description: String? = null,
+        var type: String? = null,
+        var imageUrl: String? = null,
+        var availableFrom: String = "",
+        var availableTill: String = "",
+        var startAt: String = "",
+        var uploadPicturesTo: String? = null,
+        var uploadPicturesInstagramTo: String? = null,
+        var tasks: List<Task>? = null,
+        var rewards: List<Reward>? = null
+): Parcelable {
 
-): Parcelable
+    @Parcelize
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    class Task(
+            @field:JsonProperty("_id")
+            var id: String? = null,
+            var type: String? = null,
+            var count: Int = 0
+    ): Parcelable
+
+    @Parcelize
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    class Reward(
+            @field:JsonProperty("_id")
+            var id: String? = null,
+            var description: String? = null,
+            var isGlobal: Boolean = true,
+            var type: String? = null,
+            var value: Int = 0
+    ): Parcelable
+
+}

@@ -105,4 +105,59 @@ interface ApiService {
     @PUT("user/{id}/device")
     fun sendFcmToken(@Path("id") userId: Long,
                      @Body fcmTokenData: FcmTokenData) : Call<MessageResponse>
+
+
+// Campaign
+    @GET("campaign")
+    fun getCampaigns(@Header("Authorization") authorization: String): Call<List<Campaign>>
+
+    @GET("campaign/{id}")
+    fun getCampaign(@Header("Authorization") authorization: String,
+                    @Path("id") campaignId: Long): Call<Campaign>
+
+    @POST("campaign/{id}/join")
+    fun joinCampaign(@Header("Authorization") authorization: String,
+                     @Path("id") campaignId: Long): Call<MessageResponse>
+
+    @POST("campaign/{id}/review")
+    fun requestReview(@Header("Authorization") authorization: String,
+                      @Path("id") campaignId: Long): Call<MessageResponse>
+
+    @Multipart
+    @POST("campaign/{id}/images")
+    fun addCampaignImage(@Header("Authorization") authorization: String,
+                         @Path("id") campaignId: Long,
+                         @Part image: MultipartBody.Part) : Call<Images>
+
+    @DELETE("campaign/{id}/images")
+    fun removeCampaignImage(@Header("Authorization") authorization: String,
+                            @Path("id") campaignId: Long,
+                            @Query("imageId") imageId: String) : Call<MessageResponse>
+
+    @GET("campaign/{id}/photos")
+    fun getCampaignPhotos(@Header("Authorization") authorization: String,
+                          @Path("id") campaignId: Long): Call<List<String>>
+
+
+    //TODO probably wrong -------------
+
+    @GET("campaign/{id}/interval")
+    fun getCampaignLocations(@Header("Authorization") authorization: String,
+                             @Path("id") campaignId: Long) : Call<List<CampaignLocationWrapper>>
+
+
+    @GET("campaign/{id}/interval/{intervalId}/slots")
+    fun getCampaignSlots(@Header("Authorization") authorization: String,
+                         @Path("id") campaignId: Long,
+                         @Path("intervalId") intervalId: String,
+                         @Query("date") date: String) : Call<List<CampaignInterval.Slot>>
+
+
+    @POST("campaign/{id}/interval/{intervalId}/book")
+    fun campaignBook(@Header("Authorization") authorization: String,
+                     @Path("id") campaignId: Long,
+                     @Path("intervalId") intervalId: String,
+                     @Body body: CampaignBookInfo): Call<MessageResponse>
+
+    //TODO ---------------------------
 }

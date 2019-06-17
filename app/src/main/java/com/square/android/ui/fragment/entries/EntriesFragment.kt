@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.R
-import com.square.android.data.pojo.Campaign
+import com.square.android.data.pojo.OldCampaign
 import com.square.android.presentation.presenter.entries.EntriesPresenter
 import com.square.android.presentation.view.entries.EntriesView
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.places.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_page_entries.*
 
-class EntriesFragment(private val campaign: Campaign?): BaseFragment(), EntriesView, SquareImagesAdapter.Handler {
+class EntriesFragment(private val oldCampaign: OldCampaign?): BaseFragment(), EntriesView, SquareImagesAdapter.Handler {
 
     @InjectPresenter
     lateinit var presenter: EntriesPresenter
@@ -29,7 +29,7 @@ class EntriesFragment(private val campaign: Campaign?): BaseFragment(), EntriesV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        campaign?.participantsImages?.let {
+        oldCampaign?.participantsImages?.let {
             adapter = SquareImagesAdapter(it, this)
 
             entriesRv.layoutManager = GridLayoutManager(context, 3)
