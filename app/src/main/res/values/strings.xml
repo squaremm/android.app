@@ -222,6 +222,8 @@
     <string name="status_rejected">Rejected</string>
 
 
+    <string name="waiting_for_acceptance">Waiting for acceptance</string>
+
     <string name="thanks_applying">Thanks for applying!</string>
     <string name="we_will_let">We will let you know soon\nif you are accepted</string>
 

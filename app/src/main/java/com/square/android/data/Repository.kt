@@ -92,7 +92,7 @@ interface Repository {
     fun getTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey): Boolean
 
 // Campaign
-    fun getCampaigns(): Deferred<List<Campaign>>
+    fun getCampaigns(): Deferred<List<CampaignInfo>>
 
     fun getCampaign(campaignId: Long): Deferred<Campaign>
 
@@ -111,4 +111,6 @@ interface Repository {
     fun getCampaignSlots(campaignId: Long, intervalId: String, date: String): Deferred<List<CampaignInterval.Slot>>
 
     fun campaignBook(campaignId: Long, intervalId: String, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse>
+
+    fun sendQr( qrInfo: QrInfo): Deferred<MessageResponse>
 }

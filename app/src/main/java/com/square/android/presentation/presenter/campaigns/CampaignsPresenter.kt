@@ -2,14 +2,14 @@ package com.square.android.presentation.presenter.campaigns
 
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
-import com.square.android.data.pojo.OldCampaign
+import com.square.android.data.pojo.CampaignInfo
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.campaigns.CampaignsView
 
 @InjectViewState
 class CampaignsPresenter: BasePresenter<CampaignsView>() {
 
-    private var data: List<OldCampaign>? = null
+    private var data: List<CampaignInfo>? = null
 
     init {
         loadData()
@@ -17,20 +17,22 @@ class CampaignsPresenter: BasePresenter<CampaignsView>() {
 
     private fun loadData() = launch {
 
-            //TODO uncomment later
-//            viewState.showProgress()
+        viewState.showProgress()
 
-//            data = repository.getCampaigns().await()
-//
-//            viewState.hideProgress()
-//            viewState.showCampaigns(data!!)
-        }
+        data = repository.getCampaigns().await()
 
+        viewState.hideProgress()
+        viewState.showCampaigns(data!!)
+    }
 
     fun itemClicked(position: Int) {
         val id = data!![position].id
 
-        router.navigateTo(SCREENS.CAMPAIGN_DETAILS, id)
+        if(data!![position].hasWinner){
+            router.navigateTo(SCREENS.CAMPAIGN_FINISHED, id)
+        } else{
+            router.navigateTo(SCREENS.CAMPAIGN_DETAILS, id)
+        }
     }
 
 }

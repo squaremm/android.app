@@ -1,19 +1,17 @@
 package com.square.android.presentation.presenter.uploadPics
 
 import com.arellomobile.mvp.InjectViewState
-import com.square.android.data.network.PhotoId
-import com.square.android.data.pojo.Participation
+import com.square.android.data.pojo.Campaign
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.uploadPics.UploadPicsView
 
 @InjectViewState
-class UploadPicsPresenter(var participation: Participation): BasePresenter<UploadPicsView>() {
+class UploadPicsPresenter(var campaign: Campaign): BasePresenter<UploadPicsView>() {
 
     fun sendOverReview() = launch {
         viewState.showProgress()
 
-        //TODO uncomment later
-        //not sure if data should be reloaded manually after this call or API will return updated Participation with approval status "Waiting for review"
+        //TODO change and uncomment later
 //        participation = repository.sendOverReview(participation.id).await()
 
         viewState.replaceToApproval()
@@ -22,8 +20,7 @@ class UploadPicsPresenter(var participation: Participation): BasePresenter<Uploa
     fun removePhoto(index: Int) = launch {
         viewState.showProgress()
 
-        //TODO uncomment later
-//        repository.removeParticipationPhoto(participation.id, PhotoId( participation.photos!![index].id)).await()
+        repository.removeCampaignImage(campaign.id, campaign.images!![index].id).await()
 
         reloadData()
     }
@@ -31,10 +28,9 @@ class UploadPicsPresenter(var participation: Participation): BasePresenter<Uploa
     private fun reloadData() = launch {
         viewState.showProgress()
 
-        //TODO uncomment later
-//        participation = repository.getParticipation(participation.id).await()
+        campaign = repository.getCampaign(campaign.id).await()
 
-        viewState.reloadData(participation)
+        viewState.reloadData(campaign)
         viewState.hideProgress()
     }
 

@@ -1,11 +1,8 @@
 package com.square.android.presentation.view.campaignDetails
 
-import com.square.android.data.pojo.OldCampaign
-import com.square.android.presentation.view.BaseView
+import com.square.android.data.pojo.Campaign
+import com.square.android.presentation.view.ProgressView
 
-interface CampaignDetailsView : BaseView {
-    fun showData(oldCampaign: OldCampaign)
-    fun showThanks()
-    fun showProgress()
-    fun hideProgress()
+interface CampaignDetailsView : ProgressView {
+    fun showData(campaign: Campaign)
 }

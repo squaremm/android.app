@@ -8,13 +8,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
-import com.square.android.data.pojo.Participation
+import com.square.android.data.pojo.Campaign
 import com.square.android.presentation.presenter.uploadPics.UploadPicsPresenter
 import com.square.android.presentation.view.uploadPics.UploadPicsView
-import com.square.android.ui.activity.participationDetails.EXTRA_PARTICIPATION
-import com.square.android.ui.activity.participationDetails.PARTICIPATION_MAX_PHOTOS_VALUE
-import com.square.android.ui.activity.participationDetails.PARTICIPATION_MIN_PHOTOS_VALUE
-import com.square.android.ui.activity.participationDetails.ParticipationDetailsActivity
+import com.square.android.ui.activity.campaignDetails.*
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.places.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_upload_pics.*
@@ -24,10 +21,10 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
 
     companion object {
         @Suppress("DEPRECATION")
-        fun newInstance(participation: Participation): UploadPicsFragment {
+        fun newInstance(campaign: Campaign): UploadPicsFragment {
             val fragment = UploadPicsFragment()
 
-            val args = bundleOf(EXTRA_PARTICIPATION to participation)
+            val args = bundleOf(EXTRA_CAMPAIGN to campaign)
             fragment.arguments = args
 
             return fragment
@@ -38,7 +35,7 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
     lateinit var presenter: UploadPicsPresenter
 
     @ProvidePresenter
-    fun providePresenter(): UploadPicsPresenter = UploadPicsPresenter(getParticipation())
+    fun providePresenter(): UploadPicsPresenter = UploadPicsPresenter(getCampaign())
 
     var photosLeft: Int = 0
 
@@ -56,20 +53,19 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        picsDaysValue1.text = presenter.participation.toUpload.toString()
-        picsDaysValue2.text = presenter.participation.toUploadIg.toString()
+        picsDaysValue1.text = presenter.campaign.daysToPicture.toString()
+        picsDaysValue2.text = presenter.campaign.daysToInstagramPicture.toString()
 
-        photosLeft = if (presenter.participation.photos.isNullOrEmpty()) PARTICIPATION_MAX_PHOTOS_VALUE else (PARTICIPATION_MAX_PHOTOS_VALUE - presenter.participation.photos!!.size)
+        photosLeft = if (presenter.campaign.images.isNullOrEmpty()) CAMPAIGN_MAX_PHOTOS_VALUE else (CAMPAIGN_MAX_PHOTOS_VALUE - presenter.campaign.images!!.size)
 
-        if(photosLeft < PARTICIPATION_MAX_PHOTOS_VALUE){
+        if(photosLeft < CAMPAIGN_MAX_PHOTOS_VALUE){
 
-            if(photosLeft >= PARTICIPATION_MIN_PHOTOS_VALUE){
+            if(photosLeft >= CAMPAIGN_MIN_PHOTOS_VALUE){
                 picsSend.isEnabled = true
 
                 picsNotEnough.visibility = View.INVISIBLE
             }
-
-            images = presenter.participation.photos!!.map {it.url}.toMutableList()
+            images = presenter.campaign.images!!.map {it.url}.toMutableList()
 
             if(photosLeft > 0){
                 images.add(null)
@@ -87,19 +83,19 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
         picsSend.setOnClickListener {presenter.sendOverReview()}
     }
 
-    override fun reloadData(participation: Participation) {
+    override fun reloadData(campaign: Campaign) {
 
-        picsDaysValue1.text = participation.toUpload.toString()
-        picsDaysValue2.text = participation.toUploadIg.toString()
+        picsDaysValue1.text = presenter.campaign.daysToPicture.toString()
+        picsDaysValue2.text = presenter.campaign.daysToInstagramPicture.toString()
 
-        photosLeft = if (participation.photos.isNullOrEmpty()) PARTICIPATION_MAX_PHOTOS_VALUE else (PARTICIPATION_MAX_PHOTOS_VALUE - participation.photos!!.size)
+        photosLeft = if (presenter.campaign.images.isNullOrEmpty()) CAMPAIGN_MAX_PHOTOS_VALUE else (CAMPAIGN_MAX_PHOTOS_VALUE - presenter.campaign.images!!.size)
 
-        if(photosLeft < PARTICIPATION_MAX_PHOTOS_VALUE){
+        if(photosLeft < CAMPAIGN_MAX_PHOTOS_VALUE){
 
-            picsSend.isEnabled = photosLeft >= PARTICIPATION_MIN_PHOTOS_VALUE
-            picsNotEnough.visibility = if(photosLeft >= PARTICIPATION_MIN_PHOTOS_VALUE) View.INVISIBLE else View.VISIBLE
+            picsSend.isEnabled = photosLeft >= CAMPAIGN_MIN_PHOTOS_VALUE
+            picsNotEnough.visibility = if(photosLeft >= CAMPAIGN_MIN_PHOTOS_VALUE) View.INVISIBLE else View.VISIBLE
 
-            images = participation.photos!!.map {it.url}.toMutableList()
+            images = campaign.images!!.map {it.url}.toMutableList()
 
             if(photosLeft > 0){
                 images.add(null)
@@ -119,7 +115,7 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
     override fun itemClicked(index: Int, isEmpty: Boolean) {
         if(!isLoading){
             if(isEmpty){
-                (activity as ParticipationDetailsActivity).navigateToAddPhoto()
+                (activity as CampaignDetailsActivity).navigateToAddPhoto()
             } else{
 
                 //TODO ask if user is sure to delete this photo, if yes - fire code below
@@ -133,7 +129,7 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
     }
 
     override fun replaceToApproval() {
-        (activity as ParticipationDetailsActivity).replaceToApproval()
+        (activity as CampaignDetailsActivity).replaceToApproval()
     }
 
     override fun showProgress() {
@@ -148,5 +144,5 @@ class UploadPicsFragment: BaseFragment(), UploadPicsView, UploadPicsAdapter.Hand
         picsSend.visibility = View.VISIBLE
     }
 
-    private fun getParticipation() = arguments?.getParcelable(EXTRA_PARTICIPATION) as Participation
+    private fun getCampaign() = arguments?.getParcelable(EXTRA_CAMPAIGN) as Campaign
 }

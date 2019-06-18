@@ -149,7 +149,6 @@ class TutorialService : Service() {
 
     fun commonTutorialFinished(tutorialKey: TutorialKey, dontShowAgain: Boolean) {
 
-        //TODO: is this handler necessary?
         Handler(Looper.getMainLooper()).post {
             windowManager!!.removeViewImmediate(serviceTutorialView)
             repository.setTutorialDontShowAgain(tutorialKey, dontShowAgain)

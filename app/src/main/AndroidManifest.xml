@@ -80,22 +80,12 @@
             android:theme="@style/WhiteStatusActivity" />
 
         <activity
-            android:name=".ui.activity.campaigns.CampaignsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/WhiteStatusActivity" />
-
-        <activity
-            android:name=".ui.activity.campaignDetails.CampaignDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/CollapsingToolbarAlphaStatusActivity" />
-
-        <activity
             android:name=".ui.activity.campaignFinished.CampaignFinishedActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 
         <activity
-            android:name=".ui.activity.participationDetails.ParticipationDetailsActivity"
+            android:name=".ui.activity.campaignDetails.CampaignDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 

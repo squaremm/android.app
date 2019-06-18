@@ -1,4 +1,4 @@
-package com.square.android.ui.activity.campaignDetails
+package com.square.android.ui.fragment.campaignNotApproved
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -21,7 +21,7 @@ class SquareWrapWidthImagesAdapter (var imageUrls: List<String>, private val han
         var container: ViewGroup = v.findViewById(R.id.itemPhotoContainer) as ViewGroup
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SquareWrapWidthImagesAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_photo_square_wrap, parent, false)
         return ViewHolder(v)
     }

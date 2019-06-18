@@ -1,15 +1,15 @@
-package com.square.android.ui.activity.campaigns
+package com.square.android.ui.fragment.campaigns
 
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.square.android.R
-import com.square.android.data.pojo.OldCampaign
+import com.square.android.data.pojo.CampaignInfo
 import com.square.android.extensions.loadImage
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.item_campaign.*
 
-class CampaignsAdapter(data: List<OldCampaign>,
-                       private val handler: Handler) : BaseAdapter<OldCampaign, CampaignsAdapter.JobsHolder>(data) {
+class CampaignsAdapter(data: List<CampaignInfo>,
+                       private val handler: Handler) : BaseAdapter<CampaignInfo, CampaignsAdapter.JobsHolder>(data) {
 
     override fun getLayoutId(viewType: Int) = R.layout.item_campaign
 
@@ -18,22 +18,22 @@ class CampaignsAdapter(data: List<OldCampaign>,
     override fun instantiateHolder(view: View): JobsHolder = JobsHolder(view, handler)
 
     class JobsHolder(containerView: View,
-                       handler: Handler) : BaseHolder<OldCampaign>(containerView) {
+                       handler: Handler) : BaseHolder<CampaignInfo>(containerView) {
 
         init {
             campaignContainer.setOnClickListener {handler.itemClicked(adapterPosition)}
         }
 
-        override fun bind(item: OldCampaign, vararg extras: Any?) {
+        override fun bind(item: CampaignInfo, vararg extras: Any?) {
 
-            campaignTitle.text = item.name
+            campaignTitle.text = item.title
 
             when(item.type){
-                1 ->{
+                "gifting" ->{
                     campaignType.text = campaignType.context.getString(R.string.gifting_campaign)
                     campaignType.background = ContextCompat.getDrawable(campaignType.context, R.drawable.round_bg_pink_pinkish)
                 }
-                2 ->{
+                "influencer" ->{
                     campaignType.text = campaignType.context.getString(R.string.influencer_campaign)
                     campaignType.background = ContextCompat.getDrawable(campaignType.context, R.drawable.round_bg_purple_purpleish)
                 }
@@ -41,7 +41,7 @@ class CampaignsAdapter(data: List<OldCampaign>,
 
             item.mainImage?.let { campaignImage.loadImage(it)}
 
-            campaignEndedLabel.visibility = if(item.available) View.GONE else View.VISIBLE
+            campaignEndedLabel.visibility = if(item.hasWinner) View.VISIBLE else View.GONE
         }
     }
 

@@ -29,8 +29,8 @@ import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivit
 import com.square.android.ui.activity.editProfile.EditProfileFragment
 import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
-import com.square.android.ui.activity.campaignDetails.CampaignDetailsActivity
-import com.square.android.ui.activity.campaigns.CAMPAIGN_EXTRA_ID
+import com.square.android.ui.fragment.campaignNotApproved.CampaignNotApprovedFragment
+import com.square.android.ui.fragment.campaigns.CAMPAIGN_EXTRA_ID
 import com.square.android.ui.activity.noConnection.NoConnectionActivity
 import com.square.android.ui.activity.placeDetail.PLACE_EXTRA_ID
 import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
@@ -38,6 +38,7 @@ import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
 import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.activity.start.StartActivity
 import com.square.android.ui.activity.tutorialVideos.TutorialVideosActivity
+import com.square.android.ui.fragment.campaigns.CampaignsFragment
 import com.square.android.ui.fragment.map.MapFragment
 import com.square.android.ui.fragment.places.PlacesFragment
 import com.square.android.ui.fragment.profile.ProfileFragment
@@ -49,7 +50,6 @@ import org.jetbrains.anko.intentFor
 import org.koin.android.ext.android.inject
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
-
 
 private const val REDEMPTIONS_POSITION = 2
 
@@ -120,6 +120,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
             R.id.action_profile -> SCREENS.PROFILE
             R.id.action_places -> SCREENS.PLACES
             R.id.action_map -> SCREENS.MAP
+            R.id.action_campaigns -> SCREENS.CAMPAIGNS
             else -> SCREENS.PROFILE
         }
 
@@ -184,7 +185,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                         context.intentFor<TutorialVideosActivity>()
 
                     SCREENS.CAMPAIGN_DETAILS ->
-                        context.intentFor<CampaignDetailsActivity>(CAMPAIGN_EXTRA_ID to data as Long)
+                        context.intentFor<CampaignNotApprovedFragment>(CAMPAIGN_EXTRA_ID to data as Long)
 
                     else -> null
                 }
@@ -194,6 +195,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
             SCREENS.PLACES -> PlacesFragment()
             SCREENS.REDEMPTIONS -> RedemptionsFragment()
             SCREENS.PROFILE -> ProfileFragment()
+            SCREENS.CAMPAIGNS -> CampaignsFragment()
             SCREENS.EDIT_PROFILE -> EditProfileFragment()
             else -> throw IllegalArgumentException("Unknown screen key: $screenKey")
         }

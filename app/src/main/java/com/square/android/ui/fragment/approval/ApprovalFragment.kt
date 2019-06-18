@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
-import com.square.android.data.pojo.Participation
+import com.square.android.data.pojo.Campaign
 import com.square.android.presentation.presenter.approval.ApprovalPresenter
 import com.square.android.presentation.view.approval.ApprovalView
-import com.square.android.ui.activity.participationDetails.EXTRA_PARTICIPATION
+import com.square.android.ui.activity.campaignDetails.EXTRA_CAMPAIGN
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.entries.SquareImagesAdapter
 import com.square.android.ui.fragment.places.GridItemDecoration
@@ -24,10 +24,10 @@ class ApprovalFragment: BaseFragment(), ApprovalView, SquareImagesAdapter.Handle
 
     companion object {
         @Suppress("DEPRECATION")
-        fun newInstance(participation: Participation): ApprovalFragment {
+        fun newInstance(campaign: Campaign): ApprovalFragment {
             val fragment = ApprovalFragment()
 
-            val args = bundleOf(EXTRA_PARTICIPATION to participation)
+            val args = bundleOf(EXTRA_CAMPAIGN to campaign)
             fragment.arguments = args
 
             return fragment
@@ -38,7 +38,7 @@ class ApprovalFragment: BaseFragment(), ApprovalView, SquareImagesAdapter.Handle
     lateinit var presenter: ApprovalPresenter
 
     @ProvidePresenter
-    fun providePresenter(): ApprovalPresenter = ApprovalPresenter(getParticipation())
+    fun providePresenter(): ApprovalPresenter = ApprovalPresenter(getCampaign())
 
     private var adapter: SquareImagesAdapter? = null
 
@@ -52,32 +52,32 @@ class ApprovalFragment: BaseFragment(), ApprovalView, SquareImagesAdapter.Handle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(!presenter.participation.photos.isNullOrEmpty()){
+        if(!presenter.campaign.images.isNullOrEmpty()){
 
-            adapter = SquareImagesAdapter(presenter.participation.photos!!.map {it.url}, this)
+            adapter = SquareImagesAdapter(presenter.campaign.images!!.map {it.url}, this)
 
             approvalRv.layoutManager = GridLayoutManager(context, 3)
             approvalRv.adapter = adapter
             approvalRv.addItemDecoration(GridItemDecoration(3,approvalRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
         }
 
-        when(presenter.participation.status){
-            0 ->{
+        when(presenter.campaign.status){
+            1 ->{
                 approvalStatusCircle.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(approvalStatusCircle.context, R.color.status_yellow))
                 approvalStatusText.setTextColor(ContextCompat.getColor(approvalStatusText.context, R.color.status_yellow))
                 approvalStatusText.text = approvalStatusText.context.getString(R.string.status_waiting)
             }
-            1 ->{
+            2 ->{
                 approvalStatusCircle.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(approvalStatusCircle.context, R.color.status_orange))
                 approvalStatusText.setTextColor(ContextCompat.getColor(approvalStatusText.context, R.color.status_orange))
                 approvalStatusText.text = approvalStatusText.context.getString(R.string.status_under_review)
             }
-            2 ->{
+            3 ->{
                 approvalStatusCircle.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(approvalStatusCircle.context, R.color.status_green))
                 approvalStatusText.setTextColor(ContextCompat.getColor(approvalStatusText.context, R.color.status_green))
                 approvalStatusText.text = approvalStatusText.context.getString(R.string.status_approved)
             }
-            3 ->{
+            else ->{
                 approvalStatusCircle.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(approvalStatusCircle.context, R.color.status_red))
                 approvalStatusText.setTextColor(ContextCompat.getColor(approvalStatusText.context, R.color.status_red))
                 approvalStatusText.text = approvalStatusText.context.getString(R.string.status_rejected)
@@ -93,5 +93,5 @@ class ApprovalFragment: BaseFragment(), ApprovalView, SquareImagesAdapter.Handle
         }
     }
 
-    private fun getParticipation() = arguments?.getParcelable(EXTRA_PARTICIPATION) as Participation
+    private fun getCampaign() = arguments?.getParcelable(EXTRA_CAMPAIGN) as Campaign
 }

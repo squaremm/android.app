@@ -109,7 +109,7 @@ interface ApiService {
 
 // Campaign
     @GET("campaign")
-    fun getCampaigns(@Header("Authorization") authorization: String): Call<List<Campaign>>
+    fun getCampaigns(@Header("Authorization") authorization: String): Call<List<CampaignInfo>>
 
     @GET("campaign/{id}")
     fun getCampaign(@Header("Authorization") authorization: String,
@@ -139,7 +139,7 @@ interface ApiService {
                           @Path("id") campaignId: Long): Call<List<String>>
 
 
-    //TODO probably wrong -------------
+    //TODO change when API done - probably wrong -------------
 
     @GET("campaign/{id}/interval")
     fun getCampaignLocations(@Header("Authorization") authorization: String,
@@ -159,5 +159,9 @@ interface ApiService {
                      @Path("intervalId") intervalId: String,
                      @Body body: CampaignBookInfo): Call<MessageResponse>
 
-    //TODO ---------------------------
+    //TODO ---------------------------------------------------
+
+    @POST("campaign")
+    fun sendQr(@Header("Authorization") authorization: String,
+                     @Body body: QrInfo): Call<MessageResponse>
 }

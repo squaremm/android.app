@@ -280,7 +280,7 @@ class ActualRepository(private val api: ApiService,
     }
 
 // Campaign
-    override fun getCampaigns(): Deferred<List<Campaign>> = GlobalScope.async {
+    override fun getCampaigns(): Deferred<List<CampaignInfo>> = GlobalScope.async {
         val data = performRequest { api.getCampaigns(localManager.getAuthToken()) }
         data
     }
@@ -336,4 +336,10 @@ class ActualRepository(private val api: ApiService,
         val data = performRequest { api.campaignBook(localManager.getAuthToken(), campaignId, intervalId, campaignBookInfo) }
         data
     }
+
+    override fun sendQr(qrInfo: QrInfo): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.sendQr(localManager.getAuthToken(), qrInfo) }
+        data
+    }
+
 }

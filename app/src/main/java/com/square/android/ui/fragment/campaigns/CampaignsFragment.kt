@@ -1,21 +1,21 @@
-package com.square.android.ui.activity.campaigns
+package com.square.android.ui.fragment.campaigns
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
-import com.square.android.data.pojo.OldCampaign
+import com.square.android.data.pojo.CampaignInfo
 import com.square.android.presentation.presenter.campaigns.CampaignsPresenter
 import com.square.android.presentation.view.campaigns.CampaignsView
-import com.square.android.ui.activity.BaseActivity
-import com.square.android.ui.base.SimpleNavigator
+import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
-import kotlinx.android.synthetic.main.activity_campaigns.*
-import ru.terrakok.cicerone.Navigator
+import kotlinx.android.synthetic.main.fragment_campaigns.*
 
 const val CAMPAIGN_EXTRA_ID = "CAMPAIGN_EXTRA_ID"
-class CampaignsActivity: BaseActivity(), CampaignsView, CampaignsAdapter.Handler {
+class CampaignsFragment: BaseFragment(), CampaignsView, CampaignsAdapter.Handler {
 
     @InjectPresenter
     lateinit var presenter: CampaignsPresenter
@@ -23,17 +23,15 @@ class CampaignsActivity: BaseActivity(), CampaignsView, CampaignsAdapter.Handler
     @ProvidePresenter
     fun providePresenter() = CampaignsPresenter()
 
-    override fun provideNavigator(): Navigator = object : SimpleNavigator {}
-
     private var adapter: CampaignsAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_campaigns)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_campaigns, container, false)
     }
 
-    override fun showCampaigns(data: List<OldCampaign>) {
+    override fun showCampaigns(data: List<CampaignInfo>) {
 
         adapter = CampaignsAdapter(data, this)
 

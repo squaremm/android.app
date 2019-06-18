@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.R
-import com.square.android.data.pojo.OldCampaign
+import com.square.android.data.pojo.Campaign
 import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.winner.WinnerPresenter
 import com.square.android.presentation.view.winner.WinnerView
@@ -14,8 +14,7 @@ import com.square.android.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_page_winner.*
 import org.jetbrains.anko.dimen
 
-
-class WinnerFragment(private val oldCampaign: OldCampaign?): BaseFragment(), WinnerView {
+class WinnerFragment(private val campaign: Campaign?): BaseFragment(), WinnerView {
 
     @InjectPresenter
     lateinit var presenter: WinnerPresenter
@@ -28,7 +27,7 @@ class WinnerFragment(private val oldCampaign: OldCampaign?): BaseFragment(), Win
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        oldCampaign?.winnerImage?.let { winnerImage.loadImage(it, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_4dp))}
+        campaign?.userWinner?.mainImage?.let { winnerImage.loadImage(it, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_4dp))}
     }
 
 }

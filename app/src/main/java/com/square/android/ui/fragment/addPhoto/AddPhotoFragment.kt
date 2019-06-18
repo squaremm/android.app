@@ -12,12 +12,12 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.square.android.R
-import com.square.android.data.pojo.Participation
+import com.square.android.data.pojo.Campaign
 import com.square.android.extensions.toBytes
 import com.square.android.presentation.presenter.addPhoto.AddPhotoPresenter
 import com.square.android.presentation.view.addPhoto.AddPhotoView
-import com.square.android.ui.activity.participationDetails.EXTRA_PARTICIPATION
-import com.square.android.ui.activity.participationDetails.PARTICIPATION_MAX_PHOTOS_VALUE
+import com.square.android.ui.activity.campaignDetails.EXTRA_CAMPAIGN
+import com.square.android.ui.activity.campaignDetails.CAMPAIGN_MAX_PHOTOS_VALUE
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.places.GridItemDecoration
 import com.square.android.utils.FileUtils
@@ -30,10 +30,10 @@ class AddPhotoFragment: BaseFragment(), AddPhotoView, PermissionsListener, AddPh
 
     companion object {
         @Suppress("DEPRECATION")
-        fun newInstance(participation: Participation): AddPhotoFragment {
+        fun newInstance(campaign: Campaign): AddPhotoFragment {
             val fragment = AddPhotoFragment()
 
-            val args = bundleOf(EXTRA_PARTICIPATION to participation)
+            val args = bundleOf(EXTRA_CAMPAIGN to campaign)
             fragment.arguments = args
 
             return fragment
@@ -48,7 +48,7 @@ class AddPhotoFragment: BaseFragment(), AddPhotoView, PermissionsListener, AddPh
     lateinit var presenter: AddPhotoPresenter
 
     @ProvidePresenter
-    fun providePresenter(): AddPhotoPresenter = AddPhotoPresenter(getParticipation())
+    fun providePresenter(): AddPhotoPresenter = AddPhotoPresenter(getCampaign())
 
     var imagesUri: MutableList<Uri?> = mutableListOf(null)
 
@@ -64,7 +64,7 @@ class AddPhotoFragment: BaseFragment(), AddPhotoView, PermissionsListener, AddPh
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        photosLeft = if (presenter.participation.photos.isNullOrEmpty()) PARTICIPATION_MAX_PHOTOS_VALUE else (PARTICIPATION_MAX_PHOTOS_VALUE - presenter.participation.photos!!.size)
+        photosLeft = if (presenter.campaign.images.isNullOrEmpty()) CAMPAIGN_MAX_PHOTOS_VALUE else (CAMPAIGN_MAX_PHOTOS_VALUE - presenter.campaign.images!!.size)
 
         adapter = AddPhotoAdapter(imagesUri, this)
         addPhotoRv.layoutManager = GridLayoutManager(context, 3)
@@ -161,5 +161,5 @@ class AddPhotoFragment: BaseFragment(), AddPhotoView, PermissionsListener, AddPh
 
     override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) { }
 
-    private fun getParticipation() = arguments?.getParcelable(EXTRA_PARTICIPATION) as Participation
+    private fun getCampaign() = arguments?.getParcelable(EXTRA_CAMPAIGN) as Campaign
 }

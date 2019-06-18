@@ -35,7 +35,10 @@ class CampaignInterval(
             var end: String = "",
             var day: String? = null,
             @field:JsonProperty("free")
-            var slots: Int = 0
+            var slots: Int = 0,
+
+            var date: String? = null,
+            var startTime: String? = null
 
     ) : Parcelable
 }
