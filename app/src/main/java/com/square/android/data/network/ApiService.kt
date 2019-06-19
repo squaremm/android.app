@@ -156,7 +156,7 @@ interface ApiService {
     @POST("campaign/{id}/interval/{intervalId}/book")
     fun campaignBook(@Header("Authorization") authorization: String,
                      @Path("id") campaignId: Long,
-                     @Path("intervalId") intervalId: String,
+                     @Path("intervalId") intervalId: Long,
                      @Body body: CampaignBookInfo): Call<MessageResponse>
 
     //TODO ---------------------------------------------------

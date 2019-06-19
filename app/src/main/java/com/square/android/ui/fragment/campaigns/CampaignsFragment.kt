@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
@@ -25,18 +27,17 @@ class CampaignsFragment: BaseFragment(), CampaignsView, CampaignsAdapter.Handler
 
     private var adapter: CampaignsAdapter? = null
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_campaigns, container, false)
     }
 
     override fun showCampaigns(data: List<CampaignInfo>) {
-
         adapter = CampaignsAdapter(data, this)
 
         campaignsList.adapter = adapter
 
+        campaignsList.layoutManager = LinearLayoutManager(campaignsList.context, RecyclerView.VERTICAL,false)
         campaignsList.addItemDecoration(MarginItemDecorator(campaignsList.context.resources.getDimension(R.dimen.rv_item_decorator_16).toInt(),true,
                 campaignsList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),
                 campaignsList.context.resources.getDimension(R.dimen.rv_item_decorator_16).toInt()

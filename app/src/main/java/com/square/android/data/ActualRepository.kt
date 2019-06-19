@@ -332,7 +332,7 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun campaignBook(campaignId: Long, intervalId: String, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse> = GlobalScope.async {
+    override fun campaignBook(campaignId: Long, intervalId: Long, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse> = GlobalScope.async {
         val data = performRequest { api.campaignBook(localManager.getAuthToken(), campaignId, intervalId, campaignBookInfo) }
         data
     }

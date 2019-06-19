@@ -27,8 +27,12 @@ import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
 
 const val EXTRA_CAMPAIGN = "EXTRA_CAMPAIGN"
+const val EXTRA_INTERVALS = "EXTRA_INTERVALS"
+const val EXTRA_INTERVAL_SELECTED = "EXTRA_INTERVAL_SELECTED"
+
 
 const val CAMPAIGN_EXTRA_ID = "CAMPAIGN_EXTRA_ID"
+
 
 const val CAMPAIGN_MAX_PHOTOS_VALUE = 6
 const val CAMPAIGN_MIN_PHOTOS_VALUE = 3

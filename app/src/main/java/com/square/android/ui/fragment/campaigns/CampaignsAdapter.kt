@@ -9,19 +9,25 @@ import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.item_campaign.*
 
 class CampaignsAdapter(data: List<CampaignInfo>,
-                       private val handler: Handler) : BaseAdapter<CampaignInfo, CampaignsAdapter.JobsHolder>(data) {
+                           private val handler: Handler?) : BaseAdapter<CampaignInfo, CampaignsAdapter.CampaignHolder>(data) {
 
     override fun getLayoutId(viewType: Int) = R.layout.item_campaign
 
     override fun getItemCount() = data.size
 
-    override fun instantiateHolder(view: View): JobsHolder = JobsHolder(view, handler)
+    override fun bindHolder(holder: CampaignHolder, position: Int) {
+        holder.bind(data[position])
+    }
 
-    class JobsHolder(containerView: View,
-                       handler: Handler) : BaseHolder<CampaignInfo>(containerView) {
+    //TODO BaseAdapter TYPE_EMPTY layout not showing when data is empty
+
+    override fun instantiateHolder(view: View): CampaignHolder = CampaignHolder(view, handler)
+
+    class CampaignHolder(containerView: View,
+                               handler: Handler?) : BaseHolder<CampaignInfo>(containerView) {
 
         init {
-            campaignContainer.setOnClickListener {handler.itemClicked(adapterPosition)}
+            containerView.setOnClickListener { handler?.itemClicked(adapterPosition) }
         }
 
         override fun bind(item: CampaignInfo, vararg extras: Any?) {
@@ -48,4 +54,5 @@ class CampaignsAdapter(data: List<CampaignInfo>,
     interface Handler {
         fun itemClicked(position: Int)
     }
+
 }

@@ -3,13 +3,14 @@ package com.square.android.data.pojo
 import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.mapbox.mapboxsdk.geometry.LatLng
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonIgnoreProperties(ignoreUnknown = true)
 class CampaignInterval(
         @field:JsonProperty("_id")
-        var id: String? = null,
+        var id: Long = 0,
         var location: Location? = null,
         var slots: List<Slot>? = null
 ): Parcelable {
@@ -23,7 +24,13 @@ class CampaignInterval(
             var address: String? = null,
             var city: String? = null,
             var coordinates: List<Double> = listOf()
-    ) : Parcelable
+    ) : Parcelable{
+
+        fun latLng() : LatLng {
+            val (lat, lon) = coordinates
+            return LatLng(lat, lon)
+        }
+    }
 
     @Parcelize
     @JsonIgnoreProperties(ignoreUnknown = true)

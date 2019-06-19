@@ -110,7 +110,7 @@ interface Repository {
 
     fun getCampaignSlots(campaignId: Long, intervalId: String, date: String): Deferred<List<CampaignInterval.Slot>>
 
-    fun campaignBook(campaignId: Long, intervalId: String, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse>
+    fun campaignBook(campaignId: Long, intervalId: Long, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse>
 
     fun sendQr( qrInfo: QrInfo): Deferred<MessageResponse>
 }
