@@ -25,6 +25,9 @@ class CampaignInterval(
             var city: String? = null,
             var coordinates: List<Double> = listOf()
     ) : Parcelable{
+        fun getAddressString(): String{
+            return "$address, $city"
+        }
 
         fun latLng() : LatLng {
             val (lat, lon) = coordinates

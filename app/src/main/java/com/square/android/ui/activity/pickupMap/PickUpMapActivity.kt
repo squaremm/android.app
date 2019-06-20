@@ -1,10 +1,7 @@
-package com.square.android.ui.fragment.pickupMap
+package com.square.android.ui.activity.pickupMap
 
 import android.location.Location
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.mapbox.android.core.location.LocationEngineCallback
@@ -14,29 +11,24 @@ import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.R
-import com.square.android.data.pojo.CampaignInterval
+import com.square.android.data.pojo.CampaignLocationWrapper
 import com.square.android.presentation.presenter.pickupMap.PickUpMapPresenter
 import com.square.android.presentation.view.pickupMap.PickUpMapView
-import com.square.android.ui.activity.campaignDetails.EXTRA_INTERVALS
+import com.square.android.ui.activity.BaseMapActivity
 import com.square.android.ui.activity.campaignDetails.EXTRA_INTERVAL_SELECTED
-import com.square.android.ui.fragment.BaseMapFragment
+import com.square.android.ui.activity.campaignDetails.EXTRA_LOCATIONS
+import com.square.android.ui.base.SimpleNavigator
 import kotlinx.android.synthetic.main.fragment_map.*
-import kotlinx.android.synthetic.main.fragment_pick_up_map.*
-import org.jetbrains.anko.bundleOf
+import kotlinx.android.synthetic.main.activity_pick_up_map.*
+import ru.terrakok.cicerone.Navigator
 
-class PickUpMapFragment: BaseMapFragment(), PickUpMapView, PermissionsListener, LocationEngineCallback<LocationEngineResult> {
+class PickUpMapExtras(val locationWrappers: List<CampaignLocationWrapper>, val selected: Long = 0)
 
-    companion object {
-        @Suppress("DEPRECATION")
-        fun newInstance(intervals: List<CampaignInterval>, selected: Long = 0): PickUpMapFragment {
-            val fragment = PickUpMapFragment()
+//TODO: check if working now, if not -> change this ac to be full screen like in the project
+class PickUpMapActivity: BaseMapActivity(), PickUpMapView, PermissionsListener, LocationEngineCallback<LocationEngineResult> {
 
-            val args = bundleOf(EXTRA_INTERVALS to intervals, EXTRA_INTERVAL_SELECTED to selected )
-            fragment.arguments = args
-
-            return fragment
-        }
-    }
+    //TODO if going back not working -> try ReviewActivity: provideNavigator() (activity opened from another activity(SelectOfferActivity))
+    override fun provideNavigator(): Navigator = object : SimpleNavigator {}
 
     override fun provideMapView() : com.mapbox.mapboxsdk.maps.MapView = map
 
@@ -44,30 +36,31 @@ class PickUpMapFragment: BaseMapFragment(), PickUpMapView, PermissionsListener, 
     lateinit var presenter: PickUpMapPresenter
 
     @ProvidePresenter
-    fun providePresenter() = PickUpMapPresenter(geIntervals(), getSelected())
+    fun providePresenter() = PickUpMapPresenter(geLocationWrappers(), getSelected())
 
     private var previousMarker : Marker? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_pick_up_map)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_pick_up_map, container, false)
+        pickBack.setOnClickListener { presenter.back() }
     }
 
     override fun locate(location: LatLng) {
         centerOn(location)
     }
 
-    override fun showInfo(intervals: List<CampaignInterval>, selected: Long) {
+    override fun showInfo(locationWrappers: List<CampaignLocationWrapper>, selected: Long) {
         var selectedAdded = false
 
-        val markerOptions = intervals.map { interval ->
+        val markerOptions = locationWrappers.map { locationWrapper ->
 
-            val latLng = interval.location!!.latLng()
+            val latLng = locationWrapper.location!!.latLng()
 
-            val key = interval.id.toString()
+            val key = locationWrapper.intervalId.toString()
 
-            if(interval.id == selected){
+            if(locationWrapper.intervalId == selected){
                 selectedAdded = true
 
                 MarkerOptions()
@@ -118,7 +111,7 @@ class PickUpMapFragment: BaseMapFragment(), PickUpMapView, PermissionsListener, 
         presenter.loadData()
     }
 
-    private fun geIntervals() = arguments?.getParcelableArrayList<CampaignInterval>(EXTRA_INTERVALS) as List<CampaignInterval>
+    private fun geLocationWrappers() = intent.getParcelableArrayListExtra<CampaignLocationWrapper>(EXTRA_LOCATIONS) as List<CampaignLocationWrapper>
 
-    private fun getSelected() = arguments?.getLong(EXTRA_INTERVAL_SELECTED, 0) ?: 0
+    private fun getSelected() = intent.getLongExtra(EXTRA_INTERVAL_SELECTED, 0)
 }

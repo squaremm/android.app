@@ -108,7 +108,7 @@ interface Repository {
 
     fun getCampaignLocations(campaignId: Long): Deferred<List<CampaignLocationWrapper>>
 
-    fun getCampaignSlots(campaignId: Long, intervalId: String, date: String): Deferred<List<CampaignInterval.Slot>>
+    fun getCampaignSlots(campaignId: Long, intervalId: Long, date: String): Deferred<List<CampaignInterval.Slot>>
 
     fun campaignBook(campaignId: Long, intervalId: Long, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse>
 

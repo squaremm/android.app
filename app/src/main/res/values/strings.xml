@@ -276,6 +276,11 @@
     <string name="not_enough_pictures">There\'s not enough pictures.</string>
 
 
+    <string name="pick_up">Pick-Up</string>
+
+    <string name="address">Address:</string>
+
+
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
     <string name="how_to_review">How to make a review</string>

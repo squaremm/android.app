@@ -327,7 +327,7 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun getCampaignSlots(campaignId: Long, intervalId: String, date: String): Deferred<List<CampaignInterval.Slot>> = GlobalScope.async {
+    override fun getCampaignSlots(campaignId: Long, intervalId: Long, date: String): Deferred<List<CampaignInterval.Slot>> = GlobalScope.async {
         val data = performRequest { api.getCampaignSlots(localManager.getAuthToken(), campaignId, intervalId, date) }
         data
     }

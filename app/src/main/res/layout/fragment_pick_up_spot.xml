@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="@android:color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="1dp"
+    android:animateLayoutChanges="true"
+    app:cardUseCompatPadding="false" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp" >
+
+        <TextView
+            style="@style/Models20BoldText"
+            android:textAllCaps="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_up" />
+
+        <View
+            android:layout_width="216dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray_divider" />
+
+        <ProgressBar
+            android:id="@+id/pickupMainProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:indeterminateTint="@color/nice_red"
+            tools:visibility="gone"
+            android:visibility="visible" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pickupAddressCl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:padding="16dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@drawable/background_rounded_4dp"
+            android:backgroundTint="@color/gray_light" >
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/round_bg_pink_red"
+                android:backgroundTint="@color/gray_disabled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/chevron_right" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/clAddress"
+                style="@style/Models18BoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address"
+                android:textAllCaps="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/pickupAddressLl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clAddress">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_pin"
+                    android:layout_marginEnd="8dp"
+                    android:tint="@color/blueish_gray" />
+
+                <TextView
+                    android:id="@+id/pickupAddress"
+                    style="@style/Models16BoldText"
+                    android:textColor="@color/blueish_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Via Calle Pace 17, Milano" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/pickupContentProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:indeterminateTint="@color/nice_red"
+            tools:visibility="gone"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pickupContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="16dp" >
+
+            <View
+                android:id="@+id/div1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/pickupDayLeft"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/chevron_left"
+                app:foreground="?attr/selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/pickupMonth"
+                app:layout_constraintEnd_toStartOf="@+id/pickupMonth"
+                app:layout_constraintTop_toTopOf="@+id/pickupMonth" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/pickupDayRight"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/chevron_right"
+                app:foreground="?attr/selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/pickupMonth"
+                app:layout_constraintStart_toEndOf="@+id/pickupMonth"
+                app:layout_constraintTop_toTopOf="@+id/pickupMonth" />
+
+            <TextView
+                android:id="@+id/pickupMonth"
+                style="@style/Models18BoldText"
+                android:layout_width="172dp"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/div1"
+                tools:text="September 2019"
+                android:textAllCaps="true" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pickupCalendar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                tools:listitem="@layout/item_day"
+                android:nestedScrollingEnabled="false"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupMonth" />
+
+            <TextView
+                android:id="@+id/pickupLabel"
+                style="@style/Models18Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/spots_available"
+                android:textAllCaps="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupCalendar" />
+
+            <TextView
+                android:id="@+id/pickupEmpty"
+                style="@style/Models18Text"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/referral_field_background"
+                android:backgroundTint="@color/gray_light"
+                android:gravity="center"
+                android:text="@string/cant_use_square"
+                android:textColor="@color/blueish_gray"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupSpotsProgress" />
+
+            <com.square.android.utils.widget.ScrollViewMaxHeight
+                android:id="@+id/pickupSv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:max_height="128dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupLabel"
+                android:visibility="gone"
+                android:scrollbars="none"
+                android:overScrollMode="never" >
+                <LinearLayout
+                    android:id="@+id/pickupIntervalList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </com.square.android.utils.widget.ScrollViewMaxHeight>
+
+            <ProgressBar
+                android:id="@+id/pickupSpotsProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:indeterminateTint="@color/nice_red"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupSv" />
+
+            <ProgressBar
+                android:id="@+id/pickupBookProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginTop="42dp"
+                android:layout_marginBottom="8dp"
+                android:indeterminateTint="@color/nice_red"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupEmpty" />
+
+            <Button
+                android:id="@+id/pickupBook"
+                style="@style/Models16BoldText"
+                android:layout_width="200dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="42dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/nice_button_red_pink_alpha"
+                android:enabled="false"
+                android:text="@string/_continue"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupEmpty" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+

@@ -149,7 +149,7 @@ interface ApiService {
     @GET("campaign/{id}/interval/{intervalId}/slots")
     fun getCampaignSlots(@Header("Authorization") authorization: String,
                          @Path("id") campaignId: Long,
-                         @Path("intervalId") intervalId: String,
+                         @Path("intervalId") intervalId: Long,
                          @Query("date") date: String) : Call<List<CampaignInterval.Slot>>
 
 

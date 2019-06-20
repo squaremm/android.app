@@ -10,6 +10,7 @@ class CampaignInfo(
         var title: String? = null,
         var type: String? = null,
         var mainImage: String? = null,
+        var winners: List<Campaign.Winner>? = null,
         var daysToStart: Int = 0,
         var daysToPicture: Int = 0,
         var daysToInstagramPicture: Int = 0,

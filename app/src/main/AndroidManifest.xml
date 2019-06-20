@@ -94,6 +94,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 
+        <activity
+            android:name=".ui.activity.pickupMap.PickUpMapActivity"
+            android:parentActivityName=".ui.activity.campaignDetails.CampaignDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CollapsingToolbarActivity" />
+
         <service android:name=".data.network.fcm.FirebaseMessagingService"
             android:stopWithTask="false"
             android:exported="true">

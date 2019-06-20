@@ -50,6 +50,7 @@ data class Campaign(
             @field:JsonProperty("_id")
             var id: String? = null,
             var type: String? = null,
+            var description: String? = null,
             var count: Int = 0
     ): Parcelable
 

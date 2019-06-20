@@ -39,6 +39,9 @@ object SCREENS {
     const val UPLOAD_PICS = "UPLOAD_PICS"
     const val ADD_PHOTO = "ADD_PHOTO"
     const val APPROVAL = "APPROVAL"
+
+    const val PICK_UP_SPOT = "PICK_UP_SPOT"
+    const val PICK_UP_MAP = "PICK_UP_MAP"
 }
 
 object Network {

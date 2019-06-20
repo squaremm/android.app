@@ -3,14 +3,20 @@ package com.square.android.presentation.presenter.pickupMap
 import android.location.Location
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.square.android.data.pojo.CampaignInterval
+import com.square.android.SCREENS
+import com.square.android.data.pojo.CampaignLocationWrapper
 import com.square.android.presentation.presenter.BasePresenter
+import com.square.android.presentation.presenter.pickUpSpot.IntervalSelectedEvent
 import com.square.android.presentation.view.pickupMap.PickUpMapView
+import org.greenrobot.eventbus.EventBus
+import org.koin.standalone.inject
 
 @InjectViewState
-class PickUpMapPresenter(var intervals: List<CampaignInterval>, var selected: Long): BasePresenter<PickUpMapView>(){
+class PickUpMapPresenter(var locationWrappers: List<CampaignLocationWrapper>, var selected: Long): BasePresenter<PickUpMapView>(){
 
     private var locationPoint: LatLng? = null
+
+    private val eventBus: EventBus by inject()
 
     fun locationGotten(lastLocation: Location?) {
         lastLocation?.let {
@@ -19,7 +25,7 @@ class PickUpMapPresenter(var intervals: List<CampaignInterval>, var selected: Lo
     }
 
     fun loadData(){
-        viewState.showInfo(intervals, selected)
+        viewState.showInfo(locationWrappers, selected)
     }
 
     fun locateClicked() {
@@ -29,7 +35,15 @@ class PickUpMapPresenter(var intervals: List<CampaignInterval>, var selected: Lo
     }
 
     fun markerClicked(intervalId: Long) {
-        //TODO post eventBus post event with intervalId to PickUpFragment and navigate back to PickUpFragment
+        eventBus.post(IntervalSelectedEvent(intervalId))
+
+        back()
+    }
+
+    fun back(){
+        //TODO check if working
+        //TODO ???or router.exit()???
+        router.backTo(SCREENS.PICK_UP_SPOT)
     }
 
 }

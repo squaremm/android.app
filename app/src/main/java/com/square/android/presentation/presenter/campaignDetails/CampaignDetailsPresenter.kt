@@ -38,6 +38,7 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
 
         viewState.showData(data!!)
 
+        //TODO change this -> ?this is wrong? also PickUpSpotFragment is not included here
         if(data!!.status == 0){
             router.replaceScreen(SCREENS.NOT_APPROVED, data)
         } else{
