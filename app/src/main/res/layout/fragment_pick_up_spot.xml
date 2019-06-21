@@ -141,22 +141,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/pickupDayLeft"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/chevron_left"
-                app:foreground="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
                 app:layout_constraintBottom_toBottomOf="@+id/pickupMonth"
                 app:layout_constraintEnd_toStartOf="@+id/pickupMonth"
                 app:layout_constraintTop_toTopOf="@+id/pickupMonth" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/pickupDayRight"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/chevron_right"
-                app:foreground="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
                 app:layout_constraintBottom_toBottomOf="@+id/pickupMonth"
                 app:layout_constraintStart_toEndOf="@+id/pickupMonth"
                 app:layout_constraintTop_toTopOf="@+id/pickupMonth" />

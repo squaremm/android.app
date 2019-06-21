@@ -280,6 +280,8 @@
 
     <string name="address">Address:</string>
 
+    <string name="google_pay_not_available">Unfortunately, Google Pay is not available on this device</string>
+    <string name="something_went_wring">Something went wrong</string>
 
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>

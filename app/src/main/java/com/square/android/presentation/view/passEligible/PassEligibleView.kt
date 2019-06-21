@@ -1,6 +1,7 @@
 package com.square.android.presentation.view.passEligible
 
-import com.square.android.presentation.view.ProgressView
+import com.square.android.presentation.view.BaseView
 
-interface PassEligibleView : ProgressView {
+interface PassEligibleView : BaseView {
+
 }
