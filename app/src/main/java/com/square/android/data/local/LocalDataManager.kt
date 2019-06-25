@@ -15,6 +15,8 @@ private const val KEY_USER_NAME = "KEY_USER_NAME"
 private const val KEY_PROFILE_FILLED = "KEY_PROFILE_FILLED"
 private const val KEY_LOGGED_IN = "KEY_LOGGED_IN"
 
+private const val KEY_OAUTH_TOKEN = "KEY_OAUTH_TOKEN"
+
 private const val KEY_SOCIAL_LINK = "KEY_SOCIAL_LINK"
 
 private const val KEY_TUTORIAL = "KEY_TUTORIAL"
@@ -49,7 +51,7 @@ class LocalDataManager(context: Context) {
     @SuppressLint("ApplySharedPref")
     fun setAuthToken(token: String) {
         preferences.edit()
-                .putString(KEY_AUTH_TOKEN, token)
+                .putString(KEY_AUTH_TOKEN, "Bearer $token")
                 .commit()
     }
 
@@ -112,6 +114,17 @@ class LocalDataManager(context: Context) {
     fun getProfileInfo(): String {
         return preferences.getString(KEY_PROFILE_INFO, null)
                 ?: throw IllegalArgumentException("No key is stored")
+    }
+
+    fun getOauthToken(): String {
+        return preferences.getString(KEY_OAUTH_TOKEN, null)
+                ?: throw IllegalArgumentException("No key is stored")
+    }
+
+    fun setOauthToken(token: String) {
+        preferences.edit()
+                .putString(KEY_OAUTH_TOKEN, token)
+                .apply()
     }
 
     fun getFragmentNumber(): Int {

@@ -104,6 +104,7 @@ class AuthPresenter : BasePresenter<AuthView>() {
                     repository.setProfileFilled(true)
 
                     router.replaceScreen(SCREENS.MAIN)
+                    super.checkSubscriptions()
                 }
             }
 

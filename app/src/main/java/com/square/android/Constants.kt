@@ -1,6 +1,7 @@
 package com.square.android
 
 import com.google.android.gms.wallet.WalletConstants
+import com.square.android.GOOGLEBILLING.PACKAGE_NAME
 
 object SCREENS {
     const val MAIN = "MAIN"
@@ -53,13 +54,19 @@ object Network {
     const val BASE_API_URL = "https://square-app-dev-api.herokuapp.com/api/"
     const val MIXPANEL_TOKEN = "2529780c1354ad1945e06330161ac446"
 
+
+    const val GOOGLE_BILLING_API_URL = "https://www.googleapis.com/androidpublisher/v3/applications/$PACKAGE_NAME/"
+
+    const val OAUTH_API_URL = "https://accounts.google.com/o/oauth2/"
+
+    const val OAUTH_CLIENT_ID = "1016898650628-otv9fnfsriv858bek5a1npfqs684lhir.apps.googleusercontent.com"
 }
 
 object SOCIAL {
     const val SOCIAL_LINK_FORMAT = "https://www.instagram.com/%s"
 }
 
-object GOOGLEPAY{
+object GOOGLEPAY {
 
     //TODO change to ENVIRONMENT_PRODUCTION later
     const val PAYMENTS_ENVIRONMENT = WalletConstants.ENVIRONMENT_TEST
@@ -103,3 +110,18 @@ object GOOGLEPAY{
 
 
 }
+
+
+object GOOGLEBILLING{
+
+    const val PACKAGE_NAME = "com.squaremm.android"
+
+    const val SUBSCRIPTION_PER_WEEK_NAME = "weekly001"
+
+    const val REFRESH_TOKEN = "TODO"
+
+    const val CLIENT_SECRET = "TODO"
+
+}
+
+

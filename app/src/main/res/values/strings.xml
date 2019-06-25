@@ -237,7 +237,6 @@
     <string name="good_news">Good news!</string>
     <string name="you_are_eligible">You are eligible for the</string>
     <string name="square_pass_program">SQUARE Pass Program:</string>
-    <string name="square_pass_price">€10</string>
     <string name="slash_week">/week</string>
     <string name="pass_features_one">Free access to all our Venues, Gyms, Hairdressers</string>
     <string name="pass_features_two">Access to our organic growth plan</string>
@@ -276,12 +275,15 @@
     <string name="not_enough_pictures">There\'s not enough pictures.</string>
 
 
+    <string name="subscriptions_not_supported">The Google Play Store version on your device does not support subscriptions</string>
+
+
     <string name="pick_up">Pick-Up</string>
 
     <string name="address">Address:</string>
 
     <string name="google_pay_not_available">Unfortunately, Google Pay is not available on this device</string>
-    <string name="something_went_wring">Something went wrong</string>
+    <string name="something_went_wrong">Something went wrong</string>
 
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>

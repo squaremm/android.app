@@ -105,7 +105,7 @@
                     android:textColor="@color/nice_pink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/square_pass_price" />
+                    tools:text="€10" />
                 <TextView
                     android:id="@+id/passCardTime"
                     style="@style/Models20Text"

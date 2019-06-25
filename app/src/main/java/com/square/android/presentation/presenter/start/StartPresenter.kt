@@ -11,7 +11,6 @@ import java.lang.Exception
 @InjectViewState
 class StartPresenter : BasePresenter<StartView>() {
 
-
     init {
         if(repository.shouldDisplayIntro()){
             router.replaceScreen(SCREENS.INTRO)
@@ -19,6 +18,7 @@ class StartPresenter : BasePresenter<StartView>() {
             router.replaceScreen(SCREENS.AUTH)
         } else if(repository.isProfileFilled()) {
             router.replaceScreen(SCREENS.MAIN)
+            super.checkSubscriptions()
         } else{
 
             val fragmentNumber = repository.getFragmentNumber()
