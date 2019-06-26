@@ -41,7 +41,7 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
             val refreshTokenResult: RefreshTokenResult? = refreshExecute.body()
 
             if (refreshExecute.isSuccessful && refreshTokenResult != null) {
-                manager.setAuthToken(refreshTokenResult.access_token!!)
+                manager.setOauthToken(refreshTokenResult.access_token!!)
 
                 return true
             } else {

@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 
 private const val MAX_TIMEOUT = 15L
 
-class PurchasesUpdatedEvent(data: MutableList<Purchase>?)
+class PurchasesUpdatedEvent(val data: MutableList<Purchase>?)
 
 val networkModule = module {
 
@@ -65,17 +65,20 @@ private fun createRetrofit(okHttp: OkHttpClient, baseUrl: String) = Retrofit.Bui
 
 private fun createBillingClient(context: Context, eventBus: EventBus) = BillingClient.newBuilder(context)
         .setListener(object: PurchasesUpdatedListener{
-            override fun onPurchasesUpdated(billingResult: BillingResult?, purchases: MutableList<Purchase>?) {
+            override fun onPurchasesUpdated(billingResult: BillingResult?, purchases: List<Purchase>?) {
                 billingResult?.let {
                     if (it.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-                        eventBus.post(PurchasesUpdatedEvent(data = purchases))
+                        eventBus.post(PurchasesUpdatedEvent(data = purchases.toMutableList()))
                     } else if (it.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
                         Log.d("BILLING","| onPurchasesUpdated | responseCode == BillingClient.BillingResponseCode.USER_CANCELED")
                     } else {
                         Log.d("BILLING","| onPurchasesUpdated | responseCode == other error code")
+
+                        eventBus.post(PurchasesUpdatedEvent(data = null))
                     }
                 } ?: run {
                     Log.d("BILLING","| onPurchasesUpdated | billingResult == null")
+                    eventBus.post(PurchasesUpdatedEvent(data = null))
                 }
             }
         })

@@ -28,11 +28,12 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import com.square.android.ui.activity.noConnection.NoConnectionClosedEvent
+import java.util.*
 
 abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
     val repository: Repository by inject()
 
-    private val billingRepository: BillingRepository by inject()
+    val billingRepository: BillingRepository by inject()
 
     protected val router: Router by inject()
 
@@ -47,23 +48,21 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
     }
 
     fun checkSubscriptions() = launch {
+        repository.clearUserEntitlements()
 
-        //TODO get user's isPaymentRequired
-        val isPaymentRequired = true
+        val isPaymentRequired = repository.getUserInfo().isPaymentRequired
 
         val subscriptions: MutableList<BillingSubscription> = mutableListOf()
 
         if(!isPaymentRequired){
-            grantAllEntitlements()
+            repository.grantAllUserEntitlements()
         } else{
 
-            //TODO clear all locally stored entitlements?
+            val userId = repository.getUserId()
 
+            if(userId != 0L){
 
-            //TODO get sub tokens from API and UNCOMMENT
-//            val billings: List<BillingTokenInfo> = repository.getSubTokens().await()
-            //TODO DELETE
-            val billings: List<BillingTokenInfo> = mutableListOf()
+            val billings: List<BillingTokenInfo> = repository.getPaymentTokens(userId).await()
 
             for (billing in billings) {
                 val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
@@ -73,34 +72,32 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                 subscriptions.add(data)
             }
 
-            //TODO get actual time from API
-            val actualTimeInMillis: Long = 4032656546
-
+            //TODO change to actual time from API
+            val actualTimeInMillis: Long = Calendar.getInstance().timeInMillis
 
             //////// check for every subscriptionId in app products ///////////
             val perWeekValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_WEEK_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
 
             perWeekValidSub?.let {
-                if( (it.expiryTimeMillis - actualTimeInMillis ) > 1000 ){
-                    grantEntitlement(BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
-                            it.acknowledgementState == 0)
-                }
-            }
-            ///////////////////////////////////////////////////////////
+                val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
 
+                grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
+                        it.acknowledgementState == 0)
+            }
+            //////////////////////////////////////////////////////////////////
+
+            }
         }
     }
 
-    private fun grantAllEntitlements(){
-        //TODO grant all entitlements to user
-    }
+    private fun grantEntitlement(validExpiry: Boolean, billingTokenInfo: BillingTokenInfo, acknowledgementRequired: Boolean){
+        if(validExpiry){
+            repository.setUserEntitlement(billingTokenInfo.subscriptionId!!, true)
+        }
 
-    private fun grantEntitlement(billingTokenInfo: BillingTokenInfo, needsAcknowledgement: Boolean){
-        //TODO grant an entitlement to user by billingTokenInfo.subscriptionId
-
-        if(needsAcknowledgement){
+        if(acknowledgementRequired){
             launch {
-                billingRepository.acknowledgeSubscription(billingTokenInfo.subscriptionId!!, billingTokenInfo.token!!, TokenInfo().apply { payload = null }).await()
+                billingRepository.acknowledgeSubscription(billingTokenInfo.subscriptionId!!, billingTokenInfo.token!!, TokenInfo().apply { payload = "" }).await()
             }
         }
     }

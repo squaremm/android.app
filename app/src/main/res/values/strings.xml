@@ -275,7 +275,7 @@
     <string name="not_enough_pictures">There\'s not enough pictures.</string>
 
 
-    <string name="subscriptions_not_supported">The Google Play Store version on your device does not support subscriptions</string>
+    <string name="subscriptions_not_supported">The Google Play Store version installed on your device does not support subscriptions</string>
 
 
     <string name="pick_up">Pick-Up</string>

@@ -33,7 +33,8 @@ class Profile(var message: String = "",
                var photo: String? = "",
                var mainImage: String? = "",
                var images: List<Photo>? = null,
-               var surname: String = "") : Parcelable {
+               var surname: String = "",
+               var isPaymentRequired: Boolean = true) : Parcelable {
 
         @Parcelize
         class Instagram(var counts: Counts = Counts(),

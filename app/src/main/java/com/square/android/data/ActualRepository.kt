@@ -106,6 +106,10 @@ class ActualRepository(private val api: ApiService,
         localManager.setUserName("$name $surname")
     }
 
+    override fun setUserPaymentRequired(paymentRequired: Boolean) {
+        localManager.setUserPaymentRequired(paymentRequired)
+    }
+
     override fun getUserInfo() = localManager.getUserInfo()
 
     override fun setAvatarUrl(url: String?) {
@@ -278,6 +282,26 @@ class ActualRepository(private val api: ApiService,
         val data = performRequest { api.setPhotoAsMain(userId, photoId) }
         data
     }
+
+    override fun getPaymentTokens(userId: Long): Deferred<List<BillingTokenInfo>> = GlobalScope.async {
+        val data = performRequest {api.getPaymentTokens(localManager.getAuthToken(), userId)}
+        data
+    }
+
+    override fun sendPaymentToken(userId: Long, billingTokenInfo: BillingTokenInfo): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest {api.sendPaymentToken(localManager.getAuthToken(), userId, billingTokenInfo)}
+        data
+    }
+
+    override fun setUserEntitlement(entitlementId: String, active: Boolean) {
+        localManager.setUserEntitlement(entitlementId, active)
+    }
+
+    override fun getUserEntitlement(entitlementId: String): Boolean = localManager.getUserEntitlement(entitlementId)
+
+    override fun clearUserEntitlements() = localManager.clearUserEntitlements()
+
+    override fun grantAllUserEntitlements() = localManager.grantAllUserEntitlements()
 
 // Campaign
     override fun getCampaigns(): Deferred<List<CampaignInfo>> = GlobalScope.async {

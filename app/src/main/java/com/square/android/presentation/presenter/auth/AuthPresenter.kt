@@ -93,6 +93,7 @@ class AuthPresenter : BasePresenter<AuthView>() {
             repository.setAvatarUrl(profile.photo)
             repository.setUserName(profile.name, profile.surname)
             repository.setSocialLink(profile.instagram.username)
+            repository.setUserPaymentRequired(profile.isPaymentRequired)
 
             viewState.hideProgress()
 

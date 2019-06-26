@@ -3,6 +3,7 @@ package com.square.android.data.local
 import android.annotation.SuppressLint
 import android.content.Context
 import android.preference.PreferenceManager
+import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME
 import com.square.android.data.pojo.UserInfo
 import com.square.android.ui.base.tutorial.TutorialService
 
@@ -12,6 +13,7 @@ private const val KEY_FCM_TOKEN = "KEY_FCM_TOKEN"
 private const val KEY_ID = "KEY_ID"
 private const val KEY_AVATAR_URL = "KEY_AVATAR_URL"
 private const val KEY_USER_NAME = "KEY_USER_NAME"
+private const val KEY_USER_PAYMENT_REQUIRED = "KEY_USER_PAYMENT_REQUIRED"
 private const val KEY_PROFILE_FILLED = "KEY_PROFILE_FILLED"
 private const val KEY_LOGGED_IN = "KEY_LOGGED_IN"
 
@@ -20,6 +22,8 @@ private const val KEY_OAUTH_TOKEN = "KEY_OAUTH_TOKEN"
 private const val KEY_SOCIAL_LINK = "KEY_SOCIAL_LINK"
 
 private const val KEY_TUTORIAL = "KEY_TUTORIAL"
+
+private const val KEY_ENTITLEMENT = "KEY_ENTITLEMENT"
 
 private const val KEY_PROFILE_INFO = "KEY_PROFILE_INFO"
 private const val KEY_FRAGMENT_NUMBER = "KEY_FRAGMENT_NUMBER"
@@ -73,6 +77,12 @@ class LocalDataManager(context: Context) {
                 .apply()
     }
 
+    fun setUserPaymentRequired(paymentRequired: Boolean) {
+        preferences.edit()
+                .putBoolean(KEY_USER_PAYMENT_REQUIRED, paymentRequired)
+                .apply()
+    }
+
     fun setSocialLink(link: String) {
         preferences.edit()
                 .putString(KEY_SOCIAL_LINK, link)
@@ -84,7 +94,8 @@ class LocalDataManager(context: Context) {
                 name = getUserName(),
                 photo = getAvatarUrl(),
                 id = getId(),
-                socialLink = getSocialLink()
+                socialLink = getSocialLink(),
+                isPaymentRequired = getUserPaymentRequired()
         )
     }
 
@@ -117,7 +128,7 @@ class LocalDataManager(context: Context) {
     }
 
     fun getOauthToken(): String {
-        return preferences.getString(KEY_OAUTH_TOKEN, null)
+        return preferences.getString(KEY_OAUTH_TOKEN, "empty")
                 ?: throw IllegalArgumentException("No key is stored")
     }
 
@@ -166,9 +177,38 @@ class LocalDataManager(context: Context) {
                 .apply()
     }
 
+    fun getUserEntitlement(entitlementId: String) =
+            preferences.getBoolean(KEY_ENTITLEMENT+entitlementId, false)
+
+    fun setUserEntitlement(entitlementId: String, active: Boolean){
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+entitlementId, active)
+                .apply()
+    }
+
+    fun clearUserEntitlements(){
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_WEEK_NAME, false)
+                .apply()
+
+        //Repeat with every subscriptionId in app
+    }
+
+    fun grantAllUserEntitlements(){
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_WEEK_NAME, true)
+                .apply()
+
+        //Repeat with every subscriptionId in app
+    }
+
     private fun getUserName(): String {
         return preferences.getString(KEY_USER_NAME, "")
                 ?: throw IllegalArgumentException("Name is not stored")
+    }
+
+    fun getUserPaymentRequired(): Boolean {
+        return preferences.getBoolean(KEY_USER_PAYMENT_REQUIRED, true)
     }
 
     private fun getAvatarUrl(): String? {

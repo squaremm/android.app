@@ -38,6 +38,8 @@ interface Repository {
     fun setUserName(name: String, surname: String)
     fun setSocialLink(username: String)
 
+    fun setUserPaymentRequired(paymentRequired: Boolean)
+
     fun getUserInfo() : UserInfo
 
     fun clearUserData()
@@ -90,6 +92,18 @@ interface Repository {
 
     fun setTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey, dontShowAgain: Boolean)
     fun getTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey): Boolean
+
+    fun getPaymentTokens(userId: Long): Deferred<List<BillingTokenInfo>>
+
+    fun sendPaymentToken(userId: Long, billingTokenInfo: BillingTokenInfo): Deferred<MessageResponse>
+
+    fun setUserEntitlement(entitlementId: String, active: Boolean)
+
+    fun getUserEntitlement(entitlementId: String): Boolean
+
+    fun clearUserEntitlements()
+
+    fun grantAllUserEntitlements()
 
 // Campaign
     fun getCampaigns(): Deferred<List<CampaignInfo>>

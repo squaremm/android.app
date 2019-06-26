@@ -17,13 +17,7 @@ import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
-import com.android.billingclient.api.*
-import com.square.android.SCREENS
-import com.square.android.data.BillingRepository
 import com.square.android.data.Repository
-import com.square.android.data.network.errorMessage
-import com.square.android.data.pojo.BillingSubscription
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialLoadedEvent
 import org.greenrobot.eventbus.EventBus
@@ -39,8 +33,6 @@ abstract class BaseActivity : MvpActivity(), BaseView {
     open val tutorial: Tutorial? = null
 
     open val PERMISSION_REQUEST_CODE: Int? = null
-
-    val billingClient: BillingClient by inject()
 
     private val eventBus: EventBus by inject()
     private val repository: Repository by inject()
@@ -119,71 +111,6 @@ abstract class BaseActivity : MvpActivity(), BaseView {
         showMessage(getString(messageRes))
     }
 
-//    fun handlePurchase(purchase: Purchase) {
-//        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
-//
-//            grantEntitlement(purchase.sku)
-//
-//            //TODO verify purchase by RSA first and then fire code below
-//            // https://developer.android.com/google/play/billing/billing_library_overview#Verify-purchase-device
-//            // You should obfuscate your Google Play public key and Google Play Billing code so it's difficult for an attacker to reverse-engineer security protocols
-//            // and other application components. At a minimum, we recommend that you run an obfuscation tool like Proguard on your code. To obfuscate your code using Proguard,
-//            // you must add the following line to your Proguard configuration file: -keep class com.android.vending.billing.**
-//            // ...
-//            // After obfuscating your Google Play public key and Google Play Billing code, you're ready to have your app validate purchase details. When your app verifies a signature,
-//            // ensure that your app's key signed the JSON data contained in that signature
-//
-//
-//            if (!purchase.isAcknowledged) {
-//
-//                    if(billingClient.isReady){
-//
-//                        val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
-//                                .setPurchaseToken(purchase.purchaseToken)
-//                                .setDeveloperPayload(purchase.sku)
-//                                .build()
-//                        billingClient?.acknowledgePurchase(acknowledgePurchaseParams, object: AcknowledgePurchaseResponseListener{
-//
-//                            override fun onAcknowledgePurchaseResponse(mBillingResult: BillingResult?) {
-//                                mBillingResult?.let {
-//
-//                                    if (it.responseCode == BillingClient.BillingResponseCode.OK) {
-//
-//                                    } else{
-//                                        Log.d("BILLING","| BaseAC: onAcknowledgePurchaseResponse | responseCode != OK")
-//                                    }
-//                                } ?: run {
-//                                    Log.d("BILLING","| BaseAC: onAcknowledgePurchaseResponse | billingResult == null")
-//                                }
-//                            }
-//
-//                        })
-//                    }
-//            }
-//
-//        }
-//    }
-
-
-//    fun checkBillingReady(){
-//        if(billingClient.isReady){
-//
-//        } else{
-//            billingClient.startConnection(object : BillingClientStateListener {
-//                override fun onBillingSetupFinished(billingResult: BillingResult) {
-//                    if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
-//
-//                    } else{
-//                        Log.d("BILLING","| BaseAC: startConnection | RESULT ${billingResult.responseCode}")
-//                    }
-//                }
-//                override fun onBillingServiceDisconnected() {
-//                    Log.d("BILLING","| BaseAC: startConnection | DISCONNECTED")
-//                }
-//            })
-//        }
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -198,7 +125,6 @@ abstract class BaseActivity : MvpActivity(), BaseView {
                 }
             }
         }
-
     }
 
     override fun onPause() {

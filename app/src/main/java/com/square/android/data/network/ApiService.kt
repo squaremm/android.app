@@ -107,6 +107,15 @@ interface ApiService {
                      @Body fcmTokenData: FcmTokenData) : Call<MessageResponse>
 
 
+    @GET("user/{id}/paymentToken")
+    fun getPaymentTokens(@Header("Authorization") authorization: String,
+                         @Path("id") userId: Long): Call<List<BillingTokenInfo>>
+
+    @POST("user/{id}/paymentToken")
+    fun sendPaymentToken(@Header("Authorization") authorization: String,
+                         @Path("id") userId: Long,
+                         @Body body: BillingTokenInfo): Call<MessageResponse>
+
 // Campaign
     @GET("campaign")
     fun getCampaigns(@Header("Authorization") authorization: String): Call<List<CampaignInfo>>
