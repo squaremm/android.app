@@ -30,7 +30,7 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onPurchasesUpdatedEvent(event: PurchasesUpdatedEvent) = launch {
+    fun onPurchasesUpdatedEvent(event: PurchasesUpdatedEvent) = launch ({
 
         val purchases = event.data
 
@@ -41,7 +41,11 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
             val verifiedList: MutableList<Boolean> = mutableListOf()
 
             for (purchase in purchases) {
-                verifiedList.add(verifyPurchase(purchase.originalJson , purchase.signature))
+                val verified = verifyPurchase(purchase.originalJson , purchase.signature)
+
+                if(!verified){ Log.d("PURCHASE","| PassEligiblePresenter: verifyPurchase() -> NOT VERIFIED") }
+
+                verifiedList.add(verified)
             }
 
             var listPos = -1
@@ -80,12 +84,16 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
             viewState.purchasesComplete()
         }
 
-    }
+    }, { error ->
+        //TODO must handle errors here - mixing repository and billingRepository
+
+        Log.d("PURCHASE","| PassEligiblePresenter: onPurchasesUpdatedEvent() -> error: $error")
+    })
 
     private fun verifyPurchase(signedData: String, signature: String): Boolean {
 
         if (TextUtils.isEmpty(signedData) || TextUtils.isEmpty(signature)) {
-            Log.e("verifyPurchase", "Purchase verification failed: missing data.")
+            Log.e("PURCHASE", "PassEligiblePresenter: verifyPurchase() - Purchase verification failed: missing data.")
             return false
         }
 
@@ -99,7 +107,7 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
             return rsaVerify.verify(signature.toByteArray())
 
         } catch (e: Exception){
-            Log.e("verifyPurchase", "Catch: ${e.toString()}")
+            Log.e("PURCHASE", "PassEligiblePresenter: verifyPurchase() - Exception: ${e.toString()}")
             return false
         }
     }

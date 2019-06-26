@@ -18,6 +18,8 @@ class StartPresenter : BasePresenter<StartView>() {
             router.replaceScreen(SCREENS.AUTH)
         } else if(repository.isProfileFilled()) {
             router.replaceScreen(SCREENS.MAIN)
+
+            //TODO not working - find a way to fire checkSubscriptions() after this screen replacement
             super.checkSubscriptions()
         } else{
 

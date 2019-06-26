@@ -1,6 +1,7 @@
 package com.square.android.presentation.presenter
 
 import android.text.TextUtils
+import android.util.Log
 import com.arellomobile.mvp.MvpPresenter
 import com.google.gson.Gson
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME
@@ -47,7 +48,7 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
         checkSubscriptions()
     }
 
-    fun checkSubscriptions() = launch {
+    fun checkSubscriptions() = launch ({
         repository.clearUserEntitlements()
 
         val isPaymentRequired = repository.getUserInfo().isPaymentRequired
@@ -88,7 +89,9 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
             }
         }
-    }
+    }, { error ->
+        Log.d("SUBSCRIPTIONS","| BasePresenter: checkSubscriptions() -> error: $error")
+    })
 
     private fun grantEntitlement(validExpiry: Boolean, billingTokenInfo: BillingTokenInfo, acknowledgementRequired: Boolean){
         if(validExpiry){
@@ -96,9 +99,11 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
         }
 
         if(acknowledgementRequired){
-            launch {
+            launch ({
                 billingRepository.acknowledgeSubscription(billingTokenInfo.subscriptionId!!, billingTokenInfo.token!!, TokenInfo().apply { payload = "" }).await()
-            }
+            }, { error ->
+                Log.d("SUBSCRIPTIONS","| BasePresenter: checkSubscriptions() -> error: $error")
+            })
         }
     }
 

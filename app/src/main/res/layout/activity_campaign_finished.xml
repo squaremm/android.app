@@ -13,6 +13,7 @@
         android:fitsSystemWindows="true"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
+        android:clipToPadding="false"
         android:orientation="horizontal"
         android:background="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"

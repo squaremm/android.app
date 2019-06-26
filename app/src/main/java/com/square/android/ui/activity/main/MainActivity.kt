@@ -22,6 +22,7 @@ import com.square.android.data.pojo.Profile
 import com.square.android.presentation.presenter.main.MainPresenter
 import com.square.android.presentation.view.main.MainView
 import com.square.android.ui.activity.BaseActivity
+import com.square.android.ui.activity.campaignDetails.CampaignDetailsActivity
 import com.square.android.ui.activity.claimedRedemption.CLAIMED_OFFER_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.CLAIMED_REDEMPTION_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.ClaimedExtras
@@ -185,7 +186,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                         context.intentFor<TutorialVideosActivity>()
 
                     SCREENS.CAMPAIGN_DETAILS ->
-                        context.intentFor<CampaignNotApprovedFragment>(CAMPAIGN_EXTRA_ID to data as Long)
+                        context.intentFor<CampaignDetailsActivity>(CAMPAIGN_EXTRA_ID to data as Long)
 
                     else -> null
                 }

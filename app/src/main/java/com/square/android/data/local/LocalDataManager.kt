@@ -165,6 +165,7 @@ class LocalDataManager(context: Context) {
                 .remove(KEY_USER_NAME)
                 .remove(KEY_AVATAR_URL)
                 .remove(KEY_SOCIAL_LINK)
+                .remove(KEY_USER_PAYMENT_REQUIRED)
                 .apply()
     }
 
