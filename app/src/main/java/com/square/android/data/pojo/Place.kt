@@ -19,7 +19,13 @@ class Place(
         var photos: List<String>? = listOf(),
         var mainImage: String? = null,
         var schedule: Map<String, String> = mapOf(),
-        var type: String = ""
+        var type: String = "",
+
+        // Availability label data
+        var availableOfferDay: String? = null,
+        var availableOfferName: String? = null,
+        var availableOfferSpots: Int = 0
+
 ) {
     var distance: Int? = null
 

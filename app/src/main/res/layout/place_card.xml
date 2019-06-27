@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="24dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginStart="24dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true"
+    app:cardUseCompatPadding="false"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -43,22 +43,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
-
-        <FrameLayout
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/circle_bg" >
-            <ImageView
-                android:layout_gravity="center"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/arrow_right" />
-        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -115,6 +99,59 @@
             app:layout_constraintStart_toStartOf="@+id/placeInfoTitle"
             app:layout_constraintTop_toBottomOf="@+id/placeInfoTitle"
             tools:text="Via vigenano 31" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" >
+            <LinearLayout
+                android:id="@+id/placeAvailabilityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:gravity="center_vertical"
+                android:background="@drawable/round_bg_pink_red"
+                android:backgroundTint="@android:color/white" >
+                <TextView
+                    android:id="@+id/placeAvailabilityDay"
+                    style="@style/Models16BoldText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    tools:text="Today" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="1.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/gray_divider" />
+
+                <TextView
+                    android:id="@+id/placeAvailabilityText"
+                    style="@style/Models12Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:paddingTop="12.5dp"
+                    android:paddingBottom="12.5dp"
+                    tools:text="Lunch - 11 spots left" />
+            </LinearLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

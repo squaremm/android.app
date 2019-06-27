@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.fragment.places.PlacesFragment">
+    tools:context=".ui.fragment.places.PlacesFragment" >
 
     <ProgressBar
         android:id="@+id/placesProgress"
@@ -36,6 +36,40 @@
         app:layout_constraintEnd_toStartOf="@+id/placesFilter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/placesSearchLl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/rounded_background_white"
+        android:backgroundTint="@color/gray_divider"
+        app:layout_constraintTop_toBottomOf="@+id/placesTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:tint="@color/grey_dark" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BaseEditText"
+            android:textSize="20sp"
+            android:hint="@string/search_uppercase"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:textColor="@color/grey_text_field"
+            android:includeFontPadding="false"
+            android:inputType="text" />
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/placesFilter"
@@ -71,12 +105,16 @@
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:padding="8dp"
-        android:visibility="invisible"
         android:overScrollMode="never"
+        android:paddingTop="8dp"
+        android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placesTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/placesSearchLl"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/place_card"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

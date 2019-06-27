@@ -285,6 +285,13 @@
     <string name="google_pay_not_available">Unfortunately, Google Pay is not available on this device</string>
     <string name="something_went_wrong">Something went wrong</string>
 
+    <string name="place_availability_format">%s - %d spots left</string>
+    <string name="place_availability_one_format">%s - %d spot left</string>
+
+
+    <string name="search_uppercase">Search</string>
+
+
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
     <string name="how_to_review">How to make a review</string>
