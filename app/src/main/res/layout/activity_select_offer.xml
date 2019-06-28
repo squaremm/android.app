@@ -5,47 +5,128 @@
     android:id="@+id/selectOfferContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".ui.activity.selectOffer.SelectOfferActivity" >
 
     <TextView
         android:id="@+id/selectOfferTitle"
+        style="@style/Models22BoldText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:textAllCaps="true"
-        android:text="@string/select_offer_title"
-        style="@style/Models18BoldText"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/selectOfferBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/selectOfferBack"
-        app:layout_constraintTop_toTopOf="@+id/selectOfferBack" />
-
-    <ImageView
-        android:id="@+id/selectOfferBack"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:tint="@color/gray_back_arrow"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/select_offer_title"
+        android:textAllCaps="true"
+        android:textColor="@color/nice_pink"
+        app:layout_constraintEnd_toStartOf="@+id/selectOfferHoursLl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chevron_left" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/selectOfferList"
+    <LinearLayout
+        android:id="@+id/selectOfferHoursLl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="@+id/selectOfferTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/selectOfferTitle"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_timer"
+            android:tint="@color/secondary_text" />
+
+        <TextView
+            android:id="@+id/selectOfferTime"
+            style="@style/Models12Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.5dp"
+            android:layout_marginStart="8dp"
+            tools:text="13:00 - 15:00"
+            android:textColor="@color/secondary_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/selectOffersStepsLl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectOfferTitle" >
+
+        <TextView
+            android:id="@+id/selectOfferStep1"
+            style="@style/Models12BoldText"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:includeFontPadding="false"
+            android:background="@drawable/round_bg_stroke_pink"
+            android:padding="4dp"
+            tools:text="1."
+            android:gravity="center" />
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/gray_divider" />
+
+        <TextView
+            android:id="@+id/selectOfferStep2"
+            style="@style/Models12BoldText"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:includeFontPadding="false"
+            android:background="@drawable/round_bg_stroke_gray"
+            android:padding="4dp"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/gray_divider" />
+
+        <TextView
+            android:id="@+id/selectOfferStep3"
+            style="@style/Models12BoldText"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:includeFontPadding="false"
+            android:background="@drawable/round_bg_stroke_gray"
+            android:padding="4dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/campaignContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectOfferBack" />
+        app:layout_constraintTop_toBottomOf="@+id/selectOffersStepsLl"  />
 
     <ProgressBar
         android:id="@+id/selectOfferProgress"
@@ -56,5 +137,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/selectOfferBack" />
+        app:layout_constraintTop_toBottomOf="@+id/selectOfferTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,10 @@
 package com.square.android.ui.activity.selectOffer
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -23,7 +25,6 @@ import com.square.android.ui.activity.review.ReviewExtras
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep
-import com.square.android.ui.base.tutorial.TutorialView
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.activity_select_offer.*
 import org.jetbrains.anko.intentFor
@@ -52,7 +53,57 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
 
         selectOfferList.setHasFixedSize(true)
 
-        selectOfferBack.setOnClickListener { presenter.backClicked() }
+    }
+
+    fun configureStep(step: Int){
+
+        when(step){
+            1 -> {
+                selectOfferStep1.setBackgroundResource(R.drawable.round_bg_stroke_pink)
+                selectOfferStep2.setBackgroundResource(R.drawable.round_bg_stroke_gray)
+                selectOfferStep2.setBackgroundResource(R.drawable.round_bg_stroke_gray)
+
+                selectOfferStep1.text = "1."
+                selectOfferStep2.text = ""
+                selectOfferStep3.text = ""
+
+                selectOfferTitle.text = getString(R.string.select_offer_title)
+                selectOfferHoursLl.visibility = View.VISIBLE
+            }
+
+            2 -> {
+                selectOfferStep1.setBackgroundResource(R.drawable.round_background)
+                selectOfferStep1.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(selectOfferStep1.context, R.color.gray_divider))
+
+                selectOfferStep2.setBackgroundResource(R.drawable.round_bg_stroke_pink)
+                selectOfferStep2.setBackgroundResource(R.drawable.round_bg_stroke_gray)
+
+                selectOfferStep1.text = "1."
+                selectOfferStep2.text = "2."
+                selectOfferStep3.text = ""
+
+                selectOfferTitle.text = getString(R.string.select_offer_title)
+                selectOfferHoursLl.visibility = View.GONE
+            }
+
+            3 -> {
+                selectOfferStep1.setBackgroundResource(R.drawable.round_background)
+                selectOfferStep1.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(selectOfferStep1.context, R.color.gray_divider))
+
+                selectOfferStep2.setBackgroundResource(R.drawable.round_background)
+                selectOfferStep2.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(selectOfferStep2.context, R.color.gray_divider))
+
+                selectOfferStep3.setBackgroundResource(R.drawable.round_bg_stroke_pink)
+
+                selectOfferStep1.text = "1."
+                selectOfferStep2.text = "2."
+                selectOfferStep3.text = "3."
+
+                selectOfferTitle.text = getString(R.string.review_title)
+                selectOfferHoursLl.visibility = View.GONE
+            }
+        }
+
     }
 
     override fun showOfferDialog(offer: OfferInfo, place: PlaceInfo) {
@@ -68,11 +119,15 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
     override fun showData(data: List<OfferInfo>, redemptionFull: RedemptionFull?) {
         adapter = SelectOfferAdapter(data, this, redemptionFull)
 
+        configureStep(1)
+        selectOffersStepsLl.visibility = View.VISIBLE
+
         selectOfferList.adapter = adapter
         selectOfferList.addItemDecoration(MarginItemDecorator( selectOfferList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),true,
                 selectOfferList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),
                 selectOfferList.context.resources.getDimension(R.dimen.rv_item_decorator_16).toInt()
         ))
+
     }
 
     override fun hideProgress() {
@@ -95,6 +150,7 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
         selectOfferList.visibility = View.INVISIBLE
     }
 
+    //TODO do fragments swap instead of launching activities -> currently working on OffersListPresenter and OffersListFragment
     private class SelectOfferNavigator(activity: FragmentActivity) : AppNavigator(activity, R.id.selectOfferContainer) {
         override fun createActivityIntent(context: Context, screenKey: String, data: Any?) =
                 when (screenKey) {
@@ -107,7 +163,6 @@ class SelectOfferActivity : BaseActivity(), SelectOfferView, SelectOfferAdapter.
                 }
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? = null
-
     }
 
     override val PERMISSION_REQUEST_CODE: Int?

@@ -3,7 +3,6 @@ package com.square.android.presentation.presenter.selectOffer
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.pojo.OfferInfo
-import com.square.android.data.pojo.Place
 import com.square.android.data.pojo.RedemptionFull
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.selectOffer.SelectOfferView
@@ -33,6 +32,9 @@ class SelectOfferPresenter(private val redemptionId: Long) : BasePresenter<Selec
             offers = repository.getOffersForBooking(data!!.redemption.place.id, redemptionId).await()
 
             viewState.hideProgress()
+
+            //TODO move step and screen changing logic to SelectOfferActivity:configureStep()
+            //TODO move to OffersListFragment on step 1
             viewState.showData(offers!!, data)
         }
     }
@@ -41,10 +43,6 @@ class SelectOfferPresenter(private val redemptionId: Long) : BasePresenter<Selec
         currentPosition = position
 
         viewState.setSelectedItem(position)
-    }
-
-    fun backClicked() {
-        router.exit()
     }
 
     fun submitClicked() {
