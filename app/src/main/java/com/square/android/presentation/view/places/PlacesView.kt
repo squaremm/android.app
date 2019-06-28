@@ -6,6 +6,6 @@ import com.square.android.presentation.view.ProgressView
 interface PlacesView : ProgressView {
     fun updateDistances()
     fun showPlaces(data: List<Place>, types: MutableList<String>)
-    fun showBadge(number: Int)
     fun updatePlaces(data: List<Place>)
+    fun setSelectedFilterItem(position: Int, contains: Boolean)
 }

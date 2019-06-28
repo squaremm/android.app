@@ -58,9 +58,9 @@ class PlacesAdapter(data: List<Place>,
                 placeAvailabilityDay.text = item.availableOfferDay
 
                 if(item.availableOfferSpots == 1){
-                    placeAvailabilityText.text = placeAvailabilityText.context.getString(R.string.place_availability_one_format, item.availableOfferName, item.availableOfferSpots)
+                    placeAvailabilityText.text = placeAvailabilityText.context.getString(R.string.place_availability_one_format, item.type, item.availableOfferSpots)
                 } else{
-                    placeAvailabilityText.text = placeAvailabilityText.context.getString(R.string.place_availability_format, item.availableOfferName, item.availableOfferSpots)
+                    placeAvailabilityText.text = placeAvailabilityText.context.getString(R.string.place_availability_format, item.type, item.availableOfferSpots)
                 }
             }
 

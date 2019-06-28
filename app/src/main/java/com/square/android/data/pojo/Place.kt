@@ -23,7 +23,6 @@ class Place(
 
         // Availability label data
         var availableOfferDay: String? = null,
-        var availableOfferName: String? = null,
         var availableOfferSpots: Int = 0
 
 ) {

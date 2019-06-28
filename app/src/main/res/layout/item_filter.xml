@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemFilterContainer"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minWidth="128dp"
     android:background="@drawable/filter_background"
-    android:paddingStart="12dp"
-    android:paddingEnd="12dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp" >
+    android:elevation="1dp"
+    android:stateListAnimator="@animator/image_button_anim"
+    android:padding="12dp" >
+
+    <ImageView
+        android:id="@+id/itemFilterIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:tint="@color/nice_pink"
+        tools:src="@drawable/ic_pin" />
 
     <TextView
         android:id="@+id/itemFilterText"
         style="@style/Models18Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Ristoranti"
-        android:maxLines="1"
-        android:gravity="center_horizontal"
-        android:ellipsize="end" />
+        tools:text="Hairdresser"
+        android:includeFontPadding="false"
+        android:layout_marginTop="12dp" />
+
 </LinearLayout>

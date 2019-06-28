@@ -1,6 +1,7 @@
 package com.square.android.presentation.presenter.places
 
 import android.location.Location
+import android.text.TextUtils
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.SCREENS
@@ -13,21 +14,27 @@ import com.square.android.utils.AnalyticsManager
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import java.lang.Exception
 
 @InjectViewState
 class PlacesPresenter : BasePresenter<PlacesView>() {
-    init {
-        loadData()
-    }
 
     var types: MutableList<String> = mutableListOf()
-    var filteredTypes: List<String> = mutableListOf()
+    var filteredTypes: MutableList<String> = mutableListOf()
 
     private var locationPoint: LatLng? = null
 
     private var data: List<Place>? = null
 
     private var filteredData: List<Place>? = null
+
+    var distancesFilled: Boolean = false
+
+    var searchText: CharSequence? = null
+
+    init {
+        loadData()
+    }
 
     fun locationGotten(lastLocation: Location?) {
         lastLocation?.let {
@@ -39,20 +46,59 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         }
     }
 
-    fun saveClicked(selectedTypes: List<String>){
-        filteredTypes = selectedTypes
+    fun filterClicked(position: Int) {
+        try{
+            val contains = filteredTypes.contains(types[position])
 
-        if(filteredTypes.isEmpty()){
+            if(contains){
+                filteredTypes.remove(types[position])
+            } else{
+                filteredTypes.add(types[position])
+            }
+
+            viewState.setSelectedFilterItem(position, contains)
+
+            checkFilters()
+
+        } catch (e: Exception){
+
+        }
+    }
+
+    fun searchTextChanged(text: CharSequence?){
+        searchText = text
+
+        checkFilters()
+    }
+
+    private fun checkFilters(){
+        if(filteredTypes.isEmpty() && TextUtils.isEmpty(searchText)){
+
+            if(distancesFilled){
+                data?.let { data = data!!.sortedBy { it.distance } }
+            }
+
             data?.let {viewState.updatePlaces(it) }
+
         } else{
             data?.let {
-                filteredData = data!!.filter { it.type in filteredTypes }
+                filteredData = data!!.filter {
+                    if(filteredTypes.isNotEmpty() && TextUtils.isEmpty(searchText)){
+                        it.type in filteredTypes
+                    } else if(filteredTypes.isEmpty() && !TextUtils.isEmpty(searchText) ){
+                        it.name.contains(searchText.toString(), true)
+                    } else{
+                        it.type in filteredTypes && it.name.contains(searchText.toString(), true)
+                    }
+                }
+
+                if(distancesFilled){
+                    filteredData?.let { filteredData = filteredData!!.sortedBy { it.distance } }
+                }
 
                 filteredData?.let { viewState.updatePlaces(it) }
             }
         }
-
-        viewState.showBadge(filteredTypes.size)
     }
 
     private fun updateDistances() {
@@ -77,6 +123,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                         types.add(place.type)
                     }
                 }
+            }
+
+            if(distancesFilled){
+                data?.let { data = data!!.sortedBy { it.distance } }
             }
 
             viewState.hideProgress()
@@ -109,16 +159,26 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         router.navigateTo(SCREENS.PLACE_DETAIL, id)
     }
 
-
     private fun fillDistances(): Deferred<Unit> = GlobalScope.async {
-        data?.forEach { place ->
-            val placePoint = place.location.latLng()
 
-            val distance = placePoint.distanceTo(locationPoint!!).toInt()
+        if(!distancesFilled){
+            distancesFilled = true
 
-            place.distance = distance
+            data?.forEach { place ->
+                val placePoint = place.location.latLng()
+
+                val distance = placePoint.distanceTo(locationPoint!!).toInt()
+
+                place.distance = distance
+            }
+
+            filteredData?.forEach { place ->
+                val placePoint = place.location.latLng()
+
+                val distance = placePoint.distanceTo(locationPoint!!).toInt()
+
+                place.distance = distance
+            }
         }
-
-        Unit
     }
 }
