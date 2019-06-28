@@ -32,6 +32,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
     var searchText: CharSequence? = null
 
+    var initialized = false
+
     init {
         loadData()
     }
@@ -62,6 +64,12 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
         } catch (e: Exception){
 
+        }
+    }
+
+    fun refreshFilterViews(){
+        for (type in filteredTypes) {
+            viewState.setSelectedFilterItem(types.indexOf(type), false)
         }
     }
 
@@ -131,6 +139,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
             viewState.hideProgress()
             viewState.showPlaces(data!!, types)
+
+            initialized = true
         }
     }
 

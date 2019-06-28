@@ -18,6 +18,7 @@ import com.square.android.presentation.view.places.PlacesView
 import com.square.android.ui.fragment.LocationFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_places.*
+import android.view.ViewTreeObserver
 
 class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, FiltersAdapter.Handler {
 
@@ -86,6 +87,17 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
             }
         })
 
+        if(presenter.initialized){
+            placesSearch.setText(presenter.searchText)
+
+            placesFiltersRv?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    presenter.refreshFilterViews()
+
+                    placesFiltersRv.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
+        }
     }
 
     override fun itemClicked(position: Int) {

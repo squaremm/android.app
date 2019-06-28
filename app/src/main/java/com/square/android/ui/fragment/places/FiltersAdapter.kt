@@ -13,6 +13,8 @@ class FiltersAdapter(data: List<String>,
 
     override fun getItemCount() = data.size
 
+    private var activatedItems: MutableList<Int> = mutableListOf()
+
     override fun bindHolder(holder: FilterHolder, position: Int) {
         holder.bind(data[position])
     }
@@ -25,10 +27,7 @@ class FiltersAdapter(data: List<String>,
         }
 
         payloads.filter { it is FiltersAdapter.SelectedPayload }
-                .forEach { holder.bindSelected(true) }
-
-        payloads.filter { it is FiltersAdapter.UnselectedPayload }
-                .forEach { holder.bindSelected(false) }
+                .forEach { holder.bindSelected() }
     }
 
     fun setSelectedItem(position: Int?, contains: Boolean) {
@@ -36,16 +35,20 @@ class FiltersAdapter(data: List<String>,
         if (position == null) return
 
         if(contains){
-            notifyItemChanged(position, UnselectedPayload)
+            activatedItems.remove(position)
         } else{
-            notifyItemChanged(position, SelectedPayload)
+            if(!activatedItems.contains(position)){
+                activatedItems.add(position)
+            }
         }
+
+        notifyItemChanged(position, SelectedPayload)
     }
 
-    override fun instantiateHolder(view: View): FilterHolder = FilterHolder(view, handler)
+    override fun instantiateHolder(view: View): FilterHolder = FilterHolder(view, handler, activatedItems)
 
     class FilterHolder(containerView: View,
-                    handler: Handler?) : BaseHolder<String>(containerView) {
+                    handler: Handler?, val activatedItems: MutableList<Int> ) : BaseHolder<String>(containerView) {
 
         init {
             containerView.setOnClickListener { handler?.filterClicked(adapterPosition) }
@@ -53,6 +56,8 @@ class FiltersAdapter(data: List<String>,
 
         override fun bind(item: String, vararg extras: Any?) {
             itemFilterText.text = item
+
+            bindSelected()
 
             //TODO icon for every place type
 //            when(item){
@@ -63,8 +68,8 @@ class FiltersAdapter(data: List<String>,
             itemFilterIcon.setImageDrawable(ContextCompat.getDrawable(itemFilterIcon.context, R.drawable.ic_marker_pink))
         }
 
-        fun bindSelected(activate: Boolean) {
-            itemFilterContainer.isActivated = activate
+        fun bindSelected() {
+            itemFilterContainer.isActivated = activatedItems.contains(adapterPosition)
         }
     }
 
@@ -73,5 +78,4 @@ class FiltersAdapter(data: List<String>,
     }
 
     object SelectedPayload
-    object UnselectedPayload
 }
