@@ -1,4 +1,4 @@
-package com.square.android.ui.activity.selectOffer
+package com.square.android.ui.fragment.offersList
 
 import android.view.View
 import com.square.android.R
@@ -8,8 +8,8 @@ import com.square.android.extensions.loadImage
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.select_offer_card.*
 
-class SelectOfferAdapter(data: List<OfferInfo>,
-                         private val handler: Handler?, private var redemptionFull: RedemptionFull?) : BaseAdapter<OfferInfo, SelectOfferAdapter.OfferHolder>(data) {
+class OffersListAdapter(data: List<OfferInfo>,
+                        private val handler: Handler?, private var redemptionFull: RedemptionFull?) : BaseAdapter<OfferInfo, OffersListAdapter.OfferHolder>(data) {
     private var selectedItemPosition: Int? = null
 
     override fun getLayoutId(viewType: Int) = R.layout.select_offer_card

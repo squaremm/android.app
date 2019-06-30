@@ -1,6 +1,5 @@
 package com.square.android.ui.activity.review
 
-
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -20,7 +19,6 @@ import com.square.android.ui.activity.BaseActivity
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep
-import com.square.android.ui.base.tutorial.TutorialView
 import com.square.android.ui.dialogs.ClaimedCouponDialog
 import kotlinx.android.synthetic.main.activity_review.*
 import ru.terrakok.cicerone.Navigator
@@ -34,6 +32,7 @@ const val STAGE_OPEN = 2
 
 class ReviewExtras(val redemptionId: Long, val offerId: Long)
 
+//TODO change this to fragment
 class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
     private lateinit var reviewTypes: List<ReviewType>
 
@@ -339,23 +338,11 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
     }
 
     override val PERMISSION_REQUEST_CODE: Int?
-        get() = 1342
+        get() = 1343
 
+    //TODO check if tutorial working correctly
     override val tutorial: Tutorial?
         get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REVIEW)
-                .addNextStep(TutorialStep(
-                        // width percentage, height percentage for text with arrow
-                        floatArrayOf(0.35f, 0.50f),
-                        "",
-                        TutorialStep.ArrowPos.TOP,
-                        R.drawable.arrow_bottom_left_x_top_right,
-                        0.60f,
-                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
-                        // 0f,0f,0f,0f for covering entire screen
-                        floatArrayOf(0f,0f,0f,0f),
-                        0,
-                        // delay before showing view in ms
-                        500f))
                 .addNextStep(TutorialStep(
                         // width percentage, height percentage for text with arrow
                         floatArrayOf(0.50f, 0.78f),
@@ -371,12 +358,11 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
                         500f))
 
                 .setOnNextStepIsChangingListener {
-                    if(it == 2){
-                        claimedDialog?.cancel()
-                    }
+
                 }
                 .setOnContinueTutorialListener {
 
                 }
                 .build()
+
 }

@@ -1,8 +1,11 @@
 package com.square.android.data.pojo;
 
+import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @JsonIgnoreProperties(ignoreUnknown = true)
 class OfferInfo(
         @field:JsonProperty("_id")
@@ -19,7 +22,7 @@ class OfferInfo(
         var price: Int = 0,
         var user: Int = 0,
         var timeframes: List<String>? = null
-) {
+): Parcelable {
     fun compositionAsList() = buildString {
         composition.forEachIndexed { index, component ->
             append("${index + 1}. $component\n")

@@ -1,4 +1,4 @@
-package com.square.android.ui.activity.selectOffer
+package com.square.android.ui.fragment.offersList
 
 import android.annotation.SuppressLint
 import android.content.Context

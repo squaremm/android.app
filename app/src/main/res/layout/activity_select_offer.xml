@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/selectOfferContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -31,8 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="2dp"
-        tools:visibility="visible"
-        android:visibility="gone"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="@+id/selectOfferTitle"
@@ -60,8 +57,6 @@
         android:id="@+id/selectOffersStepsLl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_marginTop="24dp"
@@ -116,27 +111,14 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/campaignContainer"
+        android:id="@+id/selectOfferContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectOffersStepsLl"  />
-
-    <ProgressBar
-        android:id="@+id/selectOfferProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/placesPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectOfferTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

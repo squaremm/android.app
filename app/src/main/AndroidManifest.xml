@@ -49,11 +49,6 @@
             android:theme="@style/CollapsingToolbarActivity" />
 
         <activity
-            android:name=".ui.activity.review.ReviewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/WhiteStatusActivity" />
-
-        <activity
             android:name=".ui.activity.selectOffer.SelectOfferActivity"
             android:screenOrientation="portrait"
             android:theme="@style/GreyishStatusActivity" />
