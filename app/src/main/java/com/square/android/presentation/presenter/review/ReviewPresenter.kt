@@ -2,10 +2,10 @@ package com.square.android.presentation.presenter.review
 
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.R
+import com.square.android.SCREENS
 import com.square.android.data.pojo.CREDITS_TO_SOCIAL
 import com.square.android.data.pojo.Offer
 import com.square.android.data.pojo.ReviewInfo
-import com.square.android.data.pojo.ReviewNetType
 import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
@@ -28,33 +28,25 @@ class ReviewPresenter(private val offerId: Long,
 
     private var currentPosition: Int? = null
 
-    lateinit var actions: List<ReviewNetType>
-
     init {
         loadData()
     }
 
-    private fun loadData() {
-        launch {
-            viewState.showProgress()
+    private fun loadData() = launch {
+        viewState.showProgress()
 
-            data = interactor.getOffer(offerId).await()
-            val user = repository.getCurrentUser().await()
+        data = interactor.getOffer(offerId).await()
 
-            val placeId = data!!.place.id
-            val place = repository.getPlace(placeId).await()
+        val placeId = data!!.place.id
 
-            val feedback = repository.getFeedbackContent(placeId).await()
+        val feedback = repository.getFeedbackContent(placeId).await()
 
-            reviewInfo.feedback = feedback.message
+        reviewInfo.feedback = feedback.message
 
-//            actions = repository.getActions(data!!.id, placeId).await()
+        viewState.initReviewTypes()
 
-            viewState.initReviewTypes()
-
-            viewState.hideProgress()
-            viewState.showData(data!!, reviewInfo.feedback, user, place)
-        }
+        viewState.hideProgress()
+        viewState.showData(data!!, reviewInfo.feedback)
     }
 
     fun itemClicked(type: String) {
@@ -71,29 +63,24 @@ class ReviewPresenter(private val offerId: Long,
         createPost()
     }
 
-    private fun createPost() {
-        launch {
+    private fun createPost() = launch {
+        interactor.addReview(reviewInfo, offerId).await()
 
-            interactor.addReview(reviewInfo, offerId).await()
+        viewState.disableItem(currentPosition!!)
+        viewState.showButtons()
 
-            viewState.disableItem(currentPosition!!)
-            viewState.showButtons()
-
-            currentPosition = null
-        }
+        currentPosition = null
     }
 
-    fun submitClicked() {
-        launch {
-            viewState.showMessage(R.string.claim_progress)
+    fun submitClicked() = launch {
+        viewState.showMessage(R.string.claim_progress)
 
-            interactor.claimRedemption(redemptionId, offerId).await()
+        interactor.claimRedemption(redemptionId, offerId).await()
 
-            sendRedemptionsUpdatedEvent()
-            sendBadgeEvent()
+        sendRedemptionsUpdatedEvent()
+        sendBadgeEvent()
 
-            viewState.showCongratulations()
-        }
+        viewState.showCongratulations()
     }
 
     fun ratingUpdated(rating: Int) {
@@ -112,15 +99,14 @@ class ReviewPresenter(private val offerId: Long,
         viewState.openLink(link)
     }
 
-    fun exit() {
-        router.exit()
-    }
-
     private fun sendBadgeEvent() {
         val event = BadgeStateChangedEvent()
 
         bus.post(event)
     }
+
+    //TODO where to go from here?
+    fun goToMain() = router.replaceScreen(SCREENS.REDEMPTIONS)
 
     private fun sendRedemptionsUpdatedEvent() {
         val event = RedemptionsUpdatedEvent()

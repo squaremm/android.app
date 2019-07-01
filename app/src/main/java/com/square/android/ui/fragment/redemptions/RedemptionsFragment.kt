@@ -14,11 +14,11 @@ import com.square.android.presentation.view.redemptions.RedemptionsView
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep
-import com.square.android.ui.base.tutorial.TutorialView
 import com.square.android.ui.fragment.LocationFragment
 import kotlinx.android.synthetic.main.fragment_redemptions.*
 
 class RedemptionsFragment : LocationFragment(), RedemptionsView, RedemptionsAdapter.Handler {
+
     @InjectPresenter(type = PresenterType.GLOBAL, tag = "RedemptionsPresenter")
     lateinit var presenter: RedemptionsPresenter
 

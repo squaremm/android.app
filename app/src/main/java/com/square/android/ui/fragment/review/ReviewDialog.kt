@@ -1,4 +1,4 @@
-package com.square.android.ui.activity.review
+package com.square.android.ui.fragment.review
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -7,9 +7,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import com.square.android.App
 import com.square.android.R
-import com.square.android.data.pojo.ReviewInfo
 import com.square.android.data.pojo.ReviewType
 import com.square.android.extensions.content
 import com.square.android.extensions.loadImageInside

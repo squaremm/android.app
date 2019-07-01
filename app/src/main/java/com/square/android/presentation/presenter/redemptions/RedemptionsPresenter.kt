@@ -71,12 +71,10 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
         }
     }
 
-
     fun claimClicked(position: Int) {
 
         val item = data!![position] as? RedemptionInfo ?: return
 
-        //TODO new ac for claimed offer? without steps etc
         if (item.claimed) {
             router.navigateTo(SCREENS.SELECT_OFFER, item.id)
             return

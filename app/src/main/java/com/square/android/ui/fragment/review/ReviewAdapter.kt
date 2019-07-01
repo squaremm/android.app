@@ -1,13 +1,11 @@
-package com.square.android.ui.activity.review
+package com.square.android.ui.fragment.review
 
 import android.view.View
-import com.square.android.App
 import com.square.android.R
 import com.square.android.data.pojo.ReviewType
 import com.square.android.extensions.loadImageInside
 import com.square.android.extensions.makeBlackWhite
 import com.square.android.extensions.removeFilters
-import com.square.android.extensions.setTextColorRes
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.review_card.*
 
@@ -81,7 +79,6 @@ class ReviewAdapter(data: List<ReviewType>,
             val coins = extras[0] as Int
 
             reviewItemLogo.loadImageInside(item.imageRes)
-//            reviewItemDescription.setText(item.descriptionRes)
             reviewItemTitle.setText(item.titleRes)
             reviewItemCoins.text = "+$coins"
 

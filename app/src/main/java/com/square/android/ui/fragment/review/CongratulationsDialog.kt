@@ -1,4 +1,4 @@
-package com.square.android.ui.activity.review
+package com.square.android.ui.fragment.review
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -17,7 +17,7 @@ class CongratulationsDialog(private val context: Context) {
                 .setView(view)
                 .create()
 
-        view.congratulationsSubmit.setOnClickListener { listener.invoke() }
+        view.congratulationsSubmit.setOnClickListener { dialog.cancel(); listener.invoke() }
 
         dialog.show()
     }

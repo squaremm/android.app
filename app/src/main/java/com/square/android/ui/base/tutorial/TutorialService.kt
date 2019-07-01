@@ -31,7 +31,8 @@ class TutorialService : Service() {
         BOOKING,
         REDEMPTIONS,
         SELECT_OFFER,
-        REVIEW
+        CHECK_IN,
+        REVIEW,
     }
 
     private var tutorial: Tutorial? = null

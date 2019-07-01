@@ -8,11 +8,9 @@ import com.square.android.data.pojo.RedemptionFull
 import com.square.android.presentation.view.ProgressView
 
 interface OffersListView : ProgressView {
-    fun showData(data: List<OfferInfo>, redemptionFull: RedemptionFull?)
+    fun showData(data: List<OfferInfo>, redemptionFull: RedemptionFull)
     fun setSelectedItem(position: Int)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showOfferDialog(offer: OfferInfo, place: PlaceInfo)
-
-    fun acNavigate(stepNo: Int, data: Any)
 }

@@ -11,10 +11,4 @@ class SelectOfferPresenter(redemptionId: Long) : BasePresenter<SelectOfferView>(
     init {
         router.replaceScreen(SCREENS.OFFERS_LIST, redemptionId)
     }
-
-    fun navigate(screenKey: String, data: Any?){
-        data?.let {
-            router.navigateTo(screenKey, data)
-        } ?: router.navigateTo(screenKey)
-    }
 }

@@ -1,11 +1,12 @@
 package com.square.android.presentation.presenter.offersList
 
 import com.arellomobile.mvp.InjectViewState
+import com.square.android.SCREENS
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.RedemptionFull
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.offersList.OffersListView
-import com.square.android.ui.activity.review.ReviewExtras
+import com.square.android.ui.fragment.review.ReviewExtras
 import com.square.android.utils.AnalyticsEvent
 import com.square.android.utils.AnalyticsEvents
 import com.square.android.utils.AnalyticsManager
@@ -17,6 +18,8 @@ class OffersListPresenter(private val redemptionId: Long) : BasePresenter<Offers
     private var offers: List<OfferInfo>? = null
 
     private var currentPosition = 0
+
+    var dialogAllowed = true
 
     init {
         loadData()
@@ -30,7 +33,7 @@ class OffersListPresenter(private val redemptionId: Long) : BasePresenter<Offers
 
         viewState.hideProgress()
 
-        viewState.showData(offers!!, data)
+        viewState.showData(offers!!, data!!)
     }
 
     fun itemClicked(position: Int) {
@@ -40,16 +43,20 @@ class OffersListPresenter(private val redemptionId: Long) : BasePresenter<Offers
     }
 
     fun submitClicked() {
-        val offer = offers!![currentPosition]
-        val place = data!!.redemption.place
+        if(dialogAllowed){
+            dialogAllowed = false
 
-        viewState.showOfferDialog(offer, place)
+            val offer = offers!![currentPosition]
+            val place = data!!.redemption.place
+
+            viewState.showOfferDialog(offer, place)
+        }
     }
 
     fun dialogSubmitClicked(id: Long) {
         val extras = ReviewExtras(redemptionId, id)
 
-        viewState.acNavigate(2, extras)
+        router.navigateTo(SCREENS.CHECK_IN, extras)
 
         AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.ACTIONS_OPENED.apply { venueName = data?.redemption?.place?.name }, hashMapOf("id" to id.toString())), repository)
     }

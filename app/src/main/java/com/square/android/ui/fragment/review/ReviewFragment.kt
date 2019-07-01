@@ -1,27 +1,29 @@
-package com.square.android.ui.activity.review
+package com.square.android.ui.fragment.review
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.recyclerview.widget.GridLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
-import com.square.android.androidx.navigator.AppNavigator
 import com.square.android.data.pojo.*
 import com.square.android.data.pojo.ReviewType.Stage
 import com.square.android.extensions.copyToClipboard
 import com.square.android.presentation.presenter.review.ReviewPresenter
 import com.square.android.presentation.view.review.ReviewView
-import com.square.android.ui.activity.BaseActivity
+import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep
-import com.square.android.ui.dialogs.ClaimedCouponDialog
-import kotlinx.android.synthetic.main.activity_review.*
-import ru.terrakok.cicerone.Navigator
+import com.square.android.ui.fragment.BaseFragment
+import com.square.android.ui.fragment.places.GridItemDecoration
+import kotlinx.android.synthetic.main.fragment_review.*
+import org.jetbrains.anko.bundleOf
 
 const val EXTRA_OFFER_ID = "EXTRA_OFFER_ID"
 const val EXTRA_REDEMPTION_ID = "EXTRA_REDEMPTION_ID"
@@ -32,42 +34,50 @@ const val STAGE_OPEN = 2
 
 class ReviewExtras(val redemptionId: Long, val offerId: Long)
 
-//TODO change this to fragment
-class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
+class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
+
+    companion object {
+        @Suppress("DEPRECATION")
+        fun newInstance(redemptionId: Long, offerId: Long): ReviewFragment {
+            val fragment = ReviewFragment()
+
+            val args = bundleOf(EXTRA_REDEMPTION_ID to redemptionId, EXTRA_OFFER_ID to offerId)
+            fragment.arguments = args
+
+            return fragment
+        }
+    }
+
+    @InjectPresenter
+    lateinit var presenter: ReviewPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): ReviewPresenter = ReviewPresenter(getRedemptionId(), getOfferId())
+
     private lateinit var reviewTypes: List<ReviewType>
 
     private var filteredTypes: List<ReviewType>? = null
 
     private var adapter: ReviewAdapter? = null
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_review, container, false)
+    }
 
-    private var claimedDialog: ClaimedCouponDialog? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    @InjectPresenter
-    lateinit var presenter: ReviewPresenter
-
-    @ProvidePresenter
-    fun providePresenter() = ReviewPresenter(getOfferId(), getRedemptionId())
-
-    override fun provideNavigator(): Navigator = ReviewNavigator(this)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_review)
-
-        reviewBack.setOnClickListener { presenter.exit() }
-
-        reviewList.setHasFixedSize(true)
+        (activity as SelectOfferActivity).configureStep(3)
 
         reviewSubmit.setOnClickListener { presenter.submitClicked() }
 
-        reviewSkip.setOnClickListener { presenter.exit() }
+        reviewSkip.setOnClickListener {presenter.goToMain()}
     }
 
     override fun showCongratulations() {
-        CongratulationsDialog(this).show {
-            presenter.exit()
+        CongratulationsDialog(activity!!).show {
+            presenter.goToMain()
         }
     }
 
@@ -85,6 +95,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
 
     override fun showButtons() {
         reviewSubmit.visibility = View.VISIBLE
+        reviewSpacing.visibility = View.VISIBLE
         reviewSkip.visibility = View.VISIBLE
     }
 
@@ -92,7 +103,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         adapter?.disableReviewType(position)
     }
 
-    override fun showData(data: Offer, feedback: String, user: Profile.User, place: Place) {
+    override fun showData(data: Offer, feedback: String) {
         updateReviewTypes(feedback, data)
 
         val used = data.posts.map { it.type }
@@ -101,10 +112,11 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
 
         adapter = ReviewAdapter(filteredTypes!!, data.credits, this)
 
+        reviewList.layoutManager = GridLayoutManager(context, 2)
         reviewList.adapter = adapter
+        reviewList.addItemDecoration(GridItemDecoration(2,reviewList.context.resources.getDimension(R.dimen.value_24dp).toInt(), false))
 
-        claimedDialog = ClaimedCouponDialog(this)
-        claimedDialog?.show(data, place, user)
+        visibleNow()
     }
 
     override fun showProgress() {
@@ -113,7 +125,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
     }
 
     override fun copyFeedbackToClipboard(feedback: String) {
-        copyToClipboard(feedback)
+        activity?.copyToClipboard(feedback)
     }
 
     override fun hideProgress() {
@@ -135,7 +147,7 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         val index = filteredTypes!!.indexOfFirst { it.key == type }
         val reviewType = filteredTypes!![index]
 
-        ReviewDialog(this, presenter.reviewInfo.feedback)
+        ReviewDialog(activity!!, presenter.reviewInfo.feedback)
                 .show(reviewType, coins) { stageResult ->
                     when (stageResult.stage) {
                         STAGE_RATE -> processRate(stageResult.rating)
@@ -172,6 +184,14 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
             }
         }
     }
+
+    private fun getContentFor(@StringRes typeStringRes: Int): String {
+        val type = getString(typeStringRes)
+        return getString(R.string.review_other_body_format)
+    }
+
+    private fun getRedemptionId() = arguments?.getLong(EXTRA_REDEMPTION_ID, 0) ?: 0
+    private fun getOfferId() = arguments?.getLong(EXTRA_OFFER_ID, 0) ?: 0
 
     override fun initReviewTypes() {
         reviewTypes = listOf(
@@ -316,25 +336,6 @@ class ReviewActivity : BaseActivity(), ReviewView, ReviewAdapter.Handler {
         )
 
 //        reviewTypes.filter { it.key }
-    }
-
-    private fun getContentFor(@StringRes typeStringRes: Int): String {
-        val type = getString(typeStringRes)
-        return getString(R.string.review_other_body_format)
-    }
-
-    private fun getOfferId() = intent.getLongExtra(EXTRA_OFFER_ID, 0)
-
-    private fun getRedemptionId() = intent.getLongExtra(EXTRA_REDEMPTION_ID, 0)
-
-    private class ReviewNavigator(activity: androidx.fragment.app.FragmentActivity) : AppNavigator(activity, R.id.review_container) {
-
-        override fun createActivityIntent(context: Context, screenKey: String, data: Any?) =
-                throw IllegalArgumentException("No navigation from here")
-
-        override fun createFragment(screenKey: String, data: Any?) =
-                throw IllegalArgumentException("No navigation from here")
-
     }
 
     override val PERMISSION_REQUEST_CODE: Int?

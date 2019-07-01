@@ -55,7 +55,7 @@ class LocalDataManager(context: Context) {
     @SuppressLint("ApplySharedPref")
     fun setAuthToken(token: String) {
         preferences.edit()
-                .putString(KEY_AUTH_TOKEN, "Bearer $token")
+                .putString(KEY_AUTH_TOKEN, token)
                 .commit()
     }
 
@@ -134,7 +134,7 @@ class LocalDataManager(context: Context) {
 
     fun setOauthToken(token: String) {
         preferences.edit()
-                .putString(KEY_OAUTH_TOKEN, token)
+                .putString(KEY_OAUTH_TOKEN, "Bearer $token")
                 .apply()
     }
 

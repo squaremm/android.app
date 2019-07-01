@@ -14,8 +14,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.data.pojo.*
 import com.square.android.extensions.copyToClipboard
-import com.square.android.ui.activity.review.*
 import com.square.android.ui.fragment.BaseFragment
+import com.square.android.ui.fragment.review.*
 import kotlinx.android.synthetic.main.fragment_claimed_actions.*
 
 class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter.Handler  {

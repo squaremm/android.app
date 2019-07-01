@@ -13,27 +13,34 @@ import kotlinx.android.synthetic.main.select_offer_dialog.view.*
 import android.graphics.Color
 
 class SelectOfferDialog(private val context: Context) {
+    var dialog: MaterialDialog? = null
+
     @SuppressLint("InflateParams")
     fun show(offer: OfferInfo, place: PlaceInfo, onAction: () -> Unit) {
+
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.select_offer_dialog, null, false)
 
-        val dialog = MaterialDialog.Builder(context)
+        dialog = MaterialDialog.Builder(context)
                 .customView(view, false)
                 .cancelable(true)
                 .build()
 
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         view.offerDialogImg.loadImage(offer.mainImage ?: offer.photo)
 
-        view.offerDialogSubmit.setOnClickListener { dialog.dismiss()
+        view.offerDialogSubmit.setOnClickListener { cancel()
             onAction.invoke() }
 
         view.offerDialogName.text = offer.name
         view.offerDialogCredits.text = offer.price.toString()
         view.offerDialogComponents.text = offer.compositionAsStr()
 
-        dialog.show()
+        dialog!!.show()
+    }
+
+    fun cancel(){
+        dialog?.cancel()
     }
 }

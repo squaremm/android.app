@@ -69,27 +69,25 @@ class OffersListFragment: BaseFragment(), OffersListView, OffersListAdapter.Hand
     }
 
     override fun showOfferDialog(offer: OfferInfo, place: PlaceInfo) {
-        dialog = SelectOfferDialog(activity!!)
-
         currentId = offer.id
 
-        dialog!!.show(offer, place) {
-            presenter.dialogSubmitClicked(offer.id)
-        }
+        dialog = SelectOfferDialog(activity!!)
+
+        dialog!!.show(offer, place) { presenter.dialogSubmitClicked(offer.id) }
     }
 
-    override fun showData(data: List<OfferInfo>, redemptionFull: RedemptionFull?) {
+    override fun showData(data: List<OfferInfo>, redemptionFull: RedemptionFull) {
         adapter = OffersListAdapter(data, this, redemptionFull)
 
         offersListRv.adapter = adapter
         offersListRv.addItemDecoration(MarginItemDecorator( offersListRv.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),true,
-                offersListRv.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(),
+                offersListRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(),
                 offersListRv.context.resources.getDimension(R.dimen.rv_item_decorator_16).toInt()
         ))
 
-        redemptionFull?.let {
-            (activity as SelectOfferActivity).setHours(getString(R.string.time_range, it.redemption.startTime, it.redemption.endTime))
-        }
+        (activity as SelectOfferActivity).setHours(getString(R.string.time_range, redemptionFull.redemption.startTime, redemptionFull.redemption.endTime))
+
+        visibleNow()
     }
 
     override fun setSelectedItem(position: Int) {
@@ -99,17 +97,15 @@ class OffersListFragment: BaseFragment(), OffersListView, OffersListAdapter.Hand
     }
 
     override fun itemClicked(position: Int) {
+        presenter.dialogAllowed = true
+
         presenter.itemClicked(position)
     }
 
-    override fun acNavigate(stepNo: Int, data: Any) {
-        (activity as SelectOfferActivity).navigate(stepNo, data)
-    }
-
+    //TODO check if tutorial working
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1341
 
-    //TODO check if tutorial working correctly
     override val tutorial: Tutorial?
         get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.SELECT_OFFER)
                 .addNextStep(TutorialStep(
@@ -145,6 +141,7 @@ class OffersListFragment: BaseFragment(), OffersListView, OffersListAdapter.Hand
                     }
                 }
                 .setOnContinueTutorialListener {
+                    dialog?.cancel()
                     currentId?.run {presenter.dialogSubmitClicked(this)}
                 }
                 .build()
