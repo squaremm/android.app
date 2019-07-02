@@ -291,6 +291,8 @@
 
     <string name="search_uppercase">Search</string>
 
+    <string name="send">Send</string>
+
 
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
@@ -344,6 +346,8 @@
     <string name="review_stage_3_yelp">Open Yelp and make a on restaurant the given text</string>
 
     <string name="ok">OK</string>
+
+    <string name="upload_screenshot">Upload screenshot</string>
 
     <string name="ok_lowercase">Ok</string>
     <string name="type_tripavisor">Tripadvisor</string>

@@ -91,7 +91,6 @@ class CheckInFragment: BaseFragment(), CheckInView{
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1342
 
-    //TODO check if tutorial working correctly
     override val tutorial: Tutorial?
         get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.CHECK_IN)
                 .addNextStep(TutorialStep(
