@@ -341,7 +341,6 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1343
 
-    //TODO check if tutorial working correctly
     override val tutorial: Tutorial?
         get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REVIEW)
                 .addNextStep(TutorialStep(

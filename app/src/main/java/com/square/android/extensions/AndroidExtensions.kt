@@ -55,26 +55,40 @@ fun ImageView.loadImage(url: String,
 fun ImageView.loadImage(uri: Uri,
                         @ColorRes placeholder: Int = R.color.placeholder,
                         roundedCornersRadiusPx: Int = 0,
+                        withoutCropping: Boolean = false,
                         whichCornersToRound: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL) {
-        Picasso.get()
+        val creator = Picasso.get()
                 .load(uri)
-                .fit()
-                .centerCrop()
                 .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
+                .fit()
                 .placeholder(placeholder)
-                .into(this)
+
+    if (!withoutCropping){
+        creator.centerCrop()
+    } else{
+        creator.centerInside()
+    }
+
+    creator.into(this)
 }
 
 fun ImageView.loadImage(@DrawableRes drawableRes: Int,
                         withoutCropping: Boolean = false,
                         roundedCornersRadiusPx: Int = 0,
+                        fitOnly: Boolean = false,
                         whichCornersToRound: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL) {
     val creator = Picasso.get()
             .load(drawableRes)
             .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
             .fit()
 
-    if (!withoutCropping) creator.centerCrop()
+    if(!fitOnly){
+        if (!withoutCropping){
+            creator.centerCrop()
+        } else{
+            creator.centerInside()
+        }
+    }
 
     creator.placeholder(R.color.white)
             .into(this)

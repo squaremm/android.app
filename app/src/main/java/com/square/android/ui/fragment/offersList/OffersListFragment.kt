@@ -102,7 +102,6 @@ class OffersListFragment: BaseFragment(), OffersListView, OffersListAdapter.Hand
         presenter.itemClicked(position)
     }
 
-    //TODO check if tutorial working
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1341
 
