@@ -3,15 +3,18 @@ package com.square.android.presentation.presenter.campaignDetails
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.pojo.Campaign
+import com.square.android.data.pojo.CampaignBooking
+import com.square.android.data.pojo.CampaignInterval
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.campaignDetails.CampaignDetailsView
-import com.square.android.ui.activity.pickupMap.PickUpMapExtras
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
 
 class PhotosAddedEvent()
+
+class CampaignBookEvent()
 
 @InjectViewState
 class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDetailsView>(){
@@ -23,6 +26,12 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
     @Suppress("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onPhotosAdded(event: PhotosAddedEvent) {
+        loadData()
+    }
+
+    @Suppress("unused")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onCampaignBook(event: CampaignBookEvent) {
         loadData()
     }
 
@@ -39,13 +48,23 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
 
         viewState.showData(data!!)
 
-        //TODO change this -> ?this is wrong? also PickUpSpotFragment is not included here
         if(data!!.status == 0){
             router.replaceScreen(SCREENS.NOT_APPROVED, data)
         } else {
             val locationWrappers = repository.getCampaignLocations(data!!.id).await()
 
-            if (!locationWrappers.isNullOrEmpty() && data!!.isGiftTaken == false) {
+            val userBookings: List<CampaignBooking>? = repository.getCampaignBookings().await()
+            var campaignLocation: CampaignInterval.Location? = null
+
+            if(!userBookings.isNullOrEmpty()){
+                if(userBookings.firstOrNull { it.campaignId == data!!.id } != null){
+                    campaignLocation = data!!.location
+                }
+            }
+
+            if(data!!.isGiftTaken == false || campaignLocation != null ){
+                router.replaceScreen(SCREENS.PICK_UP_LOCATION, campaignLocation)
+            } else if (!locationWrappers.isNullOrEmpty() && data!!.isGiftTaken == false) {
                 router.replaceScreen(SCREENS.PICK_UP_SPOT, data)
             } else if (data!!.isPictureUploadAllow == true && data!!.imageCount != data!!.images?.size) {
                 router.replaceScreen(SCREENS.UPLOAD_PICS, data)

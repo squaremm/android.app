@@ -173,4 +173,7 @@ interface ApiService {
     @POST("campaign")
     fun sendQr(@Header("Authorization") authorization: String,
                      @Body body: QrInfo): Call<MessageResponse>
+
+    @GET("campaign/bookings")
+    fun getCampaignBookings(@Header("Authorization") authorization: String): Call<List<CampaignBooking>>
 }

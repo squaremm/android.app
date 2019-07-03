@@ -7,6 +7,7 @@ import com.square.android.data.pojo.CampaignBookInfo
 import com.square.android.data.pojo.CampaignInterval
 import com.square.android.extensions.getStringDate
 import com.square.android.presentation.presenter.BasePresenter
+import com.square.android.presentation.presenter.campaignDetails.CampaignBookEvent
 import com.square.android.presentation.view.pickUpSpot.PickUpSpotView
 import com.square.android.ui.activity.pickupMap.PickUpMapExtras
 import org.greenrobot.eventbus.EventBus
@@ -77,9 +78,7 @@ class PickUpSpotPresenter(var campaign: Campaign): BasePresenter<PickUpSpotView>
 
             viewState.showMessage(msg.message)
 
-            viewState.hideProgress()
-
-            //TODO where to go now?
+            eventBus.post(CampaignBookEvent())
         }
     }
 

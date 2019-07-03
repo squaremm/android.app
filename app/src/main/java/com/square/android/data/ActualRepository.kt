@@ -366,4 +366,9 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
+    override fun getCampaignBookings(): Deferred<List<CampaignBooking>> = GlobalScope.async {
+        val data = performRequest { api.getCampaignBookings(localManager.getAuthToken()) }
+        data
+    }
+
 }

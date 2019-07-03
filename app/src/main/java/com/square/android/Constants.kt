@@ -46,6 +46,7 @@ object SCREENS {
     const val APPROVAL = "APPROVAL"
 
     const val PICK_UP_SPOT = "PICK_UP_SPOT"
+    const val PICK_UP_LOCATION = "PICK_UP_LOCATION"
     const val PICK_UP_MAP = "PICK_UP_MAP"
 
     const val PASS_ELIGIBLE = "PASS_ELIGIBLE"

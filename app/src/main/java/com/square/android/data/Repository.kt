@@ -127,4 +127,6 @@ interface Repository {
     fun campaignBook(campaignId: Long, intervalId: Long, campaignBookInfo: CampaignBookInfo): Deferred<MessageResponse>
 
     fun sendQr( qrInfo: QrInfo): Deferred<MessageResponse>
+
+    fun getCampaignBookings(): Deferred<List<CampaignBooking>>
 }
