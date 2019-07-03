@@ -26,7 +26,9 @@ class RewardsAdapter (var rewards: List<Campaign.Reward>, private val handler: H
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.image.loadImage(rewards[position].imageUrl, roundedCornersRadiusPx = holder.image.context!!.dimen(R.dimen.value_4dp))
+        rewards[position].imageUrl?.run {
+            holder.image.loadImage(this, roundedCornersRadiusPx = holder.image.context!!.dimen(R.dimen.value_4dp))
+        }
         holder.name.text = rewards[position].description
         if (coloredText) holder.name.setTextColorRes(R.color.nice_pink)
 

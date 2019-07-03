@@ -180,6 +180,7 @@ class RedemptionsAdapter(data: List<Any>, private val handler: Handler)
             redemptionHours?.text = redemptionHours.context.getString(com.square.android.R.string.time_range, redemptionInfo.startTime, redemptionInfo.endTime)
             redemptionTitle.text = redemptionInfo.place.name
             redemptionAddress.text = redemptionInfo.place.address
+            redemptionDate.text = redemptionInfo.date
             if (URLUtil.isValidUrl(redemptionInfo.place.photo))
                 redemptionImage.loadImage(redemptionInfo.place.photo!!, roundedCornersRadiusPx = 360)
         }

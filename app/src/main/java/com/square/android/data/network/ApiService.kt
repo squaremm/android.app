@@ -126,7 +126,7 @@ interface ApiService {
 
     @POST("campaign/{id}/join")
     fun joinCampaign(@Header("Authorization") authorization: String,
-                     @Path("id") campaignId: Long): Call<MessageResponse>
+                     @Path("id") campaignId: Long): Call<Campaign>
 
     @POST("campaign/{id}/review")
     fun requestReview(@Header("Authorization") authorization: String,
@@ -152,7 +152,7 @@ interface ApiService {
 
     @GET("campaign/{id}/interval")
     fun getCampaignLocations(@Header("Authorization") authorization: String,
-                             @Path("id") campaignId: Long) : Call<List<CampaignLocationWrapper>>
+                             @Path("id") campaignId: Long) : Call<List<CampaignInterval.Location>>
 
 
     @GET("campaign/{id}/interval/{intervalId}/slots")

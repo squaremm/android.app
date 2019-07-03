@@ -5,6 +5,7 @@ import com.square.android.SCREENS
 import com.square.android.data.pojo.Campaign
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.campaignDetails.CampaignDetailsView
+import com.square.android.ui.activity.pickupMap.PickUpMapExtras
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -41,8 +42,12 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
         //TODO change this -> ?this is wrong? also PickUpSpotFragment is not included here
         if(data!!.status == 0){
             router.replaceScreen(SCREENS.NOT_APPROVED, data)
-        } else{
-            if (data!!.isPictureUploadAllow) {
+        } else {
+            val locationWrappers = repository.getCampaignLocations(data!!.id).await()
+
+            if (!locationWrappers.isNullOrEmpty() && data!!.isGiftTaken == false) {
+                router.replaceScreen(SCREENS.PICK_UP_SPOT, data)
+            } else if (data!!.isPictureUploadAllow == true && data!!.imageCount != data!!.images?.size) {
                 router.replaceScreen(SCREENS.UPLOAD_PICS, data)
             } else {
                 router.replaceScreen(SCREENS.APPROVAL, data)
@@ -57,8 +62,7 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
     }
 
     fun replaceToApproval(){
-        data?.let {router.replaceScreen(SCREENS.APPROVAL, it)
-        } ?: exit()
+        data?.let { router.replaceScreen(SCREENS.APPROVAL, it) } ?: exit()
     }
 
     fun navigateToAddPhoto() = data?.let { router.navigateTo(SCREENS.ADD_PHOTO, it) }

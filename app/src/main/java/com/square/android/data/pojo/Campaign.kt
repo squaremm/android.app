@@ -23,21 +23,28 @@ data class Campaign(
         var daysToStart: Int = 0,
         var daysToPicture: Int = 0,
         var daysToInstagramPicture: Int = 0,
+        @field:JsonProperty("isJoinable")
         var isJoinable: Boolean = true,
 
+        @field:JsonProperty("isParticipant")
         var isParticipant: Boolean = false,
+        @field:JsonProperty("isWinner")
         var isWinner: Boolean = false,
+
+        @field:JsonProperty("isGiftTaken")
+        var isGiftTaken: Boolean? = false,
 
         var hasWinner: Boolean = false,
         ////////////////////
 
         var userWinner: UserWinner? = null,
 
-        var imageCount: Int = 0,
-        var status: Int = 0, // 0 - not joined or joined and waiting for acceptance?, 1 - joined and accepted -> Upload pics fragment or Approval fragment if photos already uploaded(isPictureUploadAllow == false)?
+        var imageCount: Int? = 0,
+        var status: Int? = 0, // 0 - not joined or joined and waiting for acceptance?, 1 - joined and accepted -> Upload pics fragment or Approval fragment if photos already uploaded(isPictureUploadAllow == false)?
         var images: List<Photo>? = null,
         var statusDescription: String? = null,
-        var isPictureUploadAllow: Boolean = false,
+        @field:JsonProperty("isPictureUploadAllow")
+        var isPictureUploadAllow: Boolean? = false,
 
         var location: CampaignInterval.Location? = null,
         var slot: CampaignInterval.Slot? = null
@@ -60,11 +67,12 @@ data class Campaign(
             @field:JsonProperty("_id")
             var id: String? = null,
             var description: String? = null,
+            @field:JsonProperty("isGlobal")
             var isGlobal: Boolean = true,
             var type: String? = null,
             var value: Int = 0,
-            var imageUrl: String = "",
-            var position: Int = -1
+            var imageUrl: String? = "",
+            var position: Int? = -1
     ): Parcelable
 
     @Parcelize

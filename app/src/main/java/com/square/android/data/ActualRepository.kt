@@ -314,7 +314,7 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun joinCampaign(campaignId: Long): Deferred<MessageResponse> = GlobalScope.async {
+    override fun joinCampaign(campaignId: Long): Deferred<Campaign> = GlobalScope.async {
         val data = performRequest { api.joinCampaign(localManager.getAuthToken(), campaignId) }
         data
     }
@@ -346,7 +346,7 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun getCampaignLocations(campaignId: Long): Deferred<List<CampaignLocationWrapper>> = GlobalScope.async {
+    override fun getCampaignLocations(campaignId: Long): Deferred<List<CampaignInterval.Location>> = GlobalScope.async {
         val data = performRequest { api.getCampaignLocations(localManager.getAuthToken(), campaignId) }
         data
     }

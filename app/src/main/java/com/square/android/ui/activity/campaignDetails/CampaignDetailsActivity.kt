@@ -3,6 +3,7 @@ package com.square.android.ui.activity.campaignDetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -22,6 +23,7 @@ import com.square.android.ui.activity.pickupMap.PickUpMapExtras
 import com.square.android.ui.fragment.addPhoto.AddPhotoFragment
 import com.square.android.ui.fragment.approval.ApprovalFragment
 import com.square.android.ui.fragment.campaignNotApproved.CampaignNotApprovedFragment
+import com.square.android.ui.fragment.pickUpSpot.PickUpSpotFragment
 import com.square.android.ui.fragment.uploadPics.UploadPicsFragment
 import kotlinx.android.synthetic.main.activity_campaign_details.*
 import org.jetbrains.anko.intentFor
@@ -91,12 +93,17 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView{
                 else -> null
             }
 
-        override fun createFragment(screenKey: String, data: Any?) = when (screenKey) {
-            SCREENS.NOT_APPROVED -> CampaignNotApprovedFragment.newInstance(data as Campaign)
-            SCREENS.UPLOAD_PICS -> UploadPicsFragment.newInstance(data as Campaign)
-            SCREENS.ADD_PHOTO -> AddPhotoFragment.newInstance(data as Campaign)
-            SCREENS.APPROVAL -> ApprovalFragment.newInstance(data as Campaign)
-            else -> throw IllegalArgumentException("Unknown screen key: $screenKey")
+        override fun createFragment(screenKey: String, data: Any?): Fragment? {
+            Log.e("LOL", "SCREEN KEY: " + screenKey)
+
+            return when (screenKey) {
+                SCREENS.NOT_APPROVED -> CampaignNotApprovedFragment.newInstance(data as Campaign)
+                SCREENS.UPLOAD_PICS -> UploadPicsFragment.newInstance(data as Campaign)
+                SCREENS.ADD_PHOTO -> AddPhotoFragment.newInstance(data as Campaign)
+                SCREENS.APPROVAL -> ApprovalFragment.newInstance(data as Campaign)
+                SCREENS.PICK_UP_SPOT -> PickUpSpotFragment.newInstance(data as Campaign)
+                else -> throw IllegalArgumentException("Unknown screen key: $screenKey")
+            }
         }
 
         override fun setupFragmentTransactionAnimation(command: Command,

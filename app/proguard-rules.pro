@@ -28,3 +28,4 @@
 -keepclassmembers class kotlin.Metadata {
     public <methods>;
 }
+-keep class com.android.vending.billing.**

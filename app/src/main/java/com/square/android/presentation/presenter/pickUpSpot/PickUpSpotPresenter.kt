@@ -5,7 +5,6 @@ import com.square.android.SCREENS
 import com.square.android.data.pojo.Campaign
 import com.square.android.data.pojo.CampaignBookInfo
 import com.square.android.data.pojo.CampaignInterval
-import com.square.android.data.pojo.CampaignLocationWrapper
 import com.square.android.extensions.getStringDate
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.pickUpSpot.PickUpSpotView
@@ -25,7 +24,7 @@ class PickUpSpotPresenter(var campaign: Campaign): BasePresenter<PickUpSpotView>
 
     private var currentPosition: Int? = null
 
-    private var locationWrappers: List<CampaignLocationWrapper>? = null
+    private var locationWrappers: List<CampaignInterval.Location>? = null
 
     private var selectedIntervalId: Long = 0
 
@@ -56,7 +55,7 @@ class PickUpSpotPresenter(var campaign: Campaign): BasePresenter<PickUpSpotView>
 
         selectedIntervalId = intervalId
 
-        val selectedLocationWrapper = locationWrappers!!.first {it.intervalId == selectedIntervalId}
+        val selectedLocationWrapper = locationWrappers!!.first {it.id == selectedIntervalId}
 
         viewState.assignAddress(selectedLocationWrapper)
 
@@ -74,11 +73,13 @@ class PickUpSpotPresenter(var campaign: Campaign): BasePresenter<PickUpSpotView>
         currentPosition?.let {
             viewState.showProgress()
 
-            repository.campaignBook(campaign.id, selectedIntervalId, CampaignBookInfo(getSelectedStringDate(), intervalSlots[it].id)).await()
+            val msg = repository.campaignBook(campaign.id, selectedIntervalId, CampaignBookInfo(getSelectedStringDate(), intervalSlots[it].id)).await()
 
-            //TODO where to go now?
+            viewState.showMessage(msg.message)
 
             viewState.hideProgress()
+
+            //TODO where to go now?
         }
     }
 

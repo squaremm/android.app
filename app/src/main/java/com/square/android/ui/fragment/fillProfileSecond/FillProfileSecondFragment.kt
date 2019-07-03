@@ -160,10 +160,7 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
         }
     }
 
-    private fun getModel(): ProfileInfo {
-        return arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
-    }
-
+    private fun getModel() = arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
 
     override fun onStop() {
         val profileInfo = presenter.info

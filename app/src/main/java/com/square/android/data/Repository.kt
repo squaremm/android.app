@@ -110,7 +110,7 @@ interface Repository {
 
     fun getCampaign(campaignId: Long): Deferred<Campaign>
 
-    fun joinCampaign(campaignId: Long): Deferred<MessageResponse>
+    fun joinCampaign(campaignId: Long): Deferred<Campaign>
 
     fun requestReview(campaignId: Long): Deferred<MessageResponse>
 
@@ -120,7 +120,7 @@ interface Repository {
 
     fun getCampaignPhotos(campaignId: Long): Deferred<List<String>>
 
-    fun getCampaignLocations(campaignId: Long): Deferred<List<CampaignLocationWrapper>>
+    fun getCampaignLocations(campaignId: Long): Deferred<List<CampaignInterval.Location>>
 
     fun getCampaignSlots(campaignId: Long, intervalId: Long, date: String): Deferred<List<CampaignInterval.Slot>>
 

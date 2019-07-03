@@ -1,7 +1,6 @@
 package com.square.android.presentation.view.pickUpSpot
 
 import com.square.android.data.pojo.CampaignInterval
-import com.square.android.data.pojo.CampaignLocationWrapper
 import com.square.android.presentation.view.ProgressView
 import java.util.*
 
@@ -19,7 +18,7 @@ interface PickUpSpotView : ProgressView {
 
     fun setSlotsNormal()
 
-    fun assignAddress(locationWrapper: CampaignLocationWrapper)
+    fun assignAddress(locationWrapper: CampaignInterval.Location)
 
     fun changeDate(calendar: Calendar, useCalendarDay: Boolean)
 

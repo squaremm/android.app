@@ -5,6 +5,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,18 +61,17 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        notApprovedJoinBtn.setOnClickListener {presenter.joinClicked()}
+        notApprovedJoinBtn.setOnClickListener { presenter.joinClicked() }
     }
 
     override fun showData(campaign: Campaign) {
-
+        Log.e("LOL", campaign.toString())
         if(campaign.isParticipant){
             notApprovedJoinBtn.isEnabled = false
             notApprovedJoinBtn.text = getString(R.string.waiting_for_acceptance)
             notApprovedJoinBtn.isAllCaps = false
             notApprovedJoinBtn.setTextColor(ContextCompat.getColor(notApprovedJoinBtn.context, R.color.nice_pink))
         } else{
-
             if(!campaign.isJoinable){
                 notApprovedJoinBtn.visibility = View.GONE
             }
@@ -82,12 +82,11 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
                 cvDescriptionText.text = campaign.description
             }
 
-            val rewards: List<Campaign.Reward>? = if(campaign.rewards.isNullOrEmpty()) null else campaign.rewards!!.filter {it.isGlobal}
+            val rewards: List<Campaign.Reward>? = if(campaign.rewards.isNullOrEmpty()) null else campaign.rewards!!.filter { it.isGlobal }
 
             if(rewards.isNullOrEmpty()){
                 cvRewards.visibility = View.GONE
             } else{
-
                 rewards.firstOrNull{ it.type == "credit" }?.let {
                     cvRewardsCredits.text = it.value.toString()
 
@@ -151,8 +150,7 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
 
             if(campaign.tasks.isNullOrEmpty()){
                 cvTask.visibility = View.GONE
-            } else{
-
+            } else {
                 campaign.tasks!!.firstOrNull{ it.type == "photo" }?.let {
                     cvTaskStories.text = if(it.count == 1) it.count.toString() + " "+ getString(R.string.story) else it.count.toString() + " "+ getString(R.string.stories_lowercase)
 
@@ -179,13 +177,14 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
 
                 cvMoodRv.layoutManager = GridLayoutManager(context!!, 3)
                 cvMoodRv.adapter = moodboardAdapter
-                cvMoodRv.addItemDecoration(GridItemDecoration(3,cvMoodRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+                cvMoodRv.addItemDecoration(GridItemDecoration(3, cvMoodRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
             }
 
             //TODO: what should be inside cvHowPager?
             cvHow.visibility = View.GONE
         }
 
+        hideProgress()
     }
 
     override fun showProgress() {

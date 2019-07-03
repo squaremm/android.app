@@ -11,7 +11,6 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
 import com.square.android.data.pojo.Campaign
 import com.square.android.data.pojo.CampaignInterval
-import com.square.android.data.pojo.CampaignLocationWrapper
 import com.square.android.data.pojo.Day
 import com.square.android.presentation.presenter.pickUpSpot.PickUpSpotPresenter
 import com.square.android.presentation.view.pickUpSpot.PickUpSpotView
@@ -112,8 +111,8 @@ class PickUpSpotFragment: BaseFragment(), PickUpSpotView, DaysAdapter.Handler{
         pickupSpotsProgress.visibility = View.GONE
     }
 
-    override fun assignAddress(locationWrapper: CampaignLocationWrapper) {
-        pickupAddress.text = locationWrapper.location!!.getAddressString()
+    override fun assignAddress(locationWrapper: CampaignInterval.Location) {
+        pickupAddress.text = locationWrapper.getAddressString()
         pickupAddressLl.visibility = View.VISIBLE
     }
 

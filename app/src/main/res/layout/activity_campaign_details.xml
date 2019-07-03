@@ -59,7 +59,7 @@
     <FrameLayout
         android:id="@+id/campaignContainer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:visibility="gone"
         tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

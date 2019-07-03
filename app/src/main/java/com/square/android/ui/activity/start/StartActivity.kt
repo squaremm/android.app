@@ -3,6 +3,7 @@ package com.square.android.ui.activity.start
 import android.content.Context
 import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.android.gms.common.api.internal.zzc
 import com.square.android.R
 import com.square.android.SCREENS
 import com.square.android.androidx.navigator.AppNavigator
@@ -36,6 +37,7 @@ class StartActivity : BaseActivity(), StartView {
     override fun onBackPressed() {
         if (supportFragmentManager.fragments.last() is FillProfileFirstFragment
                 || supportFragmentManager.fragments.last() is AuthFragment
+                || supportFragmentManager.fragments.last() is zzc
                 || supportFragmentManager.fragments.last() is IntroFragment) {
             finishAffinity()
 

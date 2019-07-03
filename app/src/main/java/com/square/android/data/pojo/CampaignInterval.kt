@@ -19,21 +19,25 @@ class CampaignInterval(
     @JsonIgnoreProperties(ignoreUnknown = true)
     class Location(
             @field:JsonProperty("_id")
-            var id: String? = null,
+            var id: Long? = null,
 
             var address: String? = null,
             var city: String? = null,
-            var coordinates: List<Double> = listOf()
-    ) : Parcelable{
-        fun getAddressString(): String{
+            var coordinates: Coordinates? = null
+    ) : Parcelable {
+        fun getAddressString(): String {
             return "$address, $city"
         }
 
-        fun latLng() : LatLng {
-            val (lat, lon) = coordinates
-            return LatLng(lat, lon)
-        }
+        fun latLng() = coordinates?.let { LatLng(it.latitude, it.longitude) } ?: LatLng(0.0, 0.0)
     }
+
+    @Parcelize
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    class Coordinates(
+            var longitude: Double = 0.0,
+            var latitude: Double = 0.0
+    ) : Parcelable
 
     @Parcelize
     @JsonIgnoreProperties(ignoreUnknown = true)
