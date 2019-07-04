@@ -5,6 +5,7 @@ import android.util.Log
 import com.arellomobile.mvp.MvpPresenter
 import com.crashlytics.android.Crashlytics
 import com.google.gson.Gson
+import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME
 import com.square.android.SCREENS
 import com.square.android.data.BillingRepository
@@ -83,7 +84,6 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
             //////// check for every subscriptionId in app products ///////////
             val perWeekValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_WEEK_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
-
             perWeekValidSub?.let {
 
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekValidSub NOT NULL"))
@@ -93,6 +93,18 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                 grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
                         it.acknowledgementState == 0)
             } ?:  Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekValidSub IS NULL"))
+
+
+            val perMonthValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_MONTH_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
+            perMonthValidSub?.let {
+
+                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub NOT NULL"))
+
+                val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
+
+                grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
+                        it.acknowledgementState == 0)
+            } ?:  Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub IS NULL"))
             //////////////////////////////////////////////////////////////////
 
         }
@@ -109,7 +121,7 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
             repository.setUserEntitlement(billingTokenInfo.subscriptionId!!, true)
             Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement() -> setting user's entitlement: ${billingTokenInfo.subscriptionId}"))
         } else{
-            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement() -> cannot set user's entitlement, validExpiry == FALSE"))
+            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement() -> cannot set user's entitlement: ${billingTokenInfo.subscriptionId}, validExpiry == FALSE"))
         }
 
         if(acknowledgementRequired){

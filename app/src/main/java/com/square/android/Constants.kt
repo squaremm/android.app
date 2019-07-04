@@ -121,6 +121,8 @@ object GOOGLEBILLING{
 
     const val SUBSCRIPTION_PER_WEEK_NAME = "l08294._."
 
+    const val SUBSCRIPTION_PER_MONTH_NAME = "mmmontly123ui__a0a2."
+
     const val REFRESH_TOKEN = "4/dAFux-z5ssWvm6VDnKfJxKAw7n09jhTGgYZaiHcmGhb2tafQihVJ4dxQk_ws0Yv60nN6zSRYdi8frJ3uXVZ23Bs"
 
     const val CLIENT_SECRET = "ZbRvRt8pHETAdinjz_X6WTlg"

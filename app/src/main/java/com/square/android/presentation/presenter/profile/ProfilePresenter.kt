@@ -53,6 +53,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
         Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions()"))
 
         viewState.hideButton()
+        viewState.hidePremiumLabel()
 
         actualTokenInfo = null
 
@@ -80,7 +81,6 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
             val actualTimeInMillis: Long = Calendar.getInstance().timeInMillis
 
             val perWeekValidSub = subscriptions.filter { it.subscriptionId == GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
-
             perWeekValidSub?.let {
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perWeekValidSub NOT NULL"))
 
@@ -88,17 +88,35 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
 
                 if(validExpiry){
                     actualTokenInfo = BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token }
-
-                    viewState.showButton(hasSubscription = true)
                 }
 
             } ?: run {
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perWeekValidSub IS NULL"))
+            }
 
+            val perMonthValidSub = subscriptions.filter { it.subscriptionId == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
+            perMonthValidSub?.let {
+                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perMonthValidSub NOT NULL"))
+
+                val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
+
+                if(validExpiry){
+                    actualTokenInfo = BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token }
+                }
+
+            } ?: run {
+                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perMonthValidSub IS NULL"))
+            }
+
+            if(actualTokenInfo != null){
+                viewState.showButton(hasSubscription = true)
+            } else{
                 //TODO check if user can get a subscription (required amount of followers on instagram)
                 viewState.showButton(hasSubscription = false)
             }
+
         } else{
+            viewState.showPremiumLabel()
             Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> PAYMENT NOT REQUIRED"))
         }
 
@@ -128,7 +146,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
 
         Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: cancelSubscription() -> error: ${error.toString()}"))
 
-        Log.d("SUBSCRIPTIONS","ProfilePresenter: cancelSubscription() -> error: $error")
+        Log.d("SUBSCRIPTIONS","ProfilePresenter: cancelSubscription() -> error: ${error.toString()}")
     })
 
     fun openSettings() {

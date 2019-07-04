@@ -47,11 +47,11 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
                 val verified = verifyPurchase(purchase.originalJson , purchase.signature)
 
                 if(!verified){
-                    Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: verifyPurchase() -> NOT VERIFIED"))
+                    Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: verifyPurchase() -> NOT VERIFIED, id: ${purchase.sku}"))
 
                     Log.d("PURCHASE","| PassEligiblePresenter: verifyPurchase() -> NOT VERIFIED")
                 } else{
-                    Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: verifyPurchase() -> VERIFIED SUCCESSFULLY"))
+                    Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: verifyPurchase() -> VERIFIED SUCCESSFULLY, id: ${purchase.sku}"))
                 }
 
                 verifiedList.add(verified)

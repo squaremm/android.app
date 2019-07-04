@@ -29,6 +29,8 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
 
     private var productLoaded = false
 
+    private var skuDetailsList: List<SkuDetails>? = null
+
     private var selectedSkuDetails: SkuDetails? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,29 +72,47 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
     private fun getProductDetails(){
         val skuList = ArrayList<String>()
         skuList.add(GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME)
+        skuList.add(GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME)
         val params = SkuDetailsParams.newBuilder()
         params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
         billingClient.querySkuDetailsAsync(params.build()) { billingResult, skuDetailsList ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
-                for (skuDetails in skuDetailsList) {
-                    productLoaded = true
 
-                    val sku = skuDetails.sku
-                    val price = skuDetails.price
+                this.skuDetailsList = skuDetailsList
 
-                    if (GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME == sku) {
-                        passCardPrice.text = price
+                productLoaded = true
 
-                        selectedSkuDetails = skuDetails
+                passProgress.visibility = View.GONE
+                passPayBtn.visibility = View.VISIBLE
 
-                        passProgress.visibility = View.GONE
-                        passPayBtn.visibility = View.VISIBLE
-                    }
-                }
+                //TODO show passCardView and hide passMainProgress
+
+                setSelectedProduct(0)
+
             } else {
                 Crashlytics.logException(Throwable("BILLING -> PassEligibleActivity: querySkuDetailsAsync() | responseCode != OK  or skuDetailsList == null\""))
 
                 Log.d("BILLING","| PassEligibleActivity: querySkuDetailsAsync() | responseCode != OK  or skuDetailsList == null")
+            }
+        }
+    }
+
+    private fun setSelectedProduct(selectedProduct: Int){
+        if(!skuDetailsList.isNullOrEmpty()){
+
+            when(selectedProduct){
+                0 -> {
+                    selectedSkuDetails = skuDetailsList!!.firstOrNull { it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME }
+                }
+
+                1 -> {
+                    selectedSkuDetails = skuDetailsList!!.firstOrNull { it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME }
+                }
+            }
+
+            selectedSkuDetails?.let {
+                passCardPrice.text = it.price
+                passCardTime.text = if(it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME) getString(R.string.slash_month) else getString(R.string.slash_week)
             }
         }
     }

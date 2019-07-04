@@ -14,4 +14,7 @@ interface ProfileView : BaseView, ProgressView {
 
     fun showSubProgress()
     fun hideSubProgress()
+
+    fun showPremiumLabel()
+    fun hidePremiumLabel()
 }

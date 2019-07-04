@@ -3,6 +3,7 @@ package com.square.android.data.local
 import android.annotation.SuppressLint
 import android.content.Context
 import android.preference.PreferenceManager
+import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME
 import com.square.android.data.pojo.UserInfo
 import com.square.android.ui.base.tutorial.TutorialService
@@ -195,6 +196,9 @@ class LocalDataManager(context: Context) {
         preferences.edit()
                 .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_WEEK_NAME, false)
                 .apply()
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_MONTH_NAME, false)
+                .apply()
 
         //Repeat with every subscriptionId in app
     }
@@ -202,6 +206,9 @@ class LocalDataManager(context: Context) {
     fun grantAllUserEntitlements(){
         preferences.edit()
                 .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_WEEK_NAME, true)
+                .apply()
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_MONTH_NAME, true)
                 .apply()
 
         //Repeat with every subscriptionId in app

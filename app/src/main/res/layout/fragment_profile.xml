@@ -93,7 +93,7 @@
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toTopOf="@+id/profileCity"
+            app:layout_constraintBottom_toTopOf="@+id/profilePremium"
             app:layout_constraintStart_toStartOf="@id/profileName"
             android:layout_marginBottom="24dp"
             tools:text="Russian" />
@@ -124,6 +124,20 @@
             app:layout_constraintHorizontal_bias="0.86"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/profileName" />
+
+        <TextView
+            android:id="@+id/profilePremium"
+            style="@style/Models16BoldText"
+            android:textColor="@color/status_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/premium_plan"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/container_coins"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:id="@+id/container_coins"
