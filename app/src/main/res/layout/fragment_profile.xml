@@ -178,7 +178,7 @@
             app:layout_constraintTop_toBottomOf="@+id/profileAvatar"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="46dp"
+            android:layout_marginTop="24dp"
             android:padding="12dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
@@ -231,19 +231,64 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/how_it_works"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/profileSubscribe"
+            style="@style/Models16Text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/how_it_works"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/bg_rounded_max_gray_stroke"
+            android:text="@string/subscribe"
+            android:textAllCaps="true"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_invite" />
+
+        <ProgressBar
+            android:id="@+id/subsProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="64dp"
+            android:indeterminateTint="@color/nice_red"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_invite" />
+
+        <View
+            android:id="@+id/dividerEnd"
+            android:layout_width="0dp"
+            android:layout_height="0.75dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/gray_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileSubscribe" />
+
+        <TextView
+            android:id="@+id/how_it_works"
+            style="@style/Models16Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/tutorials"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_invite" />
+            app:layout_constraintTop_toBottomOf="@+id/dividerEnd" />
 
 <!--        <TextView-->
 <!--            android:id="@+id/profileNationalityTitle"-->

@@ -14,6 +14,7 @@ import com.square.android.ui.base.SimpleNavigator
 import kotlinx.android.synthetic.main.activity_pass_eligible.*
 import ru.terrakok.cicerone.Navigator
 import com.android.billingclient.api.BillingClient.FeatureType
+import com.crashlytics.android.Crashlytics
 import com.square.android.ui.activity.BaseBillingActivity
 
 class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
@@ -45,6 +46,8 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                     }
                 }
             } else{
+                Crashlytics.logException(Throwable("BILLING -> PassEligibleActivity: subscriptions not supported"))
+
                 Log.d("BILLING","subscriptions not supported")
 
                 showMessage(getString(R.string.subscriptions_not_supported))
@@ -87,6 +90,8 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                     }
                 }
             } else {
+                Crashlytics.logException(Throwable("BILLING -> PassEligibleActivity: querySkuDetailsAsync() | responseCode != OK  or skuDetailsList == null\""))
+
                 Log.d("BILLING","| PassEligibleActivity: querySkuDetailsAsync() | responseCode != OK  or skuDetailsList == null")
             }
         }
@@ -104,7 +109,8 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
     }
 
     override fun purchasesComplete() {
-        //TODO handle complete - redirect to another ac?
+        showMessage(getString(R.string.purchase_completed_successfully))
+        onBackPressed()
     }
 
 }

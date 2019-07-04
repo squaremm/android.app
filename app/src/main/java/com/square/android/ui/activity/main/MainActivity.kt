@@ -183,8 +183,11 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                         context.intentFor<NoConnectionActivity>()
 
                     SCREENS.TUTORIAL_VIDEOS ->
-                        //TODO change to TutorialVideosActivity later
+                        context.intentFor<TutorialVideosActivity>()
+
+                    SCREENS.PASS_ELIGIBLE -> {
                         context.intentFor<PassEligibleActivity>()
+                    }
 
                     SCREENS.CAMPAIGN_DETAILS ->
                         context.intentFor<CampaignDetailsActivity>(CAMPAIGN_EXTRA_ID to data as Long)

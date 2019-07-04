@@ -18,4 +18,8 @@ interface BillingApiService {
                                 @Path("token") token: String,
                                 @Body body: TokenInfo): Call<MessageResponse>
 
+    @POST("purchases/subscriptions/{subscriptionId}/tokens/{token}:cancel")
+    fun cancelSubscription(@Header("Authorization") oauthToken: String,
+                                @Path("subscriptionId") subscriptionId: String,
+                                @Path("token") token: String): Call<MessageResponse>
 }

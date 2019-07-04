@@ -1,5 +1,6 @@
 package com.square.android.data.network
 
+import com.crashlytics.android.Crashlytics
 import okhttp3.*
 import com.square.android.GOOGLEBILLING.CLIENT_SECRET
 import com.square.android.GOOGLEBILLING.REFRESH_TOKEN
@@ -14,19 +15,24 @@ import java.lang.Exception
 class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
 
     override fun authenticate(route: Route, response: Response): Request? {
+        Crashlytics.logException(Throwable("TokenAuthenticator: authenticate()"))
 
         return if (refreshToken()) {
+            Crashlytics.logException(Throwable("TokenAuthenticator: refreshToken() -> NEW TOKEN OBTAINED SUCCESSFULLY"))
+
             val newToken = manager.getOauthToken()
 
             response.request().newBuilder()
                     .header("Authorization", newToken)
                     .build()
         } else {
+            Crashlytics.logException(Throwable("TokenAuthenticator: refreshToken() -> NEW TOKEN NOT OBTAINED"))
             null
         }
     }
 
     private fun refreshToken(): Boolean {
+        Crashlytics.logException(Throwable("TokenAuthenticator: refreshToken()"))
 
         val client = Retrofit.Builder()
                 .baseUrl(OAUTH_API_URL)
@@ -41,14 +47,21 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
             val refreshTokenResult: RefreshTokenResult? = refreshExecute.body()
 
             if (refreshExecute.isSuccessful && refreshTokenResult != null) {
+
+                Crashlytics.logException(Throwable("TokenAuthenticator: refreshToken() -> refreshExecute.isSuccessful && refreshTokenResult != null"))
+
                 manager.setOauthToken(refreshTokenResult.access_token!!)
 
                 return true
             } else {
+                Crashlytics.logException(Throwable("TokenAuthenticator: refreshToken() -> refreshExecute IS NOT SUCCESSFUL || refreshTokenResult == null"))
+
                 return false
             }
 
         } catch (e: Exception){
+            Crashlytics.logException(Throwable("TokenAuthenticator: refreshToken() -> exception: ${e.toString()}"))
+
             return false
         }
     }

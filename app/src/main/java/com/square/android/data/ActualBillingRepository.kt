@@ -27,6 +27,12 @@ class ActualBillingRepository(private val api: BillingApiService,
         data
     }
 
+    override fun cancelSubscription(subscriptionId: String, token: String): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.cancelSubscription(localManager.getOauthToken(),subscriptionId, token) }
+
+        data
+    }
+
     private inline fun <T> performRequest(block: () -> Call<T>): T {
         val response = block().execute()
 

@@ -18,6 +18,7 @@ import java.lang.Exception
 import java.security.KeyFactory
 import java.security.Signature
 import android.util.Base64
+import com.crashlytics.android.Crashlytics
 import java.security.spec.X509EncodedKeySpec
 
 @InjectViewState
@@ -32,6 +33,8 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onPurchasesUpdatedEvent(event: PurchasesUpdatedEvent) = launch ({
 
+        Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent()"))
+
         val purchases = event.data
 
         viewState.handlePurchases(purchases.isNullOrEmpty())
@@ -43,17 +46,28 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
             for (purchase in purchases) {
                 val verified = verifyPurchase(purchase.originalJson , purchase.signature)
 
-                if(!verified){ Log.d("PURCHASE","| PassEligiblePresenter: verifyPurchase() -> NOT VERIFIED") }
+                if(!verified){
+                    Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: verifyPurchase() -> NOT VERIFIED"))
+
+                    Log.d("PURCHASE","| PassEligiblePresenter: verifyPurchase() -> NOT VERIFIED")
+                } else{
+                    Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: verifyPurchase() -> VERIFIED SUCCESSFULLY"))
+                }
 
                 verifiedList.add(verified)
             }
+
+            Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> purchases: ${purchases.toString()}"))
 
             var listPos = -1
             for (purchase in purchases) {
                 listPos++
 
                 if(verifiedList[listPos]){
-                    repository.sendPaymentToken(repository.getUserId(), BillingTokenInfo().apply { subscriptionId = purchase.sku; token = purchase.purchaseToken }).await()
+                    repository.sendPaymentToken(BillingTokenInfo().apply { subscriptionId = purchase.sku; token = purchase.purchaseToken }).await()
+
+                    Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> sending payment token: subscriptionId = " +
+                            "${purchase.sku}, token = ${purchase.purchaseToken}"))
                 }
             }
 
@@ -64,6 +78,11 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
                 if(verifiedList[listPos]){
                     if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
                         repository.setUserEntitlement(purchase.sku, true)
+
+                        Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> setting user's entitlement: ${purchase.sku}"))
+                    } else{
+                        Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> cannot set user's entitlement, " +
+                                "purchase.purchaseState == ${purchase.purchaseState.toString()}"))
                     }
                 }
             }
@@ -74,26 +93,34 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
 
                 if(verifiedList[listPos]){
                     if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
-                        repository.setUserEntitlement(purchase.sku, true)
+                        Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> purchase.purchaseState == Purchase.PurchaseState.PURCHASED"))
 
                         billingRepository.acknowledgeSubscription(purchase.sku, purchase.purchaseToken, TokenInfo().apply { payload = "" }).await()
+
+                        Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> acknowledgeSubscription"))
+
+                    } else{
+                        Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> purchase.purchaseState == ${purchase.purchaseState.toString()}"))
                     }
                 }
             }
 
+            Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> PURCHASE COMPLETED SUCCESSFULLY"))
             viewState.purchasesComplete()
-        }
+        } ?: Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> purchases ARE NULL"))
 
     }, { error ->
         //TODO must handle errors here - mixing repository and billingRepository
 
-        Log.d("PURCHASE","| PassEligiblePresenter: onPurchasesUpdatedEvent() -> error: $error")
+        Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> error: ${error.toString()}"))
+        Log.d("PURCHASE","PassEligiblePresenter: onPurchasesUpdatedEvent() -> error: ${error.toString()}")
     })
 
     private fun verifyPurchase(signedData: String, signature: String): Boolean {
 
         if (TextUtils.isEmpty(signedData) || TextUtils.isEmpty(signature)) {
-            Log.e("PURCHASE", "PassEligiblePresenter: verifyPurchase() - Purchase verification failed: missing data.")
+            Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: verifyPurchase() - Purchase verification failed: missing data"))
+            Log.e("PURCHASE", "PassEligiblePresenter: verifyPurchase() - Purchase verification failed: missing data")
             return false
         }
 
@@ -107,6 +134,7 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
             return rsaVerify.verify(signature.toByteArray())
 
         } catch (e: Exception){
+            Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: verifyPurchase() - Exception: ${e.toString()}"))
             Log.e("PURCHASE", "PassEligiblePresenter: verifyPurchase() - Exception: ${e.toString()}")
             return false
         }

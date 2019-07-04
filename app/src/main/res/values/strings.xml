@@ -297,6 +297,11 @@
     <string name="open_in_map">Open in map</string>
     <string name="select_an_app">Select an application</string>
 
+    <string name="subscribe">Subscribe</string>
+    <string name="cancel_subscription">Cancel subscription</string>
+
+    <string name="purchase_completed_successfully">The purchase was completed successfully</string>
+
 
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>

@@ -1,6 +1,5 @@
 package com.square.android.ui.fragment.profile
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,8 +18,7 @@ import com.square.android.ui.fragment.BaseFragment
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-
-class ProfileFragment : BaseFragment(), ProfileView {
+class ProfileFragment: BaseFragment(), ProfileView {
 
     @InjectPresenter
     lateinit var presenter: ProfilePresenter
@@ -73,6 +71,8 @@ class ProfileFragment : BaseFragment(), ProfileView {
         profileSettings.setOnClickListener { presenter.openSettings() }
 
         how_it_works.setOnClickListener { presenter.navigateTutorialVideos() }
+
+        profileSubscribe.setOnClickListener { presenter.subButtonClicked() }
     }
 
     private fun share(referralCode: String) {
@@ -91,5 +91,29 @@ class ProfileFragment : BaseFragment(), ProfileView {
 
     override fun hideProgress() {
         profileProgress.visibility = View.GONE
+    }
+
+    override fun showButton(hasSubscription: Boolean) {
+        if(hasSubscription){
+            profileSubscribe.text = getString(R.string.cancel_subscription)
+        } else{
+            profileSubscribe.text = getString(R.string.subscribe)
+        }
+        profileSubscribe.visibility = View.VISIBLE
+    }
+
+    override fun hideButton() {
+        subsProgress.visibility = View.GONE
+        profileSubscribe.visibility = View.GONE
+    }
+
+    override fun showSubProgress() {
+        profileSubscribe.visibility = View.INVISIBLE
+        subsProgress.visibility = View.VISIBLE
+    }
+
+    override fun hideSubProgress() {
+        subsProgress.visibility = View.INVISIBLE
+        profileSubscribe.visibility = View.VISIBLE
     }
 }

@@ -93,9 +93,9 @@ interface Repository {
     fun setTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey, dontShowAgain: Boolean)
     fun getTutorialDontShowAgain(tutorialKey: TutorialService.TutorialKey): Boolean
 
-    fun getPaymentTokens(userId: Long): Deferred<List<BillingTokenInfo>>
+    fun getPaymentTokens(): Deferred<List<BillingTokenInfo>>
 
-    fun sendPaymentToken(userId: Long, billingTokenInfo: BillingTokenInfo): Deferred<MessageResponse>
+    fun sendPaymentToken(billingTokenInfo: BillingTokenInfo): Deferred<MessageResponse>
 
     fun setUserEntitlement(entitlementId: String, active: Boolean)
 

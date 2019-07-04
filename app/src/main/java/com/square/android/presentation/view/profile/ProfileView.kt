@@ -9,4 +9,9 @@ interface ProfileView : BaseView, ProgressView {
     fun showUser(user: Profile.User)
     fun displayNationality(country: Country?)
 
+    fun showButton(hasSubscription: Boolean)
+    fun hideButton()
+
+    fun showSubProgress()
+    fun hideSubProgress()
 }
