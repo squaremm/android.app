@@ -20,6 +20,10 @@ class EditProfilePresenter : BasePresenter<EditProfileView>() {
 
     private var user: Profile.User? = null
 
+    private var arePushNotificationsAllowed = false
+
+    private var isGeolocationAllowed = false
+
     init {
         loadData()
     }
@@ -31,10 +35,21 @@ class EditProfilePresenter : BasePresenter<EditProfileView>() {
 
             user = repository.getCurrentUser().await()
 
-            viewState.showData(user!!)
+            arePushNotificationsAllowed = repository.getPushNotificationsAllowed()
+            isGeolocationAllowed = repository.getGeolocationAllowed()
+
+            viewState.showData(user!!, arePushNotificationsAllowed, isGeolocationAllowed)
 
             viewState.hideProgress()
         }
+    }
+
+    fun setPushNotificationsAllowed(allowed: Boolean){
+        arePushNotificationsAllowed = allowed
+    }
+
+    fun setGeolocationAllowed(allowed: Boolean){
+        isGeolocationAllowed = allowed
     }
 
     fun save(profileInfo: ProfileInfo) {
@@ -44,6 +59,9 @@ class EditProfilePresenter : BasePresenter<EditProfileView>() {
             val result = repository.fillProfile(profileInfo).await()
 
             repository.setUserName(profileInfo.name, profileInfo.surname)
+
+            repository.setPushNotificationsAllowed(arePushNotificationsAllowed)
+            repository.setGeolocationAllowed(isGeolocationAllowed)
 
             val event = ProfileUpdatedEvent()
             eventBus.post(event)

@@ -105,6 +105,14 @@ interface Repository {
 
     fun grantAllUserEntitlements()
 
+    fun getPushNotificationsAllowed(): Boolean
+
+    fun getGeolocationAllowed(): Boolean
+
+    fun setPushNotificationsAllowed(allowed: Boolean)
+
+    fun setGeolocationAllowed(allowed: Boolean)
+
 // Campaign
     fun getCampaigns(): Deferred<List<CampaignInfo>>
 

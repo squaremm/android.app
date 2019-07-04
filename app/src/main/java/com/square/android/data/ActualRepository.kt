@@ -303,6 +303,18 @@ class ActualRepository(private val api: ApiService,
 
     override fun grantAllUserEntitlements() = localManager.grantAllUserEntitlements()
 
+    override fun getPushNotificationsAllowed(): Boolean = localManager.getPushNotificationsAllowed()
+
+    override fun getGeolocationAllowed(): Boolean = localManager.getGeolocationAllowed()
+
+    override fun setPushNotificationsAllowed(allowed: Boolean) {
+        localManager.setPushNotificationsAllowed(allowed)
+    }
+
+    override fun setGeolocationAllowed(allowed: Boolean) {
+       localManager.setGeolocationAllowed(allowed)
+    }
+
 // Campaign
     override fun getCampaigns(): Deferred<List<CampaignInfo>> = GlobalScope.async {
         val data = performRequest { api.getCampaigns(localManager.getAuthToken()) }

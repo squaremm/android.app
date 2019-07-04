@@ -1,4 +1,4 @@
-package com.square.android.ui.activity.editProfile
+package com.square.android.ui.fragment.editProfile
 
 import android.net.Uri
 import android.os.Bundle
@@ -102,7 +102,7 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
         }
     }
 
-    override fun showData(user: Profile.User) {
+    override fun showData(user: Profile.User, arePushNotificationsAllowed: Boolean, isGeolocationAllowed: Boolean) {
         user.mainImage?.run {
             profileEditAvatar.loadImage(this, placeholder = R.color.colorPrimary,
                     roundedCornersRadiusPx = 100,
@@ -124,6 +124,12 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
 
         formEditDialCode.visibility = View.GONE
         formEditDialFlag.visibility = View.GONE
+
+        switchPushNotifi.isChecked = arePushNotificationsAllowed
+        switchAllowGeo.isChecked = isGeolocationAllowed
+
+        switchPushNotifi.setOnCheckedChangeListener { buttonView, isChecked -> presenter.setPushNotificationsAllowed(isChecked) }
+        switchAllowGeo.setOnCheckedChangeListener { buttonView, isChecked -> presenter.setGeolocationAllowed(isChecked) }
 
         val genderButton = determineGenderButtonId(user.gender)
         genderButton.isChecked = true

@@ -28,6 +28,10 @@ private const val KEY_ENTITLEMENT = "KEY_ENTITLEMENT"
 private const val KEY_PROFILE_INFO = "KEY_PROFILE_INFO"
 private const val KEY_FRAGMENT_NUMBER = "KEY_FRAGMENT_NUMBER"
 
+private const val KEY_ALLOW_PUSH_NOTIFICATIONS = "KEY_ALLOW_PUSH_NOTIFICATIONS"
+
+private const val KEY_ALLOW_GEOLOCATION = "KEY_ALLOW_GEOLOCATION"
+
 private const val DISPLAY_INTRO_DEFAULT = true
 private const val PROFILE_FILLED_DEFAULT = false
 private const val LOGGED_IN_DEFAULT = false
@@ -221,4 +225,24 @@ class LocalDataManager(context: Context) {
     }
 
     fun getId() = preferences.getLong(KEY_ID, ID_DEFAULT)
+
+    fun getPushNotificationsAllowed(): Boolean {
+        return preferences.getBoolean(KEY_ALLOW_PUSH_NOTIFICATIONS, false)
+    }
+
+    fun getGeolocationAllowed(): Boolean {
+        return preferences.getBoolean(KEY_ALLOW_GEOLOCATION, false)
+    }
+
+    fun setPushNotificationsAllowed(allowed: Boolean) {
+        preferences.edit()
+                .putBoolean(KEY_ALLOW_PUSH_NOTIFICATIONS, allowed)
+                .apply()
+    }
+
+    fun setGeolocationAllowed(allowed: Boolean) {
+        preferences.edit()
+                .putBoolean(KEY_ALLOW_GEOLOCATION, allowed)
+                .apply()
+    }
 }

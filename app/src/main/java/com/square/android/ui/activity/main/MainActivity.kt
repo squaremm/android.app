@@ -27,10 +27,9 @@ import com.square.android.ui.activity.claimedRedemption.CLAIMED_OFFER_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.CLAIMED_REDEMPTION_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.ClaimedExtras
 import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivity
-import com.square.android.ui.activity.editProfile.EditProfileFragment
+import com.square.android.ui.fragment.editProfile.EditProfileFragment
 import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
-import com.square.android.ui.fragment.campaignNotApproved.CampaignNotApprovedFragment
 import com.square.android.ui.fragment.campaigns.CAMPAIGN_EXTRA_ID
 import com.square.android.ui.activity.noConnection.NoConnectionActivity
 import com.square.android.ui.activity.passEligible.PassEligibleActivity
