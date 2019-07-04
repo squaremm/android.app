@@ -302,6 +302,8 @@
 
     <string name="purchase_completed_successfully">The purchase was completed successfully</string>
 
+    <string name="no_address">No address provided</string>
+
 
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>

@@ -58,11 +58,15 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
 
             if(!userBookings.isNullOrEmpty()){
                 if(userBookings.firstOrNull { it.campaignId == data!!.id } != null){
-                    campaignLocation = data!!.location
+                    if(data!!.location != null){
+                        if(data!!.location!!.coordinates != null){
+                            campaignLocation = data!!.location
+                        }
+                    }
                 }
             }
 
-            if(data!!.isGiftTaken == false || campaignLocation != null ){
+            if(data!!.isGiftTaken == false && campaignLocation != null ){
                 router.replaceScreen(SCREENS.PICK_UP_LOCATION, campaignLocation)
             } else if (!locationWrappers.isNullOrEmpty() && data!!.isGiftTaken == false) {
                 router.replaceScreen(SCREENS.PICK_UP_SPOT, data)

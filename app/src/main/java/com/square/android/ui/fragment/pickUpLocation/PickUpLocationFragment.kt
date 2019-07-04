@@ -57,7 +57,17 @@ class PickUpLocationFragment: BaseFragment(), PickUpLocationView{
     }
 
     override fun showData(location: CampaignInterval.Location) {
-        pickupLocationAddress.text = location.getAddressString()
+        if(location.address == null && location.city == null){
+            pickupLocationAddress.text = getString(R.string.no_address)
+        } else if(location.address != null && location.city != null){
+            pickupLocationAddress.text = location.getAddressString()
+        } else{
+            if(location.address != null){
+                pickupLocationAddress.text = location.address
+            } else if(location.city != null){
+                pickupLocationAddress.text = location.city
+            }
+        }
     }
 
     private fun getCampaignLocation() = arguments?.getParcelable(EXTRA_CAMPAIGN_LOCATION) as CampaignInterval.Location
