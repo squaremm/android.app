@@ -33,6 +33,7 @@ import com.square.android.ui.activity.gallery.USER_EXTRA
 import com.square.android.ui.fragment.campaignNotApproved.CampaignNotApprovedFragment
 import com.square.android.ui.fragment.campaigns.CAMPAIGN_EXTRA_ID
 import com.square.android.ui.activity.noConnection.NoConnectionActivity
+import com.square.android.ui.activity.passEligible.PassEligibleActivity
 import com.square.android.ui.activity.placeDetail.PLACE_EXTRA_ID
 import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
 import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
@@ -183,7 +184,8 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                         context.intentFor<NoConnectionActivity>()
 
                     SCREENS.TUTORIAL_VIDEOS ->
-                        context.intentFor<TutorialVideosActivity>()
+                        //TODO change to TutorialVideosActivity later
+                        context.intentFor<PassEligibleActivity>()
 
                     SCREENS.CAMPAIGN_DETAILS ->
                         context.intentFor<CampaignDetailsActivity>(CAMPAIGN_EXTRA_ID to data as Long)

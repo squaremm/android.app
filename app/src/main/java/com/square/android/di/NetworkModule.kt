@@ -72,7 +72,7 @@ private fun createBillingClient(context: Context, eventBus: EventBus) = BillingC
                     } else if (it.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
                         Log.d("BILLING","| onPurchasesUpdated | responseCode == BillingClient.BillingResponseCode.USER_CANCELED")
                     } else {
-                        Log.d("BILLING","| onPurchasesUpdated | responseCode == other error code")
+                        Log.d("BILLING","| onPurchasesUpdated | responseCode == other error code: ${it.responseCode}")
 
                         eventBus.post(PurchasesUpdatedEvent(data = null))
                     }
@@ -83,3 +83,4 @@ private fun createBillingClient(context: Context, eventBus: EventBus) = BillingC
             }
         })
         .enablePendingPurchases()
+        .build()

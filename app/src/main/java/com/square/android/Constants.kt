@@ -71,7 +71,7 @@ object SOCIAL {
 
 object GOOGLEPAY {
 
-    //TODO change to ENVIRONMENT_PRODUCTION later
+    //change to ENVIRONMENT_PRODUCTION later
     const val PAYMENTS_ENVIRONMENT = WalletConstants.ENVIRONMENT_TEST
 
     const val PRICE_PER_WEEK = 10.0f
@@ -119,7 +119,7 @@ object GOOGLEBILLING{
 
     const val PACKAGE_NAME = "com.squaremm.android"
 
-    const val SUBSCRIPTION_PER_WEEK_NAME = "weekly001"
+    const val SUBSCRIPTION_PER_WEEK_NAME = "l08294._."
 
     const val REFRESH_TOKEN = "4/dAFux-z5ssWvm6VDnKfJxKAw7n09jhTGgYZaiHcmGhb2tafQihVJ4dxQk_ws0Yv60nN6zSRYdi8frJ3uXVZ23Bs"
 
