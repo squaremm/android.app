@@ -17,7 +17,7 @@ import com.square.android.ui.base.tutorial.TutorialStep
 import com.square.android.ui.fragment.LocationFragment
 import kotlinx.android.synthetic.main.fragment_redemptions.*
 
-class RedemptionsFragment : LocationFragment(), RedemptionsView, RedemptionsAdapter.Handler {
+class RedemptionsFragment: LocationFragment(), RedemptionsView, RedemptionsAdapter.Handler {
 
     @InjectPresenter(type = PresenterType.GLOBAL, tag = "RedemptionsPresenter")
     lateinit var presenter: RedemptionsPresenter
@@ -63,6 +63,10 @@ class RedemptionsFragment : LocationFragment(), RedemptionsView, RedemptionsAdap
 
     override fun cancelClicked(position: Int) {
         presenter.cancelClicked(position)
+    }
+
+    override fun campaignItemClicked(position: Int) {
+        presenter.campaignClicked(position)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

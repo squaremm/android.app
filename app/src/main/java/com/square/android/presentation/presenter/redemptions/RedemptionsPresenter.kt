@@ -5,6 +5,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.square.android.App
 import com.square.android.R
 import com.square.android.SCREENS
+import com.square.android.data.pojo.CampaignBooking
 import com.square.android.data.pojo.RedemptionInfo
 import com.square.android.extensions.distanceTo
 import com.square.android.extensions.relativeTimeString
@@ -37,7 +38,7 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
 
     var data: MutableList<Any>? = null
 
-    private var groups: MutableMap<String, MutableList<RedemptionInfo>>? = null
+    private var groups: MutableMap<String, MutableList<Any>>? = null
 
     private var lastLocation: Location? = null
 
@@ -63,12 +64,45 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
     private fun loadData() {
         launch {
             val redemptions = repository.getRedemptions().await()
+            val campaignRedemptions = repository.getCampaignBookings().await()
 
-            data = addHeaders(redemptions).await().toMutableList()
+            if(!campaignRedemptions.isNullOrEmpty()){
+                val iterate = campaignRedemptions.toMutableList().listIterator()
+                while (iterate.hasNext()) {
+                    val oldValue = iterate.next()
+
+                    oldValue.pickUpDate?.let {
+                        val split = it.split(" ")
+
+                        oldValue.pickUpDate = split[0]
+                        oldValue.time = split[1]
+
+                        iterate.set(oldValue)
+                    }
+                }
+            }
+
+            val allRedemptions: List<Any> = if(!campaignRedemptions.isNullOrEmpty() && !redemptions.isNullOrEmpty()){
+                redemptions + campaignRedemptions.toList()
+            } else if(!campaignRedemptions.isNullOrEmpty()){
+                campaignRedemptions.toList()
+            } else if (!redemptions.isNullOrEmpty()){
+                redemptions
+            } else{
+                listOf()
+            }
+
+            data = addHeaders(allRedemptions).await().toMutableList()
 
             viewState.hideProgress()
             viewState.showData(data!!)
         }
+    }
+
+    fun campaignClicked(position: Int){
+        val item = data!![position] as? CampaignBooking ?: return
+
+        router.navigateTo(SCREENS.CAMPAIGN_DETAILS, item.campaignId)
     }
 
     fun claimClicked(position: Int) {
@@ -154,7 +188,8 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
         eventBus.post(event)
     }
 
-    private fun addHeaders(data: List<RedemptionInfo>): Deferred<List<Any>> = GlobalScope.async {
+    private fun addHeaders(data: List<Any>): Deferred<List<Any>> = GlobalScope.async {
+
         val today = Calendar.getInstance()
         val itemCalendar = Calendar.getInstance()
 
@@ -164,16 +199,26 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
         val claimedTitle = App.getString(R.string.claimed)
 
         groups = data.groupByTo(mutableMapOf()) {
-            if (it.closed) {
-                return@groupByTo closedTitle
-            }
 
-            if (it.claimed) {
-                return@groupByTo claimedTitle
-            }
+           if(it is RedemptionInfo){
+               if (it.closed) {
+                   return@groupByTo closedTitle
+               }
 
-            val date = it.date.toDate()
-            itemCalendar.time = date
+               if (it.claimed) {
+                   return@groupByTo claimedTitle
+               }
+
+               val date = it.date.toDate()
+               itemCalendar.time = date
+           }
+
+            if(it is CampaignBooking){
+                if(it.pickUpDate != null){
+                    val date = it.pickUpDate!!.toDate()
+                    itemCalendar.time = date
+                }
+            }
 
             itemCalendar.relativeTimeString(today)
         }

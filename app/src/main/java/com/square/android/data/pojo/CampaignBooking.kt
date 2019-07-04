@@ -10,5 +10,9 @@ class CampaignBooking(
         var title: String? = null,
         var campaignId: Long = 0,
         var pickUpDate: String? = null,
-        var mainImage: String? = null
+        var mainImage: String? = null,
+
+
+        //Used only in app
+        var time: String? = null
 ): Parcelable

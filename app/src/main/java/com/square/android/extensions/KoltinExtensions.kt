@@ -5,7 +5,6 @@ import com.square.android.App
 import com.square.android.R
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.regex.Pattern
 
 private val FORMAT = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
@@ -19,7 +18,9 @@ fun Int.toOrdinalString() =
         }
 
 fun String.toDate(): Date {
-    return FORMAT.parse(this)
+    val format = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+    return format.parse(this)
 }
 
 fun Calendar.relativeTimeString(now: Calendar) : String {

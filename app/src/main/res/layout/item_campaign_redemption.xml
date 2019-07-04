@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true" >
+
+    <View
+        android:id="@+id/campaignRedemptionImageShadow"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@drawable/circle_white"
+        android:backgroundTint="@color/nice_pink"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/campaignRedemptionImage"
+        app:layout_constraintEnd_toEndOf="@id/campaignRedemptionImage"
+        app:layout_constraintStart_toStartOf="@id/campaignRedemptionImage"
+        app:layout_constraintTop_toTopOf="@id/campaignRedemptionImage" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/redemptionContainer"
+        android:id="@+id/campaignRedemptionContainer"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="51dp"
@@ -14,77 +28,65 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_background_white"
+        android:backgroundTint="@color/nice_pink"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" >
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="5dp"
             android:gravity="center"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"  >
+            app:layout_constraintEnd_toEndOf="parent" >
 
             <ImageView
-                android:id="@+id/redemptionTimeIcon"
+                android:id="@+id/campaignRedemptionTimeIcon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_timer"
-                android:tint="@color/gray_disabled" />
+                android:tint="@color/pinkish_white" />
 
             <TextView
-                android:id="@+id/redemptionTimeLabel"
+                android:id="@+id/campaignRedemptionTimeLabel"
                 style="@style/Models12Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="0.5dp"
                 android:paddingStart="4dp"
                 android:text="@string/booked_for"
-                android:textColor="@color/gray_disabled" />
+                android:textColor="@color/pinkish_white" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/redemptionAddress"
-            style="@style/Models12Text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/gray_disabled"
-            app:layout_constraintEnd_toStartOf="@+id/divider"
-            app:layout_constraintStart_toStartOf="@+id/redemptionTitle"
-            app:layout_constraintTop_toTopOf="@+id/guideline11"
-            tools:text="Via De Giovanni 2" />
-
-        <TextView
-            android:id="@+id/redemptionTitle"
+            android:id="@+id/campaignRedemptionTitle"
             style="@style/Models16BoldText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="49dp"
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/gray_disabled"
-            app:layout_constraintBottom_toTopOf="@+id/guideline11"
+            android:maxLines="2"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/divider"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Contraste" />
 
         <TextView
-            android:id="@+id/redemptionHours"
+            android:id="@+id/campaignRedemptionHours"
             style="@style/Models14Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray_disabled"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2"
             app:layout_constraintTop_toTopOf="@+id/guideline11"
@@ -92,12 +94,12 @@
             tools:text="13:00 - 15:00" />
 
         <TextView
-            android:id="@+id/redemptionDate"
+            android:id="@+id/campaignRedemptionDate"
             style="@style/Models10Text"
-            android:layout_marginBottom="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray_disabled"
+            android:layout_marginBottom="5dp"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -108,7 +110,7 @@
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:background="@color/gray_divider"
+            android:background="@color/white_20_alpha"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
             app:layout_constraintTop_toTopOf="parent" />
@@ -121,30 +123,19 @@
             app:layout_constraintGuide_percent="0.5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/redemptionImageShadow"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:elevation="2dp"
-        android:background="@drawable/circle_white"
-        app:layout_constraintBottom_toBottomOf="@id/redemptionImage"
-        app:layout_constraintEnd_toEndOf="@id/redemptionImage"
-        app:layout_constraintStart_toStartOf="@id/redemptionImage"
-        app:layout_constraintTop_toTopOf="@id/redemptionImage" />
-
     <com.square.android.ui.view.CircleImageView
-        android:id="@+id/redemptionImage"
+        android:id="@+id/campaignRedemptionImage"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:adjustViewBounds="true"
         android:cropToPadding="false"
-        android:scaleType="centerCrop"
         android:elevation="2dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/round_background"
-        app:layout_constraintBottom_toBottomOf="@id/redemptionContainer"
+        app:layout_constraintBottom_toBottomOf="@id/campaignRedemptionContainer"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/redemptionContainer" />
+        app:layout_constraintTop_toTopOf="@id/campaignRedemptionContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

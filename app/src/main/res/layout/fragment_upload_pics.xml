@@ -10,6 +10,7 @@
     android:background="@android:color/white"
     app:cardCornerRadius="12dp"
     app:cardElevation="1dp"
+    android:layout_gravity="center_vertical"
     android:animateLayoutChanges="true"
     app:cardUseCompatPadding="true" >
 
