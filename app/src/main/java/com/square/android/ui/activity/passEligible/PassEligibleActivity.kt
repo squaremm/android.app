@@ -1,8 +1,10 @@
 package com.square.android.ui.activity.passEligible
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.android.billingclient.api.*
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -56,6 +58,10 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
             }
         }
 
+        passBtnWeekly.setOnClickListener { setSelectedProduct(1) }
+
+        passBtnMonthly.setOnClickListener { setSelectedProduct(0) }
+
         // must be called at the end of onCreate()
         connectBilling()
     }
@@ -85,9 +91,9 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                 passProgress.visibility = View.GONE
                 passPayBtn.visibility = View.VISIBLE
 
-                //TODO show passCardView and hide passMainProgress
-
                 setSelectedProduct(0)
+
+                hideMainProgress()
 
             } else {
                 Crashlytics.logException(Throwable("BILLING -> PassEligibleActivity: querySkuDetailsAsync() | responseCode != OK  or skuDetailsList == null\""))
@@ -103,10 +109,25 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
             when(selectedProduct){
                 0 -> {
                     selectedSkuDetails = skuDetailsList!!.firstOrNull { it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME }
+
+                    passBtnWeekly.setTextColor(ContextCompat.getColor(passBtnWeekly.context, R.color.gray_disabled))
+                    passBtnWeekly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnWeekly.context, android.R.color.white))
+
+                    passBtnMonthly.bringToFront()
+                    passBtnMonthly.setTextColor(ContextCompat.getColor(passBtnMonthly.context, android.R.color.black))
+                    passBtnMonthly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnMonthly.context, R.color.gray_btn_disabled))
                 }
 
                 1 -> {
                     selectedSkuDetails = skuDetailsList!!.firstOrNull { it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME }
+
+
+                    passBtnMonthly.setTextColor(ContextCompat.getColor(passBtnMonthly.context, R.color.gray_disabled))
+                    passBtnMonthly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnMonthly.context, android.R.color.white))
+
+                    passBtnWeekly.bringToFront()
+                    passBtnWeekly.setTextColor(ContextCompat.getColor(passBtnWeekly.context, android.R.color.black))
+                    passBtnWeekly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnWeekly.context, R.color.gray_btn_disabled))
                 }
             }
 
@@ -115,6 +136,11 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                 passCardTime.text = if(it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME) getString(R.string.slash_month) else getString(R.string.slash_week)
             }
         }
+    }
+
+    private fun hideMainProgress(){
+        passMainProgress.visibility = View.GONE
+        passCardView.visibility = View.VISIBLE
     }
 
     override fun handlePurchases(nullOrEmpty: Boolean) {

@@ -237,8 +237,8 @@
     <string name="good_news">Good news!</string>
     <string name="you_are_eligible">You are eligible for the</string>
     <string name="square_pass_program">SQUARE Pass Program:</string>
-    <string name="slash_week">/week</string>
-    <string name="slash_month">/month</string>
+    <string name="slash_week">/ week</string>
+    <string name="slash_month">/ month</string>
     <string name="pass_features_one">Free access to all our Venues, Gyms, Hairdressers</string>
     <string name="pass_features_two">Access to our organic growth plan</string>
     <string name="pay">Pay</string>
@@ -306,6 +306,9 @@
     <string name="no_address">No address provided</string>
 
     <string name="premium_plan">Premium Plan</string>
+
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
 
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
