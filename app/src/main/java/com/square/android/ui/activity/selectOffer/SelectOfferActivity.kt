@@ -14,11 +14,14 @@ import com.square.android.androidx.navigator.AppNavigator
 import com.square.android.presentation.presenter.selectOffer.SelectOfferPresenter
 import com.square.android.presentation.view.selectOffer.SelectOfferView
 import com.square.android.ui.activity.BaseActivity
+import com.square.android.ui.activity.sendPicture.INDEX_EXTRA
+import com.square.android.ui.activity.sendPicture.SendPictureActivity
 import com.square.android.ui.fragment.review.ReviewExtras
 import com.square.android.ui.fragment.checkIn.CheckInFragment
 import com.square.android.ui.fragment.offersList.OffersListFragment
 import com.square.android.ui.fragment.review.ReviewFragment
 import kotlinx.android.synthetic.main.activity_select_offer.*
+import org.jetbrains.anko.intentFor
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
@@ -93,7 +96,11 @@ class SelectOfferActivity: BaseActivity(), SelectOfferView {
 
     private class SelectOfferNavigator(activity: FragmentActivity) : AppNavigator(activity, R.id.selectOfferContainer) {
 
-        override fun createActivityIntent(context: Context, screenKey: String, data: Any?) = null
+        override fun createActivityIntent(context: Context, screenKey: String, data: Any?) =
+                when (screenKey) {
+                    SCREENS.SEND_PICTURE -> context.intentFor<SendPictureActivity>(INDEX_EXTRA to data as Int)
+                    else -> null
+                }
 
         override fun createFragment(screenKey: String, data: Any?) = when (screenKey) {
             SCREENS.OFFERS_LIST -> OffersListFragment.newInstance(data as Long)

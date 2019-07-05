@@ -97,7 +97,7 @@
             android:theme="@style/CollapsingToolbarActivity" />
 
         <activity
-            android:name=".ui.activity.uploadScreenshot.UploadScreenshotActivity"
+            android:name=".ui.activity.sendPicture.SendPictureActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 

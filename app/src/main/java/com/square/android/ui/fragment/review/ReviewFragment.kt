@@ -140,7 +140,7 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
     override fun itemClicked(position: Int) {
         val type = filteredTypes!![position]
 
-        presenter.itemClicked(type.key)
+        presenter.itemClicked(type.key, position)
     }
 
     override fun showDialog(type: String, coins: Int, feedback: String) {
@@ -210,6 +210,15 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
                                  )
                          )
                  ),*/
+
+                ReviewType(
+                        //TODO change icon (imageRes)
+                        imageRes = R.drawable.add_photo,
+                        titleRes = R.string.send_picture,
+                        descriptionRes = R.string.send_photo_description,
+                        key = TYPE_PICTURE,
+                        stages = listOf()
+                ),
 
                 ReviewType(
                         imageRes = R.drawable.instagram_logo,

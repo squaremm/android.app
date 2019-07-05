@@ -70,6 +70,7 @@
     <string name="claimed">Claimed</string>
     <string name="price">Price</string>
     <string name="insta_story">Instagram Story</string>
+    <string name="send_picture">Send picture</string>
     <string name="insta_post">Instagram Post</string>
     <string name="book">Book</string>
     <string name="time_range">%s - %s</string>
@@ -107,6 +108,7 @@
     <string name="offre_not_selected">You didn\'t select an offer</string>
     <string name="insta_post_description">Tag the restaurant and the app in an Instagram post showing yourself there</string>
     <string name="insta_story_description">Tag the restaurant and the app in an Instagram story showing yourself there</string>
+    <string name="send_photo_description">Make and send a photo</string>
     <string name="trip_advisor">Tripadvisor review</string>
     <string name="trip_advisor_description">Add a review on tripadvisor</string>
     <string name="google_places">Google Places review</string>

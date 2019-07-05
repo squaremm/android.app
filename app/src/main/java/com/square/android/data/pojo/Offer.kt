@@ -9,6 +9,7 @@ const val TYPE_INSTAGRAM_STORY = "instaStories"
 const val TYPE_TRIP_ADVISOR = "tripAdvisorPost"
 const val TYPE_GOOGLE_PLACES = "gPost"
 const val TYPE_YELP = "yelpPost"
+const val TYPE_PICTURE = "sendPicture"
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class Offer(

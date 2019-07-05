@@ -50,6 +50,9 @@ object SCREENS {
     const val PICK_UP_MAP = "PICK_UP_MAP"
 
     const val PASS_ELIGIBLE = "PASS_ELIGIBLE"
+
+    const val SEND_PICTURE = "SEND_PICTURE"
+
 }
 
 object Network {

@@ -1,4 +1,4 @@
-package com.square.android.ui.activity.uploadScreenshot
+package com.square.android.ui.activity.sendPicture
 
 import android.app.Activity
 import android.content.Intent
@@ -13,23 +13,25 @@ import com.mapbox.android.core.permissions.PermissionsListener
 import com.square.android.R
 import com.square.android.extensions.loadImage
 import com.square.android.extensions.toBytes
-import com.square.android.presentation.presenter.uploadScreenshot.UploadScreenshotPresenter
-import com.square.android.presentation.view.uploadScreenshot.UploadScreenshotView
+import com.square.android.presentation.presenter.sendPicture.SendPicturePresenter
+import com.square.android.presentation.view.sendPicture.SendPictureView
 import com.square.android.ui.activity.BaseActivity
 import com.square.android.ui.base.SimpleNavigator
 import com.square.android.utils.FileUtils
 import com.square.android.utils.IMAGE_PICKER_RC
 import com.square.android.utils.PermissionsManager
-import kotlinx.android.synthetic.main.activity_upload_screenshot.*
+import kotlinx.android.synthetic.main.activity_send_picture.*
 import ru.terrakok.cicerone.Navigator
 
-class UploadScreenshotActivity: BaseActivity(), UploadScreenshotView, PermissionsListener {
+const val INDEX_EXTRA = "INDEX_EXTRA"
+
+class SendPictureActivity: BaseActivity(), SendPictureView, PermissionsListener {
 
     @InjectPresenter
-    lateinit var presenter: UploadScreenshotPresenter
+    lateinit var presenter: SendPicturePresenter
 
     @ProvidePresenter
-    fun providePresenter() = UploadScreenshotPresenter()
+    fun providePresenter() = SendPicturePresenter(getIndex())
 
     override fun provideNavigator(): Navigator = object : SimpleNavigator {}
 
@@ -41,7 +43,7 @@ class UploadScreenshotActivity: BaseActivity(), UploadScreenshotView, Permission
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_upload_screenshot)
+        setContentView(R.layout.activity_send_picture)
 
         uploadImv.setOnClickListener { if(imageUri == null) openPhotoPicker() else deleteImage() }
 
@@ -120,4 +122,6 @@ class UploadScreenshotActivity: BaseActivity(), UploadScreenshotView, Permission
         uploadSend.visibility = View.GONE
         uploadProgress.visibility = View.VISIBLE
     }
+
+    private fun getIndex() = intent.getIntExtra(INDEX_EXTRA, 0)
 }

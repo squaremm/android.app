@@ -6,6 +6,7 @@ import com.square.android.SCREENS
 import com.square.android.data.pojo.CREDITS_TO_SOCIAL
 import com.square.android.data.pojo.Offer
 import com.square.android.data.pojo.ReviewInfo
+import com.square.android.data.pojo.TYPE_PICTURE
 import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
@@ -49,13 +50,22 @@ class ReviewPresenter(private val offerId: Long,
         viewState.showData(data!!, reviewInfo.feedback)
     }
 
-    fun itemClicked(type: String) {
+    fun itemClicked(type: String, index: Int) {
         val coins = data!!.credits[type] ?: 0
 
         reviewInfo.postType = type
 
-        viewState.showDialog(type, coins, reviewInfo.feedback)
+        if(reviewInfo.postType == TYPE_PICTURE){
+            //TODO check if working - if not, make and fire method in SelectOfferActivity to router.navigate
+
+            //TODO find a way to back to ReviewFragment from SendPictureActivity
+            router.navigateTo(SCREENS.SEND_PICTURE, index)
+        } else{
+            viewState.showDialog(type, coins, reviewInfo.feedback)
+        }
     }
+
+    //TODO fire presenter.lastStageReached(index of send picture) on event bus event from SendPictureActivity when picture uploaded correctly
 
     fun lastStageReached(index: Int) {
         currentPosition = index
