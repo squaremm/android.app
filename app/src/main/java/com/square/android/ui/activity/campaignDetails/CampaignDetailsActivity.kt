@@ -26,6 +26,7 @@ import com.square.android.ui.fragment.approval.ApprovalFragment
 import com.square.android.ui.fragment.campaignNotApproved.CampaignNotApprovedFragment
 import com.square.android.ui.fragment.pickUpLocation.PickUpLocationFragment
 import com.square.android.ui.fragment.pickUpSpot.PickUpSpotFragment
+import com.square.android.ui.fragment.scanQr.ScanQrFragment
 import com.square.android.ui.fragment.uploadPics.UploadPicsFragment
 import kotlinx.android.synthetic.main.activity_campaign_details.*
 import org.jetbrains.anko.intentFor
@@ -74,6 +75,10 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView{
         presenter.navigateToAddPhoto()
     }
 
+    fun navigateToQr(){
+        presenter.navigateToQr()
+    }
+
     override fun showProgress() {
         campaignContainer.visibility = View.GONE
         campaignProgress.visibility =  View.VISIBLE
@@ -106,6 +111,7 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView{
                 SCREENS.APPROVAL -> ApprovalFragment.newInstance(data as Campaign)
                 SCREENS.PICK_UP_SPOT -> PickUpSpotFragment.newInstance(data as Campaign)
                 SCREENS.PICK_UP_LOCATION -> PickUpLocationFragment.newInstance(data as CampaignInterval.Location)
+                SCREENS.SCAN_QR -> ScanQrFragment()
                 else -> throw IllegalArgumentException("Unknown screen key: $screenKey")
             }
         }

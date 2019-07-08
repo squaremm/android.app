@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_pick_up_location.*
 import org.jetbrains.anko.bundleOf
 import android.content.Intent
 import android.net.Uri
+import com.square.android.ui.activity.campaignDetails.CampaignDetailsActivity
 
 class PickUpLocationFragment: BaseFragment(), PickUpLocationView{
 
@@ -46,6 +47,8 @@ class PickUpLocationFragment: BaseFragment(), PickUpLocationView{
         super.onViewCreated(view, savedInstanceState)
 
         pickupLocationOpen.setOnClickListener { openMapsIntent() }
+
+        pickupLocationQr.setOnClickListener { (activity as CampaignDetailsActivity).navigateToQr() }
     }
 
     private fun openMapsIntent(){

@@ -90,6 +90,9 @@ androidExtensions {
 
 dependencies {
 
+    // Fotoapparat
+    implementation 'io.fotoapparat:fotoapparat:2.7.0'
+
     // Google Play Billing
     implementation 'com.android.billingclient:billing:2.0.1'
 

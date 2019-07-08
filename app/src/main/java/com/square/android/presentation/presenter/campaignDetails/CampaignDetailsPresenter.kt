@@ -16,6 +16,8 @@ class PhotosAddedEvent()
 
 class CampaignBookEvent()
 
+class ScanQrEvent()
+
 @InjectViewState
 class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDetailsView>(){
 
@@ -32,6 +34,12 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
     @Suppress("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCampaignBook(event: CampaignBookEvent) {
+        loadData()
+    }
+
+    @Suppress("unused")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onScanQrEvent(event: ScanQrEvent) {
         loadData()
     }
 
@@ -89,6 +97,8 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
     }
 
     fun navigateToAddPhoto() = data?.let { router.navigateTo(SCREENS.ADD_PHOTO, it) }
+
+    fun navigateToQr() = router.navigateTo(SCREENS.SCAN_QR)
 
     override fun onDestroy() {
         super.onDestroy()

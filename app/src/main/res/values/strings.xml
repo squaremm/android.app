@@ -320,6 +320,8 @@
     <string name="food_picture">Food picture</string>
 
 
+    <string name="scan_qr">Scan QR code</string>
+
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
     <string name="how_to_review">How to make a review</string>

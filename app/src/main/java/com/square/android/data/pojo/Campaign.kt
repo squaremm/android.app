@@ -47,7 +47,9 @@ data class Campaign(
         var isPictureUploadAllow: Boolean? = false,
 
         var location: CampaignInterval.Location? = null,
-        var slot: CampaignInterval.Slot? = null
+        var slot: CampaignInterval.Slot? = null,
+        var qrCode: String? = null
+
 
 ): Parcelable {
 

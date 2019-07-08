@@ -55,6 +55,8 @@ object SCREENS {
     const val SEND_PICTURE_CHOOSE = "SEND_PICTURE_CHOOSE"
     const val SEND_PICTURE_UPLOAD = "SEND_PICTURE_UPLOAD"
 
+    const val SCAN_QR = "SCAN_QR"
+
 }
 
 object Network {
