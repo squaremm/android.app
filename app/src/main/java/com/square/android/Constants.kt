@@ -52,6 +52,8 @@ object SCREENS {
     const val PASS_ELIGIBLE = "PASS_ELIGIBLE"
 
     const val SEND_PICTURE = "SEND_PICTURE"
+    const val SEND_PICTURE_CHOOSE = "SEND_PICTURE_CHOOSE"
+    const val SEND_PICTURE_UPLOAD = "SEND_PICTURE_UPLOAD"
 
 }
 

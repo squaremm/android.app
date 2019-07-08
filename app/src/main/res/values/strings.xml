@@ -312,6 +312,14 @@
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
 
+
+    <string name="foodpic">FoodPic</string>
+    <string name="atmosphere">Atmosphere</string>
+    <string name="model_in_venue">Model in venue</string>
+    <string name="still_life">Still life</string>
+    <string name="food_picture">Food picture</string>
+
+
     <string name="tutorials">Tutorials</string>
     <string name="how_to_credits">How to earn credits</string>
     <string name="how_to_review">How to make a review</string>

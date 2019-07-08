@@ -11,8 +11,11 @@ import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
 import com.square.android.presentation.presenter.redemptions.RedemptionsUpdatedEvent
+import com.square.android.presentation.presenter.sendPicture.SendPictureEvent
 import com.square.android.presentation.view.review.ReviewView
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
 
 @InjectViewState
@@ -30,7 +33,14 @@ class ReviewPresenter(private val offerId: Long,
     private var currentPosition: Int? = null
 
     init {
+        bus.register(this)
+
         loadData()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSendPictureEvent(event: SendPictureEvent) {
+        lastStageReached(event.data.index, event.data.type)
     }
 
     private fun loadData() = launch {
@@ -56,25 +66,28 @@ class ReviewPresenter(private val offerId: Long,
         reviewInfo.postType = type
 
         if(reviewInfo.postType == TYPE_PICTURE){
-            //TODO check if working - if not, make and fire method in SelectOfferActivity to router.navigate
 
-            //TODO find a way to back to ReviewFragment from SendPictureActivity
             router.navigateTo(SCREENS.SEND_PICTURE, index)
+
         } else{
             viewState.showDialog(type, coins, reviewInfo.feedback)
         }
     }
 
-    //TODO fire presenter.lastStageReached(index of send picture) on event bus event from SendPictureActivity when picture uploaded correctly
-
-    fun lastStageReached(index: Int) {
+    fun lastStageReached(index: Int, type: Int? = null) {
         currentPosition = index
 
-        createPost()
+        createPost(type)
     }
 
-    private fun createPost() = launch {
-        interactor.addReview(reviewInfo, offerId).await()
+    private fun createPost(type: Int? = null) = launch {
+
+        type?.let {
+            //TODO new addReview for sendPicture?
+
+        } ?: run {
+            interactor.addReview(reviewInfo, offerId).await()
+        }
 
         viewState.disableItem(currentPosition!!)
         viewState.showButtons()
@@ -115,11 +128,16 @@ class ReviewPresenter(private val offerId: Long,
         bus.post(event)
     }
 
-    //TODO where to go from here?
-    fun goToMain() = router.replaceScreen(SCREENS.REDEMPTIONS)
+    fun finishChain() = router.finishChain()
 
     private fun sendRedemptionsUpdatedEvent() {
         val event = RedemptionsUpdatedEvent()
         bus.post(event)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        bus.unregister(this)
     }
 }

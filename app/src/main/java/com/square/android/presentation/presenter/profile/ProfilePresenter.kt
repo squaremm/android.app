@@ -154,6 +154,8 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
     }
 
     override fun onDestroy() {
+        super.onDestroy()
+
         eventBus.unregister(this)
     }
 

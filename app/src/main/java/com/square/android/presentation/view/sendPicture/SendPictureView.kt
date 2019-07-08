@@ -1,7 +1,7 @@
 package com.square.android.presentation.view.sendPicture
 
-import com.square.android.presentation.view.ProgressView
+import com.square.android.presentation.view.BaseView
 
-interface SendPictureView : ProgressView {
-    fun acExit()
+interface SendPictureView : BaseView {
+
 }

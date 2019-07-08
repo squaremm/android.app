@@ -72,12 +72,12 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
 
         reviewSubmit.setOnClickListener { presenter.submitClicked() }
 
-        reviewSkip.setOnClickListener {presenter.goToMain()}
+        reviewSkip.setOnClickListener {presenter.finishChain()}
     }
 
     override fun showCongratulations() {
         CongratulationsDialog(activity!!).show {
-            presenter.goToMain()
+            presenter.finishChain()
         }
     }
 
