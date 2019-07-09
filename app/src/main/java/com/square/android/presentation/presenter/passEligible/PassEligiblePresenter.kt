@@ -112,6 +112,8 @@ class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
     }, { error ->
         //TODO must handle errors here - mixing repository and billingRepository
 
+        viewState.hideDialog()
+
         Crashlytics.logException(Throwable("PURCHASE -> PassEligiblePresenter: onPurchasesUpdatedEvent() -> error: ${error.toString()}"))
         Log.d("PURCHASE","PassEligiblePresenter: onPurchasesUpdatedEvent() -> error: ${error.toString()}")
     })

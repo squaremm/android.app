@@ -9,23 +9,19 @@ import org.greenrobot.eventbus.EventBus
 import org.koin.standalone.inject
 
 @InjectViewState
-class ScanQrPresenter: BasePresenter<ScanQrView>(){
+class ScanQrPresenter : BasePresenter<ScanQrView>() {
 
     private val eventBus: EventBus by inject()
 
-    var scanning = false
+    fun scanQr(qrCode: String) {
+        launch {
+            viewState.showProgress()
 
-    fun scanQr(qrCode: String){
-        if (!scanning) {
-                launch {
-                    viewState.showProgress()
+            repository.sendQr(QrInfo(qrCode)).await()
 
-                    repository.sendQr(QrInfo(qrCode)).await()
+            viewState.hideProgress()
 
-                    eventBus.post(ScanQrEvent())
-
-                    viewState.hideProgress()
-                }
+            eventBus.post(ScanQrEvent())
         }
     }
 }

@@ -90,6 +90,9 @@ androidExtensions {
 
 dependencies {
 
+    // ZXing
+    implementation 'com.google.zxing:core:3.4.0'
+
     // Fotoapparat
     implementation 'io.fotoapparat:fotoapparat:2.7.0'
 

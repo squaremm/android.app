@@ -6,4 +6,7 @@ interface PassEligibleView : BaseView {
     fun handlePurchases(nullOrEmpty: Boolean)
 
     fun purchasesComplete()
+
+    fun showDialog()
+    fun hideDialog()
 }

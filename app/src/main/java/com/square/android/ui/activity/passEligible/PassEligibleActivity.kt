@@ -18,6 +18,7 @@ import ru.terrakok.cicerone.Navigator
 import com.android.billingclient.api.BillingClient.FeatureType
 import com.crashlytics.android.Crashlytics
 import com.square.android.ui.activity.BaseBillingActivity
+import com.square.android.ui.dialogs.LoadingDialog
 
 class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
 
@@ -34,6 +35,8 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
     private var skuDetailsList: List<SkuDetails>? = null
 
     private var selectedSkuDetails: SkuDetails? = null
+
+    private var loadingDialog: LoadingDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +67,8 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
 
         // must be called at the end of onCreate()
         connectBilling()
+
+        loadingDialog = LoadingDialog(this)
     }
 
     override fun onBillingConnected() {
@@ -147,14 +152,21 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
         if(nullOrEmpty){
             showMessage(getString(R.string.something_went_wrong))
         } else{
-            //TODO maybe show loading dialog that cannot be cancelled instead of code below
-
-            passPayBtn.visibility = View.GONE
-            passProgress.visibility = View.VISIBLE
+            showDialog()
         }
     }
 
+    override fun hideDialog() {
+        loadingDialog?.dismiss()
+    }
+
+    override fun showDialog() {
+        loadingDialog?.show()
+    }
+
     override fun purchasesComplete() {
+        hideDialog()
+
         showMessage(getString(R.string.purchase_completed_successfully))
         onBackPressed()
     }
