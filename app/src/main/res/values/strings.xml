@@ -176,6 +176,9 @@
     <string name="book_a_spot">Book a spot</string>
     <string name="earn_more_credits">Earn more credits</string>
 
+    <string name="select_a_place">Select a place:</string>
+    <string name="select_a_spot">Select a spot:</string>
+
     <string name="tut_1_1">The label here is telling\nthe offer availability.</string>
     <string name="tut_1_2">Tab over an offer to\nsee it\'s composition.</string>
 

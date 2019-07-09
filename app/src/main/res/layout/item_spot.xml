@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/background_rounded_4dp"
+    android:backgroundTint="@color/gray_light" >
+
+    <LinearLayout
+        android:id="@+id/itemSpotAddressLl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/itemSpotChevron"
+        app:layout_constraintEnd_toStartOf="@+id/itemSpotChevron"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/itemSpotChevron">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_pin"
+            android:tint="@color/blueish_gray" />
+
+        <TextView
+            android:id="@+id/itemSpotAddress"
+            style="@style/Models18BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/blueish_gray"
+            tools:text="Via Calle Pace 17, Milano" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/itemSpotChevron"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:src="@drawable/chevron_right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
