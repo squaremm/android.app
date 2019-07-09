@@ -36,6 +36,8 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
 
     private var selectedSkuDetails: SkuDetails? = null
 
+    private var purchaseComplete: Boolean = false
+
     private var loadingDialog: LoadingDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +55,7 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                     }
                 }
             } else{
-                Crashlytics.logException(Throwable("BILLING -> PassEligibleActivity: subscriptions not supported"))
+                Crashlytics.log("BILLING -> PassEligibleActivity: subscriptions not supported")
 
                 Log.d("BILLING","subscriptions not supported")
 
@@ -101,7 +103,7 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                 hideMainProgress()
 
             } else {
-                Crashlytics.logException(Throwable("BILLING -> PassEligibleActivity: querySkuDetailsAsync() | responseCode != OK  or skuDetailsList == null\""))
+                Crashlytics.log("BILLING -> PassEligibleActivity: querySkuDetailsAsync() | responseCode != OK  or skuDetailsList == null\"")
 
                 Log.d("BILLING","| PassEligibleActivity: querySkuDetailsAsync() | responseCode != OK  or skuDetailsList == null")
             }
@@ -118,7 +120,6 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                     passBtnWeekly.setTextColor(ContextCompat.getColor(passBtnWeekly.context, R.color.gray_disabled))
                     passBtnWeekly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnWeekly.context, android.R.color.white))
 
-                    passBtnMonthly.bringToFront()
                     passBtnMonthly.setTextColor(ContextCompat.getColor(passBtnMonthly.context, android.R.color.black))
                     passBtnMonthly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnMonthly.context, R.color.gray_btn_disabled))
                 }
@@ -130,7 +131,6 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                     passBtnMonthly.setTextColor(ContextCompat.getColor(passBtnMonthly.context, R.color.gray_disabled))
                     passBtnMonthly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnMonthly.context, android.R.color.white))
 
-                    passBtnWeekly.bringToFront()
                     passBtnWeekly.setTextColor(ContextCompat.getColor(passBtnWeekly.context, android.R.color.black))
                     passBtnWeekly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnWeekly.context, R.color.gray_btn_disabled))
                 }
@@ -164,7 +164,14 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
         loadingDialog?.show()
     }
 
+    override fun onBackPressed() {
+        if (purchaseComplete) {
+            super.onBackPressed()
+        }
+    }
+
     override fun purchasesComplete() {
+        purchaseComplete = true
         hideDialog()
 
         showMessage(getString(R.string.purchase_completed_successfully))

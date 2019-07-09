@@ -70,6 +70,11 @@ public class PermissionsManager {
         requestPermissions(activity, permissions);
     }
 
+    public void requestCameraPermissions(Fragment fragment) {
+        String[] permissions = new String[]{Manifest.permission.CAMERA};
+        fragment.requestPermissions(permissions, REQUEST_PERMISSIONS_CODE);
+    }
+
     public void requestLocationPermissions(Fragment fragment) {
         String[] permissions = new String[]{FINE_LOCATION_PERMISSION};
 

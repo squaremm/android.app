@@ -1,6 +1,7 @@
 package com.square.android.presentation.presenter.scanQr
 
 import com.arellomobile.mvp.InjectViewState
+import com.square.android.data.network.errorMessage
 import com.square.android.data.pojo.QrInfo
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.campaignDetails.ScanQrEvent
@@ -14,14 +15,20 @@ class ScanQrPresenter : BasePresenter<ScanQrView>() {
     private val eventBus: EventBus by inject()
 
     fun scanQr(qrCode: String) {
-        launch {
+        launch({
             viewState.showProgress()
 
-            repository.sendQr(QrInfo(qrCode)).await()
+            val response = repository.sendQr(QrInfo(qrCode)).await()
 
             viewState.hideProgress()
 
             eventBus.post(ScanQrEvent())
-        }
+        }, { error ->
+            viewState.hideProgress()
+
+            viewState.startFotoapparat()
+
+            router.showSystemMessage(error.errorMessage)
+        })
     }
 }

@@ -178,6 +178,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Models38BoldText" parent="ModelsText">
+        <item name="android:textSize">38sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="Models40BoldText" parent="ModelsText">
         <item name="android:textSize">40sp</item>
         <item name="android:textStyle">bold</item>

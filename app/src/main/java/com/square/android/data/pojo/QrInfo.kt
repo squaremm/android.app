@@ -4,4 +4,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class QrInfo(
-        val qrCode: String? = null)
+        val qrCode: String? = null
+)

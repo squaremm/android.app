@@ -8,9 +8,11 @@ interface OauthApiService {
 
     @FormUrlEncoded
     @POST("token")
-    fun refreshToken(@Field("grant_type") grantType: String,
-                     @Field("client_id") clientId: String, @Field("client_secret") clientSecret: String,
-                     @Field("refresh_token") refreshToken: String,
-                     @Field("redirect_uri") redirectUri: String): Call<RefreshTokenResult>
+    fun getToken(
+            @Field("grant_type", encoded = true) grantType: String,
+            @Field("client_id", encoded = true) clientId: String,
+            @Field("client_secret", encoded = true) clientSecret: String,
+            @Field("code", encoded = true) code: String,
+            @Field("redirect_uri", encoded = true) redirectUri: String): Call<RefreshTokenResult>
 }
 

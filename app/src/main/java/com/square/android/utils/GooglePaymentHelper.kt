@@ -108,7 +108,7 @@ object GooglePaymentHelper {
     }
 
     @Throws(JSONException::class)
-    private fun getTransactionInfo(price: String, priceStatusFinal: Boolean ): JSONObject {
+    private fun getTransactionInfo(price: String, priceStatusFinal: Boolean): JSONObject {
         return JSONObject().apply {
             put("totalPrice", price)
 

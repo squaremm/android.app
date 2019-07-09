@@ -100,6 +100,7 @@ class AuthPresenter : BasePresenter<AuthView>() {
             when {
                 profile.newUser -> router.replaceScreen(SCREENS.FILL_PROFILE_FIRST, ProfileInfo())
                 profile.isAcceptationPending -> viewState.showPendingUser()
+                !profile.accepted -> viewState.showMessage("You haven't been accepted!")
                 else -> {
                     viewState.hideUserPending()
                     repository.setProfileFilled(true)

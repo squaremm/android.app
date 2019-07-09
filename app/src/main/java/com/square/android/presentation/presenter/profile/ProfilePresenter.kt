@@ -50,7 +50,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
     }
 
     private fun loadSubscriptions() = launch ({
-        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions()"))
+        Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions()")
 
         viewState.hideButton()
         viewState.hidePremiumLabel()
@@ -60,7 +60,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
         val isPaymentRequired = repository.getUserInfo().isPaymentRequired
 
         if(isPaymentRequired){
-            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> PAYMENT REQUIRED"))
+            Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> PAYMENT REQUIRED")
 
             val subscriptions: MutableList<BillingSubscription> = mutableListOf()
 
@@ -75,14 +75,14 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
                 subscriptions.add(data)
             }
 
-            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> subscriptionsList: ${subscriptions.toString()}"))
+            Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> subscriptionsList: ${subscriptions.toString()}")
 
             //TODO change to actual time from API
             val actualTimeInMillis: Long = Calendar.getInstance().timeInMillis
 
             val perWeekValidSub = subscriptions.filter { it.subscriptionId == GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
             perWeekValidSub?.let {
-                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perWeekValidSub NOT NULL"))
+                Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perWeekValidSub NOT NULL")
 
                 val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
 
@@ -91,7 +91,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
                 }
 
             } ?: run {
-                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perWeekValidSub IS NULL"))
+                Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perWeekValidSub IS NULL")
             }
 
             val perMonthValidSub = subscriptions.filter { it.subscriptionId == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
@@ -105,23 +105,23 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
                 }
 
             } ?: run {
-                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perMonthValidSub IS NULL"))
+                Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perMonthValidSub IS NULL")
             }
 
             if(actualTokenInfo != null){
                 viewState.showButton(hasSubscription = true)
+                viewState.showPremiumLabel()
             } else{
                 //TODO check if user can get a subscription (required amount of followers on instagram)
                 viewState.showButton(hasSubscription = false)
             }
 
         } else{
-            viewState.showPremiumLabel()
-            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> PAYMENT NOT REQUIRED"))
+            Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> PAYMENT NOT REQUIRED")
         }
 
     } ,{ error ->
-        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> error: ${error.toString()}"))
+        Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> error: ${error.toString()}")
 
         Log.d("SUBSCRIPTIONS","ProfilePresenter: loadSubscriptions() -> error: $error")
     })
@@ -137,14 +137,14 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
 
         billingRepository.cancelSubscription(billingTokenInfo.subscriptionId!!, billingTokenInfo.token!!).await()
 
-        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: cancelSubscription() -> subscription cancelled successfully"))
+        Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: cancelSubscription() -> subscription cancelled successfully")
 
         loadSubscriptions()
     }, { error ->
         viewState.hideSubProgress()
         viewState.showMessage(R.string.something_went_wrong)
 
-        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: cancelSubscription() -> error: ${error.toString()}"))
+        Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: cancelSubscription() -> error: ${error.toString()}")
 
         Log.d("SUBSCRIPTIONS","ProfilePresenter: cancelSubscription() -> error: ${error.toString()}")
     })

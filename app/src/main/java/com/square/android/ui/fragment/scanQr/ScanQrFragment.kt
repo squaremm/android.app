@@ -62,7 +62,7 @@ class ScanQrFragment: BaseFragment(), ScanQrView, PermissionsListener {
         if (PermissionsManager.areCameraPermissionsGranted(activity!!)) {
             setup()
         } else {
-            permissionsManager.requestCameraPermissions(activity!!)
+            permissionsManager.requestCameraPermissions(this)
         }
 
         loadingDialog = LoadingDialog(activity!!)
@@ -74,9 +74,15 @@ class ScanQrFragment: BaseFragment(), ScanQrView, PermissionsListener {
         }
     }
 
-    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) { }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
+        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
 
-    private fun setup(){
+
+    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {}
+
+    private fun setup() {
         fotoapparat = Fotoapparat
                 .with(activity!!)
                 .into(scanQrCamera)
@@ -87,9 +93,9 @@ class ScanQrFragment: BaseFragment(), ScanQrView, PermissionsListener {
                         autoFocus(),
                         fixed()
                 ))
-                .frameProcessor(object: FrameProcessor{
+                .frameProcessor(object : FrameProcessor {
                     override fun process(frame: Frame) {
-                        if(!codeObtained){
+                        if (!codeObtained) {
                             codeObtained = true
                             processFrame(frame)
                         }
@@ -102,11 +108,16 @@ class ScanQrFragment: BaseFragment(), ScanQrView, PermissionsListener {
                 })
                 .build()
 
+        startFotoapparat()
+    }
+
+    override fun startFotoapparat() {
+        codeObtained = false
         fotoapparat!!.start()
     }
 
-    private fun processFrame(frame: Frame){
-        try{
+    private fun processFrame(frame: Frame) {
+        try {
             var bitmap = Bitmap.createBitmap(frame.size.width, frame.size.height, Bitmap.Config.ARGB_8888)
             val bmData = renderScriptNV21ToRGBA8888(
                     activity!!, frame.size.width, frame.size.height, frame.image)
@@ -124,7 +135,7 @@ class ScanQrFragment: BaseFragment(), ScanQrView, PermissionsListener {
                 presenter.scanQr(it)
             } ?: run { codeObtained = false }
 
-        } catch (e: Exception){
+        } catch (e: Exception) {
             codeObtained = false
         }
     }
@@ -142,7 +153,8 @@ class ScanQrFragment: BaseFragment(), ScanQrView, PermissionsListener {
         try {
             val result = reader.decode(bitmap)
             contents = result.text
-        } catch (e: Exception) { }
+        } catch (e: Exception) {
+        }
 
         return contents
     }
@@ -176,13 +188,14 @@ class ScanQrFragment: BaseFragment(), ScanQrView, PermissionsListener {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        fotoapparat?.start()
+    override fun onResume() {
+        super.onResume()
+        startFotoapparat()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         fotoapparat?.stop()
     }
+
 }

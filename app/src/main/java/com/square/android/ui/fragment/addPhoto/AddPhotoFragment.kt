@@ -64,7 +64,7 @@ class AddPhotoFragment: BaseFragment(), AddPhotoView, PermissionsListener, AddPh
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        photosLeft = if (presenter.campaign.images.isNullOrEmpty()) CAMPAIGN_MAX_PHOTOS_VALUE else (CAMPAIGN_MAX_PHOTOS_VALUE - presenter.campaign.images!!.size)
+        photosLeft = presenter.campaign.imageCount!! - presenter.campaign.images!!.size
 
         adapter = AddPhotoAdapter(imagesUri, this)
         addPhotoRv.layoutManager = GridLayoutManager(context, 3)

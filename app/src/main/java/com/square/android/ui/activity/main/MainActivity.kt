@@ -3,6 +3,7 @@ package com.square.android.ui.activity.main
 import android.content.Context
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -120,7 +121,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
             }
             R.id.action_profile -> SCREENS.PROFILE
             R.id.action_places -> SCREENS.PLACES
-            R.id.action_map -> SCREENS.MAP
+//            R.id.action_map -> SCREENS.MAP
             R.id.action_campaigns -> SCREENS.CAMPAIGNS
             else -> SCREENS.PROFILE
         }
@@ -195,8 +196,8 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                     else -> null
                 }
 
-        override fun createFragment(screenKey: String, data: Any?) = when (screenKey) {
-            SCREENS.MAP -> MapFragment()
+        override fun createFragment(screenKey: String, data: Any?): Fragment? = when (screenKey) {
+//            SCREENS.MAP -> MapFragment()
             SCREENS.PLACES -> PlacesFragment()
             SCREENS.REDEMPTIONS -> RedemptionsFragment()
             SCREENS.PROFILE -> ProfileFragment()

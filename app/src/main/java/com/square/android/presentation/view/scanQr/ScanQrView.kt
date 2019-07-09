@@ -4,4 +4,5 @@ import com.square.android.presentation.view.ProgressView
 
 interface ScanQrView : ProgressView {
 
+    fun startFotoapparat()
 }

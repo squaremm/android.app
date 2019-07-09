@@ -34,11 +34,14 @@ class Profile(var message: String = "",
                var mainImage: String? = "",
                var images: List<Photo>? = null,
                var surname: String = "",
-               var isPaymentRequired: Boolean = true) : Parcelable {
+               @field:JsonProperty("isPaymentRequired")
+               var isPaymentRequired: Boolean = true
+    ) : Parcelable {
 
         @Parcelize
         class Instagram(var counts: Counts = Counts(),
-                        @field:JsonProperty("full_name") var fullName: String = "",
+                        @field:JsonProperty("full_name")
+                        var fullName: String = "",
                         var id: String = "",
                         var username: String = "") : Parcelable {
 

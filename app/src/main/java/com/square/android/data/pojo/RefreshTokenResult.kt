@@ -9,5 +9,6 @@ import kotlinx.android.parcel.Parcelize
 class RefreshTokenResult(
         var access_token: String? = null,
         var token_type: String? = null,
-        var expires_in: Long = 0
+        var expires_in: Long = 0,
+        var refresh_token: String? = null
 ): Parcelable

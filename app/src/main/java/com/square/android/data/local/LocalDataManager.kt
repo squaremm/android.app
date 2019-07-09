@@ -3,6 +3,7 @@ package com.square.android.data.local
 import android.annotation.SuppressLint
 import android.content.Context
 import android.preference.PreferenceManager
+import android.util.Log
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME
 import com.square.android.data.pojo.UserInfo
@@ -111,8 +112,12 @@ class LocalDataManager(context: Context) {
     }
 
     fun getAuthToken(): String {
-        return preferences.getString(KEY_AUTH_TOKEN, null)
+        val token= preferences.getString(KEY_AUTH_TOKEN, null)
                 ?: throw IllegalArgumentException("No key is stored")
+
+        Log.e("LOL", "TOKEN: " + token)
+
+        return token
     }
 
     fun setAvatarUrl(url: String?) {

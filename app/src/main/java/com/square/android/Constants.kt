@@ -16,7 +16,7 @@ object SCREENS {
     const val FILL_PROFILE_REFERRAL = "FILL_PROFILE_REFERRAL"
 
     const val REDEMPTIONS = "REDEMPTIONS"
-    const val MAP = "MAP"
+//    const val MAP = "MAP"
     const val PLACES = "PLACES"
     const val PROFILE = "PROFILE"
 
@@ -130,7 +130,7 @@ object GOOGLEBILLING{
 
     const val SUBSCRIPTION_PER_MONTH_NAME = "mmmontly123ui__a0a2."
 
-    const val REFRESH_TOKEN = "4/gQEIJi0T5yeBQ-uN0ec7l2yTvjLitEkj3pzz1hpb6PHAFP8pg7lFi5XZM-ul2TYsi1YJJVm957wpqEpy3AU5arg"
+    const val GOOGLE_CODE = "4/ggFfT1v-57SL-omF7kupN1JnMlM752QbKw-c4ogGC_ul2gi2UAwgipnL97QZX3ovX9gyN5uzzPMuJnd7E_h1sII"
 
     const val CLIENT_SECRET = "ZbRvRt8pHETAdinjz_X6WTlg"
 

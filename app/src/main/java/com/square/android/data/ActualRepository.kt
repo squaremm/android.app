@@ -373,7 +373,7 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun sendQr(qrInfo: QrInfo): Deferred<MessageResponse> = GlobalScope.async {
+    override fun sendQr(qrInfo: QrInfo): Deferred<Campaign> = GlobalScope.async {
         val data = performRequest { api.sendQr(localManager.getAuthToken(), qrInfo) }
         data
     }
