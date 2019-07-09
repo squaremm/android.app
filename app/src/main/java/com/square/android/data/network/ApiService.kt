@@ -112,7 +112,7 @@ interface ApiService {
 
     @POST("user/paymentToken")
     fun sendPaymentToken(@Header("Authorization") authorization: String,
-                         @Body body: BillingTokenInfo): Call<MessageResponse>
+                         @Body body: BillingTokenInfo): Call<List<BillingTokenInfo>>
 
 // Campaign
     @GET("campaign")

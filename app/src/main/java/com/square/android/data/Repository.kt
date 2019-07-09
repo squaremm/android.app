@@ -95,7 +95,7 @@ interface Repository {
 
     fun getPaymentTokens(): Deferred<List<BillingTokenInfo>>
 
-    fun sendPaymentToken(billingTokenInfo: BillingTokenInfo): Deferred<MessageResponse>
+    fun sendPaymentToken(billingTokenInfo: BillingTokenInfo): Deferred<List<BillingTokenInfo>>
 
     fun setUserEntitlement(entitlementId: String, active: Boolean)
 

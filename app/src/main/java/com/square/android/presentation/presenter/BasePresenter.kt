@@ -17,6 +17,8 @@ import com.square.android.data.pojo.ProfileInfo
 import com.square.android.data.pojo.TokenInfo
 import com.square.android.presentation.view.BaseView
 import com.square.android.presentation.view.ProgressView
+import com.square.android.ui.activity.noConnection.NoConnectionClosedEvent
+import com.square.android.utils.BooleanWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -30,7 +32,6 @@ import ru.terrakok.cicerone.Router
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import com.square.android.ui.activity.noConnection.NoConnectionClosedEvent
 import java.util.*
 
 abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
@@ -40,6 +41,8 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
     protected val router: Router by inject()
 
+    private val allowSubsCheck: BooleanWrapper by inject(name = "allowSubsCheck")
+
     private val eventBus: EventBus = EventBus.getDefault()
 
     private var allowNoConnectionScreen = true
@@ -47,95 +50,125 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNoConnectionClosedEvent(event: NoConnectionClosedEvent) {
         allowNoConnectionScreen = true
+        allowSubsCheck.value = true
         checkSubscriptions()
     }
 
     fun checkSubscriptions() = launch ({
-        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions()"))
+        if(allowSubsCheck.value){
+            allowSubsCheck.value = false
 
-        repository.clearUserEntitlements()
+            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions()"))
+            Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions()")
 
-        val isPaymentRequired = repository.getUserInfo().isPaymentRequired
+            repository.clearUserEntitlements()
 
-        val subscriptions: MutableList<BillingSubscription> = mutableListOf()
+            val isPaymentRequired = repository.getUserInfo().isPaymentRequired
 
-        if(!isPaymentRequired){
-            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT NOT REQUIRED, grant all entitlements to user"))
-            repository.grantAllUserEntitlements()
-        } else{
-            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT REQUIRED"))
+            val subscriptions: MutableList<BillingSubscription> = mutableListOf()
 
-            val billings: List<BillingTokenInfo> = repository.getPaymentTokens().await()
+            if(!isPaymentRequired){
+                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT NOT REQUIRED, grant all entitlements to user"))
+                Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT NOT REQUIRED, grant all entitlements to user")
+                repository.grantAllUserEntitlements()
+            } else{
+                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT REQUIRED"))
+                Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT REQUIRED")
 
-            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}"))
+                val billings: List<BillingTokenInfo> = repository.getPaymentTokens().await()
 
-            for (billing in billings) {
-                val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
-                data.subscriptionId = billing.subscriptionId
-                data.token = billing.token
+                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}"))
+                Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}")
 
-                subscriptions.add(data)
+
+                //TODO uncomment
+//                for (billing in billings) {
+//                    val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
+//                    data.subscriptionId = billing.subscriptionId
+//                    data.token = billing.token
+//
+//                    subscriptions.add(data)
+//                }
+
+                //TODO delete
+                val data = billingRepository.getSubscription("one","two").await()
+
+
+
+                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}"))
+                Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}")
+
+                //TODO change to actual time from API
+                val actualTimeInMillis: Long = Calendar.getInstance().timeInMillis
+
+                //////// check for every subscriptionId in app products ///////////
+                val perWeekValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_WEEK_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
+                perWeekValidSub?.let {
+
+                    Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekValidSub NOT NULL"))
+                    Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekValidSub NOT NULL")
+
+                    val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
+
+                    grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
+                            it.acknowledgementState == 0)
+                } ?: run {
+                    Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekValidSub IS NULL"))
+                    Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekValidSub IS NULL")
+                }
+
+                val perMonthValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_MONTH_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
+                perMonthValidSub?.let {
+
+                    Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub NOT NULL"))
+                    Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub NOT NULL")
+
+                    val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
+
+                    grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
+                            it.acknowledgementState == 0)
+                } ?: run {
+                    Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub IS NULL"))
+
+                    Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub IS NULL")
+                }
+                //////////////////////////////////////////////////////////////////
             }
-
-            Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}"))
-
-            //TODO change to actual time from API
-            val actualTimeInMillis: Long = Calendar.getInstance().timeInMillis
-
-            //////// check for every subscriptionId in app products ///////////
-            val perWeekValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_WEEK_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
-            perWeekValidSub?.let {
-
-                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekValidSub NOT NULL"))
-
-                val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
-
-                grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
-                        it.acknowledgementState == 0)
-            } ?:  Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekValidSub IS NULL"))
-
-
-            val perMonthValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_MONTH_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
-            perMonthValidSub?.let {
-
-                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub NOT NULL"))
-
-                val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
-
-                grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
-                        it.acknowledgementState == 0)
-            } ?:  Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub IS NULL"))
-            //////////////////////////////////////////////////////////////////
-
         }
     }, { error ->
-        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> error: ${error.toString()}"))
 
-        Log.d("SUBSCRIPTIONS","BasePresenter: checkSubscriptions() -> error: ${error.toString()}")
+        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> error: ${error.toString()}"))
+        Log.d("SUBSCRIPTIONS LOG","BasePresenter: checkSubscriptions() -> error: ${error.toString()}")
     })
 
     private fun grantEntitlement(validExpiry: Boolean, billingTokenInfo: BillingTokenInfo, acknowledgementRequired: Boolean){
         Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement()"))
+        Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: grantEntitlement()")
 
         if(validExpiry){
             repository.setUserEntitlement(billingTokenInfo.subscriptionId!!, true)
+            Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: grantEntitlement() -> setting user's entitlement: ${billingTokenInfo.subscriptionId}")
             Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement() -> setting user's entitlement: ${billingTokenInfo.subscriptionId}"))
         } else{
+            Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: grantEntitlement() -> cannot set user's entitlement: ${billingTokenInfo.subscriptionId}, validExpiry == FALSE")
             Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement() -> cannot set user's entitlement: ${billingTokenInfo.subscriptionId}, validExpiry == FALSE"))
         }
 
         if(acknowledgementRequired){
+            Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: grantEntitlement(): acknowledgement IS REQUIRED")
             Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement(): acknowledgement IS REQUIRED"))
 
             launch ({
                 billingRepository.acknowledgeSubscription(billingTokenInfo.subscriptionId!!, billingTokenInfo.token!!, TokenInfo().apply { payload = "" }).await()
+                Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: grantEntitlement(): ACKNOWLEDGED SUCCESSFULLY")
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement(): ACKNOWLEDGED SUCCESSFULLY"))
             }, { error ->
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement(): acknowledge -> error: ${error.toString()}"))
 
-                Log.d("SUBSCRIPTIONS","BasePresenter: grantEntitlement(): acknowledge -> error: ${error.toString()}")
+                Log.d("SUBSCRIPTIONS LOG","BasePresenter: grantEntitlement(): acknowledge -> error: ${error.toString()}")
             })
         } else{
+            Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: grantEntitlement(): acknowledgement NOT REQUIRED")
             Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: grantEntitlement(): acknowledgement NOT REQUIRED"))
         }
     }

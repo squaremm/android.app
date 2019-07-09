@@ -67,9 +67,9 @@ object Network {
 
     const val GOOGLE_BILLING_API_URL = "https://www.googleapis.com/androidpublisher/v3/applications/$PACKAGE_NAME/"
 
-    const val OAUTH_API_URL = "https://accounts.google.com/o/oauth2/"
+    const val OAUTH_API_URL = "https://www.googleapis.com/oauth2/v4/"
 
-    const val OAUTH_CLIENT_ID = "1016898650628-otv9fnfsriv858bek5a1npfqs684lhir.apps.googleusercontent.com"
+    const val OAUTH_CLIENT_ID = "1016898650628-pbhrvi7t6ijq7bbmplopaljcitc1kftj.apps.googleusercontent.com"
 }
 
 object SOCIAL {
@@ -130,7 +130,7 @@ object GOOGLEBILLING{
 
     const val SUBSCRIPTION_PER_MONTH_NAME = "mmmontly123ui__a0a2."
 
-    const val REFRESH_TOKEN = "4/dAFux-z5ssWvm6VDnKfJxKAw7n09jhTGgYZaiHcmGhb2tafQihVJ4dxQk_ws0Yv60nN6zSRYdi8frJ3uXVZ23Bs"
+    const val REFRESH_TOKEN = "4/gQEIJi0T5yeBQ-uN0ec7l2yTvjLitEkj3pzz1hpb6PHAFP8pg7lFi5XZM-ul2TYsi1YJJVm957wpqEpy3AU5arg"
 
     const val CLIENT_SECRET = "ZbRvRt8pHETAdinjz_X6WTlg"
 

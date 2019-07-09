@@ -288,7 +288,7 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun sendPaymentToken(billingTokenInfo: BillingTokenInfo): Deferred<MessageResponse> = GlobalScope.async {
+    override fun sendPaymentToken(billingTokenInfo: BillingTokenInfo): Deferred<List<BillingTokenInfo>> = GlobalScope.async {
         val data = performRequest {api.sendPaymentToken(localManager.getAuthToken(), billingTokenInfo)}
         data
     }

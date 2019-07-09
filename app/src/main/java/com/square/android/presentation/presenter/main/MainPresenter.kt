@@ -47,6 +47,10 @@ class MainPresenter : BasePresenter<MainView>() {
                     viewState.checkInitial()
 
                     loadBadgeCount()
+
+                    checkSubscriptions()
+                } else{
+                    checkSubscriptions()
                 }
 
             }
