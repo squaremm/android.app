@@ -1,28 +1,8 @@
 package com.square.android.presentation.view.pickUpSpot
 
 import com.square.android.data.pojo.CampaignInterval
-import com.square.android.presentation.view.ProgressView
-import java.util.*
+import com.square.android.presentation.view.BaseView
 
-interface PickUpSpotView : ProgressView {
-
-    fun setSelectedDayItem(position: Int)
-
-    fun dataLoaded()
-
-    fun setContentLoading()
-
-    fun setContentNormal()
-
-    fun setSlotsLoading()
-
-    fun setSlotsNormal()
-
-    fun assignAddress(locationWrapper: CampaignInterval.Location)
-
-    fun changeDate(calendar: Calendar, useCalendarDay: Boolean)
-
-    fun updateSlots(intervalSlots: List<CampaignInterval.Slot>)
-
-    fun setSelectedItem(previousPosition: Int?, currentPosition: Int)
+interface PickUpSpotView : BaseView {
+    fun dataLoaded(spots: List<CampaignInterval.Location>)
 }

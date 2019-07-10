@@ -91,12 +91,6 @@
             android:theme="@style/GreyishStatusActivity" />
 
         <activity
-            android:name=".ui.activity.pickupMap.PickUpMapActivity"
-            android:parentActivityName=".ui.activity.campaignDetails.CampaignDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/CollapsingToolbarActivity" />
-
-        <activity
             android:name=".ui.activity.sendPicture.SendPictureActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />

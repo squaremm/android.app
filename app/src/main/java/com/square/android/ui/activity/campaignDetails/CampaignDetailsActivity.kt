@@ -19,25 +19,27 @@ import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.campaignDetails.CampaignDetailsPresenter
 import com.square.android.presentation.view.campaignDetails.CampaignDetailsView
 import com.square.android.ui.activity.BaseActivity
-import com.square.android.ui.activity.pickupMap.PickUpMapActivity
-import com.square.android.ui.activity.pickupMap.PickUpMapExtras
 import com.square.android.ui.fragment.addPhoto.AddPhotoFragment
 import com.square.android.ui.fragment.approval.ApprovalFragment
 import com.square.android.ui.fragment.campaignNotApproved.CampaignNotApprovedFragment
+import com.square.android.ui.fragment.pickUpInterval.PickUpIntervalExtras
+import com.square.android.ui.fragment.pickUpInterval.PickUpIntervalFragment
 import com.square.android.ui.fragment.pickUpLocation.PickUpLocationFragment
 import com.square.android.ui.fragment.pickUpSpot.PickUpSpotFragment
 import com.square.android.ui.fragment.scanQr.ScanQrFragment
 import com.square.android.ui.fragment.uploadPics.UploadPicsFragment
 import kotlinx.android.synthetic.main.activity_campaign_details.*
-import org.jetbrains.anko.intentFor
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
 
 const val EXTRA_CAMPAIGN = "EXTRA_CAMPAIGN"
+
+
+const val EXTRA_CAMPAIGN_ID = "EXTRA_CAMPAIGN_ID"
+const val EXTRA_INTERVAL_ID = "EXTRA_INTERVAL_ID"
+
 const val EXTRA_CAMPAIGN_LOCATION = "EXTRA_CAMPAIGN_LOCATION"
-const val EXTRA_LOCATIONS = "EXTRA_LOCATIONS"
-const val EXTRA_INTERVAL_SELECTED = "EXTRA_INTERVAL_SELECTED"
 
 const val CAMPAIGN_EXTRA_ID = "CAMPAIGN_EXTRA_ID"
 
@@ -91,25 +93,21 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView{
 
     private class CampaignNavigator(activity: FragmentActivity) : AppNavigator(activity, R.id.campaignContainer) {
 
-        override fun createActivityIntent(context: Context, screenKey: String, data: Any?): Intent? =
-            when (screenKey) {
-                SCREENS.PICK_UP_MAP -> {
-                    val extras = data as PickUpMapExtras
-                    context.intentFor<PickUpMapActivity>(EXTRA_LOCATIONS to extras.locationWrappers,
-                            EXTRA_INTERVAL_SELECTED to extras.selected)
-                }
-                else -> null
-            }
+        override fun createActivityIntent(context: Context, screenKey: String, data: Any?): Intent? = null
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? {
-            Log.e("LOL", "SCREEN KEY: " + screenKey)
-
             return when (screenKey) {
                 SCREENS.NOT_APPROVED -> CampaignNotApprovedFragment.newInstance(data as Campaign)
                 SCREENS.UPLOAD_PICS -> UploadPicsFragment.newInstance(data as Campaign)
                 SCREENS.ADD_PHOTO -> AddPhotoFragment.newInstance(data as Campaign)
                 SCREENS.APPROVAL -> ApprovalFragment.newInstance(data as Campaign)
-                SCREENS.PICK_UP_SPOT -> PickUpSpotFragment.newInstance(data as Campaign)
+                SCREENS.PICK_UP_SPOT -> PickUpSpotFragment.newInstance(data as Long)
+
+                SCREENS.PICK_UP_INTERVAL -> {
+                    val extras = data as PickUpIntervalExtras
+                    PickUpIntervalFragment.newInstance(extras.campaignId, extras.intervalId)
+                }
+
                 SCREENS.PICK_UP_LOCATION -> PickUpLocationFragment.newInstance(data as CampaignInterval.Location)
                 SCREENS.SCAN_QR -> ScanQrFragment()
                 else -> throw IllegalArgumentException("Unknown screen key: $screenKey")

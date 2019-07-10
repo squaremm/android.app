@@ -77,7 +77,7 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
             if(data!!.isGiftTaken == false && campaignLocation != null ){
                 router.replaceScreen(SCREENS.PICK_UP_LOCATION, campaignLocation)
             } else if (!locationWrappers.isNullOrEmpty() && data!!.isGiftTaken == false) {
-                router.replaceScreen(SCREENS.PICK_UP_SPOT, data)
+                router.replaceScreen(SCREENS.PICK_UP_SPOT, data!!.id)
             } else if (data!!.isPictureUploadAllow == true && data!!.imageCount != data!!.images?.size) {
                 router.replaceScreen(SCREENS.UPLOAD_PICS, data)
             } else {
