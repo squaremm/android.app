@@ -141,7 +141,7 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_medal" />
+                            android:src="@drawable/trophy2" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -214,14 +214,14 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_alignParentStart="true"
-                            android:src="@drawable/ic_medal" />
+                            android:src="@drawable/gold_medal" />
 
                         <ImageView
                             android:id="@+id/medal2"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
-                            android:src="@drawable/ic_medal" />
+                            android:src="@drawable/gold_medal" />
 
                         <TextView
                             style="@style/Models20BoldText"
@@ -250,7 +250,7 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_medal" />
+                            android:src="@drawable/trophy2" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

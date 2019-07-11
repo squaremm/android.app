@@ -33,7 +33,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_medal"
+        android:src="@drawable/gold_medal"
         app:layout_constraintBottom_toBottomOf="@+id/winnerLabel"
         app:layout_constraintEnd_toStartOf="@+id/winnerLabel"
         app:layout_constraintStart_toStartOf="@+id/winnerLabel"
@@ -42,7 +42,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_medal"
+        android:src="@drawable/gold_medal"
         app:layout_constraintBottom_toBottomOf="@+id/winnerLabel"
         app:layout_constraintEnd_toEndOf="@+id/winnerLabel"
         app:layout_constraintStart_toEndOf="@+id/winnerLabel"

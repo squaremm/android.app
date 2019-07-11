@@ -19,8 +19,7 @@
             android:id="@+id/acceptedDialogImg"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            tools:src="@drawable/thanks"
-            android:background="@color/greyish_app_bg"
+            tools:src="@drawable/undraw_new_message"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
