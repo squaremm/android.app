@@ -144,12 +144,6 @@ class PickUpIntervalFragment: BaseFragment(),PickUpIntervalView , DaysAdapter.Ha
 
         val inflater = layoutInflater
 
-        if(intervalSlots.isEmpty()){
-            pickupEmpty.visibility = View.VISIBLE
-        } else{
-            pickupSv.visibility = View.VISIBLE
-        }
-
         pickupEmpty.visibility = if(intervalSlots.isEmpty()) View.VISIBLE else View.GONE
 
         pickupSv.visibility = if(intervalSlots.isEmpty()) View.GONE else View.VISIBLE
@@ -187,38 +181,40 @@ class PickUpIntervalFragment: BaseFragment(),PickUpIntervalView , DaysAdapter.Ha
     }
 
     override fun setSlotsLoading() {
-//        pickupBook.isEnabled = false
-//
-//        pickupSv.visibility = View.GONE
-//        pickupEmpty.visibility = View.GONE
-//
-//        pickupSpotsProgress.visibility = View.VISIBLE
+        pickupBook.isEnabled = false
+
+        pickupSv.visibility = View.GONE
+        pickupEmpty.visibility = View.GONE
+
+        pickupSpotsProgress.visibility = View.VISIBLE
     }
 
     override fun setSlotsNormal() {
-//        pickupSpotsProgress.visibility = View.GONE
+        pickupSpotsProgress.visibility = View.GONE
     }
 
     override fun showProgress() {
-//        clickEnabled = false
-//
-//        pickupBook.visibility = View.GONE
-//        pickupBookProgress.visibility = View.VISIBLE
+        clickEnabled = false
+
+        pickupBook.visibility = View.GONE
+        pickupBookProgress.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-//        pickupBookProgress.visibility = View.GONE
-//        pickupBook.visibility = View.VISIBLE
-//
-//        clickEnabled = true
+        pickupBookProgress.visibility = View.GONE
+        pickupBook.visibility = View.VISIBLE
+
+        clickEnabled = true
     }
 
     override fun setContentLoading() {
-
+        pickupContent.visibility = View.GONE
+        pickupContentProgress.visibility = View.VISIBLE
     }
 
     override fun setContentNormal() {
-
+        pickupContentProgress.visibility = View.GONE
+        pickupContent.visibility = View.VISIBLE
     }
 
     private fun getCampaignId() = arguments?.getLong(EXTRA_CAMPAIGN_ID, 0) as Long

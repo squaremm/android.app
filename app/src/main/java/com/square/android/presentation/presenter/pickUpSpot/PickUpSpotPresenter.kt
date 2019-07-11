@@ -33,8 +33,12 @@ class PickUpSpotPresenter(var campaignId: Long): BasePresenter<PickUpSpotView>()
         }
     }
 
-    fun placeSelected(index: Int){
+    fun spotSelected(index: Int){
         selectedIntervalId = locationWrappers!![index].id
+
+        viewState.setSelectedItem(index)
+
+        viewState.enableButton()
     }
 
 }

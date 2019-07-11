@@ -63,9 +63,9 @@
                 android:overScrollMode="never"
                 android:scrollbars="none"
                 android:visibility="invisible"
-                tools:listitem="@layout/item_day"
-                android:nestedScrollingEnabled="false"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                tools:visibility="visible"
+                tools:listitem="@layout/item_spot"
+                android:nestedScrollingEnabled="false" />
 
             <Button
                 android:id="@+id/pickupContinue"

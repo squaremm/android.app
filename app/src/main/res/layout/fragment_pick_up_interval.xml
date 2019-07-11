@@ -49,8 +49,8 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             android:indeterminateTint="@color/nice_red"
-            tools:visibility="visible"
-            android:visibility="gone" />
+            tools:visibility="gone"
+            android:visibility="visible" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/pickupContent"
@@ -146,6 +146,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pickupLabel"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:scrollbars="none"
                 android:overScrollMode="never" >
                 <LinearLayout
@@ -165,20 +166,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pickupSv" />
-
-            <ProgressBar
-                android:id="@+id/pickupBookProgress"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:layout_marginTop="42dp"
-                android:layout_marginBottom="8dp"
-                android:indeterminateTint="@color/nice_red"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pickupEmpty" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/pickupBookProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:indeterminateTint="@color/nice_red"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/pickupBook"
@@ -190,9 +187,10 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/nice_button_red_pink_alpha"
             android:enabled="false"
-            android:text="@string/_continue"
+            android:text="@string/book"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

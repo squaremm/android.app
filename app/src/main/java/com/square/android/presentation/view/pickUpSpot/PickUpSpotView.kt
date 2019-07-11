@@ -5,4 +5,8 @@ import com.square.android.presentation.view.BaseView
 
 interface PickUpSpotView : BaseView {
     fun dataLoaded(spots: List<CampaignInterval.Location>)
+
+    fun setSelectedItem(position: Int)
+
+    fun enableButton()
 }
