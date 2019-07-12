@@ -10,9 +10,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PlaceLoadedEvent(val data: Place)
 
@@ -58,14 +56,12 @@ class BookingPresenter : BasePresenter<BookingView>() {
     }
 
     fun bookClicked() {
-        currentPosition?.run {
+        currentPosition?.let {
             val date = getStringDate()
 
-            val event = BookSelectedEvent(intervalSlots[this].id, date)
-
+            val event = BookSelectedEvent(intervalSlots[it].id, date)
             eventBus.post(event)
         }
-
     }
 
     fun dayItemClicked(position: Int) {
@@ -93,7 +89,6 @@ class BookingPresenter : BasePresenter<BookingView>() {
     }
 
     fun getStringDate() = calendar2.getStringDate()
-
 
     override fun onDestroy() {
         super.onDestroy()
