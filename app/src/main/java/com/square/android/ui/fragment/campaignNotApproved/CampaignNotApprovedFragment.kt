@@ -1,5 +1,7 @@
 package com.square.android.ui.fragment.campaignNotApproved
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -71,6 +73,12 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
             notApprovedJoinBtn.text = getString(R.string.waiting_for_acceptance)
             notApprovedJoinBtn.isAllCaps = false
             notApprovedJoinBtn.setTextColor(ContextCompat.getColor(notApprovedJoinBtn.context, R.color.nice_pink))
+        } else if (campaign.hasWinner) {
+            notApprovedJoinBtn.isEnabled = false
+            notApprovedJoinBtn.text = getString(R.string.ended)
+            notApprovedJoinBtn.isAllCaps = false
+            notApprovedJoinBtn.setTextColor(Color.WHITE)
+            notApprovedJoinBtn.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(notApprovedJoinBtn.context, R.color.black_trans_75))
         } else{
             if(!campaign.isJoinable){
                 notApprovedJoinBtn.visibility = View.GONE
@@ -142,7 +150,7 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
             if(campaign.exampleImages.isNullOrEmpty()){
                 cvModel.visibility = View.GONE
             } else{
-                modelTypeAdapter = SquareWrapWidthImagesAdapter(campaign.exampleImages!!, null)
+                modelTypeAdapter = SquareWrapWidthImagesAdapter(campaign.exampleImages?.map { it.id }!!, null)
                 cvModelRv.adapter = modelTypeAdapter
                 cvModelRv.layoutManager = LinearLayoutManager(cvModelRv.context, RecyclerView.HORIZONTAL,false)
                 cvModelRv.addItemDecoration(MarginItemDecorator(cvModelRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
@@ -173,7 +181,7 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
             if(campaign.moodboardImages.isNullOrEmpty()){
                 cvMood.visibility = View.GONE
             } else{
-                moodboardAdapter = SquareImagesAdapter(campaign.moodboardImages!!, null)
+                moodboardAdapter = SquareImagesAdapter(campaign.moodboardImages!!.map { it.url }, null)
 
                 cvMoodRv.layoutManager = GridLayoutManager(context!!, 3)
                 cvMoodRv.adapter = moodboardAdapter

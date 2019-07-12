@@ -74,13 +74,13 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
                 }
             }
 
-            if(data!!.isGiftTaken == false && campaignLocation != null ){
+            if(data!!.isGiftTaken == false && campaignLocation != null){
                 router.replaceScreen(SCREENS.PICK_UP_LOCATION, campaignLocation)
             } else if (!locationWrappers.isNullOrEmpty() && data!!.isGiftTaken == false) {
                 router.replaceScreen(SCREENS.PICK_UP_SPOT, data!!.id)
-            } else if (data!!.isPictureUploadAllow == true && data!!.imageCount != data!!.images?.size) {
+            } else if (data!!.isPictureUploadAllow == true && data!!.imageCount != data!!.images?.size && !data!!.isAccepted) {
                 router.replaceScreen(SCREENS.UPLOAD_PICS, data)
-            } else {
+            } else if (data!!.isAccepted) {
                 router.replaceScreen(SCREENS.APPROVAL, data)
             }
         }

@@ -62,6 +62,8 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
     @InjectPresenter
     lateinit var presenter: MainPresenter
 
+    private var checkedInitial = false
+
     override fun provideNavigator(): Navigator = MainNavigator(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -191,6 +193,9 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                     }
 
                     SCREENS.CAMPAIGN_DETAILS ->
+                        context.intentFor<CampaignDetailsActivity>(CAMPAIGN_EXTRA_ID to data as Long)
+
+                    SCREENS.CAMPAIGN_FINISHED ->
                         context.intentFor<CampaignDetailsActivity>(CAMPAIGN_EXTRA_ID to data as Long)
 
                     else -> null

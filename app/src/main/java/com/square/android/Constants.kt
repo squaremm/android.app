@@ -67,9 +67,9 @@ object Network {
 
     const val GOOGLE_BILLING_API_URL = "https://www.googleapis.com/androidpublisher/v3/applications/$PACKAGE_NAME/"
 
-    const val OAUTH_API_URL = "https://www.googleapis.com/oauth2/v4/"
+    const val OAUTH_API_URL = "https://accounts.google.com/o/oauth2/"
 
-    const val OAUTH_CLIENT_ID = "1016898650628-pbhrvi7t6ijq7bbmplopaljcitc1kftj.apps.googleusercontent.com"
+    const val OAUTH_CLIENT_ID = "221995887985-g17rh0796sh4g1nvt7p8oinok5l83tri.apps.googleusercontent.com"
 }
 
 object SOCIAL {
@@ -126,13 +126,15 @@ object GOOGLEBILLING{
 
     const val PACKAGE_NAME = "com.squaremm.android"
 
-    const val SUBSCRIPTION_PER_WEEK_NAME = "l08294._."
+    const val SUBSCRIPTION_PER_WEEK_NAME = "square_weekly_premium"
 
-    const val SUBSCRIPTION_PER_MONTH_NAME = "mmmontly123ui__a0a2."
+    const val SUBSCRIPTION_PER_MONTH_NAME = "square_monthly_premium"
 
-    const val GOOGLE_CODE = "4/ggFfT1v-57SL-omF7kupN1JnMlM752QbKw-c4ogGC_ul2gi2UAwgipnL97QZX3ovX9gyN5uzzPMuJnd7E_h1sII"
+    const val GOOGLE_CODE = "4/ggGc5dFHU_sJ68hunDeSkbGf7cLrX7673X7Zp0DN1YNEfGtV8wbE2Olf4-p0Htnp48giXBeoIT4beUXS0VIGmNM"
 
-    const val CLIENT_SECRET = "ZbRvRt8pHETAdinjz_X6WTlg"
+    const val CLIENT_SECRET = "qqJusPDEfqaXS4IomodNhZfC"
+
+    const val REFRESH_TOKEN = "1/4U_Q24FpawIbS6v4D9qtVvqW2-GKIuCPfNqhAhoauoc"
 
     const val APP_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh8idDiOcP/cvl2nhlFjURSkwbflO24NGfXepXjIvijo2XHeJDx8tSqwqdH6aOrpxNo5y7lG1Jj22vpg0VOPfEJ/ETQOUE5jCRpTrIc4tGaWuiTjbSdXEtA0oYnn9YHudAcxtjOn02hvQIkTyPmmKx/XGK9mG2D4+XTo8EV/sLJesxCI/VY9cdg/IzPJ+S+otEHQY5r3a2/exjH/uBd/nXCX0JUSRtKcPTFrPIefZ3XpYZztEPUx62sY+FWYbyv1HbXcgofYhNyGD43/TTqXu3Ke49Xbq1mK9Xl3nJicQPFIh+hkx8KC44FuxQM+y2iY8Xu+TX+kKT5GtLfrZ4NLJfwIDAQAB"
 

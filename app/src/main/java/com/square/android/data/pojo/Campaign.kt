@@ -16,8 +16,8 @@ data class Campaign(
         var type: String? = null,
         var tasks: List<Task>? = null,
         var rewards: List<Reward>? = null,
-        var exampleImages: List<String>? = null,
-        var moodboardImages: List<String>? = null,
+        var exampleImages: List<Photo>? = null,
+        var moodboardImages: List<Photo>? = null,
         var mainImage: String? = null,
         var winners: List<Winner>? = null,
         var daysToStart: Int = 0,
@@ -30,6 +30,8 @@ data class Campaign(
         var isParticipant: Boolean = false,
         @field:JsonProperty("isWinner")
         var isWinner: Boolean = false,
+        @field:JsonProperty("isAccepted")
+        var isAccepted: Boolean = false,
 
         @field:JsonProperty("isGiftTaken")
         var isGiftTaken: Boolean? = false,

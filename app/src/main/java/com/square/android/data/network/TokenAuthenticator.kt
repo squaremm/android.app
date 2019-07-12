@@ -5,6 +5,7 @@ import com.crashlytics.android.Crashlytics
 import okhttp3.*
 import com.square.android.GOOGLEBILLING.CLIENT_SECRET
 import com.square.android.GOOGLEBILLING.GOOGLE_CODE
+import com.square.android.GOOGLEBILLING.REFRESH_TOKEN
 import com.square.android.Network.OAUTH_API_URL
 import com.square.android.Network.OAUTH_CLIENT_ID
 import com.square.android.data.local.LocalDataManager
@@ -53,7 +54,7 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
         val service: OauthApiService = client.create(OauthApiService::class.java)
 
         try {
-            val refreshExecute = service.getToken("authorization_code", OAUTH_CLIENT_ID, CLIENT_SECRET, GOOGLE_CODE, "https://squaremm.com").execute()
+            val refreshExecute = service.getToken("refresh_token", OAUTH_CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN).execute()
 
             println("EEEE :"+ refreshExecute.raw().toString())
 

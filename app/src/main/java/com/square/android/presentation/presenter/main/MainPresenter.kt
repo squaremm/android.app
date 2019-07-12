@@ -17,6 +17,8 @@ class MainPresenter : BasePresenter<MainView>() {
 
     private var currentScreenKey: String? = null
 
+    private var checkedInitial = false
+
     fun navigationClicked(screenKey: String) {
         if (currentScreenKey != screenKey) {
             router.navigateTo(screenKey)
@@ -42,9 +44,12 @@ class MainPresenter : BasePresenter<MainView>() {
                 if (!repository.isLoggedIn() || !repository.isProfileFilled()) {
                     router.replaceScreen(SCREENS.START)
                 } else if (currentScreenKey != SCREENS.PLACES) {
-                    navigationClicked(SCREENS.PLACES)
 
-                    viewState.checkInitial()
+                    if (!checkedInitial) {
+                        navigationClicked(SCREENS.PLACES)
+                        viewState.checkInitial()
+                        checkedInitial = true
+                    }
 
                     loadBadgeCount()
 

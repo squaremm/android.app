@@ -29,8 +29,8 @@ class PickUpIntervalFragment: BaseFragment(),PickUpIntervalView , DaysAdapter.Ha
 
     companion object {
         @Suppress("DEPRECATION")
-        fun newInstance(campaignId: Long, intervalId: Long): PickUpSpotFragment {
-            val fragment = PickUpSpotFragment()
+        fun newInstance(campaignId: Long, intervalId: Long): PickUpIntervalFragment {
+            val fragment = PickUpIntervalFragment()
 
             val args = bundleOf(EXTRA_CAMPAIGN_ID to campaignId, EXTRA_INTERVAL_ID to intervalId)
             fragment.arguments = args

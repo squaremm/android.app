@@ -29,7 +29,7 @@ class PickUpSpotPresenter(var campaignId: Long): BasePresenter<PickUpSpotView>()
 
             val extras = PickUpIntervalExtras(campaignId, it)
 
-            router.navigateTo(SCREENS.PICK_UP_INTERVAL, extras )
+            router.navigateTo(SCREENS.PICK_UP_INTERVAL, extras)
         }
     }
 
