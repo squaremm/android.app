@@ -150,7 +150,7 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
             if(campaign.exampleImages.isNullOrEmpty()){
                 cvModel.visibility = View.GONE
             } else{
-                modelTypeAdapter = SquareWrapWidthImagesAdapter(campaign.exampleImages?.map { it.id }!!, null)
+                modelTypeAdapter = SquareWrapWidthImagesAdapter(campaign.exampleImages?.map { it.url }!!, null)
                 cvModelRv.adapter = modelTypeAdapter
                 cvModelRv.layoutManager = LinearLayoutManager(cvModelRv.context, RecyclerView.HORIZONTAL,false)
                 cvModelRv.addItemDecoration(MarginItemDecorator(cvModelRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
