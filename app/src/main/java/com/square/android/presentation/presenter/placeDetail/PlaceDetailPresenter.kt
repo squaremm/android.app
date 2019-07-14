@@ -1,6 +1,7 @@
 package com.square.android.presentation.presenter.placeDetail
 
 import android.location.Location
+import android.text.TextUtils
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.data.pojo.BookInfo
@@ -77,7 +78,9 @@ class PlaceDetailPresenter(private val placeId: Long) : BasePresenter<PlaceDetai
 
             AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.BOOKING_MADE.apply { venueName = data?.name }), repository)
 
-            viewState.showMessage(result.message)
+            if(!TextUtils.isEmpty(result.message)){
+                viewState.showMessage(result.message)
+            }
         }
     }
 

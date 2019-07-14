@@ -10,11 +10,9 @@ import com.square.android.data.pojo.Day
 import com.square.android.data.pojo.Place
 import com.square.android.presentation.presenter.booking.BookingPresenter
 import com.square.android.presentation.view.booking.BookingView
-import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep
-import com.square.android.ui.base.tutorial.TutorialView
 import com.square.android.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_booking.*
 import kotlinx.android.synthetic.main.item_interval.view.*
