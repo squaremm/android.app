@@ -4,7 +4,6 @@ import android.util.Log
 import com.crashlytics.android.Crashlytics
 import okhttp3.*
 import com.square.android.GOOGLEBILLING.CLIENT_SECRET
-import com.square.android.GOOGLEBILLING.GOOGLE_CODE
 import com.square.android.GOOGLEBILLING.REFRESH_TOKEN
 import com.square.android.Network.OAUTH_API_URL
 import com.square.android.Network.OAUTH_CLIENT_ID
@@ -21,19 +20,23 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
         Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> TokenAuthenticator: authenticate()")
         Crashlytics.logException(Throwable("TokenAuthenticator: authenticate()"))
 
-        return if (refreshToken()) {
+        if (refreshToken()) {
             Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> NEW TOKEN OBTAINED SUCCESSFULLY")
             Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> NEW TOKEN OBTAINED SUCCESSFULLY"))
 
             val newToken = manager.getOauthToken()
 
-            response.request().newBuilder()
+
+            println("EEEE token: "+ newToken+" ; response: "+response.request().toString())
+
+
+            return response.request().newBuilder()
                     .header("Authorization", newToken)
                     .build()
         } else {
             Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> NEW TOKEN NOT OBTAINED")
             Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> NEW TOKEN NOT OBTAINED"))
-            null
+            return null
         }
     }
 
@@ -55,8 +58,6 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
 
         try {
             val refreshExecute = service.getToken("refresh_token", OAUTH_CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN).execute()
-
-            println("EEEE :"+ refreshExecute.raw().toString())
 
             val refreshTokenResult: RefreshTokenResult? = refreshExecute.body()
 

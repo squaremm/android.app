@@ -51,6 +51,9 @@
 
     <string name="credits_plus_format">+ %d credits</string>
 
+    <string name="error_occurred">An error occurred!</string>
+    <string name="subscription_status_cannot_obtained">Your subscription status\ncan not be obtained</string>
+    <string name="check_internet_connection">Please check your internet connection.</string>
 
     <string name="shareContent">Join us: https://play.google.com/store/apps/details?id=com.squaremm.android\nReferral code: %s</string>
     <string name="hint_referral">Referral</string>

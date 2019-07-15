@@ -33,6 +33,8 @@ object SCREENS {
 
     const val NO_CONNECTION = "NO_CONNECTION"
 
+    const val SUBSCRIPTION_ERROR = "SUBSCRIPTIONS_ERROR"
+
     const val TUTORIAL_VIDEOS = "TUTORIAL_VIDEOS"
 
     const val CAMPAIGNS = "CAMPAIGNS"

@@ -39,9 +39,9 @@ import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
 import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
 import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.activity.start.StartActivity
+import com.square.android.ui.activity.subscriptionError.SubscriptionErrorActivity
 import com.square.android.ui.activity.tutorialVideos.TutorialVideosActivity
 import com.square.android.ui.fragment.campaigns.CampaignsFragment
-import com.square.android.ui.fragment.map.MapFragment
 import com.square.android.ui.fragment.places.PlacesFragment
 import com.square.android.ui.fragment.profile.ProfileFragment
 import com.square.android.ui.fragment.redemptions.RedemptionsFragment
@@ -184,6 +184,9 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
                     SCREENS.NO_CONNECTION ->
                         context.intentFor<NoConnectionActivity>()
+
+                    SCREENS.SUBSCRIPTION_ERROR ->
+                        context.intentFor<SubscriptionErrorActivity>()
 
                     SCREENS.TUTORIAL_VIDEOS ->
                         context.intentFor<TutorialVideosActivity>()

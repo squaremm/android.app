@@ -71,6 +71,12 @@
             android:theme="@style/WhiteStatusActivity" />
 
         <activity
+            android:name=".ui.activity.subscriptionError.SubscriptionErrorActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/WhiteStatusActivity" />
+
+        <activity
             android:name=".ui.activity.tutorialVideos.TutorialVideosActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
