@@ -16,7 +16,7 @@ class ActualBillingRepository(private val api: BillingApiService,
                               private val localManager: LocalDataManager) : BillingRepository {
 
     override fun getSubscription(subscriptionId: String, token: String): Deferred<BillingSubscription> = GlobalScope.async {
-        val data = performRequest { api.getSubscription(localManager.getOauthToken(),subscriptionId, token) }
+        val data = performRequest { api.getSubscription(localManager.getOauthToken(), subscriptionId, token) }
 
         data
     }

@@ -161,9 +161,9 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     //////////////////////////////////////////////////////////////////
 
                     //TODO uncomment when subscriptions working correctly
-//                    if(!valid1 && !valid2){
-//                        router.navigateTo(SCREENS.PASS_ELIGIBLE)
-//                    }
+                    if(!valid1 && !valid2){
+                        router.navigateTo(SCREENS.PASS_ELIGIBLE)
+                    }
 
                 }
                 eventBus.post(SubscriptionErrorEvent(1))
