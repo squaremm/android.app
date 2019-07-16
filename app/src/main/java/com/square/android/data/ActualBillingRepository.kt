@@ -16,19 +16,19 @@ class ActualBillingRepository(private val api: BillingApiService,
                               private val localManager: LocalDataManager) : BillingRepository {
 
     override fun getSubscription(subscriptionId: String, token: String): Deferred<BillingSubscription> = GlobalScope.async {
-        val data = performRequest { api.getSubscription(localManager.getOauthToken(), subscriptionId, token) }
+        val data = performRequest { api.getSubscription(subscriptionId, token) }
 
         data
     }
 
     override fun acknowledgeSubscription(subscriptionId: String, token: String, tokenInfo: TokenInfo): Deferred<MessageResponse> = GlobalScope.async {
-        val data = performRequest { api.acknowledgeSubscription(localManager.getOauthToken(),subscriptionId, token, tokenInfo) }
+        val data = performRequest { api.acknowledgeSubscription(subscriptionId, token, tokenInfo) }
 
         data
     }
 
     override fun cancelSubscription(subscriptionId: String, token: String): Deferred<MessageResponse> = GlobalScope.async {
-        val data = performRequest { api.cancelSubscription(localManager.getOauthToken(),subscriptionId, token) }
+        val data = performRequest { api.cancelSubscription(subscriptionId, token) }
 
         data
     }

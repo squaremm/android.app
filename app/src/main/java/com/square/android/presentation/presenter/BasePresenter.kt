@@ -94,15 +94,6 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}")
 
 
-
-                    //TODO uncomment
-//                for (billing in billings) {
-//                    val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
-//                    data.subscriptionId = billing.subscriptionId
-//                    data.token = billing.token
-//
-//                    subscriptions.add(data)
-//                }
 //                TODO uncomment
                 for (billing in billings) {
                     val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
@@ -114,8 +105,7 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
 //                //TODO delete
 //                val data = billingRepository.getSubscription("one","two").await()
-//
-
+                    
 
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}")

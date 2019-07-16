@@ -9,10 +9,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.square.android.Network.BASE_API_URL
 import com.square.android.Network.GOOGLE_BILLING_API_URL
-import com.square.android.data.network.ApiService
-import com.square.android.data.network.AuthInterceptor
-import com.square.android.data.network.BillingApiService
-import com.square.android.data.network.TokenAuthenticator
+import com.square.android.data.network.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.greenrobot.eventbus.EventBus
@@ -27,8 +24,9 @@ class PurchasesUpdatedEvent(val data: MutableList<Purchase>?)
 
 val networkModule = module {
 
+    single { OauthTokenInterceptor(manager = get()) }
     single { TokenAuthenticator(manager = get()) }
-    single(name = "billing_okhttp") { createClientBilling(tokenAuthenticator = get()) }
+    single(name = "billing_okhttp") { createClientBilling(tokenAuthenticator = get(), oauthTokenInterceptor = get()) }
     single(name = "billing_retrofit") { createRetrofit(get(name = "billing_okhttp"), GOOGLE_BILLING_API_URL) }
     single(name = "billing_api") { get<Retrofit>(name = "billing_retrofit").create(BillingApiService::class.java) }
 
@@ -40,7 +38,8 @@ val networkModule = module {
     single { createBillingClient(context = get(), eventBus = get()) }
 }
 
-private fun createClientBilling(tokenAuthenticator: TokenAuthenticator) = OkHttpClient.Builder()
+private fun createClientBilling(tokenAuthenticator: TokenAuthenticator, oauthTokenInterceptor: OauthTokenInterceptor) = OkHttpClient.Builder()
+        .addInterceptor(oauthTokenInterceptor)
         .authenticator(tokenAuthenticator)
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .connectTimeout(MAX_TIMEOUT, TimeUnit.SECONDS)

@@ -12,7 +12,7 @@ import com.square.android.data.pojo.RefreshTokenResult
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
-import java.lang.Exception
+import java.util.*
 
 class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
 
@@ -28,34 +28,44 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
 
     val service: OauthApiService = client.create(OauthApiService::class.java)
 
-    override fun authenticate(route: Route, response: Response): Request? {
+    override fun authenticate(route: Route?, response: Response?): Request? {
+
         Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> TokenAuthenticator: authenticate()")
         Crashlytics.logException(Throwable("TokenAuthenticator: authenticate()"))
 
-        if (response.code() != 400) {
-            if (refreshToken()) {
-                Log.d("SUBSCRIPTIONS LOG", "SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> NEW TOKEN OBTAINED SUCCESSFULLY")
-                Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> NEW TOKEN OBTAINED SUCCESSFULLY"))
+        if(response != null){
+            println("AAAA code: "+response.code())
 
-                val newToken = manager.getOauthToken()
+            if(manager.getShouldRefreshToken()){
+                manager.setShouldRefreshToken(false)
 
+                if (response.code() != 400) {
+                    if (refreshToken()) {
+                        Log.d("SUBSCRIPTIONS LOG", "SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> NEW TOKEN OBTAINED SUCCESSFULLY")
+                        Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> NEW TOKEN OBTAINED SUCCESSFULLY"))
 
-                println("EEEE token: " + newToken + " ; response: " + response.request().toString())
+                        val newToken = manager.getOauthToken()
 
+                        println("EEEE token: " + newToken + " ; response: " + response.request().toString())
 
-                return response.request().newBuilder()
-                        .header("Authorization", newToken)
-                        .build()
-            } else {
-                Log.d("SUBSCRIPTIONS LOG", "SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> NEW TOKEN NOT OBTAINED")
-                Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> NEW TOKEN NOT OBTAINED"))
-                return null
+                        return response.request().newBuilder()
+                                .header("Authorization", newToken)
+                                .build()
+                    } else {
+                        Log.d("SUBSCRIPTIONS LOG", "SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> NEW TOKEN NOT OBTAINED")
+                        Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> NEW TOKEN NOT OBTAINED"))
+                    }
+                } else {
+                    Log.d("SUBSCRIPTIONS LOG", "SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> response.code() == 400")
+                    Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> response.code() == 400"))
+
+                    return response.request().newBuilder()
+                            .header("Authorization", manager.getOauthToken())
+                            .build()
+                }
             }
-        } else {
-            return response.request().newBuilder()
-                    .header("Authorization", manager.getOauthToken())
-                    .build()
         }
+        return null
     }
 
     private fun refreshToken(): Boolean {
@@ -72,6 +82,11 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
             Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> refreshExecute.isSuccessful && refreshTokenResult != null"))
 
             manager.setOauthToken(refreshTokenResult.access_token!!)
+
+            val expiresInMillis = Calendar.getInstance().apply { add(Calendar.SECOND, refreshTokenResult.expires_in.toInt()) }.timeInMillis
+            Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> expiresInMillis : $expiresInMillis")
+
+            manager.setOauthExpires(expiresInMillis)
 
             return true
         } else {
