@@ -267,6 +267,7 @@
     <string name="to_upload_pics_ig">To upload pics on IG:</string>
     <string name="days">Days</string>
     <string name="stories">Stories:</string>
+    <string name="photos">Photos:</string>
     <string name="posts">Posts:</string>
     <string name="at_least">at least</string>
     <string name="make_at_least">make at least</string>
@@ -274,6 +275,9 @@
     <string name="moodboard">Moodboard</string>
     <string name="stories_lowercase">stories</string>
     <string name="story">story</string>
+    <string name="photo">photo</string>
+    <string name="photos_lowercase">photos</string>
+
     <string name="ig_post">Instagram post</string>
     <string name="ig_posts">Instagram posts</string>
     <string name="thanks">Thanks!</string>

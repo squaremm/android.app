@@ -62,17 +62,17 @@ class ApprovalFragment: BaseFragment(), ApprovalView, SquareImagesAdapter.Handle
         }
 
         when(presenter.campaign.status){
-            1 ->{
+            2 ->{
                 approvalStatusCircle.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(approvalStatusCircle.context, R.color.status_yellow))
                 approvalStatusText.setTextColor(ContextCompat.getColor(approvalStatusText.context, R.color.status_yellow))
                 approvalStatusText.text = approvalStatusText.context.getString(R.string.status_waiting)
             }
-            2 ->{
+            3 ->{
                 approvalStatusCircle.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(approvalStatusCircle.context, R.color.status_orange))
                 approvalStatusText.setTextColor(ContextCompat.getColor(approvalStatusText.context, R.color.status_orange))
                 approvalStatusText.text = approvalStatusText.context.getString(R.string.status_under_review)
             }
-            3 ->{
+            4 ->{
                 approvalStatusCircle.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(approvalStatusCircle.context, R.color.status_green))
                 approvalStatusText.setTextColor(ContextCompat.getColor(approvalStatusText.context, R.color.status_green))
                 approvalStatusText.text = approvalStatusText.context.getString(R.string.status_approved)

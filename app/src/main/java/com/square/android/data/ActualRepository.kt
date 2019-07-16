@@ -383,4 +383,10 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
+    override fun sendCampaignForReview(campaignId: Long): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest { api.sendCampaignForReview(localManager.getAuthToken(), campaignId) }
+        data
+    }
+
+
 }

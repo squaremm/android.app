@@ -72,10 +72,10 @@ data class Campaign(
             var id: String? = null,
             var description: String? = null,
             @field:JsonProperty("isGlobal")
-            var isGlobal: Boolean = true,
+            var isGlobal: Boolean = false,
             var type: String? = null,
             var value: Int = 0,
-            var imageUrl: String? = "",
+            var mainImage: String? = "",
             var position: Int? = -1
     ): Parcelable
 

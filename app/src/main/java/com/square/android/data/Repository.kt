@@ -137,4 +137,5 @@ interface Repository {
     fun sendQr( qrInfo: QrInfo): Deferred<Campaign>
 
     fun getCampaignBookings(): Deferred<List<CampaignBooking>>
+    fun sendCampaignForReview(campaignId: Long): Deferred<MessageResponse>
 }

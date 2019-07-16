@@ -74,14 +74,21 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
                 }
             }
 
+            val count1 = data!!.imageCount ?: 0
+            val count2 = data!!.tasks?.filter { it.type == "photo" }?.sumBy { it.count } ?: 0
+
             if(data!!.isGiftTaken == false && campaignLocation != null){
                 router.replaceScreen(SCREENS.PICK_UP_LOCATION, campaignLocation)
             } else if (!locationWrappers.isNullOrEmpty() && data!!.isGiftTaken == false) {
                 router.replaceScreen(SCREENS.PICK_UP_SPOT, data!!.id)
-            } else if (data!!.isPictureUploadAllow == true && data!!.imageCount != data!!.images?.size && !data!!.isAccepted) {
+            } else if (data!!.isPictureUploadAllow == true
+                    && (((count1 != data!!.images?.size && count1 > 0) || (count2 == data!!.images?.size && count2 > 0)))
+                    && data!!.isGiftTaken == true) {
                 router.replaceScreen(SCREENS.UPLOAD_PICS, data)
-            } else if (data!!.isAccepted) {
+            } else if (data!!.status!! >= 2) {
                 router.replaceScreen(SCREENS.APPROVAL, data)
+            } else {
+                router.replaceScreen(SCREENS.NOT_APPROVED, data)
             }
         }
 
@@ -92,8 +99,8 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
         router.exit()
     }
 
-    fun replaceToApproval(){
-        data?.let { router.replaceScreen(SCREENS.APPROVAL, it) } ?: exit()
+    fun replaceToApproval() {
+        loadData()
     }
 
     fun navigateToAddPhoto() = data?.let { router.navigateTo(SCREENS.ADD_PHOTO, it) }

@@ -175,4 +175,9 @@ interface ApiService {
 
     @GET("campaign/bookings")
     fun getCampaignBookings(@Header("Authorization") authorization: String): Call<List<CampaignBooking>>
+
+    @POST("campaign/{id}/review")
+    fun sendCampaignForReview(@Header("Authorization") authorization: String,
+               @Path("id") campaignId: Long
+    ): Call<MessageResponse>
 }

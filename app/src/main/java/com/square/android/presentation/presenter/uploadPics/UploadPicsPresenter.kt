@@ -11,8 +11,7 @@ class UploadPicsPresenter(var campaign: Campaign): BasePresenter<UploadPicsView>
     fun sendOverReview() = launch {
         viewState.showProgress()
 
-        //TODO change and uncomment later
-//        participation = repository.sendOverReview(participation.id).await()
+        repository.sendCampaignForReview(campaign.id).await()
 
         viewState.replaceToApproval()
     }

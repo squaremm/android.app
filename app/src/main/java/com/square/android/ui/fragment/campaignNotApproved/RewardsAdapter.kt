@@ -26,13 +26,18 @@ class RewardsAdapter (var rewards: List<Campaign.Reward>, private val handler: H
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        rewards[position].imageUrl?.run {
-            holder.image.loadImage(this, roundedCornersRadiusPx = holder.image.context!!.dimen(R.dimen.value_4dp))
+        if (rewards[position].mainImage != null) {
+            holder.image.visibility = View.VISIBLE
+            holder.image.loadImage(rewards[position].mainImage!!, roundedCornersRadiusPx = holder.image.context!!.dimen(R.dimen.value_4dp))
+        } else {
+            holder.image.visibility = View.GONE
         }
+
+
         holder.name.text = rewards[position].description
         if (coloredText) holder.name.setTextColorRes(R.color.nice_pink)
 
-        holder.container.setOnClickListener {handler?.itemClicked(holder.adapterPosition)}
+        holder.container.setOnClickListener { handler?.itemClicked(holder.adapterPosition)}
     }
 
     override fun getItemCount(): Int {

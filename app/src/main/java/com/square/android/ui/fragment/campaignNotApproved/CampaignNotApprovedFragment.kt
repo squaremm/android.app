@@ -79,118 +79,116 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
             notApprovedJoinBtn.isAllCaps = false
             notApprovedJoinBtn.setTextColor(Color.WHITE)
             notApprovedJoinBtn.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(notApprovedJoinBtn.context, R.color.black_trans_75))
-        } else{
-            if(!campaign.isJoinable){
-                notApprovedJoinBtn.visibility = View.GONE
-            }
-
-            if(TextUtils.isEmpty(campaign.description)){
-                cvDescription.visibility = View.GONE
-            } else{
-                cvDescriptionText.text = campaign.description
-            }
-
-            val rewards: List<Campaign.Reward>? = if(campaign.rewards.isNullOrEmpty()) null else campaign.rewards!!.filter { it.isGlobal }
-
-            if(rewards.isNullOrEmpty()){
-                cvRewards.visibility = View.GONE
-            } else{
-                rewards.firstOrNull{ it.type == "credit" }?.let {
-                    cvRewardsCredits.text = it.value.toString()
-
-                } ?: run {
-                    cvRewardsLl.visibility = View.GONE
-                    cvRewardsDivider.visibility = View.GONE
-                }
-
-                rewards.filter { it.type != "credit" }.let {
-                    if(it.isNullOrEmpty()){
-                        cvRewardsDivider.visibility =  View.GONE
-                        cvRewardsRv.visibility =  View.GONE
-                    } else{
-                        rewardsAdapter = RewardsAdapter(it, null)
-                        cvRewardsRv.adapter = rewardsAdapter
-                        cvRewardsRv.layoutManager = LinearLayoutManager(cvRewardsRv.context, RecyclerView.VERTICAL,false)
-                        cvRewardsRv.addItemDecoration(MarginItemDecorator(cvRewardsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), true))
-                    }
-                }
-            }
-
-            val winnerRewards: List<Campaign.Reward>? = if(campaign.rewards.isNullOrEmpty()) null else campaign.rewards!!.filter {!it.isGlobal}
-
-            if(winnerRewards.isNullOrEmpty()){
-                cvWinner.visibility = View.GONE
-            } else{
-
-                winnerRewards.firstOrNull{ it.type == "credit" }?.let {
-                    cvWinnerCredits.text = it.value.toString()
-
-                } ?: run {
-                    cvWinnerLl.visibility = View.GONE
-                    cvWinnerDivider.visibility = View.GONE
-                }
-
-                winnerRewards.filter { it.type != "credit" }.let {
-                    if(it.isNullOrEmpty()){
-                        cvWinnerDivider.visibility =  View.GONE
-                        cvWinnerRv.visibility =  View.GONE
-                    } else{
-                        winnerAdapter = RewardsAdapter(it, null, true)
-                        cvWinnerRv.adapter = winnerAdapter
-                        cvWinnerRv.layoutManager = LinearLayoutManager(cvWinnerRv.context, RecyclerView.VERTICAL,false)
-                        cvWinnerRv.addItemDecoration(MarginItemDecorator(cvWinnerRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), true))
-                    }
-                }
-            }
-
-            cvDeadlinesDaysValue1.text = campaign.daysToStart.toString()
-            cvDeadlinesDaysValue2.text = campaign.daysToPicture.toString()
-            cvDeadlinesDaysValue3.text = campaign.daysToInstagramPicture.toString()
-
-            if(campaign.exampleImages.isNullOrEmpty()){
-                cvModel.visibility = View.GONE
-            } else{
-                modelTypeAdapter = SquareWrapWidthImagesAdapter(campaign.exampleImages?.map { it.url }!!, null)
-                cvModelRv.adapter = modelTypeAdapter
-                cvModelRv.layoutManager = LinearLayoutManager(cvModelRv.context, RecyclerView.HORIZONTAL,false)
-                cvModelRv.addItemDecoration(MarginItemDecorator(cvModelRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
-            }
-
-            if(campaign.tasks.isNullOrEmpty()){
-                cvTask.visibility = View.GONE
-            } else {
-                campaign.tasks!!.firstOrNull{ it.type == "photo" }?.let {
-                    cvTaskStories.text = if(it.count == 1) it.count.toString() + " "+ getString(R.string.story) else it.count.toString() + " "+ getString(R.string.stories_lowercase)
-
-                } ?: run {
-                    cvTaskStoriesLl.visibility = View.GONE
-                }
-
-                campaign.tasks!!.firstOrNull{ it.type == "post" }?.let {
-                    cvTaskPosts.text = if(it.count == 1) it.count.toString() + " "+ getString(R.string.ig_post) else it.count.toString() + " "+ getString(R.string.ig_posts)
-
-                } ?: run {
-                    cvTaskPostsLl.visibility = View.GONE
-                }
-
-                val ss = SpannableString(getString(R.string.when_publishing_tag)+" @"+(campaign.title).toLowerCase())
-                ss.setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, R.color.nice_pink)), ss.length - (campaign.title.length +1) , ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                cvTaskTag.text = ss
-            }
-
-            if(campaign.moodboardImages.isNullOrEmpty()){
-                cvMood.visibility = View.GONE
-            } else{
-                moodboardAdapter = SquareImagesAdapter(campaign.moodboardImages!!.map { it.url }, null)
-
-                cvMoodRv.layoutManager = GridLayoutManager(context!!, 3)
-                cvMoodRv.adapter = moodboardAdapter
-                cvMoodRv.addItemDecoration(GridItemDecoration(3, cvMoodRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
-            }
-
-            //TODO: what should be inside cvHowPager?
-            cvHow.visibility = View.GONE
+        } else if(!campaign.isJoinable){
+            notApprovedJoinBtn.visibility = View.GONE
         }
+
+        if(TextUtils.isEmpty(campaign.description)){
+            cvDescription.visibility = View.GONE
+        } else{
+            cvDescriptionText.text = campaign.description
+            cvDescription.visibility = View.VISIBLE
+        }
+
+        val rewards: List<Campaign.Reward>? = if(campaign.rewards.isNullOrEmpty()) null else campaign.rewards!!.filter { it.position == 0 || it.isGlobal }
+
+        if(rewards.isNullOrEmpty()){
+            cvRewards.visibility = View.GONE
+        } else{
+            rewards.firstOrNull{ it.type == "credit" }?.also {
+                cvRewardsCredits.text = it.value.toString()
+            } ?: run {
+                cvRewardsLl.visibility = View.GONE
+                cvRewardsDivider.visibility = View.GONE
+            }
+
+            rewards.filter { it.type != "credit" }.let {
+                if(it.isNullOrEmpty()){
+                    cvRewardsDivider.visibility =  View.GONE
+                    cvRewardsRv.visibility =  View.GONE
+                } else{
+                    rewardsAdapter = RewardsAdapter(it, null)
+                    cvRewardsRv.adapter = rewardsAdapter
+                    cvRewardsRv.layoutManager = LinearLayoutManager(cvRewardsRv.context, RecyclerView.VERTICAL,false)
+                    cvRewardsRv.addItemDecoration(MarginItemDecorator(cvRewardsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), true))
+                }
+            }
+        }
+
+        val winnerRewards: List<Campaign.Reward>? = if(campaign.rewards.isNullOrEmpty()) null else campaign.rewards!!.filter { it.position != 0 && !it.isGlobal }
+
+        if(winnerRewards.isNullOrEmpty()){
+            cvWinner.visibility = View.GONE
+        } else{
+
+            winnerRewards.firstOrNull{ it.type == "credit" }?.also {
+                cvWinnerCredits.text = it.value.toString()
+
+            } ?: run {
+                cvWinnerLl.visibility = View.GONE
+                cvWinnerDivider.visibility = View.GONE
+            }
+
+            winnerRewards.filter { it.type != "credit" }.let {
+                if(it.isNullOrEmpty()){
+                    cvWinnerDivider.visibility =  View.GONE
+                    cvWinnerRv.visibility =  View.GONE
+                } else{
+                    winnerAdapter = RewardsAdapter(it, null, true)
+                    cvWinnerRv.adapter = winnerAdapter
+                    cvWinnerRv.layoutManager = LinearLayoutManager(cvWinnerRv.context, RecyclerView.VERTICAL,false)
+                    cvWinnerRv.addItemDecoration(MarginItemDecorator(cvWinnerRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), true))
+                }
+            }
+        }
+
+        cvDeadlinesDaysValue1.text = campaign.daysToStart.toString()
+        cvDeadlinesDaysValue2.text = campaign.daysToPicture.toString()
+        cvDeadlinesDaysValue3.text = campaign.daysToInstagramPicture.toString()
+
+        if(campaign.exampleImages.isNullOrEmpty()){
+            cvModel.visibility = View.GONE
+        } else{
+            modelTypeAdapter = SquareWrapWidthImagesAdapter(campaign.exampleImages?.map { it.url }!!, null)
+            cvModelRv.adapter = modelTypeAdapter
+            cvModelRv.layoutManager = LinearLayoutManager(cvModelRv.context, RecyclerView.HORIZONTAL,false)
+            cvModelRv.addItemDecoration(MarginItemDecorator(cvModelRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+        }
+
+        if(campaign.tasks.isNullOrEmpty()){
+            cvTask.visibility = View.GONE
+        } else {
+            campaign.tasks!!.firstOrNull{ it.type == "photo" }?.also {
+                cvTaskStories.text = if(it.count == 1) it.count.toString() + " " + getString(R.string.photo) else it.count.toString() + " " + getString(R.string.photos_lowercase)
+
+            } ?: run {
+                cvTaskStoriesLl.visibility = View.GONE
+            }
+
+            campaign.tasks!!.firstOrNull{ it.type == "post" }?.also {
+                cvTaskPosts.text = if(it.count == 1) it.count.toString() + " " + getString(R.string.ig_post) else it.count.toString() + " " + getString(R.string.ig_posts)
+
+            } ?: run {
+                cvTaskPostsLl.visibility = View.GONE
+            }
+
+            val ss = SpannableString(getString(R.string.when_publishing_tag) +" @" + (campaign.title).toLowerCase())
+            ss.setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, R.color.nice_pink)), ss.length - (campaign.title.length + 1) , ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            cvTaskTag.text = ss
+        }
+
+        if(campaign.moodboardImages.isNullOrEmpty()){
+            cvMood.visibility = View.GONE
+        } else{
+            moodboardAdapter = SquareImagesAdapter(campaign.moodboardImages!!.map { it.url }, null)
+
+            cvMoodRv.layoutManager = GridLayoutManager(context!!, 3)
+            cvMoodRv.adapter = moodboardAdapter
+            cvMoodRv.addItemDecoration(GridItemDecoration(3, cvMoodRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+        }
+
+        //TODO: what should be inside cvHowPager?
+        cvHow.visibility = View.GONE
 
         hideProgress()
     }
