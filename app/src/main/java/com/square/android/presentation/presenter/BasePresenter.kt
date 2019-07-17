@@ -93,19 +93,14 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}")
 
-
-//                TODO uncomment
                 for (billing in billings) {
                     val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
-                    data.subscriptionId = billing.subscriptionId
-                    data.token = billing.token
 
-                    subscriptions.add(data)
+                    data?.let {
+                        it.subscriptionId = billing.subscriptionId
+                        it.token = billing.token
+                        subscriptions.add(it) }
                 }
-
-//                //TODO delete
-//                val data = billingRepository.getSubscription("one","two").await()
-                    
 
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}")
@@ -161,23 +156,22 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> error: ${error.toString()}"))
                 Log.d("SUBSCRIPTIONS LOG","BasePresenter: checkSubscriptions() -> error: ${error.toString()}")
 
-                //TODO uncomment when subscriptions working correctly
-//                    if((error is UnknownHostException || error is SocketTimeoutException || error is ConnectException || error is ConnectionShutdownException)){
-//                        eventBus.post(SubscriptionErrorEvent(2))
-//
-//                        if(!skipError){
-//                            if(allowNoConnectionScreen){
-//                                allowNoConnectionScreen = false
-//                                router.navigateTo(SCREENS.NO_CONNECTION)
-//                            }
-//                        }
-//                    } else{
-//                        eventBus.post(SubscriptionErrorEvent(3))
-//
-//                        if(!skipError){
-//                            router.navigateTo(SCREENS.SUBSCRIPTION_ERROR)
-//                        }
-//                    }
+                    if((error is UnknownHostException || error is SocketTimeoutException || error is ConnectException || error is ConnectionShutdownException)){
+                        eventBus.post(SubscriptionErrorEvent(2))
+
+                        if(!skipError){
+                            if(allowNoConnectionScreen){
+                                allowNoConnectionScreen = false
+                                router.navigateTo(SCREENS.NO_CONNECTION)
+                            }
+                        }
+                    } else{
+                        eventBus.post(SubscriptionErrorEvent(3))
+
+                        if(!skipError){
+                            router.navigateTo(SCREENS.SUBSCRIPTION_ERROR)
+                        }
+                    }
 
             })
         }

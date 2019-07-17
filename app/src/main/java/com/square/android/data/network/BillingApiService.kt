@@ -8,15 +8,18 @@ import retrofit2.http.*
 interface BillingApiService {
 
     @GET("purchases/subscriptions/{subscriptionId}/tokens/{token}")
-    fun getSubscription(@Path("subscriptionId") subscriptionId: String,
+    fun getSubscription(@Header("Authorization") accessToken: String,
+                        @Path("subscriptionId") subscriptionId: String,
                         @Path("token") token: String) : Call<BillingSubscription>
 
     @POST("purchases/subscriptions/{subscriptionId}/tokens/{token}:acknowledge")
-    fun acknowledgeSubscription(@Path("subscriptionId") subscriptionId: String,
+    fun acknowledgeSubscription(@Header("Authorization") accessToken: String,
+                                @Path("subscriptionId") subscriptionId: String,
                                 @Path("token") token: String,
                                 @Body body: TokenInfo): Call<MessageResponse>
 
     @POST("purchases/subscriptions/{subscriptionId}/tokens/{token}:cancel")
-    fun cancelSubscription(@Path("subscriptionId") subscriptionId: String,
+    fun cancelSubscription(@Header("Authorization") accessToken: String,
+                           @Path("subscriptionId") subscriptionId: String,
                            @Path("token") token: String): Call<MessageResponse>
 }
