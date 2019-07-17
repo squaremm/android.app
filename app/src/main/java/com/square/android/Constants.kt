@@ -132,11 +132,11 @@ object GOOGLEBILLING{
 
     const val SUBSCRIPTION_PER_MONTH_NAME = "square_monthly_premium"
 
-    const val GOOGLE_CODE = "4/ggGc5dFHU_sJ68hunDeSkbGf7cLrX7673X7Zp0DN1YNEfGtV8wbE2Olf4-p0Htnp48giXBeoIT4beUXS0VIGmNM"
+    const val GOOGLE_CODE = "4/iQHOcHcwK4LEy01sMsqFyvoK_dObDw6qiE5JP-U8INPkGmYyTe_3tQXpryRgcOW3iZrn8xoAdkmApwL6KtGYc-I"
 
     const val CLIENT_SECRET = "qqJusPDEfqaXS4IomodNhZfC"
 
-    const val REFRESH_TOKEN = "1/zjsXPyGcMoGnNV2OQkwsfCL2xU9EszAlvb1u98vC_xM"
+    const val REFRESH_TOKEN = "1/bHjM8CeWmNwTT2RHqfw_GzroIWiqbbtIPQFfo9nBBQhPthdFqOsxyktJ0cbxLbaZ"
 
     const val APP_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh8idDiOcP/cvl2nhlFjURSkwbflO24NGfXepXjIvijo2XHeJDx8tSqwqdH6aOrpxNo5y7lG1Jj22vpg0VOPfEJ/ETQOUE5jCRpTrIc4tGaWuiTjbSdXEtA0oYnn9YHudAcxtjOn02hvQIkTyPmmKx/XGK9mG2D4+XTo8EV/sLJesxCI/VY9cdg/IzPJ+S+otEHQY5r3a2/exjH/uBd/nXCX0JUSRtKcPTFrPIefZ3XpYZztEPUx62sY+FWYbyv1HbXcgofYhNyGD43/TTqXu3Ke49Xbq1mK9Xl3nJicQPFIh+hkx8KC44FuxQM+y2iY8Xu+TX+kKT5GtLfrZ4NLJfwIDAQAB"
 

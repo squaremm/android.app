@@ -23,8 +23,6 @@ private const val KEY_OAUTH_TOKEN = "KEY_OAUTH_TOKEN"
 
 private const val KEY_SOCIAL_LINK = "KEY_SOCIAL_LINK"
 
-private const val KEY_OAUTH_EXPIRE_TIME = "KEY_OAUTH_EXPIRE_TIME"
-
 private const val KEY_TUTORIAL = "KEY_TUTORIAL"
 
 private const val KEY_ENTITLEMENT = "KEY_ENTITLEMENT"
@@ -35,8 +33,6 @@ private const val KEY_FRAGMENT_NUMBER = "KEY_FRAGMENT_NUMBER"
 private const val KEY_ALLOW_PUSH_NOTIFICATIONS = "KEY_ALLOW_PUSH_NOTIFICATIONS"
 
 private const val KEY_ALLOW_GEOLOCATION = "KEY_ALLOW_GEOLOCATION"
-
-private const val SHOULD_REFRESH_TOKEN = "SHOULD_REFRESH_TOKEN"
 
 private const val DISPLAY_INTRO_DEFAULT = true
 private const val PROFILE_FILLED_DEFAULT = false
@@ -152,16 +148,6 @@ class LocalDataManager(context: Context) {
                 .apply()
     }
 
-    fun setOauthExpires(millis: Long){
-        preferences.edit()
-                .putLong(KEY_OAUTH_EXPIRE_TIME, millis)
-                .apply()
-    }
-
-    fun getOauthExpires(): Long{
-        return preferences.getLong(KEY_OAUTH_EXPIRE_TIME, 0)
-    }
-
     fun getFragmentNumber(): Int {
         return preferences.getInt(KEY_FRAGMENT_NUMBER, 0)
     }
@@ -269,16 +255,6 @@ class LocalDataManager(context: Context) {
     fun setGeolocationAllowed(allowed: Boolean) {
         preferences.edit()
                 .putBoolean(KEY_ALLOW_GEOLOCATION, allowed)
-                .apply()
-    }
-
-    fun getShouldRefreshToken(): Boolean {
-        return preferences.getBoolean(SHOULD_REFRESH_TOKEN, true)
-    }
-
-    fun setShouldRefreshToken(allowed: Boolean) {
-        preferences.edit()
-                .putBoolean(SHOULD_REFRESH_TOKEN, allowed)
                 .apply()
     }
 }
