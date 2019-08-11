@@ -1,8 +1,8 @@
 package com.square.android.data.network.response
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
 
 class AuthResponse(var message: String = "",
                    var token: String? = null,
-                   @field:JsonProperty("isChangePasswordRequired")
+                   @Json(name="isChangePasswordRequired")
                    var isChangePasswordRequired: Boolean? = false)

@@ -55,7 +55,7 @@ class OfferAdapter(data: List<OfferInfo>,
             offerTitle.text = item.name
             offerPrice.text = item.price.toString()
 
-            offerImage.loadImage(item.mainImage ?: item.photo)
+            offerImage.loadImage((item.mainImage ?: item.photo) ?: "")
 
             if (item.timeframes.isNullOrEmpty()){
                 offerTimeframesRv.visibility = View.GONE

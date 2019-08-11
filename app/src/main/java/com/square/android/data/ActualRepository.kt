@@ -78,8 +78,8 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun addReview(offerId: Long, info: ReviewInfo) = performRequest {
-        api.addReview(offerId, info)
+    override fun addReview(offerId: Long, bookingId: Long, info: ReviewInfo) = performRequest {
+        api.addReview(offerId, offerId, info)
     }
 
     override fun claimOffer(offerId: Long) = performRequest {
@@ -183,6 +183,7 @@ class ActualRepository(private val api: ApiService,
 
     override fun getCurrentUser(): Deferred<Profile.User> = GlobalScope.async {
         val data = performRequest { api.getCurrentProfile() }
+        setUserPaymentRequired(data.isPaymentRequired)
         data
     }
 

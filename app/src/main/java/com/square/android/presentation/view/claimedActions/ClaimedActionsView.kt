@@ -5,7 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.square.android.presentation.view.BaseView
 
 interface ClaimedActionsView : BaseView {
-    fun showData(actionTypes: Set<String>, credits: Map<String, Int>,feedback: String, instaUser: String)
+    fun showData(actionTypes: Set<String>, credits: Map<String, Int>, feedback: String, instaUser: String)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showDialog(type: String, coins: Int, feedback: String)

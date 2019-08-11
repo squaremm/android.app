@@ -1,7 +1,7 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Json
 
 const val SOCIAL_FACEBOOK = "facebook"
 const val SOCIAL_GOOGLE = "google"
@@ -18,9 +18,9 @@ val CREDITS_TO_SOCIAL = mapOf(
         TYPE_YELP to SOCIAL_YELP
 )
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonClass(generateAdapter = true)
 class PlaceInfo(
-        @field:JsonProperty("_id")
+        @Json(name="_id")
         var id: Long = 0,
         var address: String = "",
         var location: Location = Location(),

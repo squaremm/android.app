@@ -74,7 +74,7 @@ class FiltersAdapter(data: List<String>,
     }
 
     interface Handler {
-        fun filterClicked(position: Int)
+        fun filterClicked(place: Int)
     }
 
     object SelectedPayload

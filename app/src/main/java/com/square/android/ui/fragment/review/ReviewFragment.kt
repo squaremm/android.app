@@ -3,6 +3,7 @@ package com.square.android.ui.fragment.review
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +53,7 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
     lateinit var presenter: ReviewPresenter
 
     @ProvidePresenter
-    fun providePresenter(): ReviewPresenter = ReviewPresenter(getRedemptionId(), getOfferId())
+    fun providePresenter(): ReviewPresenter = ReviewPresenter(getOfferId(), getRedemptionId())
 
     private lateinit var reviewTypes: List<ReviewType>
 
@@ -103,12 +104,14 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
         adapter?.disableReviewType(position)
     }
 
-    override fun showData(data: Offer, feedback: String) {
+    override fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>, feedback: String) {
         updateReviewTypes(feedback, data)
 
         val used = data.posts.map { it.type }
+        Log.e("LOL", used.toString())
+        Log.e("LOLEK", actionTypes.toString())
 
-        filteredTypes = reviewTypes.filter { it.key in data.credits && (it.key !in used || it.key == TYPE_INSTAGRAM_STORY) }
+        filteredTypes = reviewTypes.filter { it.key in actionTypes && (it.key !in used || it.key == TYPE_INSTAGRAM_STORY) }
 
         adapter = ReviewAdapter(filteredTypes!!, data.credits, this)
 

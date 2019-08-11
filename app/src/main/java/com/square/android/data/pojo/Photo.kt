@@ -1,7 +1,7 @@
 package com.square.android.data.pojo
 
 import android.os.Parcelable
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -14,6 +14,6 @@ data class Photo(
 
         var createdAt: String = "",
 
-        @field:JsonProperty("isMainImage")
+        @Json(name="isMainImage")
         var isMainImage: Boolean = false
 ) : Parcelable

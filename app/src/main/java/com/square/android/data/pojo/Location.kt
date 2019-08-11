@@ -1,9 +1,9 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.squareup.moshi.JsonClass
 import com.mapbox.mapboxsdk.geometry.LatLng
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonClass(generateAdapter = true)
 class Location(
         var coordinates: List<Double> = listOf(),
         var type: String = ""

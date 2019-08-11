@@ -1,24 +1,27 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.square.android.data.network.IgnoreObjectIfIncorrect
+import com.square.android.data.network.IgnoreStringForArrays
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Json
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonClass(generateAdapter = true)
 class Place(
-        @field:JsonProperty("_id")
+        @Json(name="_id")
         var id: Long = 0,
         var address: String = "",
 //        var bookings: List<Booking> = listOf(),
         var intervals: List<Interval> = listOf(),
         var credits: Int = 0,
         var description: String = "",
-        var level: Int = 0,
+        var level: Int? = 0,
         var location: Location = Location(),
         var name: String = "",
         var offers: List<OfferInfo> = listOf(),
         var photos: List<String>? = listOf(),
         var mainImage: String? = null,
-        var schedule: Map<String, String> = mapOf(),
+        @IgnoreObjectIfIncorrect.IgnoreJsonObjectError
+        var schedule: Map<String, ScheduleDay> = mapOf(),
         var type: String = "",
 
         // Availability label data
@@ -31,28 +34,28 @@ class Place(
     var award: Int = 0
 
     fun stringDays() = schedule.keys
-            .filterNot { schedule[it].isNullOrEmpty() }
+            .filterNot { it.isEmpty() }
             .joinToString(separator = "\n", transform = String::capitalize)
 
     fun stringTime() = schedule.values
-            .filter(String::isNotEmpty)
+            .map { it.start + " " + it.end }
             .joinToString(separator = "\n")
 
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonClass(generateAdapter = true)
     class Interval(
-            @field:JsonProperty("_id")
+            @Json(name="_id")
             var id: String? = null,
 
             var start: String = "",
             var end: String = "",
 
-            @field:JsonProperty("free")
+            @Json(name="free")
             var slots: Int = 0
     )
 
     data class Booking(
-            @JsonProperty("_id")
+            @Json(name="_id")
             var id: Int = 0,
             var closed: Boolean = false,
             var date: String = "",

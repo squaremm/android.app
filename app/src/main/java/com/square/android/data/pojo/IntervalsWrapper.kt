@@ -1,14 +1,14 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
 
 data class IntervalsWrapper(
-        @field:JsonProperty("_id")
+        @Json(name="_id")
         val id: String = "",
 
         val intervals: List<Place.Interval> = listOf(),
 
-        @field:JsonProperty("place")
+        @Json(name="place")
         val placeId: Int = 0,
 
         val message: String? = null

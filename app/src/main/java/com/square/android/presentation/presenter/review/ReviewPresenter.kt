@@ -3,10 +3,7 @@ package com.square.android.presentation.presenter.review
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.R
 import com.square.android.SCREENS
-import com.square.android.data.pojo.CREDITS_TO_SOCIAL
-import com.square.android.data.pojo.Offer
-import com.square.android.data.pojo.ReviewInfo
-import com.square.android.data.pojo.TYPE_PICTURE
+import com.square.android.data.pojo.*
 import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
@@ -56,8 +53,17 @@ class ReviewPresenter(private val offerId: Long,
 
         viewState.initReviewTypes()
 
+
+
+        val act = repository.getActions(offerId, redemptionId).await()
+
+        val actions = act.mapTo(HashSet(), ReviewNetType::type)
+        val credits = hashMapOf(*act.map { it.apply { it.credits = it.credits ?: 0 } }.map { it.type to it.credits }.toTypedArray()) as HashMap<String, Int>
+
+
+
         viewState.hideProgress()
-        viewState.showData(data!!, reviewInfo.feedback)
+        viewState.showData(data!!, actions, credits, reviewInfo.feedback)
     }
 
     fun itemClicked(type: String, index: Int) {
@@ -86,7 +92,7 @@ class ReviewPresenter(private val offerId: Long,
             //TODO new addReview for sendPicture?
 
         } ?: run {
-            interactor.addReview(reviewInfo, offerId).await()
+            interactor.addReview(reviewInfo, offerId, redemptionId).await()
         }
 
         viewState.disableItem(currentPosition!!)

@@ -59,13 +59,18 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
     }
 
     fun allowAndCheckSubs(){
+        Log.e("SUBSCRIPTIONS", "ALLOW AND CHECK")
+
         allowSubsCheck.value = true
         checkSubscriptions(true)
     }
 
     fun checkSubscriptions(skipError: Boolean = false){
+        Log.e("SUBSCRIPTIONS", "CHECK")
         if(allowSubsCheck.value) {
             allowSubsCheck.value = false
+            Log.e("SUBSCRIPTIONS", "CHECK TRUE")
+
             launch ({
 
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions()"))
@@ -93,14 +98,14 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}")
 
-                for (billing in billings) {
-                    val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
+                    for (billing in billings) {
+                        val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
 
-                    data?.let {
-                        it.subscriptionId = billing.subscriptionId
-                        it.token = billing.token
-                        subscriptions.add(it) }
-                }
+                        data?.let {
+                            it.subscriptionId = billing.subscriptionId
+                            it.token = billing.token
+                            subscriptions.add(it) }
+                    }
 
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}")
@@ -143,12 +148,12 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
                         Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub IS NULL")
                     }
-                    //////////////////////////////////////////////////////////////////
 
-                    //TODO uncomment when subscriptions working correctly
-                    if(!valid1 && !valid2){
-                        router.navigateTo(SCREENS.PASS_ELIGIBLE)
-                    }
+//                    if(!valid1 && !valid2){
+//                        router.navigateTo(SCREENS.PASS_ELIGIBLE)
+//                        Log.e("SUBSCRIPTIONS", "ELIGIBLE")
+//
+//                    }
 
                 }
                 eventBus.post(SubscriptionErrorEvent(1))

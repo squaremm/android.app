@@ -6,7 +6,7 @@ import com.square.android.data.pojo.Offer
 import com.square.android.presentation.view.ProgressView
 
 interface ReviewView : ProgressView {
-    fun showData(data: Offer, feedback: String)
+    fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>, feedback: String)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showDialog(type: String, coins: Int, feedback: String)

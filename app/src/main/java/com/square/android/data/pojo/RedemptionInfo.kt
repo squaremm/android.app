@@ -1,11 +1,11 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Json
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonClass(generateAdapter = true)
 class RedemptionInfo(
-        @field:JsonProperty("_id")
+        @Json(name="_id")
         var id: Long = 0,
         var closed: Boolean = false,
         var date: String = "",

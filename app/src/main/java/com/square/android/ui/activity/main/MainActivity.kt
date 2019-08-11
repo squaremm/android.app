@@ -53,7 +53,7 @@ import org.koin.android.ext.android.inject
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
 
-private const val REDEMPTIONS_POSITION = 2
+private const val REDEMPTIONS_POSITION = 1
 
 class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigationItemSelectedListener {
 

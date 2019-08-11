@@ -85,8 +85,10 @@ class CampaignDetailsPresenter(val campaignId: Long): BasePresenter<CampaignDeta
                     && (((count1 != data!!.images?.size && count1 > 0) || (count2 == data!!.images?.size && count2 > 0)))
                     && data!!.isGiftTaken == true) {
                 router.replaceScreen(SCREENS.UPLOAD_PICS, data)
-            } else if (data!!.status!! >= 2) {
+            } else if (data!!.status!! >= 2 && !data!!.hasWinner) {
                 router.replaceScreen(SCREENS.APPROVAL, data)
+            } else if (data!!.hasWinner){
+                router.replaceScreen(SCREENS.WINNER, data)
             } else {
                 router.replaceScreen(SCREENS.NOT_APPROVED, data)
             }

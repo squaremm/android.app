@@ -17,10 +17,15 @@ class PlacesAdapter(data: List<Place>,
 
     override fun getItemCount() = data.size
 
-    override fun instantiateHolder(view: View): PlacesHolder = PlacesHolder(view, handler)
+    override fun instantiateHolder(view: View) = PlacesHolder(view, handler)
 
     fun updateDistances() {
         notifyItemRangeChanged(0, data.size, DistancePayload)
+    }
+
+    override fun bindHolder(holder: PlacesHolder, position: Int) {
+        super.bindHolder(holder, position)
+        holder.containerView.setOnClickListener { handler.itemClicked(data[position]) }
     }
 
     @Suppress("ForEachParameterNotUsed")
@@ -38,10 +43,6 @@ class PlacesAdapter(data: List<Place>,
 
     class PlacesHolder(containerView: View,
                        handler: Handler) : BaseHolder<Place>(containerView) {
-
-        init {
-            containerView.setOnClickListener { handler.itemClicked(adapterPosition) }
-        }
 
         override fun bind(item: Place, vararg extras: Any?) {
             placeInfoAddress.text = item.address
@@ -74,7 +75,7 @@ class PlacesAdapter(data: List<Place>,
     }
 
     interface Handler {
-        fun itemClicked(position: Int)
+        fun itemClicked(place: Place)
     }
 }
 

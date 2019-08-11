@@ -144,24 +144,20 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         }
     }
 
-    fun itemClicked(position: Int) {
-        val id: Long
+    fun itemClicked(place: Place) {
+        val id = place.id
 
         if(filteredTypes.isEmpty()){
-            id = data!![position].id
-
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = data!![position].name }, hashMapOf("id" to id.toString())), repository)
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
             AnalyticsManager.logEvent(AnalyticsEvent(
-                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = data!![position].name },
+                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = place.name },
                     hashMapOf("id" to id.toString())),
                     repository)
 
         } else{
-            id = filteredData!![position].id
-
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = filteredData!![position].name }, hashMapOf("id" to id.toString())), repository)
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
             AnalyticsManager.logEvent(AnalyticsEvent(
-                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = filteredData!![position].name },
+                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = place.name },
                     hashMapOf("id" to id.toString())),
                     repository)
         }

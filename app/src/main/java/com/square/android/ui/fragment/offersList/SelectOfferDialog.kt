@@ -28,7 +28,7 @@ class SelectOfferDialog(private val context: Context) {
 
         dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        view.offerDialogImg.loadImage(offer.mainImage ?: offer.photo)
+        view.offerDialogImg.loadImage((offer.mainImage ?: offer.photo) ?: "")
 
         view.offerDialogSubmit.setOnClickListener { cancel()
             onAction.invoke() }

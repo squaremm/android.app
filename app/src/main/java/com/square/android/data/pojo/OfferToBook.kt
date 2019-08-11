@@ -1,5 +1,5 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
 
-class OfferToBook(@field:JsonProperty("offerID") val offerId: Long = 0)
+class OfferToBook(@Json(name="offerID") val offerId: Long = 0)

@@ -175,7 +175,7 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
         hideDialog()
 
         showMessage(getString(R.string.purchase_completed_successfully))
-        onBackPressed()
+        finish()
     }
 
 }

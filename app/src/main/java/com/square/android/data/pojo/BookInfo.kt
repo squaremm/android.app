@@ -1,8 +1,8 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
 
-class BookInfo(@field:JsonProperty("userID")
+class BookInfo(@Json(name="userID")
                val userId: Long?,
                val date: String?,
                val intervalId: String?)

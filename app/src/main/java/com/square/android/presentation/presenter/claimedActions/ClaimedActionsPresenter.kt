@@ -1,9 +1,11 @@
 package com.square.android.presentation.presenter.claimedActions
 
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.data.pojo.CREDITS_TO_SOCIAL
 import com.square.android.data.pojo.Offer
 import com.square.android.data.pojo.ReviewInfo
+import com.square.android.data.pojo.ReviewNetType
 import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.claimedCoupon.OfferLoadedEvent
@@ -58,6 +60,20 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
             }
 
             viewState.showData(actions.await(), offer.credits,reviewInfo.feedback, data!!.instaUser  )
+
+            Log.e("LOL", "AKCJE")
+            // TODO - new?
+//            val placeId = data!!.place.id
+//            val feedback = repository.getFeedbackContent(placeId).await()
+//            reviewInfo.feedback = feedback.message
+//
+//            viewState.initReviewTypes()
+//            val act = repository.getActions(offer.id, redemptionId).await()
+//
+//            val actions = act.mapTo(HashSet(), ReviewNetType::type)
+//            val credits = hashMapOf(*act.map { it.type to it.credits }.toTypedArray())
+
+//            viewState.showData(actions, credits, reviewInfo.feedback, data!!.instaUser  )
         }
     }
 

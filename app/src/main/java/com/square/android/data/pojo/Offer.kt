@@ -1,7 +1,7 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Json
 
 const val TYPE_FACEBOOK_POST = "fbPost"
 const val TYPE_INSTAGRAM_POST = "instaPost"
@@ -11,9 +11,9 @@ const val TYPE_GOOGLE_PLACES = "gPost"
 const val TYPE_YELP = "yelpPost"
 const val TYPE_PICTURE = "sendPicture"
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonClass(generateAdapter = true)
 class Offer(
-        @field:JsonProperty("_id")
+        @Json(name="_id")
         var id: Long = 0,
         var closed: Boolean = false,
         var composition: List<String> = listOf(),
@@ -28,9 +28,9 @@ class Offer(
         var posts: MutableList<Post> = mutableListOf(),
         var timeframes: List<String>? = null
 ) {
-    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonClass(generateAdapter = true)
     class Post(
-            @field:JsonProperty("_id")
+            @Json(name="_id")
             var id: Int = 0,
             var accepted: Boolean = false,
             var credits: Int = 0,

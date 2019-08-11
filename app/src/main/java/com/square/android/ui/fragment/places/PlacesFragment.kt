@@ -41,7 +41,7 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         placesList.visibility = View.VISIBLE
 
         if(data.isNotEmpty()){
-            placesFiltersRv.visibility = View.VISIBLE
+//            placesFiltersRv.visibility = View.VISIBLE
             placesSearchLl.visibility = View.VISIBLE
         }
 
@@ -100,8 +100,8 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         }
     }
 
-    override fun itemClicked(position: Int) {
-        presenter.itemClicked(position)
+    override fun itemClicked(place: Place) {
+        presenter.itemClicked(place)
     }
 
     override fun setSelectedFilterItem(position: Int, contains: Boolean) {

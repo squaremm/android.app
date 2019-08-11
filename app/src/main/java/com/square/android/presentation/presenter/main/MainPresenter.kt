@@ -37,8 +37,9 @@ class MainPresenter : BasePresenter<MainView>() {
             navigationClicked(SCREENS.START)
         } else {
             val user = repository.getCurrentUser().await()
-            if (user.isAcceptationPending) {
+            if (user.isAcceptationPending || !user.accepted) {
                 viewState.showUserPending()
+                allowAndCheckSubs()
             } else {
                 viewState.hideUserPending()
                 if (!repository.isLoggedIn() || !repository.isProfileFilled()) {
@@ -48,6 +49,7 @@ class MainPresenter : BasePresenter<MainView>() {
                     if (!checkedInitial) {
                         navigationClicked(SCREENS.PLACES)
                         viewState.checkInitial()
+                        allowAndCheckSubs()
                         checkedInitial = true
                     }
 

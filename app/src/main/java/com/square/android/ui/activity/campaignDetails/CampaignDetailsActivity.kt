@@ -19,6 +19,7 @@ import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.campaignDetails.CampaignDetailsPresenter
 import com.square.android.presentation.view.campaignDetails.CampaignDetailsView
 import com.square.android.ui.activity.BaseActivity
+import com.square.android.ui.activity.campaignFinished.CampaignFinishedActivity
 import com.square.android.ui.fragment.addPhoto.AddPhotoFragment
 import com.square.android.ui.fragment.approval.ApprovalFragment
 import com.square.android.ui.fragment.campaignNotApproved.CampaignNotApprovedFragment
@@ -28,7 +29,9 @@ import com.square.android.ui.fragment.pickUpLocation.PickUpLocationFragment
 import com.square.android.ui.fragment.pickUpSpot.PickUpSpotFragment
 import com.square.android.ui.fragment.scanQr.ScanQrFragment
 import com.square.android.ui.fragment.uploadPics.UploadPicsFragment
+import com.square.android.ui.fragment.winner.WinnerFragment
 import kotlinx.android.synthetic.main.activity_campaign_details.*
+import org.jetbrains.anko.intentFor
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
@@ -93,7 +96,11 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView{
 
     private class CampaignNavigator(activity: FragmentActivity) : AppNavigator(activity, R.id.campaignContainer) {
 
-        override fun createActivityIntent(context: Context, screenKey: String, data: Any?): Intent? = null
+        override fun createActivityIntent(context: Context, screenKey: String, data: Any?) = when (screenKey) {
+            SCREENS.WINNER -> context.intentFor<CampaignFinishedActivity>(com.square.android.ui.activity.campaignFinished.CAMPAIGN_EXTRA_ID to (data as Campaign).id)
+            else -> null
+
+        }
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? {
             return when (screenKey) {

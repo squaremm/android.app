@@ -100,9 +100,11 @@ class AuthPresenter : BasePresenter<AuthView>() {
             when {
                 profile.newUser -> router.replaceScreen(SCREENS.FILL_PROFILE_FIRST, ProfileInfo())
                 profile.isAcceptationPending -> viewState.showPendingUser()
-                !profile.accepted ->{
+                !profile.accepted -> {
                     viewState.showPendingUser()
                     viewState.showMessage("You haven't been accepted!")
+                    if (profile.isPaymentRequired)
+                        allowAndCheckSubs()
                 }
                 else -> {
                     viewState.hideUserPending()
@@ -125,8 +127,11 @@ class AuthPresenter : BasePresenter<AuthView>() {
 
     fun checkUserPending() = launch {
         val profile = repository.getCurrentUser().await()
-        if (profile.isAcceptationPending) {
+        if (profile.isAcceptationPending || !profile.accepted) {
             viewState.showUserPending()
+            if (profile.isPaymentRequired) {
+                allowAndCheckSubs()
+            }
         } else {
             viewState.hideUserPending()
         }
