@@ -3,195 +3,224 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/whiteish_purple"
-    android:paddingBottom="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:animateLayoutChanges="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/nice_pink"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp"
-            tools:text="+ 20 coins" />
+        android:layout_height="wrap_content" >
 
         <ImageView
             android:id="@+id/reviewDialogImage"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="42dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/step"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/circle_white"
             android:backgroundTint="@color/gray_purple"
             android:padding="42dp"
-            app:srcCompat="@drawable/instagram_logo" />
-
-        <TextView
-            android:id="@+id/reviewDialogType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Instagram story"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewDialogCoins"
-            tools:text="Instagram story" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/google_logo" />
 
         <TextView
             android:id="@+id/reviewDialogCoins"
+            style="@style/Models18BoldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/nice_pink"
             app:layout_constraintStart_toStartOf="@+id/reviewDialogType"
             app:layout_constraintEnd_toEndOf="@id/reviewDialogType"
             app:layout_constraintTop_toBottomOf="@+id/reviewDialogImage"
-            android:layout_marginTop="24dp"
-            tools:text="+ 20 coins" />
+            android:layout_marginTop="16dp"
+            tools:text="+ 25 credits" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/reviewDialogTitle"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="24dp"-->
-<!--            android:layout_marginStart="24dp"-->
-<!--            android:layout_marginTop="24dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="@string/review_instagram_post_title"-->
-<!--            android:textAppearance="@style/TextAppearance.AppCompat.Body2"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/reviewDialogType"-->
-<!--            tools:text="@tools:sample/tools:lorem[7]" />-->
+        <TextView
+            android:id="@+id/reviewDialogType"
+            style="@style/Models20BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reviewDialogCoins"
+            tools:text="Add a Google Place review" />
 
         <TextView
             android:id="@+id/reviewDialogTask"
+            style="@style/Models16Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reviewDialogType"
+            tools:text="Open Google Places and\nmake a review of this venue!" />
+
+        <TextView
+            android:id="@+id/reviewDialogContent"
+            style="@style/Models16Text"
+            android:textColor="@color/secondary_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="32dp"
             android:gravity="center"
-            android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewDialogType"
-            tools:text="@tools:sample/tools:lorem[100]" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/action_container"
             app:layout_constraintTop_toBottomOf="@+id/reviewDialogTask"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/rounded_background_white"
-            android:padding="18dp"
-            android:animateLayoutChanges="true"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="16dp"
+            tools:text="DO:\n blah blah\n\nDON'T\nblah blah" />
+
+        <TextView
+            android:id="@+id/reviewDialogUpload"
+            style="@style/Models16BoldText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
-            <RatingBar
-                android:id="@+id/reviewDialogBar"
-                style="@style/Widget.AppCompat.RatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:isIndicator="false"
-                android:numStars="5"
-                android:scaleX="0.7"
-                android:scaleY="0.7"
-                android:stepSize="1"
-                android:visibility="visible"
-                android:progressTint="@color/yellow"
-                android:secondaryProgressTint="@color/yellow"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reviewDialogContent"
+            android:text="@string/review_upload_text" />
 
-            <TextView
-                android:id="@+id/reviewCopyText"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/light_purple_rounded_background"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/next"
-                android:textColor="@color/grey_dark"
-                android:textSize="10sp"
-                android:layout_marginBottom="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/reviewDialogBar"
-                tools:visibility="visible" />
+        <Button
+            android:id="@+id/reviewBtnAction"
+            style="@style/Models16BoldText"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="48dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/nice_button_red_pink"
+            android:textAllCaps="false"
+            tools:text="Upload a screenshot"
+            android:drawableEnd="@drawable/chevron_right_white"
+            android:drawableStart="@drawable/chevron_right_transc"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:layout_marginBottom="32dp"
+            android:textColor="@color/btn_text_color"
+            android:layout_marginStart="64dp"
+            android:layout_marginEnd="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@id/reviewDialogUpload"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/reviewCopyActionText"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:padding="8dp"
-                android:drawablePadding="10dp"
-                android:text="@string/copy_review"
-                android:textColor="@color/nice_pink"
-                android:textSize="15sp"
-                android:drawableStart="@drawable/content_copy"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/reviewDialogSubmit"
-                app:layout_constraintTop_toBottomOf="@id/reviewCopyText"
-                tools:visibility="visible" />
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/action_container"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/reviewDialogTask"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:background="@drawable/rounded_background_white"-->
+<!--            android:padding="18dp"-->
+<!--            android:animateLayoutChanges="true"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:layout_marginTop="150dp"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <RatingBar-->
+<!--                android:id="@+id/reviewDialogBar"-->
+<!--                style="@style/Widget.AppCompat.RatingBar"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:isIndicator="false"-->
+<!--                android:numStars="5"-->
+<!--                android:scaleX="0.7"-->
+<!--                android:scaleY="0.7"-->
+<!--                android:stepSize="1"-->
+<!--                android:visibility="visible"-->
+<!--                android:progressTint="@color/yellow"-->
+<!--                android:secondaryProgressTint="@color/yellow"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
 
-            <TextView
-                android:id="@+id/reviewDialogSubmit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/nice_button_red_pink"
-                android:gravity="center"
-                android:minWidth="190dp"
-                android:padding="8dp"
-                android:text="@string/next"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:layout_marginBottom="16dp"
-                android:textStyle="bold"
-                android:enabled="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reviewCopyActionText"
-                tools:visibility="visible" />
-            <TextView
-                android:id="@+id/reviewDialogDone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/done"
-                android:textSize="18sp"
-                android:textColor="@color/nice_pink"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/reviewDialogSubmit"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/reviewCopyText"-->
+<!--                android:layout_width="250dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:background="@drawable/light_purple_rounded_background"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="8dp"-->
+<!--                android:text="@string/next"-->
+<!--                android:textColor="@color/grey_dark"-->
+<!--                android:textSize="10sp"-->
+<!--                android:layout_marginBottom="32dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/reviewDialogBar"-->
+<!--                tools:visibility="visible" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/reviewCopyActionText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="8dp"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:text="@string/copy_review"-->
+<!--                android:textColor="@color/nice_pink"-->
+<!--                android:textSize="15sp"-->
+<!--                android:drawableStart="@drawable/content_copy"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/reviewDialogSubmit"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/reviewCopyText"-->
+<!--                tools:visibility="visible" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/reviewDialogSubmit"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/nice_button_red_pink"-->
+<!--                android:gravity="center"-->
+<!--                android:minWidth="190dp"-->
+<!--                android:padding="8dp"-->
+<!--                android:text="@string/next"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="12sp"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:enabled="true"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/reviewCopyActionText"-->
+<!--                tools:visibility="visible" />-->
+<!--            <TextView-->
+<!--                android:id="@+id/reviewDialogDone"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/done"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textColor="@color/nice_pink"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/reviewDialogSubmit"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -72,9 +72,8 @@
     <string name="redemptions_title">Redemptions list</string>
     <string name="claimed">Claimed</string>
     <string name="price">Price</string>
-    <string name="insta_story">Instagram Story</string>
+
     <string name="send_picture">Send picture</string>
-    <string name="insta_post">Instagram Post</string>
     <string name="book">Book</string>
     <string name="time_range">%s - %s</string>
     <string name="not_available_from_to">Not available from %s to %s</string>
@@ -109,22 +108,37 @@
     <string name="check_in">Check in</string>
     <string name="price_format">-%d coins</string>
     <string name="offre_not_selected">You didn\'t select an offer</string>
-    <string name="insta_post_description">Tag the restaurant and the app in an Instagram post showing yourself there</string>
-    <string name="insta_story_description">Tag the restaurant and the app in an Instagram story showing yourself there</string>
-    <string name="send_photo_description">Make and send a photo</string>
+    <string name="insta_post_description">Tag the venue and the app in an Instagram post showing yourself there!</string>
+    <string name="insta_story_description">Tag the venue and the app in an Instagram story showing yourself there!</string>
+    <string name="send_photo_description">Make and send a photo!</string>
+
+    <string name="insta_post">Instagram Post</string>
+    <string name="insta_story">Instagram Story</string>
     <string name="trip_advisor">Tripadvisor review</string>
-    <string name="trip_advisor_description">Add a review on tripadvisor</string>
+    <string name="yelp">Yelp review</string>
     <string name="google_places">Google Places review</string>
-    <string name="google_places_description">Add a review on Google places</string>
     <string name="facebook_post">Facebook post</string>
-    <string name="facebook_post_description">Add a review on Facebook</string>
-    <string name="yelp_post_description">Add a review on Yelp</string>
+
+    <string name="yelp_name">Yelp</string>
+    <string name="facebook_name">Facebook</string>
+    <string name="trip_advisor_name">Tripadvisor</string>
+    <string name="google_places_name">Google Places</string>
+
+
+    <string name="review_description_format">Open %s and make a review of this venue!</string>
+
     <string name="award_format">+%d\ncredits</string>
     <string name="award_single_line_format">+%d coins</string>
     <string name="empty_card">For now, it is empty</string>
     <string name="review_instagram_post_title">Make a post on instagram showing yourself in the venue</string>
     <string name="review_instagram_story_title">Make a story on instagram showing yourself in the venue</string>
     <string name="review_trip_advisor_title">Follow the steps below to earn the credits</string>
+
+    <string name="review_upload_text">Then upload a screenshot of your review\nin the next screen!</string>
+
+
+    <string name="upload_a_screenshot">Upload a screenshot</string>
+
 
     <string name="add_a">Add a</string>
     <string name="step">Step</string>
@@ -276,6 +290,7 @@
     <string name="stories_lowercase">stories</string>
     <string name="story">story</string>
     <string name="photo">photo</string>
+    <string name="photo_uppercase">Photo</string>
     <string name="photos_lowercase">photos</string>
 
     <string name="ig_post">Instagram post</string>
@@ -345,21 +360,7 @@
     <string name="review_instagram_post_body">
         <![CDATA[
          <font color=#7CFC00>Do:</font><br>
-         <font color=#7CFC00>\u2713</font> Make the tag of the restaurant visible<br>
-         <font color=#7CFC00>\u2713</font> Tag @Square<br>
-         <font color=#7CFC00>\u2713</font> The story should at least 5 seconds<br>
-         <br>
-         <br>
-         <font color=#FF0000>Don\'t:</font><br>
-         <font color=#FF0000>x</font> Remove the story before it expires<br>
-         <font color=#FF0000>x</font> Repost a story of a friend, covering the tags with other content<br>
-        ]]>
-    </string>
-
-    <string name="review_instagram_story_body">
-        <![CDATA[
-         <font color=#7CFC00>Do:</font><br>
-         <font color=#7CFC00>\u2713</font> ]]> Make the tag of the restaurant visible @%s <![CDATA[<br>
+         <font color=#7CFC00>\u2713</font> Make the tag of the venue visible<br>
          <font color=#7CFC00>\u2713</font> Tag @Square<br>
          <br>
          <br>
@@ -368,9 +369,23 @@
         ]]>
     </string>
 
+    <string name="review_instagram_story_body">
+        <![CDATA[
+         <font color=#7CFC00>Do:</font><br>
+         <font color=#7CFC00>\u2713</font> Make the tag of the venue visible<br>
+         <font color=#7CFC00>\u2713</font> Tag @Square<br>
+         <font color=#7CFC00>\u2713</font> The story should be at least 5 seconds<br>
+         <br>
+         <br>
+         <font color=#FF0000>Don\'t:</font><br>
+         <font color=#FF0000>x</font> Remove the story before it expires<br>
+         <font color=#FF0000>x</font> Repost a story of a friend, covering the tags with other content<br>
+        ]]>
+    </string>
+
     <string name="review_other_body_format">Select a number of stars from 3 to 5 and click next</string>
 
-    <string name="review_stage_2">Copypaste the auto generated text</string>
+    <string name="review_stage_2">Upload a screenshot of your action</string>
 
     <string name="review_stage_3_maps">Open Maps and make a on restaurant the given text</string>
 

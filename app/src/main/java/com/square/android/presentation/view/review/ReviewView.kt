@@ -6,18 +6,12 @@ import com.square.android.data.pojo.Offer
 import com.square.android.presentation.view.ProgressView
 
 interface ReviewView : ProgressView {
-    fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>, feedback: String)
+    fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showDialog(type: String, coins: Int, feedback: String)
+    fun showDialog(type: String, coins: Int, index: Int)
 
     fun disableItem(position: Int)
-
-    @StateStrategyType(OneExecutionStateStrategy::class)
-    fun copyFeedbackToClipboard(feedback: String)
-
-    @StateStrategyType(OneExecutionStateStrategy::class)
-    fun openLink(link: String)
 
     fun setSelectedItem(position: Int)
 

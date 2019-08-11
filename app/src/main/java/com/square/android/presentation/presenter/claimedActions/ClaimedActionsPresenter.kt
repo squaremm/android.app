@@ -79,7 +79,7 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
 
     private fun createPost() {
         launch {
-            interactor.addReview(reviewInfo, offerId).await()
+            interactor.addReview(reviewInfo, offerId, redemptionId).await()
 
             viewState.disableItem(currentPosition!!)
 
