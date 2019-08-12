@@ -35,35 +35,27 @@ class ReviewPresenter(private val offerId: Long,
         loadData()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSendPictureEvent(event: SendPictureEvent) {
-        lastStageReached(event.data.index, event.data.type)
-    }
+    //TODO event from upload photo/add a screenshot
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onSendPictureEvent(event: SendPictureEvent) {
+    //TODO send index: Int and photo: ByteArray
+    //TODO addReview(index, photo)
+//    }
 
     private fun loadData() = launch {
         viewState.showProgress()
 
         data = interactor.getOffer(offerId).await()
 
-        val placeId = data!!.place.id
-
-        val feedback = repository.getFeedbackContent(placeId).await()
-
-        reviewInfo.feedback = feedback.message
-
         viewState.initReviewTypes()
-
-
 
         val act = repository.getActions(offerId, redemptionId).await()
 
         val actions = act.mapTo(HashSet(), ReviewNetType::type)
         val credits = hashMapOf(*act.map { it.apply { it.credits = it.credits ?: 0 } }.map { it.type to it.credits }.toTypedArray()) as HashMap<String, Int>
 
-
-
         viewState.hideProgress()
-        viewState.showData(data!!, actions, credits, reviewInfo.feedback)
+        viewState.showData(data!!, actions, credits)
     }
 
     fun itemClicked(type: String, index: Int) {
@@ -71,28 +63,34 @@ class ReviewPresenter(private val offerId: Long,
 
         reviewInfo.postType = type
 
-        if(reviewInfo.postType == TYPE_PICTURE){
+        viewState.showDialog(type, coins, index)
+    }
 
-            router.navigateTo(SCREENS.SEND_PICTURE, index)
+    fun navigateByKey(index: Int, reviewType: String) {
 
-        } else{
-            viewState.showDialog(type, coins, reviewInfo.feedback)
+        when(reviewType){
+            TYPE_PICTURE -> {
+                router.navigateTo(SCREENS.SEND_PICTURE, index)
+            }
+            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY ->{
+                addReview(index)
+            }
+            else ->{
+                //TODO add screenshot activity
+                //  router.navigateTo(SCREENS.ADD_SCREENSHOT, index)
+            }
         }
     }
 
-    fun lastStageReached(index: Int, type: Int? = null) {
+    private fun addReview(index: Int, photo: ByteArray? = null) = launch {
+        //TODO show upload progressBar and hide later?
+
         currentPosition = index
 
-        createPost(type)
-    }
-
-    private fun createPost(type: Int? = null) = launch {
-
-        type?.let {
-            //TODO new addReview for sendPicture?
-
-        } ?: run {
+        photo?.let {
             interactor.addReview(reviewInfo, offerId, redemptionId).await()
+        } ?: run {
+            //TODO new api call with multipart photo
         }
 
         viewState.disableItem(currentPosition!!)
@@ -110,22 +108,6 @@ class ReviewPresenter(private val offerId: Long,
         sendBadgeEvent()
 
         viewState.showCongratulations()
-    }
-
-    fun ratingUpdated(rating: Int) {
-        reviewInfo.stars = rating
-    }
-
-    fun copyClicked() {
-        viewState.copyFeedbackToClipboard(reviewInfo.feedback)
-    }
-
-    fun openLinkClicked(type: String) {
-        val socialType = CREDITS_TO_SOCIAL[type] ?: return
-
-        val link = data!!.place.socials[socialType] ?: return
-
-        viewState.openLink(link)
     }
 
     private fun sendBadgeEvent() {

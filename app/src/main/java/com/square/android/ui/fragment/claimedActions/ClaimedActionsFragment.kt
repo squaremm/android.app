@@ -89,7 +89,7 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
         val reviewType = filteredTypes!![index]
 
         context?.let {
-            ReviewDialog(it, presenter.reviewInfo.feedback)
+            ReviewDialog(it)
                     .show(reviewType, coins) { stageResult ->
                         when (stageResult.stage) {
                             STAGE_RATE -> processRate(stageResult.rating)
