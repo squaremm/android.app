@@ -21,6 +21,7 @@ class Place(
         var photos: List<String>? = listOf(),
         var mainImage: String? = null,
         @IgnoreObjectIfIncorrect.IgnoreJsonObjectError
+        @Transient
         var schedule: Map<String, ScheduleDay> = mapOf(),
         var type: String = "",
 
