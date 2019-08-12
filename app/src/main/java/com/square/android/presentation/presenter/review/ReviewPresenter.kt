@@ -35,12 +35,10 @@ class ReviewPresenter(private val offerId: Long,
         loadData()
     }
 
-    //TODO event from upload photo/add a screenshot
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun onSendPictureEvent(event: SendPictureEvent) {
-    //TODO send index: Int and photo: ByteArray
-    //TODO addReview(index, photo)
-//    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSendPictureEvent(event: SendPictureEvent) {
+        addReview(event.data.index, event.data.photo)
+    }
 
     private fun loadData() = launch {
         viewState.showProgress()
@@ -67,36 +65,32 @@ class ReviewPresenter(private val offerId: Long,
     }
 
     fun navigateByKey(index: Int, reviewType: String) {
-
         when(reviewType){
             TYPE_PICTURE -> {
                 router.navigateTo(SCREENS.SEND_PICTURE, index)
             }
-            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY ->{
+            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY -> {
                 addReview(index)
             }
-            else ->{
-                //TODO add screenshot activity
-                //  router.navigateTo(SCREENS.ADD_SCREENSHOT, index)
+            else -> {
+                router.navigateTo(SCREENS.UPLOAD_SCREENSHOT, index)
             }
         }
     }
 
     private fun addReview(index: Int, photo: ByteArray? = null) = launch {
-        //TODO show upload progressBar and hide later?
+        viewState.showLoadingDialog()
 
         currentPosition = index
 
-        photo?.let {
-            interactor.addReview(reviewInfo, offerId, redemptionId).await()
-        } ?: run {
-            //TODO new api call with multipart photo
-        }
+        interactor.addReview(reviewInfo, offerId, redemptionId, photo).await()
 
         viewState.disableItem(currentPosition!!)
         viewState.showButtons()
 
         currentPosition = null
+
+        viewState.hideLoadingDialog()
     }
 
     fun submitClicked() = launch {

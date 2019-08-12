@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_send_picture_upload.*
 import org.jetbrains.anko.bundleOf
 
 class SendPictureExtras(val index: Int, val type: Int)
+class UploadPictureExtras(val index: Int, val photo: ByteArray)
 
 class SendPictureUploadFragment: BaseFragment(), SendPictureUploadView, PermissionsListener {
 

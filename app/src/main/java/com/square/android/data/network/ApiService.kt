@@ -63,10 +63,17 @@ interface ApiService {
     fun getOffer(@Path("offerId") offerId: Long,
                  @Query("userID") userId: Long) : Call<Offer>
 
+//    @POST("v2/offer/{id}/booking/{bookingId}/post")
+//    fun addReview(@Path("id") id: Long,
+//                  @Path("bookingId") bookingId: Long,
+//                  @Body info: ReviewInfo) : Call<MessageResponse>
+
     @POST("v2/offer/{id}/booking/{bookingId}/post")
+    @Multipart
     fun addReview(@Path("id") id: Long,
                   @Path("bookingId") bookingId: Long,
-                  @Body info: ReviewInfo) : Call<MessageResponse>
+                  @Part("info") info: ReviewInfo,
+                  @Part image: MultipartBody.Part?) : Call<MessageResponse>
 
     @GET("place/{id}/sample")
     fun getFeedbackBody(@Path("id") id: Long) : Call<MessageResponse>

@@ -10,5 +10,5 @@ interface ReviewInteractor {
 
     fun claimRedemption(redemptionId: Long, offerId: Long) : Deferred<MessageResponse>
 
-    fun addReview(reviewInfo: ReviewInfo, offerId: Long, bookingId: Long) : Deferred<MessageResponse>
+    fun addReview(reviewInfo: ReviewInfo, offerId: Long, bookingId: Long, photo: ByteArray?) : Deferred<MessageResponse>
 }

@@ -3,9 +3,9 @@ package com.square.android.presentation.view.review
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.square.android.data.pojo.Offer
-import com.square.android.presentation.view.ProgressView
+import com.square.android.presentation.view.LoadingView
 
-interface ReviewView : ProgressView {
+interface ReviewView : LoadingView {
     fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>)
 
     @StateStrategyType(OneExecutionStateStrategy::class)

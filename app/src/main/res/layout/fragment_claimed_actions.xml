@@ -10,9 +10,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actionsList"
         android:layout_width="match_parent"
-        android:padding="16dp"
-        android:clipToPadding="false"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
+        android:clipToPadding="false"
+        android:padding="16dp"
+        android:scrollbars="none"
+        android:overScrollMode="never" />
 </FrameLayout>

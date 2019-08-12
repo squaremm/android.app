@@ -79,7 +79,7 @@ class ReviewAdapter(data: List<ReviewType>,
             val coins = extras[0] as Int
 
             reviewItemLogo.loadImageInside(item.imageRes)
-            reviewItemTitle.setText(item.titleRes)
+            reviewItemTitle.text = item.title
             reviewItemCoins.text = "+$coins"
 
             bindEnableState(item)

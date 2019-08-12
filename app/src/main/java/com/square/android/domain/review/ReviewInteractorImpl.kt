@@ -10,10 +10,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
 class ReviewInteractorImpl(private val repository: Repository) : ReviewInteractor {
-    override fun addReview(reviewInfo: ReviewInfo, offerId: Long, bookingId: Long) = GlobalScope.async {
+    override fun addReview(reviewInfo: ReviewInfo, offerId: Long, bookingId: Long, photo: ByteArray?) = GlobalScope.async {
         reviewInfo.link = repository.getUserInfo().socialLink
 
-        repository.addReview(offerId, bookingId, reviewInfo)
+        repository.addReview(offerId, bookingId, reviewInfo, photo)
     }
 
     override fun claimRedemption(redemptionId: Long, offerId: Long) = GlobalScope.async {

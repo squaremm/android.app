@@ -16,6 +16,7 @@ import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep
+import com.square.android.ui.dialogs.LoadingDialog
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.places.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_review.*
@@ -23,10 +24,6 @@ import org.jetbrains.anko.bundleOf
 
 const val EXTRA_OFFER_ID = "EXTRA_OFFER_ID"
 const val EXTRA_REDEMPTION_ID = "EXTRA_REDEMPTION_ID"
-
-const val STAGE_RATE = 0
-const val STAGE_COPY = 1
-const val STAGE_OPEN = 2
 
 class ReviewExtras(val redemptionId: Long, val offerId: Long)
 
@@ -50,6 +47,8 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
     @ProvidePresenter
     fun providePresenter(): ReviewPresenter = ReviewPresenter(getOfferId(), getRedemptionId())
 
+    private var loadingDialog: LoadingDialog? = null
+
     private lateinit var reviewTypes: List<ReviewType>
 
     private var filteredTypes: List<ReviewType>? = null
@@ -69,6 +68,16 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
         reviewSubmit.setOnClickListener { presenter.submitClicked() }
 
         reviewSkip.setOnClickListener {presenter.finishChain()}
+
+        loadingDialog = LoadingDialog(activity!!)
+    }
+
+    override fun hideLoadingDialog() {
+        loadingDialog?.dismiss()
+    }
+
+    override fun showLoadingDialog() {
+        loadingDialog?.show()
     }
 
     override fun showCongratulations() {
@@ -92,9 +101,11 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
     }
 
     override fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>) {
+        updateReviewTypes()
+
         val used = data.posts.map { it.type }
-        Log.e("LOL", used.toString())
-        Log.e("LOLEK", actionTypes.toString())
+        Log.e("EEEE used actionTypes", used.toString())
+        Log.e("EEEE all actionTypes", actionTypes.toString())
 
         filteredTypes = reviewTypes.filter { it.key in actionTypes && (it.key !in used || it.key == TYPE_INSTAGRAM_STORY) }
 
@@ -105,6 +116,12 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
         reviewList.addItemDecoration(GridItemDecoration(2,reviewList.context.resources.getDimension(R.dimen.value_24dp).toInt(), false))
 
         visibleNow()
+    }
+
+    private fun updateReviewTypes() {
+//        reviewTypes.forEach {
+//            it.enabled = true
+//        }
     }
 
     override fun showProgress() {
@@ -229,5 +246,4 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
 
                 }
                 .build()
-
 }

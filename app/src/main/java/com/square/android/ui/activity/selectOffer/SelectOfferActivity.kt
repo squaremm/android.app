@@ -16,6 +16,7 @@ import com.square.android.presentation.view.selectOffer.SelectOfferView
 import com.square.android.ui.activity.BaseActivity
 import com.square.android.ui.activity.sendPicture.INDEX_EXTRA
 import com.square.android.ui.activity.sendPicture.SendPictureActivity
+import com.square.android.ui.activity.uploadScreenshot.UploadScreenshotActivity
 import com.square.android.ui.fragment.review.ReviewExtras
 import com.square.android.ui.fragment.checkIn.CheckInFragment
 import com.square.android.ui.fragment.offersList.OffersListFragment
@@ -99,6 +100,7 @@ class SelectOfferActivity: BaseActivity(), SelectOfferView {
         override fun createActivityIntent(context: Context, screenKey: String, data: Any?) =
                 when (screenKey) {
                     SCREENS.SEND_PICTURE -> context.intentFor<SendPictureActivity>(INDEX_EXTRA to data as Int)
+                    SCREENS.UPLOAD_SCREENSHOT -> context.intentFor<UploadScreenshotActivity>(INDEX_EXTRA to data as Int)
                     else -> null
                 }
 

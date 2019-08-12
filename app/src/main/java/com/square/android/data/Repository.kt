@@ -58,7 +58,7 @@ interface Repository {
 
     fun claimOffer(offerId: Long) : MessageResponse
 
-    fun addReview(offerId: Long, bookingId: Long, info: ReviewInfo) : MessageResponse
+    fun addReview(offerId: Long, bookingId: Long, info: ReviewInfo, imageBytes: ByteArray?) : MessageResponse
 
     fun getPlaceOffers(placeId: Long) : Deferred<List<OfferInfo>>
 

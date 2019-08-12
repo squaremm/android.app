@@ -1,25 +1,23 @@
 package com.square.android.ui.fragment.claimedActions
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
+import androidx.recyclerview.widget.GridLayoutManager
 import com.square.android.R
 import com.square.android.presentation.view.claimedActions.ClaimedActionsView
 import com.square.android.presentation.presenter.claimedActions.ClaimedActionsPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.data.pojo.*
-import com.square.android.extensions.copyToClipboard
+import com.square.android.ui.dialogs.LoadingDialog
 import com.square.android.ui.fragment.BaseFragment
+import com.square.android.ui.fragment.places.GridItemDecoration
 import com.square.android.ui.fragment.review.*
 import kotlinx.android.synthetic.main.fragment_claimed_actions.*
 
 class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter.Handler  {
-
     @InjectPresenter
     lateinit var presenter: ClaimedActionsPresenter
 
@@ -32,6 +30,7 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
 
     private var adapter: ReviewAdapter? = null
 
+    private var loadingDialog: LoadingDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,36 +41,36 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
         super.onViewCreated(view, savedInstanceState)
 
         actionsList.setHasFixedSize(true)
+
+        loadingDialog = LoadingDialog(activity!!)
     }
 
-    override fun showData(actionTypes: Set<String>, credits: Map<String, Int>,feedback: String, instaUser: String) {
-        updateReviewTypes(feedback, instaUser)
+    override fun showData(actionTypes: Set<String>, credits: Map<String, Int>) {
+        updateReviewTypes()
 
-        filteredTypes = reviewTypes.filter { it.key in actionTypes }
+        filteredTypes = reviewTypes.filter { it.key in actionTypes}
 
         adapter = ReviewAdapter(filteredTypes!!, credits, this)
 
+        actionsList.layoutManager = GridLayoutManager(context, 2)
         actionsList.adapter = adapter
+        actionsList.addItemDecoration(GridItemDecoration(2,actionsList.context.resources.getDimension(R.dimen.value_24dp).toInt(), false))
+    }
+
+    override fun hideLoadingDialog() {
+        loadingDialog?.dismiss()
+    }
+
+    override fun showLoadingDialog() {
+        loadingDialog?.show()
     }
 
     override fun clearSelectedItem() {
         adapter?.clearSelection()
     }
 
-    override fun openLink(link: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-        startActivity(intent)
-    }
-
     override fun disableItem(position: Int) {
         adapter?.disableReviewType(position)
-    }
-
-    override fun copyFeedbackToClipboard(feedback: String) {
-        context?.copyToClipboard(feedback)
     }
 
     override fun setSelectedItem(position: Int) {
@@ -81,242 +80,89 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
     override fun itemClicked(position: Int) {
         val type = filteredTypes!![position]
 
-        presenter.itemClicked(type.key)
+        presenter.itemClicked(type.key, position)
     }
 
-    override fun showDialog(type: String, coins: Int, feedback: String) {
+    override fun showDialog(type: String, coins: Int, index: Int) {
         val index = filteredTypes!!.indexOfFirst { it.key == type }
         val reviewType = filteredTypes!![index]
 
-        context?.let {
-            ReviewDialog(it)
-                    .show(reviewType, coins) { stageResult ->
-                        when (stageResult.stage) {
-                            STAGE_RATE -> processRate(stageResult.rating)
-                            STAGE_COPY -> presenter.copyClicked()
-                            STAGE_OPEN -> {
-                                if (!stageResult.doneClicked) {
-                                    presenter.openLinkClicked(type)
-                                }
-                            }
-                        }
-
-                        if (stageResult.isLast) presenter.lastStageReached(index)
-                    }
-        }
+        ReviewDialog(activity!!)
+                .show(reviewType, coins, index) { s: String, i: Int ->
+                    presenter.navigateByKey(index = i, reviewType = s)
+                }
     }
 
-    private fun processRate(rating: Int) {
-        if (rating == RATING_VALUE_UNDEFINED) return
-
-        presenter.ratingUpdated(rating)
+    private fun updateReviewTypes() {
+//        reviewTypes.forEach {
+//            it.enabled = true
+//        }
     }
 
-    private fun updateReviewTypes(feedback: String, instaUser: String) {
-        val feedbackDescription = getString(R.string.review_stage_2)
+    override fun showProgress() {}
 
-        reviewTypes.forEach {
-            it.enabled = true
-
-            if (it.stages.size > STAGE_COPY) {
-                it.stages[STAGE_COPY].content = feedbackDescription
-            }
-
-            if (it.key == TYPE_INSTAGRAM_STORY) {
-                it.stages[STAGE_RATE].content = getString(R.string.review_instagram_story_body, instaUser)
-            }
-        }
-    }
+    override fun hideProgress() {}
 
     override fun initReviewTypes() {
         reviewTypes = listOf(
-                /* TODO uncomment
-                 ReviewType(
-                         imageRes = R.drawable.instagram_logo,
-                         titleRes = R.string.insta_post,
-                         descriptionRes = R.string.insta_post_description,
-                         key = TYPE_INSTAGRAM_POST,
 
-                         stages = listOf(
-                                 Stage(
-                                         subtitleRes = R.string.review_instagram_post_title,
-                                         content = getString(R.string.review_instagram_post_body),
-                                         buttonText = R.string.ok
-                                 )
-                         )
-                 ),*/
+                ReviewType(
+                        //TODO change icon (imageRes)
+                        imageRes = R.drawable.add_photo,
+                        title = getString(R.string.photo_uppercase),
+                        description = getString(R.string.send_photo_description),
+                        key = TYPE_PICTURE
+                ),
 
                 ReviewType(
                         imageRes = R.drawable.instagram_logo,
-                        titleRes = R.string.insta_story,
-                        descriptionRes = R.string.insta_story_description,
-                        key = TYPE_INSTAGRAM_STORY,
+                        title = getString(R.string.insta_post),
+                        description = getString(R.string.insta_post_description),
+                        key = TYPE_INSTAGRAM_POST,
+                        content = getString(R.string.review_instagram_post_body)
+                ),
 
-                        stages = listOf(
-                                ReviewType.Stage(
-                                        subtitleRes = R.string.review_instagram_story_title,
-                                        buttonText = R.string.ok
-                                )
-                        )
+                ReviewType(
+                        imageRes = R.drawable.instagram_logo,
+                        title = getString(R.string.insta_story),
+                        description = getString(R.string.insta_story_description),
+                        key = TYPE_INSTAGRAM_STORY,
+                        content = getString(R.string.review_instagram_story_body)
                 ),
 
                 ReviewType(
                         imageRes = R.drawable.trip_advisor_logo,
-                        titleRes = R.string.trip_advisor,
-                        descriptionRes = R.string.trip_advisor_description,
+                        title = getString(R.string.trip_advisor),
                         key = TYPE_TRIP_ADVISOR,
-
-                        stages = listOf(
-                                ReviewType.Stage(
-                                        subtitleRes = R.string.review_subtitle,
-                                        content = getContentFor(R.string.type_tripavisor),
-                                        ratingNeeded = true,
-                                        buttonText = R.string.next_step
-                                ),
-
-                                ReviewType.Stage(
-                                        subtitleRes = null,
-                                        buttonText = R.string.copy_review
-                                ),
-
-                                ReviewType.Stage(
-                                        subtitleRes = null,
-                                        content = getString(R.string.review_stage_3_tripadvisor),
-                                        buttonText = R.string.open_restaurant,
-                                        doneEnabled = true
-                                )
-                        )
+                        app_name = getString(R.string.trip_advisor_name),
+                        showUploadLabel = true
                 ),
 
                 ReviewType(
                         imageRes = R.drawable.google_logo,
-                        titleRes = R.string.google_places,
-                        descriptionRes = R.string.google_places_description,
+                        title = getString(R.string.google_places),
                         key = TYPE_GOOGLE_PLACES,
-
-                        stages = listOf(
-                                ReviewType.Stage(
-                                        subtitleRes = R.string.review_subtitle,
-                                        content = getContentFor(R.string.type_google_places),
-                                        ratingNeeded = true,
-                                        buttonText = R.string.next_step
-                                ),
-
-                                ReviewType.Stage(
-                                        subtitleRes = null,
-                                        buttonText = R.string.copy_review
-                                ),
-
-                                ReviewType.Stage(
-                                        subtitleRes = null,
-                                        content = getString(R.string.review_stage_3_maps),
-                                        buttonText = R.string.open_restaurant,
-                                        doneEnabled = true
-                                )
-                        )),
+                        app_name = getString(R.string.google_places_name),
+                        showUploadLabel = true
+                ),
 
                 ReviewType(
                         imageRes = R.drawable.facebook_logo,
-                        titleRes = R.string.facebook_post,
-                        descriptionRes = R.string.facebook_post_description,
+                        title = getString(R.string.facebook_post),
                         key = TYPE_FACEBOOK_POST,
-
-                        stages = listOf(
-                                ReviewType.Stage(
-                                        subtitleRes = R.string.review_subtitle,
-                                        content = getContentFor(R.string.type_facebook),
-                                        ratingNeeded = true,
-                                        buttonText = R.string.next_step
-                                ),
-
-                                ReviewType.Stage(
-                                        subtitleRes = null,
-                                        buttonText = R.string.copy_review
-                                ),
-
-                                ReviewType.Stage(
-                                        subtitleRes = null,
-                                        content = getString(R.string.review_stage_3_facebook),
-                                        buttonText = R.string.open_restaurant,
-                                        doneEnabled = true
-                                )
-                        )),
+                        app_name = getString(R.string.facebook_name),
+                        showUploadLabel = true
+                ),
 
                 ReviewType(
                         imageRes = R.drawable.yelp_logo,
-                        titleRes = R.string.yelp_post,
-                        descriptionRes = R.string.yelp_post_description,
+                        title = getString(R.string.yelp),
                         key = TYPE_YELP,
-
-                        stages = listOf(
-                                ReviewType.Stage(
-                                        subtitleRes = R.string.review_subtitle,
-                                        content = getContentFor(R.string.type_yelp),
-                                        ratingNeeded = true,
-                                        buttonText = R.string.next_step
-                                ),
-
-                                ReviewType.Stage(
-                                        subtitleRes = null,
-                                        buttonText = R.string.copy_review
-                                ),
-
-                                ReviewType.Stage(
-                                        subtitleRes = null,
-                                        content = getString(R.string.review_stage_3_yelp),
-                                        buttonText = R.string.open_restaurant,
-                                        doneEnabled = true
-                                )
-                        ))
+                        app_name = getString(R.string.yelp_name),
+                        showUploadLabel = true
+                )
         )
 
 //        reviewTypes.filter { it.key }
     }
-
-    private fun getContentFor(@StringRes typeStringRes: Int): String {
-        val type = getString(typeStringRes)
-        return getString(R.string.review_other_body_format)
-    }
-
-//    private fun initializeReviewTypes() {
-//        reviewTypes = listOf(
-//                /*
-//                 ReviewType(
-//                         imageRes = R.drawable.instagram_logo,
-//                         titleRes = R.string.insta_post,
-//                         descriptionRes = R.string.insta_post_description,
-//                         key = TYPE_INSTAGRAM_POST
-//                 ),*/
-//
-//                ReviewType(
-//                        imageRes = R.drawable.instagram_logo,
-//                        titleRes = R.string.insta_story,
-//                        descriptionRes = R.string.insta_story_description,
-//                        key = TYPE_INSTAGRAM_STORY),
-//
-//                ReviewType(
-//                        imageRes = R.drawable.trip_advisor_logo,
-//                        titleRes = R.string.trip_advisor,
-//                        descriptionRes = R.string.trip_advisor_description,
-//                        key = TYPE_TRIP_ADVISOR),
-//
-//                ReviewType(
-//                        imageRes = R.drawable.google_logo,
-//                        titleRes = R.string.google_places,
-//                        descriptionRes = R.string.google_places_description,
-//                        key = TYPE_GOOGLE_PLACES),
-//
-//                ReviewType(
-//                        imageRes = R.drawable.facebook_logo,
-//                        titleRes = R.string.facebook_post,
-//                        descriptionRes = R.string.facebook_post_description,
-//                        key = TYPE_FACEBOOK_POST),
-//
-//                ReviewType(
-//                        imageRes = R.drawable.yelp_logo,
-//                        titleRes = R.string.yelp_post,
-//                        descriptionRes = R.string.yelp_post_description,
-//                        key = TYPE_YELP)
-//        )
-//    }
 }

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.text.HtmlCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.square.android.R
 import com.square.android.data.pojo.ReviewType
@@ -27,7 +28,7 @@ class ReviewDialog(private val context: Context) {
 
         val dialog = MaterialDialog.Builder(context)
                 .customView(view, false)
-                .cancelable(false)
+                .cancelable(true)
                 .build()
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -46,7 +47,7 @@ class ReviewDialog(private val context: Context) {
 
         reviewType.content?.let {
             view.reviewDialogContent.visibility = View.VISIBLE
-            view.reviewDialogContent.text = it
+            view.reviewDialogContent.text = HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY)
         }
 
         if (reviewType.showUploadLabel) {

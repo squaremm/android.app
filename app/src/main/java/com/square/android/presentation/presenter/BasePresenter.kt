@@ -16,6 +16,7 @@ import com.square.android.data.pojo.BillingTokenInfo
 import com.square.android.data.pojo.ProfileInfo
 import com.square.android.data.pojo.TokenInfo
 import com.square.android.presentation.view.BaseView
+import com.square.android.presentation.view.LoadingView
 import com.square.android.presentation.view.ProgressView
 import com.square.android.ui.activity.noConnection.NoConnectionClosedEvent
 import com.square.android.utils.BooleanWrapper
@@ -228,6 +229,8 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
         }
 
         (viewState as? ProgressView)?.hideProgress()
+
+        (viewState as? LoadingView)?.hideLoadingDialog()
     }
 
     protected fun launch(tryBlock: suspend CoroutineScope.() -> Unit,
