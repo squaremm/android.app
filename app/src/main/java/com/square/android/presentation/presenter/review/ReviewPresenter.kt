@@ -61,7 +61,7 @@ class ReviewPresenter(private val offerId: Long,
 
         reviewInfo.postType = type
 
-        viewState.showDialog(type, coins, index)
+        viewState.showDialog(type, coins, index, data!!.place.name)
     }
 
     fun navigateByKey(index: Int, reviewType: String) {

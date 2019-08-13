@@ -9,7 +9,7 @@ interface ReviewView : LoadingView {
     fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showDialog(type: String, coins: Int, index: Int)
+    fun showDialog(type: String, coins: Int, index: Int, placeName: String)
 
     fun disableItem(position: Int)
 

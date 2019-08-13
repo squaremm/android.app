@@ -144,14 +144,25 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
         presenter.itemClicked(type.key, position)
     }
 
-    override fun showDialog(type: String, coins: Int, index: Int) {
+    override fun showDialog(type: String, coins: Int, index: Int, placeName: String) {
         val index = filteredTypes!!.indexOfFirst { it.key == type }
         val reviewType = filteredTypes!![index]
 
-        ReviewDialog(activity!!)
-                .show(reviewType, coins, index) { s: String, i: Int ->
-                    presenter.navigateByKey(index = i, reviewType = s)
-                }
+        when(type){
+            TYPE_INSTAGRAM_POST -> {
+
+            }
+            TYPE_INSTAGRAM_STORY ->{
+
+            }
+            else -> {
+                ReviewDialog(activity!!).show(reviewType, coins, index) { s: String, i: Int -> onDialogAction(s, i) }
+            }
+        }
+    }
+
+    private fun onDialogAction(reviewType: String, index: Int){
+        presenter.navigateByKey(index, reviewType)
     }
 
     private fun getRedemptionId() = arguments?.getLong(EXTRA_REDEMPTION_ID, 0) ?: 0

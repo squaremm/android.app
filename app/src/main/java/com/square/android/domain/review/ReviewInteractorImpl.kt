@@ -1,10 +1,7 @@
 package com.square.android.domain.review
 
 import com.square.android.data.Repository
-import com.square.android.data.pojo.CREDITS_TO_SOCIAL
-import com.square.android.data.pojo.Offer
-import com.square.android.data.pojo.ReviewInfo
-import com.square.android.data.pojo.SOCIAL_INSTAGRAM
+import com.square.android.data.pojo.*
 import com.square.android.extensions.isUrl
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -36,7 +33,7 @@ class ReviewInteractorImpl(private val repository: Repository) : ReviewInteracto
 
             val url = offer.place.socials[socialKey]
 
-            if (socialKey == SOCIAL_INSTAGRAM) {
+            if (socialKey == SOCIAL_INSTAGRAM || socialKey == NON_SOCIAL_PHOTO) {
                 true
             } else {
                 url.isUrl()
