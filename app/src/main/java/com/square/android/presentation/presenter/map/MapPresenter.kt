@@ -89,7 +89,8 @@ class MapPresenter : BasePresenter<MapView>() {
 
     fun infoClicked() {
         currentInfo?.let {
-            router.navigateTo(SCREENS.PLACE_DETAIL, it.id)
+            //TODO check if working
+            router.navigateTo(SCREENS.PLACE, it.id)
             AnalyticsManager.logEvent(
                     AnalyticsEvent(
                             AnalyticsEvents.RESTAURANT_OPENED_FROM_MAP.apply { venueName = it.name },

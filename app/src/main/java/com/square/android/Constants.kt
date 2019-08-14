@@ -20,7 +20,11 @@ object SCREENS {
     const val PLACES = "PLACES"
     const val PROFILE = "PROFILE"
 
+    //TODO remove this and PlaceDetailActivity, PlaceDetailView and PlaceDetailPresenter
     const val PLACE_DETAIL = "PLACE_DETAIL"
+
+    const val PLACE= "PLACE"
+
     const val EDIT_PROFILE = "EDIT_PROFILE"
     const val GALLERY = "GALLERY"
 

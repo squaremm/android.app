@@ -162,7 +162,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     repository)
         }
 
-        router.navigateTo(SCREENS.PLACE_DETAIL, id)
+        router.navigateTo(SCREENS.PLACE, id)
     }
 
     private fun fillDistances(): Deferred<Unit> = GlobalScope.async {

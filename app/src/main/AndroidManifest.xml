@@ -50,6 +50,12 @@
             android:theme="@style/CollapsingToolbarActivity" />
 
         <activity
+            android:name=".ui.activity.place.PlaceActivity"
+            android:parentActivityName=".ui.activity.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CollapsingToolbarActivity" />
+
+        <activity
             android:name=".ui.activity.selectOffer.SelectOfferActivity"
             android:screenOrientation="portrait"
             android:theme="@style/GreyishStatusActivity" />
