@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_root_content"
+    android:id="@+id/placeRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -30,7 +30,8 @@
                     android:layout_height="@dimen/toolbar_image_height"
                     android:scaleType="centerCrop"
                     android:fitsSystemWindows="true"
-                    android:src="@drawable/fill_profile_header_1" />
+                    android:background="@color/placeholder"
+                    tools:src="@drawable/fill_profile_header_1" />
             </FrameLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -62,7 +63,6 @@
                 android:layout_gravity="bottom"
                 android:includeFontPadding="false"
                 android:gravity="center_vertical"
-
                 android:layout_marginStart="@dimen/ac_place_default_margin"
                 android:layout_marginEnd="@dimen/ac_place_default_margin"
                 tools:text="Le Cristalline" />
@@ -72,21 +72,22 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
         android:background="@android:color/white"
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="wrap_content" >
 
         <!--////////// Location //////////-->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/placeAddressCl"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingTop="12dp"
+                        android:paddingTop="16dp"
                         android:paddingBottom="20dp"
                         android:background="?attr/selectableItemBackground"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +155,7 @@
                     <LinearLayout
                         android:id="@+id/constraintLayout"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:clipToPadding="false"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -191,70 +192,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/placeAboutLabel" />
 
-                            <LinearLayout
-                                android:id="@+id/placeReadMore"
-                                android:layout_width="wrap_content"
-                                android:layout_height="24dp"
-                                android:orientation="horizontal"
-                                app:layout_constraintBottom_toBottomOf="@+id/placeAbout"
-                                app:layout_constraintEnd_toEndOf="@+id/placeAbout">
-
-                                <View
-                                    android:layout_width="16dp"
-                                    android:layout_height="24dp"
-                                    android:background="@drawable/shadow_horizontal" />
-
-                                <TextView
-                                    android:id="@+id/placeShowMore"
-                                    style="@style/Models16BoldText"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center_vertical"
-                                    android:background="@android:color/white"
-                                    android:paddingStart="4dp"
-                                    android:text="@string/show_more"
-                                    android:textColor="@color/nice_pink" />
-                            </LinearLayout>
-
-                            <!--                    <FrameLayout-->
-                            <!--                        android:id="@+id/description_fr"-->
-                            <!--                        android:layout_width="match_parent"-->
-                            <!--                        android:layout_height="wrap_content"-->
-                            <!--                        android:layout_below="@id/separator">-->
-                            <!--                        <TextView-->
-                            <!--                            android:id="@+id/description"-->
-                            <!--                            style="@style/Zrzutka15Text"-->
-                            <!--                            tools:text="To jest opis. Opisujemy tutaj na co zbieramy, na czym polega nasza zrzutka. The End."-->
-                            <!--                            android:textColor="@color/zrzutka_black"-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_height="wrap_content"-->
-                            <!--                            android:text="@{viewModel.chipinData.contentFormatted}"-->
-                            <!--                            chipinViewModel="@{viewModel}"-->
-                            <!--                            shouldShowFullText="@{viewModel.shouldShowFullText}"-->
-                            <!--                            android:layout_gravity="top"-->
-                            <!--                            android:maxLines="@{viewModel.textLinesToShow}" />-->
-                            <!--                        <View-->
-                            <!--                            android:id="@+id/read_more_shadow"-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_gravity="bottom"-->
-                            <!--                            android:layout_height="32dp"-->
-                            <!--                            android:visibility="@{viewModel.shouldShowReadMore &amp;&amp; !viewModel.loading ? View.VISIBLE : View.GONE}"-->
-                            <!--                            android:background="@drawable/read_more_shadow" />-->
-                            <!--                    </FrameLayout>-->
-
-                            <!--                    <TextView-->
-                            <!--                        android:id="@+id/read_more_tv"-->
-                            <!--                        android:layout_width="match_parent"-->
-                            <!--                        android:layout_height="wrap_content"-->
-                            <!--                        android:text="@string/read_more"-->
-                            <!--                        android:layout_marginTop="4dp"-->
-                            <!--                        android:gravity="start"-->
-                            <!--                        style="@style/Zrzutka15Text"-->
-                            <!--                        android:onClick="@{() -> viewModel.onReadMoreClick()}"-->
-                            <!--                        android:visibility="@{viewModel.shouldShowReadMore &amp;&amp; !viewModel.loading ? View.VISIBLE : View.GONE}"-->
-                            <!--                        android:textColor="@{viewModel.shouldShowReadMore ? @color/zrzutka_pinker : @android:color/transparent}"-->
-                            <!--                        android:layout_below="@id/description_fr" />-->
-
                             <TextView
                                 android:id="@+id/placeAbout"
                                 style="@style/Models16Text"
@@ -264,12 +201,38 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="@dimen/ac_place_default_margin"
                                 android:layout_marginBottom="20dp"
-                                android:lineSpacingExtra="4dp"
+                                android:lineSpacingExtra="6dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/placeAboutLabel"
-                                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
-                                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" />
+                                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laborę et dolore magna aliqua. iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" />
+
+                            <LinearLayout
+                                android:id="@+id/placeReadMore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="26dp"
+                                android:orientation="horizontal"
+                                android:visibility="gone"
+                                tools:visibility="visible"
+                                app:layout_constraintBottom_toBottomOf="@+id/placeAbout"
+                                app:layout_constraintEnd_toEndOf="@+id/placeAbout">
+
+                                <View
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:background="@drawable/shadow_horizontal" />
+
+                                <TextView
+                                    android:id="@+id/placeShowMore"
+                                    style="@style/Models16BoldText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="end|bottom"
+                                    android:background="@android:color/white"
+                                    android:paddingStart="6dp"
+                                    android:text="@string/show_more"
+                                    android:textColor="@color/nice_pink" />
+                            </LinearLayout>
 
                             <View
                                 android:id="@+id/separatorThree"
@@ -286,15 +249,16 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/placeAboutRv"
                                 android:layout_width="0dp"
-                                android:layout_height="0dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:clipToPadding="false"
-                                android:orientation="horizontal"
                                 android:overScrollMode="never"
                                 android:paddingStart="@dimen/ac_place_default_margin"
                                 android:paddingEnd="@dimen/ac_place_default_margin"
                                 android:visibility="gone"
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:background="@color/grey_dark"
+                                tools:visibility="visible"
+                                tools:layout_height="50dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/placeAbout" />
@@ -335,7 +299,7 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/placeRequirementsRv"
                                 android:layout_width="0dp"
-                                android:layout_height="0dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:clipToPadding="false"
                                 android:orientation="horizontal"
@@ -349,12 +313,11 @@
                                 app:layout_constraintTop_toBottomOf="@+id/placeRequirementsLabel" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <!--////////// Calendar //////////-->
+ <!--////////// Calendar //////////-->
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/placeCalendarCl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clipChildren="false"
                             android:clipToPadding="false"
                             android:paddingBottom="20dp" >
 
@@ -402,7 +365,7 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/placeIntervalsRv"
                                 android:layout_width="0dp"
-                                android:layout_height="0dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:clipToPadding="false"
                                 android:overScrollMode="never"
@@ -413,10 +376,9 @@
                                 app:layout_constraintTop_toBottomOf="@+id/placeTimeframesLabel"
                                 tools:background="@color/gray_hint"
                                 tools:layout_height="50dp" />
-
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <!--////////// Offers //////////-->
+<!-- ////////// Offers //////////-->
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/placeOffersCl"
                             android:layout_width="match_parent"
@@ -439,7 +401,7 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/placeOffersRv"
                                 android:layout_width="0dp"
-                                android:layout_height="0dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:clipToPadding="false"
                                 android:orientation="horizontal"
@@ -475,7 +437,8 @@
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/placeBookingImv" />
+                                app:layout_constraintTop_toTopOf="@+id/placeBookingImv"
+                                app:layout_constraintBottom_toBottomOf="parent" />
 
                             <ImageView
                                 android:id="@+id/placeBookingImv"
@@ -490,21 +453,27 @@
                             <TextView
                                 android:id="@+id/placeBookingText"
                                 style="@style/Models14BoldText"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:maxLines="1"
                                 android:hint="@string/select_timeframe"
                                 android:textColorHint="@color/gray_hint_ligh"
                                 app:layout_constraintBottom_toBottomOf="@+id/placeBookingImv"
+                                app:layout_constraintEnd_toStartOf="@+id/placeBookingBtn"
                                 app:layout_constraintStart_toEndOf="@+id/placeBookingImv" />
 
                             <TextView
                                 android:id="@+id/placeBookingDate"
                                 style="@style/Models16Text"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:includeFontPadding="false"
                                 android:layout_marginStart="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
+                                app:layout_constraintEnd_toStartOf="@+id/placeBookingBtn"
                                 app:layout_constraintStart_toEndOf="@+id/placeBookingImv"
                                 app:layout_constraintTop_toTopOf="@+id/placeBookingImv"
                                 tools:text="Monday, May 7th" />

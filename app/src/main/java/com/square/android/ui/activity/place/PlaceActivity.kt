@@ -22,6 +22,13 @@ import kotlinx.android.synthetic.main.activity_place.*
 import ru.terrakok.cicerone.Navigator
 import android.os.Build
 import android.app.Activity
+import android.text.TextUtils
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.square.android.data.pojo.Requirement
+import com.square.android.ui.fragment.map.MarginItemDecorator
+import com.square.android.ui.fragment.places.GridItemDecoration
 
 const val PLACE_EXTRA_ID = "EXTRA_ID"
 
@@ -39,7 +46,13 @@ class PlaceActivity : LocationActivity(), PlaceView {
 
     private var titleMinHeight: Int = 0
 
-    private var isStatusBarLight: Boolean = false;
+    private var isStatusBarLight: Boolean = false
+
+    private var adapter: AboutAdapter? = null
+
+    private var adapterRequirements: RequirementsAdapter? = null
+
+    var placeAboutSize = 0
 
     @ProvidePresenter
     fun providePresenter() = PlacePresenter(getId())
@@ -61,6 +74,13 @@ class PlaceActivity : LocationActivity(), PlaceView {
                     }
                     updateViews(Math.abs(i / appBarLayout.totalScrollRange.toFloat()))
         })
+
+        placeReadMore.setOnClickListener {
+            placeReadMore.visibility = View.GONE
+            placeAbout.maxLines = Integer.MAX_VALUE
+
+            checkAndShowAboutRv()
+        }
 
         placeAddressCl.setOnClickListener {  }
     }
@@ -92,7 +112,7 @@ class PlaceActivity : LocationActivity(), PlaceView {
                 offset > titleMovePoint -> {
                     val titleAnimationOffset = (offset - titleMovePoint) * titleAnimationWeight
 
-                    var measuredMargin = Math.round(resources.getDimension(R.dimen.ac_place_default_margin) + ((resources.getDimension(R.dimen.backArrowSize) + resources.getDimension(R.dimen.backArrowMarginStart)) * titleAnimationOffset))
+                    val measuredMargin = Math.round(resources.getDimension(R.dimen.ac_place_default_margin) + ((resources.getDimension(R.dimen.backArrowSize) + resources.getDimension(R.dimen.backArrowMarginStart)) * titleAnimationOffset))
                     this.layoutParams.also {
                         (it as CollapsingToolbarLayout.LayoutParams).setMargins(Math.round(resources.getDimension(R.dimen.ac_place_default_margin)),0,measuredMargin,0)
                         this.requestLayout()
@@ -131,31 +151,114 @@ class PlaceActivity : LocationActivity(), PlaceView {
 
         placeMainImage.loadImage(place.mainImage ?: (place.photos?.firstOrNull() ?: ""))
 
-        //TODO delete
-        placeName.text = "Don Giovanni's BBC Pizza Italy"
+        placeAbout.text = place.description
 
-        //TODO uncomment
-//        placeName.text = place.name
+        //TODO delete and get data from place
+        val aboutItems = listOf("www", "insta")
+
+        placeAboutSize = aboutItems.size
+
+        adapter = AboutAdapter(aboutItems)
+        placeAboutRv.adapter = adapter
+        placeAboutRv.layoutManager = LinearLayoutManager(placeAboutRv.context, RecyclerView.HORIZONTAL, false)
+        placeAboutRv.addItemDecoration(MarginItemDecorator(placeAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), vertical = false))
+
+        //TODO delete and get data from place
+        val requirementsItems = listOf(Requirement().apply { name = "Dress code:"; value = "Elegant" }, Requirement().apply { name = "Minimum tip:"; value = "10$" })
+
+        if(!requirementsItems.isNullOrEmpty()){
+
+            //TODO - requirements not showing properly
+
+
+            adapterRequirements = RequirementsAdapter(requirementsItems)
+            placeRequirementsRv.adapter = adapterRequirements
+
+            placeRequirementsRv.layoutManager = GridLayoutManager(this, 2)
+            placeRequirementsRv.adapter = adapter
+            placeRequirementsRv.addItemDecoration(GridItemDecoration(2,resources.getDimension(R.dimen.rv_item_decorator_16).toInt(), false))
+
+            placeRequirementsRv.visibility = View.VISIBLE
+        }
+
+        placeName.text = place.name
 
         placeName.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                    placeToolbar.apply {
-                        this.layoutParams.also {
-                            titleMinHeight = placeName.measuredHeight
-                            placeName.height = titleMinHeight
+                placeToolbar.apply {
+                    this.layoutParams.also {
+                        titleMinHeight = placeName.measuredHeight
+                        placeName.height = titleMinHeight
 
-                            it.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_extra_space))
+                        it.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_extra_space))
 
-                            placeCollapsing.layoutParams.apply {
-                                this.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_image_height) + resources.getDimension(R.dimen.ac_place_default_margin))
-                            }
+                        placeCollapsing.layoutParams.apply {
+                            this.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_image_height) + resources.getDimension(R.dimen.ac_place_default_margin))
                         }
                     }
+                }
                 placeName.viewTreeObserver.removeOnGlobalLayoutListener(this)
             }
         })
 
+        placeAbout.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                onAboutLoaded()
+                placeAbout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+
         placeAddress.text = place.address
+    }
+
+    private fun onAboutLoaded(){
+        var startOffset: Int
+        var endOffset: Int
+        var lineToEnd = 3
+        val maxLines = 3
+        var isLineSelected = false
+        var notEmptyLinesToShowMore = 0
+
+        if (!TextUtils.isEmpty(placeAbout.text)) {
+            if (placeAbout.layout != null) {
+                var shouldShowReadMore = true
+
+                if (placeAbout.layout.lineCount <= maxLines) {
+                    shouldShowReadMore = false
+                } else {
+
+                    for(i in 2 until placeAbout.layout.lineCount){
+                        startOffset = placeAbout.layout.getLineStart(i)
+                        endOffset = placeAbout.layout.getLineEnd(i)
+                        if (!TextUtils.isEmpty((placeAbout.layout.text.subSequence(startOffset, endOffset)).toString().trim())) {
+                            if (!isLineSelected) {
+                                lineToEnd = i + 1
+                                isLineSelected = true
+                            } else {
+                                notEmptyLinesToShowMore++
+                            }
+                        }
+                    }
+
+                    if (notEmptyLinesToShowMore < 2) {
+                        shouldShowReadMore = false
+                    }
+                }
+
+                if(shouldShowReadMore){
+                    placeAbout.maxLines = lineToEnd
+                    placeReadMore.visibility = View.VISIBLE
+                } else{
+                    checkAndShowAboutRv()
+                }
+            }
+        }
+    }
+
+    private fun checkAndShowAboutRv(){
+        if(placeAboutSize >0){
+            placeAboutRv.visibility = View.VISIBLE
+        }
     }
 
     private fun setLightStatusBar(activity: Activity) {

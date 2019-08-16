@@ -26,6 +26,8 @@ class GridItemDecoration(private val columnCount: Int, @Px val preferredSpace: I
                 outRect.top = (preferredSpace * topSpaceMultiplier).toInt()
             }
 
+
+            // this is probably targeting only columnCount == 3
         } else{
             if (includeEdge) {
 

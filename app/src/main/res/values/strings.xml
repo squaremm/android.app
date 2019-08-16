@@ -344,6 +344,12 @@
     <string name="monthly">Monthly</string>
 
 
+    <string name="dress_code">Dress Code:</string>
+    <string name="minimum_tip">Minimum Tip:</string>
+
+
+
+
     <string name="foodpic">FoodPic</string>
     <string name="atmosphere">Atmosphere</string>
     <string name="model_in_venue">Model in venue</string>
