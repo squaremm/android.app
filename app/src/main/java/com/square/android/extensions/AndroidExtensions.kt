@@ -49,6 +49,13 @@ fun ImageView.loadImage(url: String,
                 .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
                 .placeholder(placeholder)
                 .into(this)
+    } else{
+        Picasso.get()
+                .load(R.drawable.placeholder)
+                .fit()
+                .centerCrop()
+                .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
+                .into(this)
     }
 }
 

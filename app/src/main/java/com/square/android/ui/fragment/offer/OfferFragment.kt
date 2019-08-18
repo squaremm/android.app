@@ -10,11 +10,12 @@ import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.Place
 import com.square.android.presentation.presenter.offer.OfferPresenter
 import com.square.android.presentation.view.offer.OfferView
+import com.square.android.ui.activity.place.OfferAdapter
+import com.square.android.ui.activity.place.OfferDialog
 import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep
-import com.square.android.ui.base.tutorial.TutorialView
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_offer.*

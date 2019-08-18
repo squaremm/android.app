@@ -1,4 +1,4 @@
-package com.square.android.ui.fragment.offer
+package com.square.android.ui.activity.place
 
 import android.annotation.SuppressLint
 import android.content.Context

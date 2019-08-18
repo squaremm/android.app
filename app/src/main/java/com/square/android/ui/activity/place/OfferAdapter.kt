@@ -1,20 +1,18 @@
-package com.square.android.ui.fragment.offer
+package com.square.android.ui.activity.place
 
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.square.android.R
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.extensions.loadImage
 import com.square.android.ui.base.BaseAdapter
-import com.square.android.ui.fragment.map.MarginItemDecorator
-import kotlinx.android.synthetic.main.offer_card.*
+import kotlinx.android.synthetic.main.item_offer.*
+import org.jetbrains.anko.dimen
 
 class OfferAdapter(data: List<OfferInfo>,
                    private val handler: Handler?) : BaseAdapter<OfferInfo, OfferAdapter.OfferHolder>(data) {
     private var selectedItemPosition: Int? = null
 
-    override fun getLayoutId(viewType: Int) = R.layout.offer_card
+    override fun getLayoutId(viewType: Int) = R.layout.item_offer
 
     override fun getItemCount() = data.size
 
@@ -50,29 +48,33 @@ class OfferAdapter(data: List<OfferInfo>,
         override fun bind(item: OfferInfo, vararg extras: Any?) {
             val selectedPosition = extras.first() as Int?
 
-            bindSelected(selectedPosition)
+            itemOfferName.text = item.name
+            itemOfferCredits.text =  itemOfferCredits.context.getString(R.string.credits_format_lowercase,item.price)
 
-            offerTitle.text = item.name
-            offerPrice.text = item.price.toString()
 
-            offerImage.loadImage((item.mainImage ?: item.photo) ?: "")
+            println("CECECE: mainimage:"+item.mainImage+" photo:"+ item.photo)
 
-            if (item.timeframes.isNullOrEmpty()){
-                offerTimeframesRv.visibility = View.GONE
-            } else {
-                offerTimeframesRv.visibility = View.VISIBLE
+            itemOfferImv.loadImage((item.mainImage ?: item.photo) ?: "", roundedCornersRadiusPx = itemOfferImv.context.dimen(R.dimen.value_4dp))
 
-                offerTimeframesRv.adapter = TimeframeAdapter(item.timeframes!!)
-                offerTimeframesRv.layoutManager = LinearLayoutManager(offerTimeframesRv.context, RecyclerView.HORIZONTAL,false)
-                offerTimeframesRv.addItemDecoration(MarginItemDecorator(offerTimeframesRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
-            }
+            //TODO what to do with timeframes and itemOfferContainer alpha?
+//            if (item.timeframes.isNullOrEmpty()){
+
+//                offerTimeframesRv.visibility = View.GONE
+//            } else {
+//                offerTimeframesRv.visibility = View.VISIBLE
+//
+//                offerTimeframesRv.adapter = TimeframeAdapter(item.timeframes!!)
+//                offerTimeframesRv.layoutManager = LinearLayoutManager(offerTimeframesRv.context, RecyclerView.HORIZONTAL,false)
+//                offerTimeframesRv.addItemDecoration(MarginItemDecorator(offerTimeframesRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+//            }
         }
 
         fun bindSelected(selectedPosition: Int?) {
             val isActive = selectedPosition == adapterPosition
 
-            offerContainer.isActivated = isActive
+            itemOfferContainer.isActivated = isActive
         }
+
     }
 
     interface Handler {
