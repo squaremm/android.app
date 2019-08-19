@@ -85,8 +85,8 @@
 
     <string name="select_timeframe">Select your timeframe</string>
 
-    <string name="spot_format">%d spots available</string>
-    <string name="spot_one_format">%d spot available</string>
+    <string name="spot_format">%d Spots</string>
+    <string name="spot_one_format">%d Spot</string>
 
     <string name="book_subtitle">%s %s</string>
     <string name="opening_time">Opening time</string>

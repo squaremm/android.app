@@ -16,8 +16,7 @@ import com.square.android.presentation.view.pickUpInterval.PickUpIntervalView
 import com.square.android.ui.activity.campaignDetails.EXTRA_CAMPAIGN_ID
 import com.square.android.ui.activity.campaignDetails.EXTRA_INTERVAL_ID
 import com.square.android.ui.fragment.BaseFragment
-import com.square.android.ui.fragment.booking.DaysAdapter
-import com.square.android.ui.fragment.pickUpSpot.PickUpSpotFragment
+import com.square.android.ui.activity.place.DaysAdapter
 import kotlinx.android.synthetic.main.fragment_pick_up_interval.*
 import kotlinx.android.synthetic.main.item_interval_campaign.view.*
 import org.jetbrains.anko.bundleOf

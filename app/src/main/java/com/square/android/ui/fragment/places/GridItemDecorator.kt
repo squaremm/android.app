@@ -5,6 +5,20 @@ import android.view.View
 import androidx.annotation.Px
 import androidx.recyclerview.widget.RecyclerView
 
+/* IMPORTANT:
+ This item decoration can be added several times when calling RecyclerView.addItemDecoration(GridItemDecoration... which may cause layout problems
+
+
+ WHEN CALLING RecyclerView.addItemDecoration MULTIPLE TIMES: remember to check if it isn't already defined
+
+ var decorationAdded = false
+ if(!decorationAdded){
+    decorationAdded = true
+    RecyclerView.addItemDecoration(GridItemDecoration...
+ }
+
+ */
+
 class GridItemDecoration(private val columnCount: Int, @Px val preferredSpace: Int, private val includeEdge: Boolean, private val topSpaceMultiplier: Float = 1f): RecyclerView.ItemDecoration() {
 
     private val space = if (preferredSpace % 3 == 0) preferredSpace else (preferredSpace + (3 - preferredSpace % 3))
@@ -27,7 +41,7 @@ class GridItemDecoration(private val columnCount: Int, @Px val preferredSpace: I
             }
 
 
-            // this is probably targeting only columnCount == 3
+// This is probably targeting only columnCount == 3
         } else{
             if (includeEdge) {
 

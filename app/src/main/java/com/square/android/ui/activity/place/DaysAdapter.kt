@@ -1,4 +1,4 @@
-package com.square.android.ui.fragment.booking
+package com.square.android.ui.activity.place
 
 import android.view.View
 import com.square.android.R
@@ -72,8 +72,6 @@ class DaysAdapter(data: List<Day>,
         fun bindSelected(item: Day,selectedPosition: Int?, selectedMonth: Int?) {
             itemDayValue.isChecked = (selectedPosition == adapterPosition)
             itemDayValue.isEnabled = true
-
-//            itemDayValue.isEnabled = (item.monthNumber == selectedMonth)
         }
     }
 

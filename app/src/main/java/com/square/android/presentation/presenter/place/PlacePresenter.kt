@@ -32,7 +32,7 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
 
     private var currentPositionOffers = 0
 
-    private var currentPosition: Int? = null
+    private var currentPositionIntervals: Int? = null
 
     private var calendar: Calendar = Calendar.getInstance()
     private var calendar2: Calendar = Calendar.getInstance()
@@ -43,14 +43,8 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
         loadData()
     }
 
-    fun itemClicked(position: Int) {
-        viewState.setSelectedItem(currentPosition, position)
-
-        currentPosition = position
-    }
-
     fun bookClicked() {
-        currentPosition?.let {
+        currentPositionIntervals?.let {
             launch {
                 val date = getStringDate()
                 val userId = repository.getUserInfo().id
@@ -85,18 +79,16 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
         loadIntervals()
     }
 
+    fun intervalItemClicked(position: Int){
+        currentPositionIntervals = position
 
-
-
-
-
-
+        viewState.setSelectedIntervalItem(position)
+    }
 
     private fun loadIntervals() {
         launch {
             viewState.showProgress()
 
-//            val intervalsWrapper = repository.getIntervals(place?.id!!, getStringDate()).await()
             intervalSlots = repository.getIntervalSlots(data!!.id, getStringDate()).await()
 
             viewState.hideProgress()
@@ -104,12 +96,6 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
             viewState.showIntervals(intervalSlots)
         }
     }
-
-
-
-
-
-
 
     fun getStringDate() = calendar2.getStringDate()
 
@@ -134,13 +120,14 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
             if (locationPoint != null) {
                 updateLocationInfo()
             }
+
+            loadIntervals()
         }
     }
 
     fun offersItemClicked(position: Int, place: Place?) {
         try{
             currentPositionOffers = position
-            viewState.setSelectedOfferItem(position)
 
             val offer = offers!![currentPositionOffers]
 

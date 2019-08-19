@@ -11,18 +11,16 @@ interface PlaceView : BaseView {
     fun showData(place: Place, offers: List<OfferInfo>, calendar: Calendar)
     fun showDistance(distance: Int?)
 
-    fun setSelectedOfferItem(position: Int)
-
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showOfferDialog(offer: OfferInfo, place: Place?)
 
     fun showIntervals(data: List<Place.Interval>)
 
-    fun setSelectedItem(previousPosition: Int?, currentPosition: Int)
-
     fun updateMonthName(calendar: Calendar)
 
     fun setSelectedDayItem(position: Int)
+
+    fun setSelectedIntervalItem(position: Int)
 
     fun showProgress()
 

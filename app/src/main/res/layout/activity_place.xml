@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/placeRoot"
     android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:layout_height="match_parent" >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/placeAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/placeCollapsing"
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             app:contentScrim="@android:color/white"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap" >
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -38,7 +39,6 @@
                 android:id="@+id/placeToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbarHeight"
-
                 android:layout_marginTop="@dimen/statusMargin"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
@@ -71,10 +71,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/placeNested"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:background="@android:color/white"
+        android:paddingBottom="104dp"
+        android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
@@ -82,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-        <!--////////// Location //////////-->
+<!--////////// Location //////////-->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/placeAddressCl"
                         android:layout_width="0dp"
@@ -161,16 +164,16 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/separatorTwo">
+                        app:layout_constraintTop_toBottomOf="@+id/separatorTwo" >
 
-                        <!--////////// About //////////-->
+<!--////////// About //////////-->
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/placeAboutCl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            tools:visibility="gone"
+                            tools:visibility="visible"
                             android:clipChildren="false"
-                            android:clipToPadding="false">
+                            android:clipToPadding="false" >
 
                             <TextView
                                 android:id="@+id/placeAboutLabel"
@@ -216,7 +219,7 @@
                                 android:visibility="gone"
                                 tools:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@+id/placeAbout"
-                                app:layout_constraintEnd_toEndOf="@+id/placeAbout">
+                                app:layout_constraintEnd_toEndOf="@+id/placeAbout" >
 
                                 <View
                                     android:layout_width="24dp"
@@ -258,6 +261,7 @@
                                 android:paddingEnd="@dimen/ac_place_default_margin"
                                 android:visibility="gone"
                                 tools:background="@color/grey_dark"
+                                android:nestedScrollingEnabled="false"
                                 tools:visibility="visible"
                                 tools:layout_height="50dp"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -265,7 +269,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/placeAbout" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <!--////////// Requirements //////////-->
+<!--////////// Requirements //////////-->
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/placeRequirementsCl"
                             android:layout_width="match_parent"
@@ -476,6 +480,7 @@
                                 android:paddingEnd="@dimen/ac_place_default_margin"
                                 android:visibility="gone"
                                 tools:visibility="visible"
+                                android:nestedScrollingEnabled="false"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/placeProgress"
@@ -514,6 +519,7 @@
                                 android:overScrollMode="never"
                                 android:paddingStart="@dimen/ac_place_default_margin"
                                 android:paddingEnd="@dimen/ac_place_default_margin"
+                                android:nestedScrollingEnabled="false"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/placeOffersLabel"
@@ -521,83 +527,87 @@
                                 tools:layout_height="50dp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--////////// Booking //////////-->
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/placeBookingCl"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:clipChildren="false"
-                            android:clipToPadding="false"
-                            android:paddingBottom="20dp">
-
-                            <Button
-                                android:id="@+id/placeBookingBtn"
-                                style="@style/Models16Text"
-                                android:layout_width="112dp"
-                                android:layout_height="56dp"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginEnd="@dimen/ac_place_default_margin"
-                                android:background="@drawable/nice_button_red_pink_alpha"
-                                android:enabled="false"
-                                android:text="@string/book_now"
-                                android:textAllCaps="false"
-                                android:textColor="@android:color/white"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/placeBookingImv"
-                                app:layout_constraintBottom_toBottomOf="parent" />
-
-                            <ImageView
-                                android:id="@+id/placeBookingImv"
-                                android:layout_width="42dp"
-                                android:layout_height="42dp"
-                                android:layout_marginStart="@dimen/ac_place_default_margin"
-                                android:layout_marginTop="20dp"
-                                android:src="@drawable/r_calendar"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/separatorBooking" />
-
-                            <TextView
-                                android:id="@+id/placeBookingText"
-                                style="@style/Models14BoldText"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
-                                android:maxLines="1"
-                                android:hint="@string/select_timeframe"
-                                android:textColorHint="@color/gray_hint_ligh"
-                                app:layout_constraintBottom_toBottomOf="@+id/placeBookingImv"
-                                app:layout_constraintEnd_toStartOf="@+id/placeBookingBtn"
-                                app:layout_constraintStart_toEndOf="@+id/placeBookingImv" />
-
-                            <TextView
-                                android:id="@+id/placeBookingDate"
-                                style="@style/Models16Text"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
-                                android:includeFontPadding="false"
-                                android:maxLines="1"
-                                app:layout_constraintEnd_toStartOf="@+id/placeBookingBtn"
-                                app:layout_constraintStart_toEndOf="@+id/placeBookingImv"
-                                app:layout_constraintTop_toTopOf="@+id/placeBookingImv"
-                                tools:text="Monday, May 7th" />
-
-                            <View
-                                android:id="@+id/separatorBooking"
-                                android:layout_width="match_parent"
-                                android:layout_height="1.5dp"
-                                android:layout_marginTop="20dp"
-                                android:background="@color/divider"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+<!--////////// Booking //////////-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/placeBookingCl"
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:layout_gravity="bottom"
+        android:clipChildren="false"
+        android:background="@android:color/white"
+        app:layout_anchorGravity="bottom"
+        android:clipToPadding="false"
+        android:paddingBottom="20dp" >
+
+        <Button
+            android:id="@+id/placeBookingBtn"
+            style="@style/Models16Text"
+            android:layout_width="112dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/ac_place_default_margin"
+            android:background="@drawable/nice_button_red_pink_alpha"
+            android:enabled="false"
+            android:text="@string/book_now"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/placeBookingImv"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/placeBookingImv"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="@dimen/ac_place_default_margin"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/r_calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separatorBooking" />
+
+        <TextView
+            android:id="@+id/placeBookingText"
+            style="@style/Models14BoldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:hint="@string/select_timeframe"
+            android:maxLines="1"
+            android:textColorHint="@color/gray_hint_ligh"
+            app:layout_constraintEnd_toStartOf="@+id/placeBookingBtn"
+            app:layout_constraintStart_toEndOf="@+id/placeBookingImv"
+            app:layout_constraintTop_toBottomOf="@+id/placeBookingDate" />
+
+        <TextView
+            android:id="@+id/placeBookingDate"
+            style="@style/Models16Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/placeBookingBtn"
+            app:layout_constraintStart_toEndOf="@+id/placeBookingImv"
+            app:layout_constraintTop_toTopOf="@+id/placeBookingImv"
+            tools:text="Monday, May 7th" />
+
+        <View
+            android:id="@+id/separatorBooking"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -10,6 +10,7 @@ import com.square.android.data.pojo.Day
 import com.square.android.data.pojo.Place
 import com.square.android.presentation.presenter.booking.BookingPresenter
 import com.square.android.presentation.view.booking.BookingView
+import com.square.android.ui.activity.place.DaysAdapter
 import com.square.android.ui.base.tutorial.Tutorial
 import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep

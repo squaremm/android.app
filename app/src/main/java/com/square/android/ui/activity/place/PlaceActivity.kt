@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.square.android.data.pojo.Day
 import com.square.android.data.pojo.OfferInfo
-import com.square.android.ui.fragment.booking.DaysAdapter
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import com.square.android.ui.fragment.places.GridItemDecoration
 import java.util.*
@@ -58,6 +57,10 @@ class PlaceActivity : LocationActivity(), PlaceView {
     private var dialog: OfferDialog? = null
 
     private var daysAdapter: DaysAdapter? = null
+
+    private var decorationAdded = false
+
+    private var intervalsAdapter: IntervalAdapter? = null
 
     var placeAboutSize = 0
 
@@ -89,7 +92,10 @@ class PlaceActivity : LocationActivity(), PlaceView {
             checkAndShowAboutRv()
         }
 
-        placeAddressCl.setOnClickListener {  }
+        placeAddressCl.setOnClickListener {
+            //TODO open google maps
+        }
+        //TODO + new offer dialog
 
         placeBookingBtn.setOnClickListener { presenter.bookClicked() }
     }
@@ -143,6 +149,8 @@ class PlaceActivity : LocationActivity(), PlaceView {
     override fun showProgress() {
         placeIntervalsRv.visibility = View.GONE
         placeProgress.visibility = View.VISIBLE
+
+        placeBookingText.text = ""
     }
 
     override fun hideProgress() {
@@ -150,87 +158,40 @@ class PlaceActivity : LocationActivity(), PlaceView {
         placeProgress.visibility = View.GONE
     }
 
-    private fun itemClicked(position: Int, enabled: Boolean) {
-        presenter.itemClicked(position)
-
-        placeBookingBtn.isEnabled = enabled
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//TODO: intervals rv
-    private fun changeSelected(view: View?, isSelected: Boolean) {
-//        view?.bookingContainer?.isActivated = isSelected
+    override fun setSelectedIntervalItem(position: Int) {
+        intervalsAdapter?.setSelectedItem(position)
     }
 
     override fun showIntervals(data: List<Place.Interval>) {
-//        bookingIntervalList.removeAllViews()
-//
-//        val inflater = layoutInflater
-//
-//        bookingEmpty.visibility = if(data.isEmpty()) View.VISIBLE else View.GONE
-//
-//        data.forEachIndexed { index, interval ->
-//            val view = inflater.inflate(R.layout.item_interval, bookingIntervalList, false)
-//
-//            var active = interval.slots > 0
-//
-//            view.bookingInterval.text = getString(R.string.time_range, interval.start, interval.end)
-//
-//            when(interval.slots){
-//                0 -> { view.bookingSpots.text = getString(R.string.full) }
-//                1 -> view.bookingSpots.text = getString(R.string.spot_one_format, interval.slots)
-//                else -> view.bookingSpots.text = getString(R.string.spot_format, interval.slots)
-//            }
-//
-//            updateInterval(view, active)
-//
-//            view.setOnClickListener {itemClicked(index,active)}
-//
-//            bookingIntervalList.addView(view)
-//        }
-    }
+        intervalsAdapter = IntervalAdapter(data, intervalHandler)
 
-    private fun updateInterval(view: View, isActive: Boolean) {
-//        view.bookingContainer.isActivated = false
-//        view.bookingInterval.isEnabled = isActive
-//        view.bookingSpots.isEnabled = isActive
-    }
+        placeIntervalsRv.layoutManager = GridLayoutManager(this, 2)
+        placeIntervalsRv.adapter = intervalsAdapter
 
-    override fun setSelectedItem(previousPosition: Int?, currentPosition: Int) {
-        updateList(previousPosition, currentPosition)
-    }
-
-    private fun updateList(previousPosition: Int?, currentPosition: Int) {
-        previousPosition?.let {
-            val previous = placeIntervalsRv.getChildAt(it)
-            changeSelected(previous, false)
+        if(!decorationAdded){
+            decorationAdded = true
+            placeIntervalsRv.addItemDecoration(GridItemDecoration(2,placeIntervalsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
         }
-
-        val current = placeIntervalsRv.getChildAt(currentPosition)
-        changeSelected(current, true)
     }
 
+    var intervalHandler = object : IntervalAdapter.Handler{
+        override fun itemClicked(position: Int, text: String, intervalTimeframes: String) {
+            presenter.intervalItemClicked(position)
+            placeBookingBtn.isEnabled = true
+            placeBookingText.text = text
 
-
-
-
-
-
+            offerAdapter?.updateAlpha(intervalTimeframes)
+        }
+    }
 
     override fun updateMonthName(calendar: Calendar) {
         val month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
         placeBookingMonth.text = getString(R.string.calendar_format, month, calendar.get(Calendar.YEAR))
+
+        val d = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()).capitalize()
+        val m = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()).capitalize()
+
+        placeBookingDate.text = d + ", " + m + " " + dayToString(calendar.get(Calendar.DAY_OF_MONTH))
     }
 
     override fun setSelectedDayItem(position: Int) {
@@ -241,6 +202,7 @@ class PlaceActivity : LocationActivity(), PlaceView {
         override fun itemClicked(position: Int) {
             presenter.dayItemClicked(position)
             placeBookingBtn.isEnabled = false
+            offerAdapter?.updateAlpha(null)
         }
     }
 
@@ -257,10 +219,6 @@ class PlaceActivity : LocationActivity(), PlaceView {
         } else {
             placeDistance.visibility = View.GONE
         }
-    }
-
-    override fun setSelectedOfferItem(position: Int) {
-        offerAdapter?.setSelectedItem(position)
     }
 
     override fun showOfferDialog(offer: OfferInfo, place: Place?) {
@@ -285,9 +243,13 @@ class PlaceActivity : LocationActivity(), PlaceView {
         placeAboutRv.layoutManager = LinearLayoutManager(placeAboutRv.context, RecyclerView.HORIZONTAL, false)
         placeAboutRv.addItemDecoration(MarginItemDecorator(placeAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), vertical = false))
 
+
+        //TODO set placeAboutImage based on place.type
+
+
         //TODO delete this and get data from place
-        val dressCode: String? = "Elegant"
-        val minimumTip: String? = "10$"
+        val dressCode: String? = ""
+        val minimumTip: String? = ""
 
         if(!TextUtils.isEmpty(dressCode) || !TextUtils.isEmpty(minimumTip)){
             placeRequirementsCl.visibility = View.VISIBLE
@@ -325,6 +287,11 @@ class PlaceActivity : LocationActivity(), PlaceView {
 
         val month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
         placeBookingMonth.text = getString(R.string.calendar_format, month, calendar.get(Calendar.YEAR))
+
+        val d = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()).capitalize()
+        val m =  calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()).capitalize()
+
+        placeBookingDate.text = d +", " + m +" " + dayToString(calendar.get(Calendar.DAY_OF_MONTH))
 
         val days = mutableListOf<Day>()
         val calendar2 = Calendar.getInstance().apply { timeInMillis = calendar.timeInMillis }
@@ -377,6 +344,17 @@ class PlaceActivity : LocationActivity(), PlaceView {
 
         placeAddress.text = place.address
     }
+
+    private fun dayToString(day: Int): String{
+       val s = when(day){
+           1, 21, 31 -> "st"
+           2, 22 -> "nd"
+           3, 23 -> "rd"
+           else -> "th"
+       }
+
+       return day.toString() + s
+   }
 
     private fun onAboutLoaded(){
         var startOffset: Int

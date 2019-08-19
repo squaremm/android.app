@@ -58,7 +58,7 @@ class OfferFragment(private val place: Place?) : BaseFragment(), OfferView, Offe
     }
 
     override fun setSelectedItem(position: Int) {
-        adapter?.setSelectedItem(position)
+      //  adapter?.setSelectedItem(position)
     }
 
     override fun showOfferDialog(offer: OfferInfo, place: Place?) {
