@@ -148,6 +148,10 @@
 
     <string name="book_now">Book Now</string>
 
+    <string name="total_credits">Total credits</string>
+    <string name="qt">Qt.</string>
+    <string name="details">Details</string>
+
 
     <string name="add_a">Add a</string>
     <string name="step">Step</string>

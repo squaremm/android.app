@@ -22,12 +22,15 @@ import kotlinx.android.synthetic.main.activity_place.*
 import ru.terrakok.cicerone.Navigator
 import android.os.Build
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.text.TextUtils
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.square.android.data.pojo.Day
 import com.square.android.data.pojo.OfferInfo
+import com.square.android.extensions.loadImageForIcon
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import com.square.android.ui.fragment.places.GridItemDecoration
 import java.util.*
@@ -93,9 +96,16 @@ class PlaceActivity : LocationActivity(), PlaceView {
         }
 
         placeAddressCl.setOnClickListener {
-            //TODO open google maps
+            if(presenter.latitude != null && presenter.longitude != null){
+                presenter.data?.let {
+                    val uri = "https://www.google.com/maps/dir/?api=1&origin=${presenter.latitude},${presenter.longitude}&destination=${it.address}&travelmode=walking"
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(uri)
+                    val chooser = Intent.createChooser(intent, getString(R.string.select_an_app))
+                    startActivity(chooser)
+                }
+            }
         }
-        //TODO + new offer dialog
 
         placeBookingBtn.setOnClickListener { presenter.bookClicked() }
     }
@@ -226,8 +236,10 @@ class PlaceActivity : LocationActivity(), PlaceView {
         dialog!!.show(offer, place)
     }
 
-    override fun showData(place: Place, offers: List<OfferInfo>, calendar: Calendar) {
+    override fun showData(place: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?) {
         this.place = place
+
+        typeImage?.let { placeAboutImage.loadImageForIcon(it) }
 
         placeMainImage.loadImage(place.mainImage ?: (place.photos?.firstOrNull() ?: ""))
 
@@ -242,10 +254,6 @@ class PlaceActivity : LocationActivity(), PlaceView {
         placeAboutRv.adapter = adapter
         placeAboutRv.layoutManager = LinearLayoutManager(placeAboutRv.context, RecyclerView.HORIZONTAL, false)
         placeAboutRv.addItemDecoration(MarginItemDecorator(placeAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), vertical = false))
-
-
-        //TODO set placeAboutImage based on place.type
-
 
         //TODO delete this and get data from place
         val dressCode: String? = ""

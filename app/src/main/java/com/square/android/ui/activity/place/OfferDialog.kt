@@ -12,11 +12,11 @@ import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.Place
 import com.square.android.extensions.loadImage
 import kotlinx.android.synthetic.main.offer_dialog.view.*
+import java.util.regex.Pattern
 
 class OfferDialog(private val context: Context) {
 
     lateinit var dialog: MaterialDialog
-
 
     @SuppressLint("InflateParams")
     fun show(offer: OfferInfo, place: Place?) {
@@ -28,19 +28,34 @@ class OfferDialog(private val context: Context) {
                 .cancelable(true)
                 .build()
 
-        dialog.window?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(context, R.color.black_trans_75)))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(context, android.R.color.transparent)))
 
         view.offerDialogImg.loadImage((offer.mainImage ?: offer.photo) ?: "")
-        view.offerDialogPlace.text = offer.name
+        view.offerDialogName.text = offer.name
         view.offerDialogCredits.text = offer.price.toString()
-        view.offerDialogComponents.text = offer.compositionAsStr()
 
-        if(offer.timeframes.isNullOrEmpty()){
-            view.offerDialogAvailability.visibility = View.GONE
-        } else{
-            view.offerDialogAvailability.visibility = View.VISIBLE
-            view.offerHours.text = offer.stringTimeframes()
+        //TODO change later
+        //TODO separate values for numbers and names will be added in API later
+        if(!offer.composition.isNullOrEmpty()){
+            view.scrollViewMaxHeight.visibility = View.VISIBLE
+            view.offerDialogDetails.visibility = View.VISIBLE
+            view.offerDialogQt.visibility = View.VISIBLE
+
+            val numberList: MutableList<Int> = mutableListOf()
+            val names = offer.compositionAsStr()
+
+            val p = Pattern.compile("\\d+")
+            val m = p.matcher(offer.compositionAsString())
+            while (m.find()) {
+                numberList.add(m.group().toInt())
+            }
+
+            view.offerNames.text = names
+
+            view.offerNumbers.text = numberList.joinToString(separator = "\n")
         }
+
+        view.offerClose.setOnClickListener { close() }
 
         dialog.show()
     }

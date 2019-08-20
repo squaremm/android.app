@@ -30,6 +30,12 @@ interface ApiService {
     @GET("place/{id}")
     fun getPlace(@Path("id") id: Long): Call<Place>
 
+    @GET("place-type")
+    fun getPlaceTypes(@Header("Authorization") authorization: String): Call<List<PlaceType>>
+
+    @GET("place-extra")
+    fun getPlaceExtras(@Header("Authorization") authorization: String) : Call<List<PlaceExtra>>
+
     @POST("v2/place/{id}/book")
     fun book(@Path("id") id: Long,
              @Body body: BookInfo): Call<MessageResponse>

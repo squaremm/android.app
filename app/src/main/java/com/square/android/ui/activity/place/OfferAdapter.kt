@@ -63,9 +63,8 @@ class OfferAdapter(data: List<OfferInfo>,
             bindAlpha(item, intervalTimeframes)
         }
 
+// TODO only working with full hours right now
         fun bindAlpha(item: OfferInfo, intervalTimeframes: String?) {
-
-   /* TODO Uncomment when API done
 
             if(!item.timeframes.isNullOrEmpty() && intervalTimeframes != null){
                 println("BVBVB !item.timeframes.isNullOrEmpty() && intervalTimeframes != null")
@@ -80,72 +79,82 @@ class OfferAdapter(data: List<OfferInfo>,
 
                     val timeList: MutableList<String> = mutableListOf()
 
-                    if(itemStart % 1.0 != 0.0){
+//                    if(itemStart % 1.0 != 0.0){
+//
+//                        if(itemStart < 10){
+//                            timeList.add("0"+itemStart.toString().replace(".", ":"))
+//                        } else{
+//                            timeList.add(itemStart.toString().replace(".", ":"))
+//                        }
+//
+//                        itemStart = itemStart.toInt().toDouble()
+//
+//                        println("BVBVB itemStart"+itemStart)
+//
+//                        if(itemStart + 1 >= itemEnd){
+//                            itemStart = itemEnd
+//                        } else{
+//                            itemStart++
+//                        }
+//                    }
+//
+//                    if(itemEnd % 1.0 != 0.0){
+//                        if(itemEnd < 10){
+//                            timeList.add("0"+itemEnd.toString().replace(".", ":"))
+//                        } else{
+//                            timeList.add(itemEnd.toString().replace(".", ":"))
+//                        }
+//
+//                        itemEnd = itemEnd.toInt().toDouble()
+//
+//                        if(itemEnd - 1 <= itemStart){
+//                            itemEnd = itemStart
+//                        } else{
+//                            itemEnd--
+//                        }
+//                    }
 
-                        if(itemStart < 10){
-                            timeList.add("0"+itemStart.toString().replace(".", ":"))
-                        } else{
-                            timeList.add(itemStart.toString().replace(".", ":"))
+//                    if(itemEnd - itemStart >= 1){
+                        var intStart = itemStart.toInt()
+                        var intEnd = itemEnd.toInt()
+
+                        for(x in intStart..intEnd){
+                            var s = ""
+
+                            if(x <10){
+                                s += "0"
+                            }
+
+                            s += x.toString()+":00"
+
+                            timeList.add(s)
                         }
-
-                        itemStart = itemStart.toInt().toDouble()
-
-                        println("BVBVB itemStart"+itemStart)
-
-                        if(itemStart + 1 >= itemEnd){
-                        } else{
-                            itemStart++
-                        }
-                    }
-
-                    if(itemEnd % 1.0 != 0.0){
-                        if(itemEnd < 10){
-                            timeList.add("0"+itemEnd.toString().replace(".", ":"))
-                        } else{
-                            timeList.add(itemEnd.toString().replace(".", ":"))
-                        }
-                    }
-
-                    var intStart = itemStart.toInt()
-                    var intEnd = itemEnd.toInt()
-
-                    for(x in intStart..intEnd){
-                        var s = ""
-
-                        if(x <10){
-                            s += "0"
-                        }
-
-                        s += x.toString()+":00"
-
-                        timeList.add(s)
-                    }
+//                    }
 
                     println("BVBVB timeList"+timeList.toString())
 
-                    //TODO uncomment when API ok
-//                    val intervalSubstring = intervalTimeframes.substring(intervalTimeframes.indexOf(" "))
-//                    var intervalStart = intervalSubstring[0].toDouble()
-//                    var intervalEnd = intervalSubstring[1].toDouble()
+                    val intervalSplit = intervalTimeframes.split(" ")
 
-                    //TODO delete when API ok
-                    var intervalStart: Double = 01.01
-                    var intervalEnd: Double = 1.59
+                    var intervalStart = intervalSplit[0].toDouble()
+                    var intervalEnd = intervalSplit[1].toDouble()
 
                     var intervalStartS = ""
                     var intervalEndS = ""
 
                     if(intervalStart < 10){
-                        intervalStartS = "0"+ intervalStart.toString().replace(".", ":")
+                        intervalStartS = "0"+ String.format("%.2f", intervalStart).replace(".", ":").replace(",", ":")
                     } else{
-                        intervalStartS = intervalStart.toString().replace(".", ":")
+                        intervalStartS = String.format("%.2f", intervalStart).replace(".", ":").replace(",", ":")
                     }
 
                     if(intervalEnd < 10){
-                        intervalEndS = "0"+ intervalEnd.toString().replace(".", ":")
+                        intervalEndS = "0"+ String.format("%.2f", intervalEnd).replace(".", ":").replace(",", ":")
                     } else{
-                        intervalEndS = intervalEnd.toString().replace(".", ":")
+                        intervalEndS = String.format("%.2f", intervalEnd).replace(".", ":").replace(",", ":")
                     }
+
+                    println("BVBVB intervalTimeframes:"+intervalTimeframes+", intervalStart:"+intervalStart+", intervalEnd:"+intervalEnd
+                            + ", intervalStartS:"+intervalStartS+ ", intervalEndS:"+intervalEndS)
 
                     for(item in timeList){
                         if(isTimeBetweenTwoTime(intervalStartS, intervalEndS, item)){
@@ -172,6 +181,8 @@ class OfferAdapter(data: List<OfferInfo>,
             }
         }
 
+
+// Should work with timeframes like 23:00 - 05:00 too
         @Throws(ParseException::class)
         fun isTimeBetweenTwoTime(argStartTime: String,
                                   argEndTime: String, argCurrentTime: String): Boolean {
@@ -246,10 +257,7 @@ class OfferAdapter(data: List<OfferInfo>,
                         "BVBVB Not a valid time, expecting HH:MM:SS format")
             }
 
-
-    */
         }
-
 
     }
 

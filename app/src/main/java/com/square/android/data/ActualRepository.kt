@@ -20,6 +20,11 @@ import retrofit2.HttpException
 
 private const val TOKEN_PREFIX = "Bearer "
 
+object PlaceThings {
+    var placeTypes: List<PlaceType>? = null
+    var placeExtras: List<PlaceExtra>? = null
+}
+
 class ActualRepository(private val api: ApiService,
                        private val localManager: LocalDataManager) : Repository {
 
@@ -185,6 +190,28 @@ class ActualRepository(private val api: ApiService,
         }
 
         places
+    }
+
+    override fun getPlaceTypes(): Deferred<List<PlaceType>> = GlobalScope.async {
+        PlaceThings.placeTypes?.let {
+            it
+        } ?: run{
+            var data = performRequest { api.getPlaceTypes(localManager.getAuthToken()) }
+            PlaceThings.placeTypes = data
+
+            data
+        }
+    }
+
+    override fun getPlaceExtras(): Deferred<List<PlaceExtra>> = GlobalScope.async {
+        PlaceThings.placeExtras?.let {
+            it
+        } ?: run{
+            var data = performRequest {api.getPlaceExtras(localManager.getAuthToken())}
+            PlaceThings.placeExtras = data
+
+            data
+        }
     }
 
     override fun setLoggedIn(isLogged: Boolean) {

@@ -188,9 +188,11 @@
 
                             <ImageView
                                 android:id="@+id/placeAboutImage"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
                                 android:layout_marginEnd="@dimen/ac_place_default_margin"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerInside"
                                 tools:src="@drawable/r_shoe"
                                 app:layout_constraintBottom_toBottomOf="@+id/placeAboutLabel"
                                 app:layout_constraintEnd_toEndOf="parent"

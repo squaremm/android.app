@@ -4,9 +4,7 @@ import android.location.Location
 import android.text.TextUtils
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.square.android.data.pojo.BookInfo
-import com.square.android.data.pojo.OfferInfo
-import com.square.android.data.pojo.Place
+import com.square.android.data.pojo.*
 import com.square.android.extensions.getStringDate
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
@@ -22,11 +20,15 @@ import java.util.*
 
 @InjectViewState
 class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
-    private var locationPoint: LatLng? = null
+    var locationPoint: LatLng? = null
+
+    var latitude: Double? = null
+
+    var longitude: Double? = null
 
     private val eventBus: EventBus by inject()
 
-    private var data: Place? = null
+    var data: Place? = null
 
     private var offers: List<OfferInfo> = listOf()
 
@@ -101,6 +103,9 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
 
     fun locationGotten(lastLocation: Location?) {
         lastLocation?.let {
+            latitude = it.latitude
+            longitude = it.longitude
+
             locationPoint = LatLng(it.latitude, it.longitude)
 
             if (data != null) {
@@ -115,7 +120,11 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
 
             offers = data!!.offers
 
-            viewState.showData(data!!, offers!!,calendar)
+            val placeTypes: List<PlaceType> = repository.getPlaceTypes().await()
+
+            val placeImage: String? = placeTypes.filter { it.type == data!!.type}.firstOrNull()?.image
+
+            viewState.showData(data!!, offers!!,calendar, placeImage)
 
             if (locationPoint != null) {
                 updateLocationInfo()

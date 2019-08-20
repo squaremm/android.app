@@ -30,6 +30,10 @@ interface Repository {
 
     fun getPlaces(): Deferred<List<Place>>
 
+    fun getPlaceTypes(): Deferred<List<PlaceType>>
+
+    fun getPlaceExtras(): Deferred<List<PlaceExtra>>
+
     fun setUserId(id: Long)
 
     fun getUserId(): Long

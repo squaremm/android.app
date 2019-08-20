@@ -8,7 +8,7 @@ import com.square.android.presentation.view.BaseView
 import java.util.*
 
 interface PlaceView : BaseView {
-    fun showData(place: Place, offers: List<OfferInfo>, calendar: Calendar)
+    fun showData(place: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?)
     fun showDistance(distance: Int?)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
