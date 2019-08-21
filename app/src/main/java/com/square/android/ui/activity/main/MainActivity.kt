@@ -3,7 +3,6 @@ package com.square.android.ui.activity.main
 import android.content.Context
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -34,9 +33,8 @@ import com.square.android.ui.activity.gallery.USER_EXTRA
 import com.square.android.ui.fragment.campaigns.CAMPAIGN_EXTRA_ID
 import com.square.android.ui.activity.noConnection.NoConnectionActivity
 import com.square.android.ui.activity.passEligible.PassEligibleActivity
+import com.square.android.ui.activity.place.PLACE_EXTRA_ID
 import com.square.android.ui.activity.place.PlaceActivity
-import com.square.android.ui.activity.placeDetail.PLACE_EXTRA_ID
-import com.square.android.ui.activity.placeDetail.PlaceDetailActivity
 import com.square.android.ui.activity.selectOffer.OFFER_EXTRA_ID
 import com.square.android.ui.activity.selectOffer.SelectOfferActivity
 import com.square.android.ui.activity.start.StartActivity
@@ -168,10 +166,6 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
 
                     SCREENS.SELECT_OFFER ->
                         context.intentFor<SelectOfferActivity>(OFFER_EXTRA_ID to data as Long)
-
-                    //TODO remove
-//                    SCREENS.PLACE_DETAIL ->
-//                        context.intentFor<PlaceDetailActivity>(PLACE_EXTRA_ID to data as Long)
 
                     SCREENS.PLACE ->
                         context.intentFor<PlaceActivity>(PLACE_EXTRA_ID to data as Long)
