@@ -185,12 +185,12 @@ class PlaceActivity : LocationActivity(), PlaceView {
     }
 
     var intervalHandler = object : IntervalAdapter.Handler{
-        override fun itemClicked(position: Int, text: String, intervalTimeframes: String) {
+        override fun itemClicked(position: Int, text: String, offers: List<Long>) {
             presenter.intervalItemClicked(position)
             placeBookingBtn.isEnabled = true
             placeBookingText.text = text
 
-            offerAdapter?.updateAlpha(intervalTimeframes)
+            offerAdapter?.updateAlpha(offers)
         }
     }
 

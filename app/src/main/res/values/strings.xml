@@ -78,12 +78,21 @@
     <string name="time_range">%s - %s</string>
     <string name="not_available_from_to">Not available from %s to %s</string>
 
-    <string name="about">About:</string>
-    <string name="requirements">Requirements:</string>
-    <string name="timeframes">Timeframes:</string>
-    <string name="offers">Offers:</string>
+    <string name="about">About</string>
+    <string name="requirements">Requirements</string>
+    <string name="timeframes">Timeframes</string>
+    <string name="offers">Offers</string>
+    <string name="services">Services</string>
+    <string name="dinner">Dinner</string>
+    <string name="extra">Extra</string>
+    <string name="dinner_info">Dinner info</string>
+    <string name="party_time">Party Time</string>
+
+    <string name="select">Select</string>
 
     <string name="select_timeframe">Select your timeframe</string>
+
+    <string name="select_offer">Select your offer</string>
 
     <string name="spot_format">%d Spots</string>
     <string name="spot_one_format">%d Spot</string>

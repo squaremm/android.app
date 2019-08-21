@@ -49,10 +49,9 @@ class Place(
     class Interval(
             @Json(name="_id")
             var id: String? = null,
-
             var start: String = "",
             var end: String = "",
-
+            var offers: List<Long> = listOf(),
             @Json(name="free")
             var slots: Int = 0
     )

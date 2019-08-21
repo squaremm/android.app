@@ -475,7 +475,7 @@
                                 android:id="@+id/placeIntervalsRv"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
+                                android:layout_marginTop="16dp"
                                 android:clipToPadding="false"
                                 android:overScrollMode="never"
                                 android:paddingStart="@dimen/ac_place_default_margin"
@@ -496,7 +496,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="gone"
-                            tools:visibility="gone"
+                            tools:visibility="visible"
                             android:clipChildren="false"
                             android:clipToPadding="false"
                             android:paddingBottom="20dp" >
@@ -507,7 +507,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/ac_place_default_margin"
-                                android:layout_marginTop="20dp"
                                 android:text="@string/offers"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />

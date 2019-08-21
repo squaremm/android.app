@@ -61,11 +61,9 @@ class IntervalAdapter(data: List<Place.Interval>,
             var text = bookingInterval.context.getString(R.string.time_range, item.start, item.end)
             bookingInterval.text = text
 
-            var intervalTimeframes = item.start +" "+ item.end
-
             bookingContainer.setOnClickListener {
                 if(enabled){
-                    handler?.itemClicked(adapterPosition, text, intervalTimeframes)
+                    handler?.itemClicked(adapterPosition, text, item.offers)
                 }
             }
 
@@ -83,7 +81,7 @@ class IntervalAdapter(data: List<Place.Interval>,
     }
 
     interface Handler {
-        fun itemClicked(position: Int, text: String, intervalTimeframes: String)
+        fun itemClicked(position: Int, text: String, offers: List<Long>)
     }
 
     object SelectedPayload
