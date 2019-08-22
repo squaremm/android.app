@@ -70,11 +70,10 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-<!-- TODO android:paddingBottom="20dp" when partyBookingCl is gone. Else android:paddingBottom="104dp"  -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/partyNested"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         android:paddingBottom="104dp"
         android:background="@android:color/white"
@@ -157,20 +156,43 @@
                 app:layout_constraintTop_toBottomOf="@+id/partyAddressCl" />
 
             <FrameLayout
-                android:id="@+id/campaignContainer"
+                android:id="@+id/partyContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintVertical_bias="0"
                 android:visibility="gone"
                 tools:visibility="visible"
                 android:clipToPadding="false"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separatorTwo" />
 
+            <View
+                android:id="@+id/additionalPadding"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:layout_marginStart="@dimen/ac_place_default_margin"
+                android:layout_marginEnd="@dimen/ac_place_default_margin"
+                android:background="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/partyContainer" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/partyProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/nice_red"
+        android:layout_gravity="center"
+        android:layout_marginTop="160dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <!--////////// Booking //////////-->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -179,7 +201,6 @@
         android:layout_height="104dp"
         android:layout_gravity="bottom"
         android:clipChildren="false"
-        tools:visibility="visible"
         android:background="@android:color/white"
         app:layout_anchorGravity="bottom"
         android:clipToPadding="false"
@@ -197,6 +218,18 @@
             android:text="@string/book_now"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@+id/partyBookProgress"
+            app:layout_constraintTop_toTopOf="@+id/partyBookingImv"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/partyBookProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/ac_place_default_margin"
+            android:indeterminateTint="@color/nice_red"
+            android:layout_gravity="center"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/partyBookingImv"
             app:layout_constraintBottom_toBottomOf="parent" />

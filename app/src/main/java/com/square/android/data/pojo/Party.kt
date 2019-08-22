@@ -1,20 +1,16 @@
 package com.square.android.data.pojo
 
-import android.os.Parcelable
 import com.square.android.data.network.IgnoreObjectIfIncorrect
-import com.square.android.data.network.IgnoreStringForArrays
-import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import com.squareup.moshi.JsonClass
 
-@Parcelize
 @JsonClass(generateAdapter = true)
-class Place(
+class Party(
         @Json(name="_id")
         var id: Long = 0,
         var address: String = "",
 //        var bookings: List<Booking> = listOf(),
-        var intervals: List<Interval> = listOf(),
+        var intervals: List<Place.Interval> = listOf(),
         var credits: Int = 0,
         var description: String = "",
         var level: Int? = 0,
@@ -28,13 +24,8 @@ class Place(
         var schedule: Map<String, ScheduleDay> = mapOf(),
         var type: String = "",
 
-        var extra: List<String> = listOf(),
-
-        // Availability label data
-        var availableOfferDay: String? = null,
-        var availableOfferSpots: Int = 0
-
-) : Parcelable {
+        var extra: List<String> = listOf()
+) {
     var distance: Int? = null
 
     var award: Int = 0
@@ -46,31 +37,4 @@ class Place(
     fun stringTime() = schedule.values
             .map { it.start + " " + it.end }
             .joinToString(separator = "\n")
-
-
-    @Parcelize
-    @JsonClass(generateAdapter = true)
-    class Interval(
-            @Json(name="_id")
-            var id: String? = null,
-            var start: String = "",
-            var end: String = "",
-            var offers: List<Long> = listOf(),
-            @Json(name="free")
-            var slots: Int = 0
-    ) : Parcelable
-
-    data class Booking(
-            @Json(name="_id")
-            var id: Int = 0,
-            var closed: Boolean = false,
-            var date: String = "",
-            var endTime: String = "",
-            var name: String = "",
-            var place: Int = 0,
-            var startTime: String = "",
-            var user: Int = 0
-    )
 }
-
-
