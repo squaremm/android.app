@@ -4,9 +4,11 @@ import com.square.android.data.pojo.Place
 import com.square.android.presentation.view.BaseView
 
 interface PartyView : BaseView {
-    fun showData(party: Place)
+    fun showPartyData(party: Place)
 
-    fun updateAddressLabel(address: String)
+    fun showPlaceData(name: String, image: String)
+
+    fun updateAddressLabel(address: String?)
 
     fun showProgress()
 

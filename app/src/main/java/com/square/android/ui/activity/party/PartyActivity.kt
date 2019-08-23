@@ -55,6 +55,10 @@ class PartyActivity: LocationActivity(), PartyView {
 
     private var isStatusBarLight: Boolean = false
 
+    private var timeframeSelected = false
+
+    private var offerSelected = false
+
     @ProvidePresenter
     fun providePresenter() = PartyPresenter(getId())
 
@@ -152,7 +156,7 @@ class PartyActivity: LocationActivity(), PartyView {
         partyBookProgress.visibility = View.VISIBLE
     }
 
-    public fun hideBookingProgress() {
+    fun hideBookingProgress() {
         partyBookProgress.visibility = View.GONE
         partyBookingBtn.visibility = View.VISIBLE
     }
@@ -171,7 +175,7 @@ class PartyActivity: LocationActivity(), PartyView {
         presenter.locationGotten(lastLocation)
     }
 
-    override fun updateAddressLabel(address: String) {
+    override fun updateAddressLabel(address: String?) {
         partyAddress.text = address
     }
 
@@ -186,10 +190,57 @@ class PartyActivity: LocationActivity(), PartyView {
         }
     }
 
-    override fun showData(party: Place) {
+    override fun showPartyData(party: Place) {
         partyMainImage.loadImage(party.mainImage ?: (party.photos?.firstOrNull() ?: ""))
 
         partyName.text = party.name
+
+        partyName.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                partyToolbar.apply {
+                    this.layoutParams.also {
+                        titleMinHeight = partyName.measuredHeight
+                        partyName.height = titleMinHeight
+                        it.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_extra_space))
+
+                        partyCollapsing.layoutParams.apply {
+                            this.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_image_height) + resources.getDimension(R.dimen.ac_place_default_margin))
+                        }
+                    }
+                }
+                partyName.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+    }
+
+    fun disableButton(){
+        timeframeSelected = false
+        offerSelected = false
+        partyBookingBtn.isEnabled = false
+    }
+
+    fun setOfferSelected(selected: Boolean){
+        offerSelected = selected
+        checkBtnEnabled()
+    }
+
+    fun setTimeframeSelected(selected: Boolean){
+        timeframeSelected = selected
+        checkBtnEnabled()
+    }
+
+    fun checkBtnEnabled(){
+        partyBookingBtn.isEnabled = offerSelected && timeframeSelected
+    }
+
+    fun setPartyBookingText(text: String){
+        partyBookingText.text = text
+    }
+
+    override fun showPlaceData(name: String, image: String) {
+        partyMainImage.loadImage(image)
+
+        partyName.text = name
 
         partyName.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {

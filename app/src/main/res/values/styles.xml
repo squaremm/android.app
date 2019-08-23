@@ -120,6 +120,11 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Models13BoldText" parent="ModelsText">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Models14BoldText" parent="ModelsText">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>

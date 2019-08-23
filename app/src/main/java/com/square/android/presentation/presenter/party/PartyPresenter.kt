@@ -35,16 +35,19 @@ class PartyPresenter(private val partyId: Long) : BasePresenter<PartyView>() {
     var data: Place? = null
 //    var data: Party? = null
 
+    var placeAddress: String? = null
+
     //TODO event from PartyPlaceFragment when select clicked
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSelectedPlaceEvent(event: SelectedPlaceEvent) {
         event.data?.let {
-            viewState.updateAddressLabel(event.data.placeAddress)
+            placeAddress = event.data.placeAddress
+
+            viewState.updateAddressLabel(placeAddress)
 
             placeLatLng = event.data.placeLatLng
 
             updateLocationInfo(placeLatLng)
-
         }
     }
 
@@ -74,7 +77,7 @@ class PartyPresenter(private val partyId: Long) : BasePresenter<PartyView>() {
 
         data = repository.getPlace(partyId).await()
 
-        viewState.showData(data!!)
+        viewState.showPartyData(data!!)
 
         router.replaceScreen(SCREENS.PARTY_DETAILS, data!!)
 

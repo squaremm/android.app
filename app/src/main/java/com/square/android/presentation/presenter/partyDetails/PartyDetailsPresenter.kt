@@ -20,8 +20,8 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
 
     private var offers: List<OfferInfo> = listOf()
 
-    private var currentPositionOffers = 0
-
+    private var selectedPlaceId: Long? = null
+    private var currentPositionOffers: Int? = null
     private var currentPositionIntervals: Int? = null
 
     private var calendar: Calendar = Calendar.getInstance()
@@ -29,14 +29,14 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
 
     private lateinit var intervalSlots: List<Place.Interval>
 
-    private var selectedPlaceId: Long? = null
-
     private val eventBus: EventBus by inject()
 
     //TODO event from PartyPlaceFragment when select clicked
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSelectedPlaceEvent(event: SelectedPlaceEvent) {
         event.data?.let {
+
+
             selectedPlaceId = it.placeId
             viewState.setSelectedPlaceItem(selectedPlaceId!!)
 
@@ -61,16 +61,18 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
 
             val placeTypes: List<PlaceType> = repository.getPlaceTypes().await()
 
-            val placeImage: String? = placeTypes.filter { it.type == party!!.type}.firstOrNull()?.image
+            val placeImage: String? = placeTypes.filter { it.type == party.type}.firstOrNull()?.image
 
             viewState.showData(party, offers,calendar, placeImage)
 
-            loadIntervals()
+            loadPlaces()
         }
     }
 
     fun intervalItemClicked(position: Int){
         currentPositionIntervals = position
+
+
 
         viewState.setSelectedIntervalItem(position)
     }
@@ -114,13 +116,17 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
 
         viewState.updateMonthName(calendar2)
 
-        loadIntervals()
+
+
+        loadPlaces()
     }
 
     fun getStringDate() = calendar2.getStringDate()
 
-    fun offersItemClicked(position: Int, party: Place?) {
-        //TODO select this offer and set partyBookingText from PartyActivity to it's name
+    fun placesItemClicked(position: Int) {
+        currentPositionOffers = position
+
+        viewState.setSelectedPlaceItem(position)
     }
 
     override fun onDestroy() {

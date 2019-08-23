@@ -164,8 +164,10 @@ class PlaceActivity : LocationActivity(), PlaceView {
     }
 
     override fun hideProgress() {
-        placeIntervalsRv.visibility = View.VISIBLE
-        placeProgress.visibility = View.GONE
+        placeIntervalsRv.visibility = View.GONE
+        placeProgress.visibility = View.VISIBLE
+
+        placeBookingText.text = ""
     }
 
     override fun setSelectedIntervalItem(position: Int) {

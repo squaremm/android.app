@@ -15,8 +15,8 @@ interface PartyDetailsView : BaseView {
 
 //    @StateStrategyType(OneExecutionStateStrategy::class)
 //    fun showOfferDialog(offer: OfferInfo, party: Party?)
-    @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showOfferDialog(offer: OfferInfo, party: Place?)
+//    @StateStrategyType(OneExecutionStateStrategy::class)
+//    fun showOfferDialog(offer: OfferInfo, party: Place?)
 
     fun showIntervals(data: List<Place.Interval>)
 
@@ -30,7 +30,7 @@ interface PartyDetailsView : BaseView {
 
     fun hideProgress()
 
-    fun setSelectedPlaceItem(id: Long)
+    fun setSelectedPlaceItem(placeId: Long)
 
     fun updateRestaurantName(placename: String)
 

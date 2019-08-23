@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+<!-- TODO remember to round image corners 8dp with picasso -->
+    <ImageView
+        android:id="@+id/partyOfferImg"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:padding="3dp"
+        android:background="@drawable/rounded_background_white"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:scaleType="fitXY"
+        tools:src="@drawable/auth_background" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/partyOfferImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/partyOfferImg"
+        app:layout_constraintTop_toTopOf="@+id/partyOfferImg">
+
+        <TextView
+            style="@style/Models14BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/how_it_works"
+            app:layout_constraintStart_toEndOf="@+id/partyOfferImg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/partyOfferHow1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/partyOfferHow1Name"
+                style="@style/Models14Text"
+                android:textColor="@color/secondary_text"
+                android:layout_width="0dp"
+                android:layout_weight="0.65"
+                android:paddingEnd="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_height="wrap_content"
+                tools:text="2 hours min. stay:" />
+            <TextView
+                android:id="@+id/partyOfferHow1Value"
+                style="@style/Models14Text"
+                android:layout_width="0dp"
+                android:layout_weight="0.35"
+                android:gravity="end"
+                android:layout_height="wrap_content"
+                tools:text="600 credits" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/partyOfferHow2"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/partyOfferHow2Name"
+                style="@style/Models14Text"
+                android:textColor="@color/secondary_text"
+                android:layout_width="0dp"
+                android:layout_weight="0.65"
+                android:paddingEnd="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_height="wrap_content"
+                tools:text="Each extra hour" />
+            <TextView
+                android:id="@+id/partyOfferHow2Value"
+                style="@style/Models14Text"
+                android:layout_width="0dp"
+                android:layout_weight="0.35"
+                android:gravity="end"
+                android:layout_height="wrap_content"
+                tools:text="+ 150 credits" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/partyOfferHow3"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/partyOfferHow3Name"
+                style="@style/Models14Text"
+                android:textColor="@color/secondary_text"
+                android:layout_width="0dp"
+                android:layout_weight="0.65"
+                android:paddingEnd="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_height="wrap_content"
+                tools:text="Each extra hour" />
+            <TextView
+                android:id="@+id/partyOfferHow3Value"
+                style="@style/Models14Text"
+                android:layout_width="0dp"
+                android:layout_weight="0.35"
+                android:gravity="end"
+                android:layout_height="wrap_content"
+                tools:text="+ 150 credits" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/partyOfferName"
+        style="@style/Models16BoldText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/partyOfferImg"
+        app:layout_constraintTop_toBottomOf="@+id/partyOfferImg"
+        tools:text="Night out" />
+
+    <TextView
+        android:id="@+id/partyOfferCredits"
+        style="@style/Models13BoldText"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/nice_pink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/partyOfferImg"
+        app:layout_constraintTop_toBottomOf="@+id/partyOfferName"
+        tools:text="300 credits" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
