@@ -1,7 +1,5 @@
 package com.square.android.presentation.view.partyDetails
 
-import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.Place
 import com.square.android.presentation.view.BaseView
@@ -30,7 +28,7 @@ interface PartyDetailsView : BaseView {
 
     fun hideProgress()
 
-    fun setSelectedPlaceItem(placeId: Long)
+    fun setSelectedPlaceItem(index: Int)
 
     fun updateRestaurantName(placename: String)
 

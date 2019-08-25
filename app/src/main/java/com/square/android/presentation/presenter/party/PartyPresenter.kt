@@ -1,19 +1,12 @@
 package com.square.android.presentation.presenter.party
 
 import android.location.Location
-import android.text.TextUtils
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.SCREENS
 import com.square.android.data.pojo.*
-import com.square.android.extensions.loadImageForIcon
 import com.square.android.presentation.presenter.BasePresenter
-import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
-import com.square.android.presentation.presenter.redemptions.RedemptionsUpdatedEvent
 import com.square.android.presentation.view.party.PartyView
-import com.square.android.utils.AnalyticsEvent
-import com.square.android.utils.AnalyticsEvents
-import com.square.android.utils.AnalyticsManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

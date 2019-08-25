@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -21,9 +22,10 @@ import com.square.android.ui.activity.party.EXTRA_PARTY
 import com.square.android.ui.activity.party.PartyActivity
 import com.square.android.ui.activity.place.AboutAdapter
 import com.square.android.ui.activity.place.DaysAdapter
-import com.square.android.ui.activity.place.OfferDialog
+import com.square.android.ui.activity.place.OfferAdapter
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
+import com.square.android.ui.fragment.places.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_party_details.*
 import org.jetbrains.anko.bundleOf
 import java.util.*
@@ -48,7 +50,11 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
 
     private var daysAdapter: DaysAdapter? = null
 
-//    private var dialog: OfferDialog? = null
+    private var offersAdapter: OfferAdapter? = null
+
+    private var intervalsAdapter: PartyIntervalAdapter? = null
+
+    private var placesAdapter: PartyPlaceAdapter? = null
 
     @InjectPresenter
     lateinit var presenter: PartyDetailsPresenter
@@ -72,6 +78,9 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
     }
 
     override fun showData(party: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?) {
+
+        //TODO get detail name from party
+//        (activity as PartyActivity).setPartyBookingText(detailName)
 
         typeImage?.let { partyAboutImage.loadImageForIcon(it) }
 
@@ -112,20 +121,23 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
 //        }
 
         if(!offers.isNullOrEmpty()){
-            partyOffersCl.visibility = View.VISIBLE
+            //TODO oferty beda zaznaczalne? Czy ty podwietlone to sa te dostepne w tym party?
 
-            placesAdapter = PlacesAdapter(offers, object: PlacesAdapter.Handler {
-                override fun itemClicked(position: Int, offerName: String) {
-                    (activity as PartyActivity).setOfferSelected(true)
-                    (activity as PartyActivity).setPartyBookingText(offerName)
+            partyrOffersLabel.visibility = View.VISIBLE
+            partyOffersRv.visibility = View.VISIBLE
 
-                    presenter.placesItemClicked(position)
-                }
-            })
+            offersAdapter = OfferAdapter(offers, null, true)
+            partyOffersRv.adapter = offersAdapter
 
-            partyAboutRv.layoutManager = LinearLayoutManager(partyAboutRv.context, RecyclerView.VERTICAL, false)
-            partyAboutRv.addItemDecoration(MarginItemDecorator(partyAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = true))
+            partyOffersRv.layoutManager = GridLayoutManager(activity!!, 3)
+            partyOffersRv.adapter = offersAdapter
+            partyOffersRv.addItemDecoration(GridItemDecoration(3,partyOffersRv.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(), false))
         }
+
+        placesAdapter = PartyPlaceAdapter(places, placeHandler)
+        partyOffersRv.adapter = offersAdapter
+        partyOffersRv.layoutManager = LinearLayoutManager(partyOffersRv.context, RecyclerView.HORIZONTAL, false)
+        partyOffersRv.addItemDecoration(MarginItemDecorator(partyAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = false))
 
         val month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
         partyBookingMonth.text = getString(R.string.calendar_format, month, calendar.get(Calendar.YEAR))
@@ -163,7 +175,15 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
         })
     }
 
-    var intervalHandler = object : IntervalAdapter.Handler{
+    var placeHandler = object : PartyPlaceAdapter.Handler{
+        override fun itemClicked(position: Int, enabled: Boolean) {
+            if(enabled){
+                presenter.placeItemClicked(position)
+            }
+        }
+    }
+
+    var intervalHandler = object : PartyIntervalAdapter.Handler{
         override fun itemClicked(position: Int, enabled: Boolean) {
             if(enabled){
                 presenter.intervalItemClicked(position)
@@ -241,13 +261,8 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
         return day.toString() + s
     }
 
-//    override fun showOfferDialog(offer: OfferInfo, party: Place?) {
-//        dialog = OfferDialog(activity!!)
-//        dialog!!.show(offer, party)
-//    }
-
     override fun showIntervals(data: List<Place.Interval>) {
-        intervalsAdapter = IntervalAdapter(data, intervalHandler)
+        intervalsAdapter = PartyIntervalAdapter(data, intervalHandler)
 
         partyIntervalsRv.adapter = intervalsAdapter
 
@@ -266,25 +281,19 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
     override fun showProgress() {
         partyIntervalsRv.visibility = View.GONE
         partyProgress.visibility = View.VISIBLE
-
-        (activity as PartyActivity).setPartyBookingText("")
     }
 
     override fun hideProgress() {
         partyIntervalsRv.visibility = View.GONE
         partyProgress.visibility = View.VISIBLE
-
-        (activity as PartyActivity).setPartyBookingText("")
     }
 
     override fun hideBookingProgress() {
         (activity as PartyActivity).hideBookingProgress()
     }
 
-    override fun setSelectedPlaceItem(placeId: Long) {
-        //TODO
-        //Dinner info
-        // placesAdapter?.setSelectedItem(placeId)
+    override fun setSelectedPlaceItem(index: Int) {
+        placesAdapter?.setSelectedItem(index)
     }
 
     override fun updateRestaurantName(placename: String) {

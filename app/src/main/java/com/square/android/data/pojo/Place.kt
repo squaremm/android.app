@@ -30,6 +30,8 @@ class Place(
 
         var extra: List<String> = listOf(),
 
+        var slots: Int = 0,
+
         // Availability label data
         var availableOfferDay: String? = null,
         var availableOfferSpots: Int = 0
@@ -57,7 +59,8 @@ class Place(
             var end: String = "",
             var offers: List<Long> = listOf(),
             @Json(name="free")
-            var slots: Int = 0
+            var slots: Int = 0,
+            var description: String = ""
     ) : Parcelable
 
     data class Booking(

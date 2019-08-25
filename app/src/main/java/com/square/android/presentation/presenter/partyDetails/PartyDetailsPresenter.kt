@@ -20,8 +20,9 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
 
     private var offers: List<OfferInfo> = listOf()
 
-    private var selectedPlaceId: Long? = null
-    private var currentPositionOffers: Int? = null
+    private var places: List<Place> = listOf()
+
+    private var currentPositionPlaces: Int? = null
     private var currentPositionIntervals: Int? = null
 
     private var calendar: Calendar = Calendar.getInstance()
@@ -35,12 +36,7 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSelectedPlaceEvent(event: SelectedPlaceEvent) {
         event.data?.let {
-
-
-            selectedPlaceId = it.placeId
-            viewState.setSelectedPlaceItem(selectedPlaceId!!)
-
-//          TODO  loadPlaces() and force rv to stay at previous position(maybe just reload rv data instead of making new adapter etc?)
+            appendPlace(it.placeId)
 
             viewState.updateRestaurantName(it.placeName)
         }
@@ -65,14 +61,12 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
 
             viewState.showData(party, offers,calendar, placeImage)
 
-            loadPlaces()
+            loadIntervals()
         }
     }
 
     fun intervalItemClicked(position: Int){
         currentPositionIntervals = position
-
-
 
         viewState.setSelectedIntervalItem(position)
     }
@@ -116,17 +110,28 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
 
         viewState.updateMonthName(calendar2)
 
-
-
-        loadPlaces()
+        loadIntervals()
     }
 
     fun getStringDate() = calendar2.getStringDate()
 
-    fun placesItemClicked(position: Int) {
-        currentPositionOffers = position
+    private fun appendPlace(placeId: Long) {
+        val place = places.filter { it.id == placeId}.firstOrNull()
+        var index: Int?
 
-        viewState.setSelectedPlaceItem(position)
+        place?.let {
+           index =  places.indexOf(place)
+
+            currentPositionPlaces = index
+            viewState.setSelectedPlaceItem(currentPositionPlaces!!)
+        }
+
+    }
+
+    fun placeItemClicked(index: Int) {
+        val placeId = places[index].id
+
+        //TODO navigate to partyPlace
     }
 
     override fun onDestroy() {

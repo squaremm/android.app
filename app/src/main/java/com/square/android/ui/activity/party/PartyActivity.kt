@@ -57,8 +57,6 @@ class PartyActivity: LocationActivity(), PartyView {
 
     private var timeframeSelected = false
 
-    private var offerSelected = false
-
     @ProvidePresenter
     fun providePresenter() = PartyPresenter(getId())
 
@@ -215,22 +213,13 @@ class PartyActivity: LocationActivity(), PartyView {
 
     fun disableButton(){
         timeframeSelected = false
-        offerSelected = false
         partyBookingBtn.isEnabled = false
-    }
-
-    fun setOfferSelected(selected: Boolean){
-        offerSelected = selected
-        checkBtnEnabled()
     }
 
     fun setTimeframeSelected(selected: Boolean){
         timeframeSelected = selected
-        checkBtnEnabled()
-    }
 
-    fun checkBtnEnabled(){
-        partyBookingBtn.isEnabled = offerSelected && timeframeSelected
+        partyBookingBtn.isEnabled = timeframeSelected
     }
 
     fun setPartyBookingText(text: String){

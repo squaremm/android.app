@@ -85,14 +85,12 @@
     <string name="services">Services</string>
     <string name="dinner">Dinner</string>
     <string name="extra">Extra</string>
-    <string name="dinner_info">Dinner info</string>
+    <string name="dinner_options">Dinner options</string>
     <string name="party_time">Party Time</string>
 
     <string name="select">Select</string>
 
     <string name="select_timeframe">Select your timeframe</string>
-
-    <string name="select_offer">Select your offer</string>
 
     <string name="spot_format">%d Spots</string>
     <string name="spot_one_format">%d Spot</string>
@@ -237,6 +235,8 @@
     <string name="try_again">Try again</string>
 
     <string name="how_it_works">How it works</string>
+
+    <string name="how_to_make_credits">How to make credits</string>
 
     <string name="campaigns">Campaigns</string>
     <string name="gifting_campaign">Gifting Campaign</string>
