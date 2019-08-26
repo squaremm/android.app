@@ -169,12 +169,11 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                     SCREENS.SELECT_OFFER ->
                         context.intentFor<SelectOfferActivity>(OFFER_EXTRA_ID to data as Long)
 
-                    SCREENS.PLACE ->
-                        context.intentFor<PartyActivity>(PARTY_EXTRA_ID to data as Long)
+//                  SCREENS.PARTY ->
+//                        context.intentFor<PartyActivity>(PARTY_EXTRA_ID to data as Long)
 
-                    //TODO uncomment later
-//                    SCREENS.PLACE ->
-//                        context.intentFor<PlaceActivity>(PLACE_EXTRA_ID to data as Long)
+                    SCREENS.PLACE ->
+                        context.intentFor<PlaceActivity>(PLACE_EXTRA_ID to data as Long)
 
                     SCREENS.GALLERY ->
                         context.intentFor<GalleryActivity>(USER_EXTRA to data as Profile.User)

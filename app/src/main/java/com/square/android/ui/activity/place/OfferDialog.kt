@@ -2,6 +2,7 @@ package com.square.android.ui.activity.place
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +15,19 @@ import com.square.android.extensions.loadImage
 import kotlinx.android.synthetic.main.offer_dialog.view.*
 import java.util.regex.Pattern
 
-class OfferDialog(private val context: Context) {
+class OfferDialog(private val context: Context, var cancelable: Boolean = true) {
 
     lateinit var dialog: MaterialDialog
 
     @SuppressLint("InflateParams")
-    fun show(offer: OfferInfo, place: Place?) {
+    fun show(offer: OfferInfo, place: Place?, cancelHandler: Handler? = null) {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.offer_dialog, null, false)
 
         dialog = MaterialDialog.Builder(context)
                 .customView(view, false)
-                .cancelable(true)
+                .cancelable(cancelable)
+                .cancelListener { DialogInterface.OnCancelListener {cancelHandler?.dialogCancelled()} }
                 .build()
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(context, android.R.color.transparent)))
@@ -62,6 +64,10 @@ class OfferDialog(private val context: Context) {
 
     fun close(){
         dialog.cancel()
+    }
+
+    interface Handler {
+        fun dialogCancelled()
     }
 
 }

@@ -77,15 +77,17 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
         }
     }
 
-    override fun showData(party: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?) {
+    override fun showData(party: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?, places: List<Place>) {
 
-        //TODO get detail name from party
+        //TODO waiting for API
+        //TODO get detail from party
 //        (activity as PartyActivity).setPartyBookingText(detailName)
 
         typeImage?.let { partyAboutImage.loadImageForIcon(it) }
 
         partyAbout.text = party.description
 
+        //TODO waiting for API
         //TODO delete this and get data from party
         val aboutItems = listOf("www", "insta")
 
@@ -96,7 +98,8 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
         partyAboutRv.layoutManager = LinearLayoutManager(partyAboutRv.context, RecyclerView.HORIZONTAL, false)
         partyAboutRv.addItemDecoration(MarginItemDecorator(partyAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), vertical = false))
 
-        //TODO delete this and get data from place
+        //TODO waiting for API
+        //TODO delete this and get data from party
 //        val dressCode: String? = ""
 //        val minimumTip: String? = ""
 //
@@ -121,7 +124,8 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
 //        }
 
         if(!offers.isNullOrEmpty()){
-            //TODO oferty beda zaznaczalne? Czy ty podwietlone to sa te dostepne w tym party?
+            //TODO waiting for API
+            //TODO alpha 0.3 te, ktorych klub nie oferuje
 
             partyrOffersLabel.visibility = View.VISIBLE
             partyOffersRv.visibility = View.VISIBLE
@@ -134,10 +138,15 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
             partyOffersRv.addItemDecoration(GridItemDecoration(3,partyOffersRv.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(), false))
         }
 
-        placesAdapter = PartyPlaceAdapter(places, placeHandler)
-        partyOffersRv.adapter = offersAdapter
-        partyOffersRv.layoutManager = LinearLayoutManager(partyOffersRv.context, RecyclerView.HORIZONTAL, false)
-        partyOffersRv.addItemDecoration(MarginItemDecorator(partyAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = false))
+        if(!places.isNullOrEmpty()){
+            partyDinnerInfoLabel.visibility = View.VISIBLE
+            partyDinnerInfoRv.visibility = View.VISIBLE
+
+            placesAdapter = PartyPlaceAdapter(places, placeHandler)
+            partyDinnerInfoRv.adapter = offersAdapter
+            partyDinnerInfoRv.layoutManager = LinearLayoutManager(partyDinnerInfoRv.context, RecyclerView.HORIZONTAL, false)
+            partyDinnerInfoRv.addItemDecoration(MarginItemDecorator(partyAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = false))
+        }
 
         val month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
         partyBookingMonth.text = getString(R.string.calendar_format, month, calendar.get(Calendar.YEAR))
@@ -176,10 +185,8 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
     }
 
     var placeHandler = object : PartyPlaceAdapter.Handler{
-        override fun itemClicked(position: Int, enabled: Boolean) {
-            if(enabled){
-                presenter.placeItemClicked(position)
-            }
+        override fun itemClicked(position: Int) {
+            presenter.placeItemClicked(position)
         }
     }
 
@@ -261,6 +268,7 @@ class PartyDetailsFragment: BaseFragment(), PartyDetailsView{
         return day.toString() + s
     }
 
+    //TODO one interval or multiple?
     override fun showIntervals(data: List<Place.Interval>) {
         intervalsAdapter = PartyIntervalAdapter(data, intervalHandler)
 

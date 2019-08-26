@@ -24,6 +24,7 @@ import android.net.Uri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
+import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.SCREENS
 import com.square.android.androidx.navigator.AppNavigator
 import com.square.android.presentation.presenter.party.PartyPresenter
@@ -57,6 +58,10 @@ class PartyActivity: LocationActivity(), PartyView {
 
     private var timeframeSelected = false
 
+    var placeOfferDialogShowing = false
+
+    var placeFragment = false
+
     @ProvidePresenter
     fun providePresenter() = PartyPresenter(getId())
 
@@ -66,7 +71,13 @@ class PartyActivity: LocationActivity(), PartyView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_party)
 
-        partyArrowBack.setOnClickListener { presenter.exit() }
+        partyArrowBack.setOnClickListener {
+            if(placeFragment){
+                onBackPressed()
+            } else{
+                presenter.exit()
+            }
+        }
 
         partyAppBar.addOnOffsetChangedListener(
                 AppBarLayout.OnOffsetChangedListener { appBarLayout, i ->
@@ -79,8 +90,8 @@ class PartyActivity: LocationActivity(), PartyView {
                 })
 
         partyAddressCl.setOnClickListener {
-            if(presenter.locationPoint?.latitude != null && presenter.locationPoint?.longitude != null && presenter.placeLatLng != null){
-                presenter.placeAddress?.let {
+            if(presenter.locationPoint?.latitude != null && presenter.locationPoint?.longitude != null && presenter.latLng != null){
+                presenter.address?.let {
                     val uri = "https://www.google.com/maps/dir/?api=1&origin=${presenter.locationPoint!!.latitude},${presenter.locationPoint!!.longitude}&destination=$it&travelmode=walking"
                     val intent = Intent(Intent.ACTION_VIEW)
                     intent.data = Uri.parse(uri)
@@ -173,10 +184,6 @@ class PartyActivity: LocationActivity(), PartyView {
         presenter.locationGotten(lastLocation)
     }
 
-    override fun updateAddressLabel(address: String?) {
-        partyAddress.text = address
-    }
-
     override fun showDistance(distance: Int?) {
         if (distance != null)  {
             val distanceFormatted = distance.asDistance()
@@ -226,7 +233,12 @@ class PartyActivity: LocationActivity(), PartyView {
         partyBookingText.text = text
     }
 
-    override fun showPlaceData(name: String, image: String) {
+    fun showPlaceData(name: String, image: String, address: String, latLng: LatLng) {
+        presenter.address = address
+        presenter.latLng = latLng
+
+        presenter.updateLocationInfo()
+
         partyMainImage.loadImage(image)
 
         partyName.text = name
@@ -238,6 +250,35 @@ class PartyActivity: LocationActivity(), PartyView {
                         titleMinHeight = partyName.measuredHeight
                         partyName.height = titleMinHeight
 
+                        it.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_extra_space))
+
+                        partyCollapsing.layoutParams.apply {
+                            this.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_image_height) + resources.getDimension(R.dimen.ac_place_default_margin))
+                        }
+                    }
+                }
+                partyName.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+    }
+
+    //TODO fire when user navigates back to partyDetailsFragment(by himself or by clicking Select button)
+    fun backToParty(){
+        presenter.address = presenter.data!!.address
+        presenter.latLng = presenter.data!!.location.latLng()
+
+        presenter.updateLocationInfo()
+
+        partyMainImage.loadImage(presenter.data!!.mainImage ?: (presenter.data!!.photos?.firstOrNull() ?: ""))
+
+        partyName.text = presenter.data!!.name
+
+        partyName.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                partyToolbar.apply {
+                    this.layoutParams.also {
+                        titleMinHeight = partyName.measuredHeight
+                        partyName.height = titleMinHeight
                         it.height = Math.round(titleMinHeight + resources.getDimension(R.dimen.toolbar_extra_space))
 
                         partyCollapsing.layoutParams.apply {
@@ -300,6 +341,27 @@ class PartyActivity: LocationActivity(), PartyView {
             var flags = activity.window.decorView.systemUiVisibility
             flags = flags xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             activity.window.decorView.systemUiVisibility = flags
+        }
+    }
+
+    fun setOfferDialogShowing(showing: Boolean){
+        placeOfferDialogShowing = showing
+    }
+
+    fun setIsPlaceFragment(isPlaceFragment: Boolean){
+        placeFragment = isPlaceFragment
+    }
+
+    override fun onBackPressed() {
+        if(placeFragment){
+            if(!placeOfferDialogShowing){
+                super.onBackPressed()
+                placeFragment = false
+                backToParty()
+            }
+
+        } else{
+            super.onBackPressed()
         }
     }
 

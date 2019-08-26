@@ -246,7 +246,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        tools:visibility="gone"
         android:paddingBottom="20dp" >
 
         <TextView
@@ -286,6 +285,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/ac_place_default_margin"
             android:layout_marginTop="20dp"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:text="@string/dinner_options"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/partyBookingCalendar" />
@@ -369,6 +370,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/ac_place_default_margin"
             android:layout_marginTop="20dp"
+            android:visibility="gone"
             android:text="@string/offers"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/partyIntervalsInfo" />
@@ -383,7 +385,6 @@
             android:paddingStart="@dimen/ac_place_default_margin"
             android:paddingEnd="@dimen/ac_place_default_margin"
             android:visibility="gone"
-            tools:visibility="visible"
             android:nestedScrollingEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

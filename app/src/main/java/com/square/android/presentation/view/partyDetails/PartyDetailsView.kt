@@ -8,14 +8,10 @@ import java.util.*
 interface PartyDetailsView : BaseView {
 
 //    fun showData(party: Party, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?)
-    fun showData(party: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?)
+    fun showData(party: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?, places: List<Place>)
 
-
-//    @StateStrategyType(OneExecutionStateStrategy::class)
-//    fun showOfferDialog(offer: OfferInfo, party: Party?)
-//    @StateStrategyType(OneExecutionStateStrategy::class)
-//    fun showOfferDialog(offer: OfferInfo, party: Place?)
-
+    // TODO change to?
+    //  fun showIntervals(data: List<Place.Timeframe>)
     fun showIntervals(data: List<Place.Interval>)
 
     fun updateMonthName(calendar: Calendar)

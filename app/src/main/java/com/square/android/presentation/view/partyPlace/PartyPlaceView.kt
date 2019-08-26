@@ -9,25 +9,12 @@ import java.util.*
 
 interface PartyPlaceView : BaseView {
 
-//    fun showData(party: Party, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?)
-//    fun showData(party: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?)
-//
-//    fun showDistance(distance: Int?)
+    fun showData(place: Place, offers: List<OfferInfo>)
 
-//    @StateStrategyType(OneExecutionStateStrategy::class)
-//    fun showOfferDialog(offer: OfferInfo, party: Party?)
-//    @StateStrategyType(OneExecutionStateStrategy::class)
-//    fun showOfferDialog(offer: OfferInfo, party: Place?)
-//
-//    fun showIntervals(data: List<Place.Interval>)
-//
-//    fun updateMonthName(calendar: Calendar)
-//
-//    fun setSelectedDayItem(position: Int)
-//
-//    fun setSelectedIntervalItem(position: Int)
-//
-//    fun showProgress()
-//
-//    fun hideProgress()
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showOfferDialog(offer: OfferInfo, place: Place?)
+
+    fun showIntervals(data: List<Place.Interval>)
+
+    fun setSelectedIntervalItem(position: Int)
 }

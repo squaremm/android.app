@@ -30,13 +30,52 @@ class Place(
 
         var extra: List<String> = listOf(),
 
+
+
+
+        //TODO data for Party
+        var placesOffers: List<PlaceOffers> = listOf(),
+        var timeframe: Timeframe? = null,
+        var participants: List<Long> = listOf(),
+        var requirements: Map<String, String> = mapOf(),
+
+
+
+
+        //TODO this stays here, set this to slots from PlaceOffers when making a list of Place in party
         var slots: Int = 0,
+
+
 
         // Availability label data
         var availableOfferDay: String? = null,
         var availableOfferSpots: Int = 0
 
 ) : Parcelable {
+
+
+
+    //TODO data for Party
+    @Parcelize
+    @JsonClass(generateAdapter = true)
+    class Timeframe(
+            var spots: Int = 0,
+            var start: String = "",
+            var end: String = "",
+            var description: String = ""
+    ) : Parcelable
+    @Parcelize
+    @JsonClass(generateAdapter = true)
+    class PlaceOffers(
+            var slots: Int = 0,
+            var placeId: Long = 0,
+            var offerIds: List<Long> = listOf()
+    ) : Parcelable
+
+
+
+
+
     var distance: Int? = null
 
     var award: Int = 0

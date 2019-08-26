@@ -8,43 +8,25 @@
     android:paddingBottom="20dp"
     android:orientation="vertical" >
 
-<!--////////// Info //////////-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/partyPlaceInfoCl"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/partyPlaceIntervalsRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:visibility="visible"
-        android:paddingBottom="20dp" >
-
-        <TextView
-            android:id="@+id/partyPlaceInfoTime"
-            style="@style/Models16Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ac_place_default_margin"
-            android:layout_marginTop="20dp"
-            tools:text="08:00 - 12:00"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/partyPlaceInfoSpots"
-            style="@style/Models14Text"
-            android:textColor="@color/secondary_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/ac_place_default_margin"
-            android:layout_marginTop="8dp"
-            tools:text="4 spots"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/partyPlaceInfoTime" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/ac_place_default_margin"
+        android:paddingEnd="@dimen/ac_place_default_margin"
+        android:nestedScrollingEnabled="false"
+        tools:background="@color/gray_hint"
+        tools:layout_height="50dp" />
 
     <!-- ////////// Offers //////////-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/partyPlaceOffersCl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:visibility="gone"
         tools:visibility="visible"
         android:clipChildren="false"

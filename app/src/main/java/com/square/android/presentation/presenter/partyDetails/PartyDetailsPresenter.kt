@@ -1,6 +1,7 @@
 package com.square.android.presentation.presenter.partyDetails
 
 import com.arellomobile.mvp.InjectViewState
+import com.square.android.SCREENS
 import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.Place
 import com.square.android.data.pojo.PlaceType
@@ -20,7 +21,7 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
 
     private var offers: List<OfferInfo> = listOf()
 
-    private var places: List<Place> = listOf()
+    private var places: MutableList<Place> = mutableListOf()
 
     private var currentPositionPlaces: Int? = null
     private var currentPositionIntervals: Int? = null
@@ -55,11 +56,19 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
     private fun loadData() {
         launch {
 
+            for (placeOffer in party.placesOffers){
+                val place = repository.getPlace(placeOffer.placeId).await()
+
+                place.offers = place.offers.filter { it.id in placeOffer.offerIds }
+                place.slots = placeOffer.slots
+                places.add(place)
+            }
+
             val placeTypes: List<PlaceType> = repository.getPlaceTypes().await()
 
             val placeImage: String? = placeTypes.filter { it.type == party.type}.firstOrNull()?.image
 
-            viewState.showData(party, offers,calendar, placeImage)
+            viewState.showData(party, offers,calendar, placeImage, places)
 
             loadIntervals()
         }
@@ -120,18 +129,16 @@ class PartyDetailsPresenter(var party: Place) : BasePresenter<PartyDetailsView>(
         var index: Int?
 
         place?.let {
-           index =  places.indexOf(place)
-
+            index =  places.indexOf(place)
             currentPositionPlaces = index
             viewState.setSelectedPlaceItem(currentPositionPlaces!!)
         }
-
     }
 
     fun placeItemClicked(index: Int) {
-        val placeId = places[index].id
+        val place = places[index]
 
-        //TODO navigate to partyPlace
+        router.navigateTo(SCREENS.PARTY_PLACE,place)
     }
 
     override fun onDestroy() {

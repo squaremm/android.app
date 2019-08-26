@@ -64,8 +64,8 @@ class PartyPlaceAdapter(data: List<Place>,
             }
 
             when(item.slots){
-                1 -> partyDinnerSpots.text = partyDinnerSpots.context.getString(R.string.spot_one_format, item.slots)
-                else -> partyDinnerSpots.text = partyDinnerSpots.context.getString(R.string.spot_format, item.slots)
+                1 -> partyDinnerSpots.text = partyDinnerSpots.context.getString(R.string.spot_one_format_lowercase, item.slots)
+                else -> partyDinnerSpots.text = partyDinnerSpots.context.getString(R.string.spot_format_lowercase, item.slots)
             }
 
             partyDinnerName.text = item.name
@@ -76,7 +76,7 @@ class PartyPlaceAdapter(data: List<Place>,
 
             partyDinnerContainer.setOnClickListener {
                 if(enabled){
-                    handler?.itemClicked(adapterPosition, enabled)
+                    handler?.itemClicked(adapterPosition)
                 }
             }
         }
@@ -93,7 +93,7 @@ class PartyPlaceAdapter(data: List<Place>,
     }
 
     interface Handler {
-        fun itemClicked(position: Int, enabled: Boolean)
+        fun itemClicked(position: Int)
     }
 
     object SelectedPayload
