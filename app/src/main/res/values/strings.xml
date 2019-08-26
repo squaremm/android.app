@@ -98,6 +98,19 @@
     <string name="spot_format_lowercase">%d spots</string>
     <string name="spot_one_format_lowercase">%d spot</string>
 
+    <string name="do_you_need_driver">Do you need\nthe driver to go?</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="point_of_departure">Point of departure:</string>
+    <string name="insert_your_location">Insert your location</string>
+    <string name="stop_1">Stop 1:</string>
+    <string name="destination">Destination:</string>
+    <string name="you_can_update_pick">You can update the pick up info within 2 hours from the beginning of the timeframe.</string>
+
+
+
     <string name="book_subtitle">%s %s</string>
     <string name="opening_time">Opening time</string>
     <string name="dresscode">Dresscode</string>
