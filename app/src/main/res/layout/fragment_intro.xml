@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@android:color/white"
-    tools:context=".ui.fragment.intro.IntroFragment">
+    tools:context=".ui.fragment.intro.IntroFragment" >
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/introPager"

@@ -32,6 +32,16 @@
         <item name="android:textSize">0sp</item>
     </style>
 
+    <style name="DialogActivity" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
     <style name="ToolBarWithNavigationBack">
         <item name="navigationIcon">@drawable/ic_arrow_back</item>
     </style>

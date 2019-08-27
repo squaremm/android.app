@@ -27,6 +27,9 @@ import com.square.android.ui.activity.claimedRedemption.CLAIMED_OFFER_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.CLAIMED_REDEMPTION_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.ClaimedExtras
 import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivity
+import com.square.android.ui.activity.driver.DRIVER_EXTRAS
+import com.square.android.ui.activity.driver.DriverActivity
+import com.square.android.ui.activity.driver.DriverExtras
 import com.square.android.ui.fragment.editProfile.EditProfileFragment
 import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
@@ -192,8 +195,15 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                     SCREENS.SUBSCRIPTION_ERROR ->
                         context.intentFor<SubscriptionErrorActivity>()
 
+
+                    //TODO delete later
                     SCREENS.TUTORIAL_VIDEOS ->
-                        context.intentFor<TutorialVideosActivity>()
+                        context.intentFor<DriverActivity>(DRIVER_EXTRAS to data as DriverExtras)
+
+                    //TODO uncomment later
+//                    SCREENS.TUTORIAL_VIDEOS ->
+//                        context.intentFor<TutorialVideosActivity>()
+
 
                     SCREENS.PASS_ELIGIBLE -> {
                         context.intentFor<PassEligibleActivity>()

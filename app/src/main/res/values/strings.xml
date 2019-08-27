@@ -111,6 +111,13 @@
 
 
 
+
+    <string name="do_you_need_driver_return">Do you need\nthe driver to return?</string>
+    <string name="point_of_return">Point of return:</string>
+    <string name="insert_your_final_destination">Insert your final destination</string>
+    <string name="departure">Departure:</string>
+
+
     <string name="book_subtitle">%s %s</string>
     <string name="opening_time">Opening time</string>
     <string name="dresscode">Dresscode</string>

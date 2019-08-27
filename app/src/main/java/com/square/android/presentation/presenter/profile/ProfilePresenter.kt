@@ -10,6 +10,7 @@ import com.square.android.data.pojo.BillingSubscription
 import com.square.android.data.pojo.BillingTokenInfo
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.profile.ProfileView
+import com.square.android.ui.activity.driver.DriverExtras
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -160,6 +161,10 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
     }
 
     fun navigateTutorialVideos(){
-        router.navigateTo(SCREENS.TUTORIAL_VIDEOS)
+        //TODO delete later
+        router.navigateTo(SCREENS.TUTORIAL_VIDEOS, DriverExtras(54353,"two","three"))
+
+        //TODO uncomment later
+//        router.navigateTo(SCREENS.TUTORIAL_VIDEOS)
     }
 }
