@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:paddingBottom="20dp"
     android:background="@android:color/white"
     android:layout_height="wrap_content" >
 
@@ -99,21 +100,22 @@
         android:overScrollMode="never"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driverAddress"
         tools:background="@color/gray_hint"
-        tools:layout_height="50dp"
-        tools:visibility="visible" />
+        tools:layout_height="50dp" />
 
     <TextView
         android:id="@+id/driverStop1"
         style="@style/Models16BoldText"
         android:layout_width="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:text="@string/stop_1"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="@+id/driverDepartureLabel"
         app:layout_constraintTop_toBottomOf="@+id/driverIntervalsRv" />
 
@@ -126,6 +128,9 @@
         tools:text="La Perla d'Oro"
         android:maxLines="1"
         android:ellipsize="end"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@+id/driverStop1"
         app:layout_constraintEnd_toEndOf="@+id/driverAddress"
         app:layout_constraintStart_toEndOf="@+id/driverStop1"
@@ -138,6 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/destination"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="@+id/driverDepartureLabel"
         app:layout_constraintTop_toBottomOf="@+id/driverStop1" />
 
@@ -150,6 +156,7 @@
         tools:text="Just Cavalli"
         android:maxLines="1"
         android:ellipsize="end"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@+id/driverDestination"
         app:layout_constraintEnd_toEndOf="@+id/driverAddress"
         app:layout_constraintStart_toEndOf="@+id/driverDestination"
@@ -163,32 +170,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="@string/you_can_update_pick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driverDestination" />
-
-    <Button
-        android:id="@+id/driverNextBtn"
-        style="@style/Models16Text"
-        android:layout_width="216dp"
-        android:layout_height="38dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/nice_button_red_pink_alpha"
-        android:drawableRight="@drawable/button_arrow"
-        android:paddingStart="80dp"
-        android:paddingEnd="78dp"
-        android:text="@string/next"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverUpdateInfo"
-        app:layout_constraintVertical_bias="0.0"
-        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

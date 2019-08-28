@@ -1,4 +1,4 @@
-package com.square.android.ui.activity.driver
+package com.square.android.ui.activity.party
 
 import com.square.android.ui.fragment.driver.DriverFragment
 import com.square.android.ui.fragment.driverReturn.DriverReturnFragment

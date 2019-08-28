@@ -4,17 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.R
-import com.square.android.presentation.presenter.driverReturn.DriverReturnPresenter
-import com.square.android.presentation.view.driverReturn.DriverReturnView
-import com.square.android.ui.activity.driver.DriverExtras
-import com.square.android.ui.fragment.BaseFragment
+import com.square.android.ui.activity.party.DriverExtras
+import com.square.android.ui.fragment.BaseNoMvpFragment
 
-class DriverReturnFragment(private val driverExtras: DriverExtras): BaseFragment(), DriverReturnView {
-
-    @InjectPresenter
-    lateinit var presenter: DriverReturnPresenter
+class DriverReturnFragment(private val driverExtras: DriverExtras): BaseNoMvpFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

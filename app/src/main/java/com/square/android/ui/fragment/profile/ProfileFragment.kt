@@ -14,6 +14,8 @@ import com.square.android.extensions.clearText
 import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.profile.ProfilePresenter
 import com.square.android.presentation.view.profile.ProfileView
+import com.square.android.ui.activity.party.DriverDialog
+import com.square.android.ui.activity.party.DriverExtras
 import com.square.android.ui.fragment.BaseFragment
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -70,7 +72,14 @@ class ProfileFragment: BaseFragment(), ProfileView {
 
         profileSettings.setOnClickListener { presenter.openSettings() }
 
-        how_it_works.setOnClickListener { presenter.navigateTutorialVideos() }
+        how_it_works.setOnClickListener {
+            //TODO uncomment later
+//            presenter.navigateTutorialVideos()
+
+            //TODO delete later
+            val dialog = DriverDialog(DriverExtras(listOf(), listOf(), "Just Cavalli", "La Perla d'Oro"))
+            dialog.show(fragmentManager, "")
+        }
 
         profileSubscribe.setOnClickListener { presenter.subButtonClicked() }
     }

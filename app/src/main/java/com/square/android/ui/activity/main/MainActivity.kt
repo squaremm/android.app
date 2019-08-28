@@ -27,16 +27,11 @@ import com.square.android.ui.activity.claimedRedemption.CLAIMED_OFFER_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.CLAIMED_REDEMPTION_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.ClaimedExtras
 import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivity
-import com.square.android.ui.activity.driver.DRIVER_EXTRAS
-import com.square.android.ui.activity.driver.DriverActivity
-import com.square.android.ui.activity.driver.DriverExtras
 import com.square.android.ui.fragment.editProfile.EditProfileFragment
 import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
 import com.square.android.ui.fragment.campaigns.CAMPAIGN_EXTRA_ID
 import com.square.android.ui.activity.noConnection.NoConnectionActivity
-import com.square.android.ui.activity.party.PARTY_EXTRA_ID
-import com.square.android.ui.activity.party.PartyActivity
 import com.square.android.ui.activity.passEligible.PassEligibleActivity
 import com.square.android.ui.activity.place.PLACE_EXTRA_ID
 import com.square.android.ui.activity.place.PlaceActivity
@@ -195,15 +190,8 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                     SCREENS.SUBSCRIPTION_ERROR ->
                         context.intentFor<SubscriptionErrorActivity>()
 
-
-                    //TODO delete later
                     SCREENS.TUTORIAL_VIDEOS ->
-                        context.intentFor<DriverActivity>(DRIVER_EXTRAS to data as DriverExtras)
-
-                    //TODO uncomment later
-//                    SCREENS.TUTORIAL_VIDEOS ->
-//                        context.intentFor<TutorialVideosActivity>()
-
+                        context.intentFor<TutorialVideosActivity>()
 
                     SCREENS.PASS_ELIGIBLE -> {
                         context.intentFor<PassEligibleActivity>()

@@ -44,11 +44,6 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.driver.DriverActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/DialogActivity" />
-
-        <activity
             android:name=".ui.activity.party.PartyActivity"
             android:parentActivityName=".ui.activity.main.MainActivity"
             android:screenOrientation="portrait"
