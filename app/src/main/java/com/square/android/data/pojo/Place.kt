@@ -28,8 +28,7 @@ class Place(
         var schedule: Map<String, ScheduleDay> = mapOf(),
         var type: String = "",
 
-        var extra: List<String> = listOf(),
-
+        var icons: Icons? = null,
 
 
 
@@ -52,6 +51,15 @@ class Place(
         var availableOfferSpots: Int = 0
 
 ) : Parcelable {
+
+
+    @Parcelize
+    @JsonClass(generateAdapter = true)
+    class Icons(
+            var typology: List<String> = listOf(),
+            var extras: List<String> = listOf()
+    ) : Parcelable
+
 
 
 

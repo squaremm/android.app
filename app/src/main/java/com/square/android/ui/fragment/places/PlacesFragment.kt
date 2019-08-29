@@ -1,8 +1,10 @@
 package com.square.android.ui.fragment.places
 
+import android.content.res.ColorStateList
 import android.location.Location
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import com.square.android.ui.fragment.LocationFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_places.*
 import android.view.ViewTreeObserver
+import androidx.core.content.ContextCompat
 
 class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, FiltersAdapter.Handler {
 
@@ -26,6 +29,11 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
     lateinit var presenter: PlacesPresenter
 
     private var adapter: PlacesAdapter? = null
+
+    private var filterDays = false
+    private var filterTypes = false
+
+    private var clearCanBeVisible = false
 
     private var filtersAdapter: FiltersAdapter? = null
 
@@ -40,19 +48,21 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
     override fun showPlaces(data: List<Place>, types: MutableList<String>) {
         placesList.visibility = View.VISIBLE
 
-        if(data.isNotEmpty()){
+        //TODO uncomment
+//        if(data.isNotEmpty()){
 //            placesFiltersRv.visibility = View.VISIBLE
-            placesSearchLl.visibility = View.VISIBLE
-        }
-
-        adapter = PlacesAdapter(data, this)
-        placesList.adapter = adapter
+//            placesSearchLl.visibility = View.VISIBLE
+//        }
+//
+//        adapter = PlacesAdapter(data, this)
+//        placesList.adapter = adapter
+//
 
         filtersAdapter =  FiltersAdapter(types, this)
 
-        placesFiltersRv.adapter = filtersAdapter
-        placesFiltersRv.layoutManager = LinearLayoutManager(placesFiltersRv.context, RecyclerView.HORIZONTAL,false)
-        placesFiltersRv.addItemDecoration(MarginItemDecorator(placesFiltersRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+        placesFiltersTypesRv.adapter = filtersAdapter
+        placesFiltersTypesRv.layoutManager = LinearLayoutManager(placesFiltersTypesRv.context, RecyclerView.HORIZONTAL,false)
+        placesFiltersTypesRv.addItemDecoration(MarginItemDecorator(placesFiltersTypesRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), false))
     }
 
     override fun updatePlaces(data: List<Place>) {
@@ -83,21 +93,89 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                if(TextUtils.isEmpty(s)){
+                    placesRemoveIcon.visibility = View.GONE
+                    placesSearchIcon.visibility = View.VISIBLE
+                } else{
+                    placesSearchIcon.visibility = View.GONE
+                    placesRemoveIcon.visibility = View.VISIBLE
+                }
                 presenter.searchTextChanged(s)
             }
         })
 
-        if(presenter.initialized){
-            placesSearch.setText(presenter.searchText)
+        if(presenter.initialized){ refreshViews() }
 
-            placesFiltersRv?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    presenter.refreshFilterViews()
-
-                    placesFiltersRv.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                }
-            })
+        placesIcDays.setOnClickListener {
+            filterDays = filterDays.not()
+            changeFiltering()
         }
+        placesIcTypes.setOnClickListener {
+            filterTypes = filterTypes.not()
+            changeFiltering()
+        }
+
+        placesClear.setOnClickListener { presenter.clearFilters() }
+
+        placesRemoveIcon.setOnClickListener { placesSearch.setText(null) }
+    }
+
+    private fun refreshViews(){
+        if((filterDays && filterTypes) || (!filterDays && !filterTypes)){
+            placesSearch.setText(presenter.searchText)
+        } else{
+            if(filterTypes){
+                placesFiltersTypesRv?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        presenter.refreshRvForTypes()
+                        placesFiltersTypesRv.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    }
+                })
+            }
+
+            if(filterDays){
+                placesFiltersDaysRv?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        presenter.refreshRvForDays()
+                        placesFiltersDaysRv.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    }
+                })
+            }
+        }
+    }
+
+    private fun changeFiltering(){
+        placesIcDays.imageTintList = if(filterDays) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
+        else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
+
+        placesIcTypes.imageTintList = if(filterTypes) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
+        else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
+
+        if((filterDays && filterTypes) || (!filterDays && !filterTypes)){
+            clearCanBeVisible = false
+
+            placesFiltersTypesRv.visibility = View.GONE
+            placesFiltersDaysRv.visibility = View.GONE
+            placesSearchLl.visibility = View.VISIBLE
+
+            presenter.changeFiltering(1)
+        } else{
+            clearCanBeVisible = true
+
+            placesSearchLl.visibility = View.GONE
+
+            placesFiltersTypesRv.visibility = if(filterTypes) View.VISIBLE else View.GONE
+            placesFiltersDaysRv.visibility = if(filterDays) View.VISIBLE else View.GONE
+
+            if(filterDays){
+                presenter.changeFiltering(2)
+            } else{
+                presenter.changeFiltering(3)
+            }
+        }
+
+        refreshViews()
     }
 
     override fun itemClicked(place: Place) {

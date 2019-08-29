@@ -1,7 +1,6 @@
 package com.square.android.ui.fragment.places
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.square.android.R
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.item_filter.*
@@ -55,21 +54,14 @@ class FiltersAdapter(data: List<String>,
         }
 
         override fun bind(item: String, vararg extras: Any?) {
-            itemFilterText.text = item
+            itemFilterName.text = item
 
             bindSelected()
-
-            //TODO icon for every place type
-//            when(item){
-//
-//            }
-
-            //TODO delete when icons made for every place type
-            itemFilterIcon.setImageDrawable(ContextCompat.getDrawable(itemFilterIcon.context, R.drawable.ic_marker_pink))
         }
 
         fun bindSelected() {
-            itemFilterContainer.isActivated = activatedItems.contains(adapterPosition)
+            itemFilterContainer.isChecked = activatedItems.contains(adapterPosition)
+            itemFilterName.isChecked = activatedItems.contains(adapterPosition)
         }
     }
 

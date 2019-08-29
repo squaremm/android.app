@@ -60,11 +60,7 @@ class DaysAdapter(data: List<Day>,
 
             itemDayName.text = item.dayName
 
-            if(item.dayValue<10){
-                itemDayValue.text = " "+item.dayValue.toString()
-            } else{
-                itemDayValue.text = item.dayValue.toString()
-            }
+            itemDayValue.text = item.dayValue.toString()
 
             itemDayValue.checkMarkDrawable = null
         }

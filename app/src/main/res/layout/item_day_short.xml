@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatCheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemDayShortValue"
+    style="@style/Models16Text"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_gravity="center"
+    android:background="@drawable/item_day_selector"
+    android:gravity="center"
+    android:textAlignment="gravity"
+    android:textColor="@color/day_text_color"
+    app:layout_constraintEnd_toEndOf="@+id/itemDayName"
+    app:layout_constraintStart_toStartOf="@+id/itemDayName"
+    app:layout_constraintTop_toBottomOf="@+id/itemDayName"
+    tools:text="V" />

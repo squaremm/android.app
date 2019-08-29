@@ -295,7 +295,7 @@
 
     <string name="filters">Filters</string>
     <string name="clear">Clear</string>
-
+    <string name="clear_all">Clear all</string>
 
     <string name="you_have_x_followers">You have 4000\-5000 followers!</string>
     <string name="good_news">Good news!</string>

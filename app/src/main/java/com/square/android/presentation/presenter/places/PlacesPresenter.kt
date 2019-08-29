@@ -19,12 +19,21 @@ import java.lang.Exception
 @InjectViewState
 class PlacesPresenter : BasePresenter<PlacesView>() {
 
+    private var filteringMode = 1
+
+    var actualDataLoaded = true
+
+    private var selectedDayPosition: Int? = null
+
     var types: MutableList<String> = mutableListOf()
+
+    var days: MutableList<String> = mutableListOf()
+
     var filteredTypes: MutableList<String> = mutableListOf()
 
     private var locationPoint: LatLng? = null
 
-    private var data: List<Place>? = null
+    private var data: List<Place>? = listOf()
 
     private var filteredData: List<Place>? = null
 
@@ -42,7 +51,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         lastLocation?.let {
             locationPoint = LatLng(it.latitude, it.longitude)
 
-            if (data != null) {
+            if(actualDataLoaded){
                 updateDistances()
             }
         }
@@ -67,51 +76,83 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         }
     }
 
-    fun refreshFilterViews(){
+    fun dayClicked(position: Int){
+        selectedDayPosition = position
+        //viewState.setSelectedDayItem(selectedDayPosition)
+        checkFilters()
+    }
+
+    fun searchTextChanged(text: CharSequence?){
+        searchText = text
+        checkFilters()
+    }
+
+    fun refreshRvForTypes(){
         for (type in filteredTypes) {
             viewState.setSelectedFilterItem(types.indexOf(type), false)
         }
     }
 
-    fun searchTextChanged(text: CharSequence?){
-        searchText = text
-
-        checkFilters()
+    fun refreshRvForDays(){
+        //viewState.setSelectedDayItem(selectedDayPosition)
     }
 
-    private fun checkFilters(){
-        if(filteredTypes.isEmpty() && TextUtils.isEmpty(searchText)){
+    //types: 1 - search, 2 - days, 3 - types
+    fun changeFiltering(type: Int){
+        filteringMode = type
+    }
 
-            if(distancesFilled){
-                data?.let { data = data!!.sortedBy { it.distance } }
+    fun clearFilters(){
+
+    }
+
+    private fun checkFilters() = GlobalScope.async {
+        when(filteringMode){
+            1 -> {
+                if (TextUtils.isEmpty(searchText)) {
+                    actualDataLoaded = true
+                    fillDistances(true).await()
+                    data?.let { viewState.updatePlaces(it) }
+                } else {
+                    actualDataLoaded = false
+                    //TODO get data by text from api as filteredData
+                    fillDistances(false).await()
+                    filteredData?.let { viewState.updatePlaces(it) }
+                }
             }
 
-            data?.let {viewState.updatePlaces(it) }
-
-        } else{
-            data?.let {
-                filteredData = data!!.filter {
-                    if(filteredTypes.isNotEmpty() && TextUtils.isEmpty(searchText)){
-                        it.type in filteredTypes
-                    } else if(filteredTypes.isEmpty() && !TextUtils.isEmpty(searchText) ){
-                        it.name.contains(searchText.toString(), true)
-                    } else{
-                        it.type in filteredTypes && it.name.contains(searchText.toString(), true)
-                    }
+            2 -> {
+                if(filteredTypes.isEmpty()){
+                    actualDataLoaded = true
+                    fillDistances(true).await()
+                    data?.let { viewState.updatePlaces(it) }
+                } else {
+                    actualDataLoaded = false
+                    //TODO get data by date from api as filteredData
+                    fillDistances(false).await()
+                    filteredData?.let { viewState.updatePlaces(it) }
                 }
-
-                if(distancesFilled){
-                    filteredData?.let { filteredData = filteredData!!.sortedBy { it.distance } }
-                }
-
-                filteredData?.let { viewState.updatePlaces(it) }
             }
+
+            3 -> {
+                selectedDayPosition?.let {
+                    actualDataLoaded = false
+                    //TODO get data by type from api as filteredData
+                    fillDistances(false).await()
+                    filteredData?.let { viewState.updatePlaces(it) }
+                } ?: run {
+                    actualDataLoaded = true
+                    fillDistances(true).await()
+                    data?.let { viewState.updatePlaces(it) }
+                }
+            }
+            else -> {}
         }
     }
 
     private fun updateDistances() {
         launch {
-            fillDistances().await()
+            fillDistances(true).await()
 
             viewState.updateDistances()
         }
@@ -121,17 +162,21 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         launch {
             viewState.showProgress()
 
-            data = repository.getPlaces().await()
+//            data = repository.getPlaces().await()
+//
+//            if (locationPoint != null) fillDistances().await()
+//
+//            data?.let {
+//                for(place in it){
+//                    if(!types.contains(place.type)){
+//                        types.add(place.type)
+//                    }
+//                }
+//            }
 
-            if (locationPoint != null) fillDistances().await()
-
-            data?.let {
-                for(place in it){
-                    if(!types.contains(place.type)){
-                        types.add(place.type)
-                    }
-                }
-            }
+            //TODO remove later
+            types.add("Restaurant")
+            types.add("Bar")
 
             if(distancesFilled){
                 data?.let { data = data!!.sortedBy { it.distance } }
@@ -165,25 +210,31 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         router.navigateTo(SCREENS.PLACE, id)
     }
 
-    private fun fillDistances(): Deferred<Unit> = GlobalScope.async {
+    private fun fillDistances(actualData: Boolean): Deferred<Unit?> = GlobalScope.async {
+        locationPoint?.let {
+            if(actualData) {
+                if(!distancesFilled){
+                    distancesFilled = true
 
-        if(!distancesFilled){
-            distancesFilled = true
+                    data?.forEach { place ->
+                        val placePoint = place.location.latLng()
 
-            data?.forEach { place ->
-                val placePoint = place.location.latLng()
+                        val distance = placePoint.distanceTo(locationPoint!!).toInt()
 
-                val distance = placePoint.distanceTo(locationPoint!!).toInt()
+                        place.distance = distance
+                    }
+                    data?.let { data = data!!.sortedBy { it.distance } }
+                } else{ }
+            } else {
+                filteredData?.forEach { place ->
+                    val placePoint = place.location.latLng()
 
-                place.distance = distance
-            }
+                    val distance = placePoint.distanceTo(locationPoint!!).toInt()
 
-            filteredData?.forEach { place ->
-                val placePoint = place.location.latLng()
+                    place.distance = distance
+                }
 
-                val distance = placePoint.distanceTo(locationPoint!!).toInt()
-
-                place.distance = distance
+                filteredData?.let { filteredData = filteredData!!.sortedBy { it.distance } }
             }
         }
     }
