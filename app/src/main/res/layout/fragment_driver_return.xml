@@ -84,8 +84,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="@string/insert_your_final_destination"
-        android:inputType="textPersonName|textCapSentences"
+        android:hint="@string/select_location"
+        android:focusable="false"
+        android:longClickable="false"
+        android:inputType="none"
         app:layout_constraintEnd_toEndOf="@+id/driverReturnRadioGroup"
         app:layout_constraintStart_toStartOf="@+id/driverReturnLabel"
         app:layout_constraintTop_toBottomOf="@+id/driverReturnLabel" />
@@ -100,7 +102,6 @@
         android:overScrollMode="never"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driverReturnAddress"
@@ -131,6 +132,28 @@
         app:layout_constraintEnd_toEndOf="@+id/driverReturnAddress"
         app:layout_constraintStart_toEndOf="@+id/driverReturnDepartureLabel"
         app:layout_constraintTop_toTopOf="@+id/driverReturnDepartureLabel" />
+
+    <View
+        android:id="@+id/driverReturnAddressDisable"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_75_alpha"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/driverReturnAddress"
+        app:layout_constraintEnd_toEndOf="@+id/driverReturnAddress"
+        app:layout_constraintStart_toStartOf="@+id/driverReturnAddress"
+        app:layout_constraintTop_toTopOf="@+id/driverReturnAddress" />
+
+    <View
+        android:id="@+id/driverReturnIntervalsDisable"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_75_alpha"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/driverReturnIntervalsRv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/driverReturnIntervalsRv" />
 
     <TextView
         android:id="@+id/driverReturnUpdateInfo"

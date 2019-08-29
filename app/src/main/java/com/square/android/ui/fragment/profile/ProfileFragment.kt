@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mukesh.countrypicker.Country
 import com.mukesh.countrypicker.CountryPicker
 import com.square.android.R
@@ -77,8 +78,14 @@ class ProfileFragment: BaseFragment(), ProfileView {
 //            presenter.navigateTutorialVideos()
 
             //TODO delete later
-            val dialog = DriverDialog(DriverExtras(listOf(), listOf(), "Just Cavalli", "La Perla d'Oro"))
+            val dialog = DriverDialog(DriverExtras(listOf(), listOf(), "Just Cavalli", "La Perla d'Oro", false),object : DriverDialog.Handler{
+                override fun confirmClicked(needDriver: Boolean, departureLatLng: LatLng?, departureIntervalId: String?, needReturn: Boolean, returnLatLng: LatLng?, returnIntervalId: String?) {
+
+                    println("ASASASAS needDriver:"+needDriver+", needReturn:"+needReturn)
+                }
+            })
             dialog.show(fragmentManager, "")
+            
         }
 
         profileSubscribe.setOnClickListener { presenter.subButtonClicked() }

@@ -11,15 +11,21 @@ import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.R
 import com.square.android.data.pojo.Place
 import com.square.android.ui.activity.party.DriverExtras
+import com.square.android.ui.activity.party.LocationEvent
+import com.square.android.ui.activity.party.LocationExtras
 import com.square.android.ui.activity.place.IntervalAdapter
 import com.square.android.ui.fragment.BaseNoMvpFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_driver.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class DriverRadioEvent(val data: Boolean)
 
 class DriverFilledEvent(val data: DriverFragmentExtras)
 class DriverFragmentExtras(val driverIntervalId: String?, val latLng: LatLng?)
+
+class DriverLocationGottenEvent(val data: LocationExtras)
 
 class DriverFragment(private val driverExtras: DriverExtras): BaseNoMvpFragment() {
 
@@ -33,6 +39,18 @@ class DriverFragment(private val driverExtras: DriverExtras): BaseNoMvpFragment(
     private var currentPositionIntervals: Int? = null
 
     private var latLng: LatLng? = null
+
+    init {
+        eventBus.register(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDriverLocationGottenEvent(event: DriverLocationGottenEvent) {
+        latLng = event.data.latLng
+
+        driverAddress.setText(event.data.address)
+        checkAndSendData()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -78,15 +96,22 @@ class DriverFragment(private val driverExtras: DriverExtras): BaseNoMvpFragment(
         driverIntervalsRv.layoutManager = LinearLayoutManager(driverIntervalsRv.context, RecyclerView.HORIZONTAL, false)
         driverIntervalsRv.addItemDecoration(MarginItemDecorator(driverIntervalsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = false))
         driverIntervalsRv.adapter = intervalsAdapter
+
+        driverAddress.setOnClickListener {
+            eventBus.post(LocationEvent(false))
+        }
+
     }
 
     private var intervalHandler = object : IntervalAdapter.Handler{
         override fun itemClicked(position: Int, text: String, offers: List<Long>) {
-            intervalsAdapter?.setSelectedItem(position)
+            if(needDriver){
+                intervalsAdapter?.setSelectedItem(position)
 
-            currentPositionIntervals = position
+                currentPositionIntervals = position
 
-            checkAndSendData()
+                checkAndSendData()
+            }
         }
     }
 
@@ -100,18 +125,14 @@ class DriverFragment(private val driverExtras: DriverExtras): BaseNoMvpFragment(
         eventBus.post(DriverFilledEvent(DriverFragmentExtras(intervalId, latLng)))
     }
 
-    //TODO get latLng from google places location and then checkAndSendData()
-
     private fun updateEnabled(enabled: Boolean){
-        if(!TextUtils.isEmpty(driverExtras.dinnerPlace)){
-            driverStop1.isEnabled = enabled
-            driverStop1Value.isEnabled = enabled
-        }
-
-        driverDestination.isEnabled = enabled
-        driverDestinationValue.isEnabled = enabled
-
-        driverIntervalsRv.isEnabled = enabled
         driverAddress.isEnabled = enabled
+
+        driverDisabledView.visibility = if(enabled) View.GONE else View.VISIBLE
+    }
+
+    override fun onDestroy() {
+        eventBus.unregister(this)
+        super.onDestroy()
     }
 }

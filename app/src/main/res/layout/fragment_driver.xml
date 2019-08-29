@@ -84,8 +84,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="@string/insert_your_location"
-        android:inputType="textPersonName|textCapSentences"
+        android:hint="@string/select_your_location"
+        android:focusable="false"
+        android:longClickable="false"
+        android:inputType="none"
         app:layout_constraintEnd_toEndOf="@+id/driverRadioGroup"
         app:layout_constraintStart_toStartOf="@+id/driverDepartureLabel"
         app:layout_constraintTop_toBottomOf="@+id/driverDepartureLabel" />
@@ -115,7 +117,6 @@
         android:visibility="gone"
         tools:visibility="visible"
         android:text="@string/stop_1"
-        android:enabled="false"
         app:layout_constraintStart_toStartOf="@+id/driverDepartureLabel"
         app:layout_constraintTop_toBottomOf="@+id/driverIntervalsRv" />
 
@@ -130,7 +131,6 @@
         android:ellipsize="end"
         android:visibility="gone"
         tools:visibility="visible"
-        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@+id/driverStop1"
         app:layout_constraintEnd_toEndOf="@+id/driverAddress"
         app:layout_constraintStart_toEndOf="@+id/driverStop1"
@@ -143,7 +143,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/destination"
-        android:enabled="false"
         app:layout_constraintStart_toStartOf="@+id/driverDepartureLabel"
         app:layout_constraintTop_toBottomOf="@+id/driverStop1" />
 
@@ -156,11 +155,21 @@
         tools:text="Just Cavalli"
         android:maxLines="1"
         android:ellipsize="end"
-        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@+id/driverDestination"
         app:layout_constraintEnd_toEndOf="@+id/driverAddress"
         app:layout_constraintStart_toEndOf="@+id/driverDestination"
         app:layout_constraintTop_toTopOf="@+id/driverDestination" />
+
+    <View
+        android:id="@+id/driverDisabledView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_75_alpha"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/driverUpdateInfo"
+        app:layout_constraintEnd_toEndOf="@+id/driverIntervalsRv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/driverDepartureLabel" />
 
     <TextView
         android:id="@+id/driverUpdateInfo"

@@ -81,6 +81,10 @@ object Network {
     const val OAUTH_API_URL = "https://accounts.google.com/o/oauth2/"
 
     const val OAUTH_CLIENT_ID = "221995887985-g17rh0796sh4g1nvt7p8oinok5l83tri.apps.googleusercontent.com"
+
+
+
+    const val GOOGLE_PLACES_KEY = "AIzaSyAfoqnBahxyDd-5la1JpPCS2qKBicKg7L0"
 }
 
 object SOCIAL {

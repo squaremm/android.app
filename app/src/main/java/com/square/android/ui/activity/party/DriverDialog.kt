@@ -1,5 +1,6 @@
 package com.square.android.ui.activity.party
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import androidx.fragment.app.DialogFragment
 import com.square.android.R
@@ -10,32 +11,53 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.driver_dialog.*
 import android.view.MotionEvent
 import android.widget.LinearLayout
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.data.pojo.Place
-import com.square.android.ui.fragment.driver.DriverFilledEvent
-import com.square.android.ui.fragment.driver.DriverRadioEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.ext.android.inject
+import java.util.*
+import com.google.android.libraries.places.api.Places
+import com.mapbox.mapboxsdk.Mapbox.getApplicationContext
+import com.square.android.Network.GOOGLE_PLACES_KEY
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
+import com.square.android.ui.fragment.driver.*
+import com.square.android.ui.fragment.driverReturn.ReturnFilledEvent
+import com.square.android.ui.fragment.driverReturn.ReturnLocationGottenEvent
+import com.square.android.ui.fragment.driverReturn.ReturnRadioEvent
 
-class DriverExtras(val driveIntervals: List<Place.Interval>, val returnIntervals: List<Place.Interval>, val destination: String, val dinnerPlace: String? = null)
+const val AUTOCOMPLETE_REQUEST_CODE = 666
 
-class DriverDialog(var driverExtras: DriverExtras, var mCancelable: Boolean = true): DialogFragment() {
+class LocationEvent(val fromReturn: Boolean)
 
-    var currentPagerPosition = 0
+class DriverExtras(val driveIntervals: List<Place.Interval>, val returnIntervals: List<Place.Interval>, val destination: String, val dinnerPlace: String? = null, val isPremium: Boolean)
 
-    var needDriver: Boolean = true
-    var departureLatLng: LatLng? = null
-    var departureIntervalId: String? = null
-    var driverFilled: Boolean = false
+class LocationExtras(val latLng: LatLng? = null, val address: String?)
+
+class DriverDialog(var driverExtras: DriverExtras, private val handler: Handler?, var mCancelable: Boolean = true): DialogFragment() {
+
+    private var currentPagerPosition = 0
+
+    private var needDriver: Boolean = true
+    private var departureLatLng: LatLng? = null
+    private var departureIntervalId: String? = null
+    private var driverFilled: Boolean = false
+
+    private var locationFromReturn = false
 
     private val eventBus: EventBus by inject()
 
-    var needReturn: Boolean = true
-    var pointOfReturn: String? = null
-    var returnTimeframeId: Int? = null
-    var returnFilled: Boolean = false
+    private var fields: List<com.google.android.libraries.places.api.model.Place.Field> = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.ID, com.google.android.libraries.places.api.model.Place.Field.NAME)
+
+    private var needReturn: Boolean = true
+    private var returnLatLng: LatLng? = null
+    private var returnIntervalId: String? = null
+    private var returnFilled: Boolean = false
 
     init {
         eventBus.register(this)
@@ -49,6 +71,23 @@ class DriverDialog(var driverExtras: DriverExtras, var mCancelable: Boolean = tr
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDriverFilledEvent(event: DriverFilledEvent) {
         updateDriverFilled(event.data.driverIntervalId, event.data.latLng)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onReturnRadioEvent(event: ReturnRadioEvent) {
+        returnRadioClicked(event.data)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onReturnFilledEvent(event: ReturnFilledEvent) {
+        updateReturnFilled(event.data.returnIntervalId, event.data.latLng)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onLocationEvent(event: LocationEvent) {
+        locationFromReturn = event.fromReturn
+
+        startLocationPicking()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -77,10 +116,42 @@ class DriverDialog(var driverExtras: DriverExtras, var mCancelable: Boolean = tr
                 1 -> confirmClicked()
             }
         }
+
+        Places.initialize(getApplicationContext(), GOOGLE_PLACES_KEY)
+        Places.createClient(context!!)
     }
 
     private fun confirmClicked(){
+        handler?.confirmClicked(needDriver, departureLatLng, departureIntervalId, needReturn, returnLatLng, returnIntervalId)
+        dialog.cancel()
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                RESULT_OK -> data?.let {
+                    val place = Autocomplete.getPlaceFromIntent(data)
+
+                    if(locationFromReturn){
+                        place.latLng?.let {
+                            eventBus.post(ReturnLocationGottenEvent(LocationExtras(LatLng(it.latitude, it.longitude), place.address)))
+                        }
+                    } else{
+                        place.latLng?.let {
+                            eventBus.post(DriverLocationGottenEvent(LocationExtras(LatLng(it.latitude, it.longitude), place.address)))
+                        }
+                    }
+                }
+                AutocompleteActivity.RESULT_ERROR -> { }
+                RESULT_CANCELED -> { }
+            }
+        }
+    }
+
+    private fun startLocationPicking(){
+        val intent: Intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(context!!)
+
+        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
     }
 
     private fun updateDriverFilled(intervalId: String?, latLng: LatLng?){
@@ -90,6 +161,19 @@ class DriverDialog(var driverExtras: DriverExtras, var mCancelable: Boolean = tr
 
         departureLatLng = latLng
         departureIntervalId = intervalId
+    }
+
+    private fun updateReturnFilled(intervalId: String?, latLng: LatLng?){
+        if(driverExtras.isPremium){
+            this.returnFilled = intervalId != null && latLng != null
+        } else{
+            this.returnFilled = latLng != null
+        }
+
+        acDriverBtn.isEnabled = returnFilled
+
+        returnLatLng = latLng
+        returnIntervalId = intervalId
     }
 
     private fun driverRadioClicked(needDriver: Boolean){
@@ -167,5 +251,9 @@ class DriverDialog(var driverExtras: DriverExtras, var mCancelable: Boolean = tr
                 acDriverBtn.setPadding(0,0,0,0)
             }
         }
+    }
+
+    interface Handler {
+        fun confirmClicked(needDriver: Boolean, departureLatLng: LatLng?, departureIntervalId: String?, needReturn: Boolean, returnLatLng: LatLng?, returnIntervalId: String?)
     }
 }
