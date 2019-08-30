@@ -9,6 +9,13 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    @GET("place-time-frame")
+    fun getTimeFrames(@Header("Authorization") authorization: String): Call<List<FilterTimeframe>>
+
+    @GET("v2/place")
+    fun getPlacesByFilters(@Header("Authorization") authorization: String,
+                           @Body body: PlaceData): Call<List<Place>>
+
     @POST("auth/user/signin")
     fun registerUser(@Body authData: AuthData): Call<AuthResponse>
 

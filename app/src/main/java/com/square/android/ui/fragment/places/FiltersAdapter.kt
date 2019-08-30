@@ -6,16 +6,14 @@ import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.item_filter.*
 
 class FiltersAdapter(data: List<String>,
-                  private val handler: Handler?) : BaseAdapter<String, FiltersAdapter.FilterHolder>(data) {
+                  private val handler: Handler?, private var activatedItems: MutableList<String>) : BaseAdapter<String, FiltersAdapter.FilterHolder>(data) {
 
     override fun getLayoutId(viewType: Int) = R.layout.item_filter
 
     override fun getItemCount() = data.size
 
-    private var activatedItems: MutableList<Int> = mutableListOf()
-
     override fun bindHolder(holder: FilterHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], activatedItems)
     }
 
     @Suppress("ForEachParameterNotUsed")
@@ -26,42 +24,45 @@ class FiltersAdapter(data: List<String>,
         }
 
         payloads.filter { it is FiltersAdapter.SelectedPayload }
-                .forEach { holder.bindSelected() }
+                .forEach { holder.bindSelected(data[position], activatedItems) }
     }
 
-    fun setSelectedItem(position: Int?, contains: Boolean) {
+    fun updateData(activated: MutableList<String>){
+        activatedItems = activated
 
-        if (position == null) return
+        notifyItemRangeChanged(0, data.size, SelectedPayload)
+    }
 
-        if(contains){
-            activatedItems.remove(position)
-        } else{
-            if(!activatedItems.contains(position)){
-                activatedItems.add(position)
-            }
+    fun setSelectedItems(positions: List<Int>) {
+        if (positions.isNullOrEmpty()) return
+
+        for(position in positions){
+            notifyItemChanged(position, SelectedPayload)
         }
-
-        notifyItemChanged(position, SelectedPayload)
     }
 
-    override fun instantiateHolder(view: View): FilterHolder = FilterHolder(view, handler, activatedItems)
+    override fun instantiateHolder(view: View): FilterHolder = FilterHolder(view, handler)
 
     class FilterHolder(containerView: View,
-                    handler: Handler?, val activatedItems: MutableList<Int> ) : BaseHolder<String>(containerView) {
+                    handler: Handler?) : BaseHolder<String>(containerView) {
 
         init {
             containerView.setOnClickListener { handler?.filterClicked(adapterPosition) }
         }
 
         override fun bind(item: String, vararg extras: Any?) {
+            val activatedItems = if(extras[0] == null) null else extras[0] as List<String>
+
             itemFilterName.text = item
 
-            bindSelected()
+            bindSelected(item, activatedItems)
         }
 
-        fun bindSelected() {
-            itemFilterContainer.isChecked = activatedItems.contains(adapterPosition)
-            itemFilterName.isChecked = activatedItems.contains(adapterPosition)
+        fun bindSelected(item: String, activatedItems: List<String>?) {
+            activatedItems?.let {
+                itemFilterContainer.isChecked = it.contains(item)
+                itemFilterName.isChecked = it.contains(item)
+            }
         }
     }
 

@@ -8,6 +8,10 @@ import com.square.android.ui.base.tutorial.TutorialService
 import kotlinx.coroutines.Deferred
 
 interface Repository {
+
+    fun getTimeFrames(): Deferred<List<FilterTimeframe>>
+    fun getPlacesByFilters(placeData: PlaceData): Deferred<List<Place>>
+
     fun shouldDisplayIntro(): Boolean
     fun introDisplayed()
 

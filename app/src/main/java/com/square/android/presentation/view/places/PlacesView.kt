@@ -5,7 +5,14 @@ import com.square.android.presentation.view.ProgressView
 
 interface PlacesView : ProgressView {
     fun updateDistances()
-    fun showPlaces(data: List<Place>, types: MutableList<String>)
+    fun showData(data: List<Place>, types: MutableList<String>, activatedItems: MutableList<String>, days: MutableList<String>)
     fun updatePlaces(data: List<Place>)
-    fun setSelectedFilterItem(position: Int, contains: Boolean)
+    fun setSelectedFilterItems(positions: List<Int>)
+
+    fun updateFilters(activated: MutableList<String>)
+
+    fun setSelectedDayItem(position: Int)
+
+    fun hideClear()
+    fun showClear()
 }
