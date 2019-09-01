@@ -13,9 +13,6 @@ import com.square.android.presentation.view.places.PlacesView
 import com.square.android.utils.AnalyticsEvent
 import com.square.android.utils.AnalyticsEvents
 import com.square.android.utils.AnalyticsManager
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import java.lang.Exception
 import java.util.*
 
@@ -25,8 +22,6 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
     var filteringMode = 1
 
     var actualDataLoaded = true
-
-    var shouldShowClear = false
 
     private var selectedDayPosition: Int? = null
 
@@ -42,8 +37,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
     private var locationPoint: LatLng? = null
 
-    //TODO change to null
-    private var data: List<Place>? = listOf()
+    private var data: List<Place>? = null
 
     private var filteredData: List<Place>? = null
 
@@ -53,16 +47,22 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
     var initialized = false
 
+    var locationInitialized = false
+
     init {
         loadData()
     }
 
     fun locationGotten(lastLocation: Location?) {
         lastLocation?.let {
-            locationPoint = LatLng(it.latitude, it.longitude)
+            if(!locationInitialized){
+                locationInitialized = true
 
-            if(actualDataLoaded){
-                updateDistances()
+                locationPoint = LatLng(it.latitude, it.longitude)
+
+                if(actualDataLoaded){
+                    updateDistances()
+                }
             }
         }
     }
@@ -78,7 +78,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     allSelected.add(allFilters[position])
                 }
 
-                viewState.setSelectedFilterItems(listOf(position))
+                viewState.updateFilters(allFilters, allSelected, false)
+
             } else{
                 val contains = allSelected.contains(allFilters[position])
                 val currentTimeframes = timeframes.filter { it.type == allFilters[position] }.map { it.name }
@@ -86,12 +87,6 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                 if(contains){
                     allSelected.remove(allFilters[position])
                     if(currentTimeframes.isNotEmpty()){
-
-                        //TODO ERROR when unchecking type in adapter when it's timeframe is checked (Select Restaurant and aperitif for example):
-                        //     java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionViewHolder{6985864 position=7 id=-1, oldPos=-1, pLpos:-1 no parent}
-                        //     androidx.recyclerview.widget.RecyclerView{ae067a4 VFED..... ......ID 334,170-1080,288 #7f0802f3 app:id/placesFiltersTypesRv},
-                        //     adapter:com.square.android.ui.fragment.places.FiltersAdapter@aa7cd32,
-                        //     layout:androidx.recyclerview.widget.LinearLayoutManager@a3ca83, context:com.square.android.ui.activity.main.MainActivity@c86029a
 
                         val timeframesToRemove: MutableList<String> = mutableListOf()
 
@@ -124,7 +119,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     }
                 }
 
-                viewState.updateFilters(allSelected)
+                viewState.updateFilters(allFilters, allSelected, true)
             }
 
             checkFilters()
@@ -140,49 +135,31 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         checkFilters()
     }
 
-    fun searchTextChanged(text: CharSequence?){
+    fun searchTextChanged(text: CharSequence?) {
         searchText = text
         checkFilters()
     }
 
-    fun refreshViewsForTypes(){
-        val selectedIndexes: MutableList<Int> = mutableListOf()
-
-        for(item in allSelected){
-            selectedIndexes.add(allFilters.indexOf(item))
-        }
-
-        viewState.setSelectedFilterItems(selectedIndexes)
-    }
-
-    fun refreshViewsForDays(){
-        selectedDayPosition?.let {
-            viewState.setSelectedDayItem(it)
-        }
-    }
-
     //mode: 1 - search, 2 - date, 3 - types
-    fun changeFiltering(mode: Int){
+    fun changeFiltering(mode: Int) {
         filteringMode = mode
 
         checkFilters()
     }
 
-    fun clearFilters(){
+    fun clearFilters() {
         viewState.hideClear()
 
-        //TODO not removing timeframes
+        allSelected.clear()
+        allFilters.removeAll { it in timeframes.map { it.name } }
 
-        allSelected = mutableListOf()
-        allFilters = types
-
-        viewState.updateFilters(allSelected)
+        viewState.updateFilters(allFilters, allSelected, true)
 
         setActualData()
     }
 
     //filteringMode: 1 - search, 2 - date, 3 - types
-    private fun checkFilters() = GlobalScope.async {
+    private fun checkFilters() = launch {
         when(filteringMode){
             1 -> {
                 if (TextUtils.isEmpty(searchText)) {
@@ -193,7 +170,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
                         filteredData = data!!.filter { it.name.contains(searchText.toString(), true) }
 
-                        fillDistances(false).await()
+                        fillDistances(false)
                         filteredData?.let { viewState.updatePlaces(it) }
                     } else {}
                 }
@@ -205,9 +182,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
                     var mDate = actualDates[selectedDayPosition!!]
 
+                    //TODO there is something wrong with this API call
                     filteredData = repository.getPlacesByFilters(PlaceData().apply { date  = mDate }).await()
 
-                    fillDistances(false).await()
+                    fillDistances(false)
                     filteredData?.let { viewState.updatePlaces(it) }
                 } ?: run {
                     setActualData()
@@ -217,9 +195,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
             3 -> {
                 if(data != null){
                     if(allSelected.isEmpty()){
-                        setActualData()
                         viewState.hideClear()
-                        shouldShowClear = false
+                        setActualData()
                     } else {
                         actualDataLoaded = false
 
@@ -232,11 +209,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                             data!!.filter {it.type in selectedTimeframes.map {t -> t.type } }
                         }
 
-                        fillDistances(false).await()
+                        fillDistances(false)
                         filteredData?.let { viewState.updatePlaces(it) }
 
                         viewState.showClear()
-                        shouldShowClear = true
                     }
 
                 } else {}
@@ -246,17 +222,21 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         }
     }
 
-    fun setActualData() = GlobalScope.async {
+    fun setActualData(){
         actualDataLoaded = true
-        fillDistances(true).await()
-        data?.let { viewState.updatePlaces(it) }
+        fillDistances(true)
+        data?.let {
+            viewState.updatePlaces(it)
+          //  viewState.updateDistances()
+        }
     }
 
     private fun updateDistances() {
         launch {
-            fillDistances(true).await()
-
-            viewState.updateDistances()
+            if(locationPoint != null){
+                fillDistances(true)
+                viewState.updateDistances()
+            }
         }
     }
 
@@ -264,9 +244,9 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         launch {
             viewState.showProgress()
 
-//            data = repository.getPlaces().await()
-//
-//            updateDistances()
+            data = repository.getPlaces().await()
+
+            updateDistances()
 
             timeframes = repository.getTimeFrames().await().toMutableList()
             types = repository.getPlaceTypes().await().map{ it.type }.filterNotNull().toMutableList()
@@ -311,7 +291,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         router.navigateTo(SCREENS.PLACE, id)
     }
 
-    private fun fillDistances(actualData: Boolean): Deferred<Unit?> = GlobalScope.async {
+    //TODO distances for actualData are not updating
+    private fun fillDistances(actualData: Boolean){
         locationPoint?.let {
             if(actualData) {
                 if(!distancesFilled){

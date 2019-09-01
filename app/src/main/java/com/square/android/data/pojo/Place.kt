@@ -33,15 +33,20 @@ class Place(
 
 
         //TODO data for Party
+        @Transient
         var placesOffers: List<PlaceOffers> = listOf(),
+        @Transient
         var timeframe: Timeframe? = null,
+        @Transient
         var participants: List<Long> = listOf(),
+        @Transient
         var requirements: Map<String, String> = mapOf(),
 
 
 
 
         //TODO this stays here, set this to slots from PlaceOffers when making a list of Place in party
+        @Transient
         var slots: Int = 0,
 
 

@@ -33,14 +33,6 @@ class FiltersAdapter(data: List<String>,
         notifyItemRangeChanged(0, data.size, SelectedPayload)
     }
 
-    fun setSelectedItems(positions: List<Int>) {
-        if (positions.isNullOrEmpty()) return
-
-        for(position in positions){
-            notifyItemChanged(position, SelectedPayload)
-        }
-    }
-
     override fun instantiateHolder(view: View): FilterHolder = FilterHolder(view, handler)
 
     class FilterHolder(containerView: View,
@@ -51,14 +43,14 @@ class FiltersAdapter(data: List<String>,
         }
 
         override fun bind(item: String, vararg extras: Any?) {
-            val activatedItems = if(extras[0] == null) null else extras[0] as List<String>
+            val activatedItems = if(extras[0] == null) null else extras[0] as MutableList<String>
 
             itemFilterName.text = item
 
             bindSelected(item, activatedItems)
         }
 
-        fun bindSelected(item: String, activatedItems: List<String>?) {
+        fun bindSelected(item: String, activatedItems: MutableList<String>?) {
             activatedItems?.let {
                 itemFilterContainer.isChecked = it.contains(item)
                 itemFilterName.isChecked = it.contains(item)

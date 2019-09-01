@@ -59,50 +59,56 @@
         app:layout_constraintTop_toTopOf="@+id/placesTitle" />
 
     <LinearLayout
-        android:id="@+id/placesClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:background="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:paddingEnd="16dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/placesFiltersTypesRv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/placesFiltersTypesRv">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/close_x"
-            android:tint="@color/secondary_text" />
-
-        <TextView
-            style="@style/Models15Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:includeFontPadding="false"
-            android:text="@string/clear_all"
-            android:textColor="@color/secondary_text" />
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/placesFiltersTypesRv"
+        android:id="@+id/placesTypes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
+        tools:visibility="visible"
         android:visibility="gone"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/placesClear"
-        app:layout_constraintTop_toBottomOf="@+id/placesTitle"
-        tools:itemCount="1"
-        tools:listitem="@layout/item_filter"
-        tools:visibility="visible" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/placesTitle">
+
+        <LinearLayout
+            android:id="@+id/placesClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            tools:visibility="visible" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/close_x"
+                android:tint="@color/secondary_text" />
+
+            <TextView
+                style="@style/Models15Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:includeFontPadding="false"
+                android:text="@string/clear_all"
+                android:textColor="@color/secondary_text" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/placesFiltersTypesRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_filter" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/placesFiltersDaysRv"
@@ -118,7 +124,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placesFiltersTypesRv"
+        app:layout_constraintTop_toBottomOf="@+id/placesTypes"
         tools:itemCount="1"
         tools:listitem="@layout/item_day_short"
         tools:visibility="visible" />
@@ -126,13 +132,11 @@
     <LinearLayout
         android:id="@+id/placesSearchLl"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:paddingStart="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:paddingEnd="12dp"
         android:visibility="visible"
         android:gravity="center_vertical"

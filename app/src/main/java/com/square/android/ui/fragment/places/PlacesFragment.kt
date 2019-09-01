@@ -20,7 +20,6 @@ import com.square.android.presentation.view.places.PlacesView
 import com.square.android.ui.fragment.LocationFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_places.*
-import android.view.ViewTreeObserver
 import androidx.core.content.ContextCompat
 
 class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, FiltersAdapter.Handler, DaysShortAdapter.Handler {
@@ -32,6 +31,8 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
 
     private var filterDays = false
     private var filterTypes = false
+
+    var ignoreText = false
 
     private var filtersAdapter: FiltersAdapter? = null
 
@@ -48,13 +49,8 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
     override fun showData(data: List<Place>, types: MutableList<String>, activatedItems: MutableList<String>, days: MutableList<String>) {
         placesList.visibility = View.VISIBLE
 
-        //TODO uncomment
-//        if(data.isNotEmpty()){
-//            placesSearchLl.visibility = View.VISIBLE
-//        }
-//
-//        adapter = PlacesAdapter(data, this)
-//        placesList.adapter = adapter
+        adapter = PlacesAdapter(data, this)
+        placesList.adapter = adapter
 
         filtersAdapter = FiltersAdapter(types, this, activatedItems)
 
@@ -73,8 +69,13 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         placesList.adapter = adapter
     }
 
-    override fun updateFilters(activated: MutableList<String>) {
-        filtersAdapter?.updateData(activated)
+    override fun updateFilters(types: MutableList<String>, activated: MutableList<String>, updateAll: Boolean) {
+        if(updateAll){
+            filtersAdapter = FiltersAdapter(types,this, activated)
+            placesFiltersTypesRv.adapter = filtersAdapter
+        }
+
+        filtersAdapter!!.updateData(activated)
     }
 
     override fun updateDistances() {
@@ -100,7 +101,6 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
                 if(TextUtils.isEmpty(s)){
                     placesRemoveIcon.visibility = View.GONE
                     placesSearchIcon.visibility = View.VISIBLE
@@ -108,23 +108,14 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
                     placesSearchIcon.visibility = View.GONE
                     placesRemoveIcon.visibility = View.VISIBLE
                 }
-                presenter.searchTextChanged(s)
+
+                if(!ignoreText){
+                    presenter.searchTextChanged(s)
+                } else{
+                    ignoreText = false
+                }
             }
         })
-
-        //TODO when type filter is selected and filters list not even showed, when changing main tab to another and coming back here - "Clear all" is visible and I have no idea why
-
-        if(presenter.initialized){
-            filterDays = false
-            filterTypes = false
-
-            when(presenter.filteringMode){
-                2 -> filterDays = true
-                3 -> filterTypes = true
-            }
-
-            changeFiltering()
-        }
 
         placesIcDays.setOnClickListener {
             filterDays = filterDays.not()
@@ -138,37 +129,42 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         placesClear.setOnClickListener { presenter.clearFilters() }
 
         placesRemoveIcon.setOnClickListener { placesSearch.setText(null) }
-    }
 
-    private fun refreshViews(){
-        if((filterDays && filterTypes) || (!filterDays && !filterTypes)){
-            placesSearch.setText(presenter.searchText)
-        } else{
-            if(filterTypes){
-                placesFiltersTypesRv?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        presenter.refreshViewsForTypes()
-                        placesFiltersTypesRv.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    }
-                })
+        if(presenter.initialized){
+            when(presenter.filteringMode){
+                1 ->{ filterDays = false
+                    filterTypes = false
+                    placesTypes.visibility = View.GONE
+                    placesSearchLl.visibility = View.VISIBLE
+                    placesFiltersDaysRv.visibility = View.GONE
+
+                    ignoreText = true
+                    placesSearch.setText(presenter.searchText)
+                }
+                2 -> { filterDays = true
+                    filterTypes = false
+                    placesTypes.visibility = View.GONE
+                    placesSearchLl.visibility = View.GONE
+                    placesFiltersDaysRv.visibility = View.VISIBLE
+                }
+                3 -> { filterDays = false
+                    filterTypes = true
+                    placesTypes.visibility = View.VISIBLE
+                    placesSearchLl.visibility = View.GONE
+                    placesFiltersDaysRv.visibility = View.GONE
+                }
             }
 
-            if(filterDays){
-                placesFiltersDaysRv?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        presenter.refreshViewsForDays()
-                        placesFiltersDaysRv.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    }
-                })
-            }
+            placesIcDays.imageTintList = if(filterDays) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
+            else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
+
+            placesIcTypes.imageTintList = if(filterTypes) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
+            else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
         }
+
     }
 
     private fun changeFiltering(){
-
-        //TODO not working when coming back from another fragment
-        hideClear()
-
         placesIcDays.imageTintList = if(filterDays) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
         else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
 
@@ -176,28 +172,23 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
 
         if((filterDays && filterTypes) || (!filterDays && !filterTypes)){
-
-            placesFiltersTypesRv.visibility = View.GONE
+            placesTypes.visibility = View.GONE
             placesFiltersDaysRv.visibility = View.GONE
             placesSearchLl.visibility = View.VISIBLE
-
             presenter.changeFiltering(1)
+
         } else{
             placesSearchLl.visibility = View.GONE
 
-            placesFiltersTypesRv.visibility = if(filterTypes) View.VISIBLE else View.GONE
+            placesTypes.visibility = if(filterTypes) View.VISIBLE else View.GONE
             placesFiltersDaysRv.visibility = if(filterDays) View.VISIBLE else View.GONE
 
             if(filterDays){
                 presenter.changeFiltering(2)
             } else{
                 presenter.changeFiltering(3)
-
-                if(presenter.shouldShowClear) showClear() else hideClear()
             }
         }
-
-        refreshViews()
     }
 
     override fun hideClear() {
@@ -210,10 +201,6 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
 
     override fun itemClicked(place: Place) {
         presenter.itemClicked(place)
-    }
-
-    override fun setSelectedFilterItems(positions: List<Int>) {
-        filtersAdapter?.setSelectedItems(positions)
     }
 
     override fun filterClicked(position: Int) {

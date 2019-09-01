@@ -7,9 +7,8 @@ interface PlacesView : ProgressView {
     fun updateDistances()
     fun showData(data: List<Place>, types: MutableList<String>, activatedItems: MutableList<String>, days: MutableList<String>)
     fun updatePlaces(data: List<Place>)
-    fun setSelectedFilterItems(positions: List<Int>)
 
-    fun updateFilters(activated: MutableList<String>)
+    fun updateFilters(types: MutableList<String>, activated: MutableList<String>, updateAll: Boolean)
 
     fun setSelectedDayItem(position: Int)
 
