@@ -489,6 +489,23 @@
                                 app:layout_constraintTop_toBottomOf="@+id/placeProgress"
                                 tools:background="@color/gray_hint"
                                 tools:layout_height="50dp" />
+
+                            <TextView
+                                android:id="@+id/placeIntervalsEmpty"
+                                style="@style/Models18Text"
+                                android:layout_width="0dp"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="16dp"
+                                android:background="@drawable/referral_field_background"
+                                android:backgroundTint="@color/gray_light"
+                                android:gravity="center"
+                                android:text="@string/cant_use_square"
+                                android:textColor="@color/blueish_gray"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/placeProgress" />
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!-- ////////// Offers //////////-->

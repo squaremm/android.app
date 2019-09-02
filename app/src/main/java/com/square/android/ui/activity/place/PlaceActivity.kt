@@ -158,6 +158,7 @@ class PlaceActivity : LocationActivity(), PlaceView {
 
     override fun showProgress() {
         placeIntervalsRv.visibility = View.GONE
+        placeIntervalsEmpty.visibility = View.GONE
         placeProgress.visibility = View.VISIBLE
 
         placeBookingText.text = ""
@@ -184,6 +185,8 @@ class PlaceActivity : LocationActivity(), PlaceView {
             decorationAdded = true
             placeIntervalsRv.addItemDecoration(GridItemDecoration(2,placeIntervalsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
         }
+
+        placeIntervalsEmpty.visibility = if(data.isNullOrEmpty()) View.VISIBLE else View.GONE
     }
 
     var intervalHandler = object : IntervalMatchParentAdapter.Handler{
