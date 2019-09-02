@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bookingContainer"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
     android:background="@drawable/interval_background" >
@@ -13,7 +13,7 @@
         android:id="@+id/bookingInterval"
         style="@style/Models16BoldText"
         android:textColor="@color/interval_time_color"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="10:00 - 13:00" />
 
@@ -21,7 +21,7 @@
         android:id="@+id/bookingSpots"
         style="@style/Models14Text"
         android:textColor="@color/interval_spots_color"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         tools:text="2 Spots" />

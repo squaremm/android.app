@@ -63,7 +63,7 @@ class PlaceActivity : LocationActivity(), PlaceView {
 
     private var decorationAdded = false
 
-    private var intervalsAdapter: IntervalAdapter? = null
+    private var intervalsAdapter: IntervalMatchParentAdapter? = null
 
     var placeAboutSize = 0
 
@@ -164,8 +164,8 @@ class PlaceActivity : LocationActivity(), PlaceView {
     }
 
     override fun hideProgress() {
-        placeIntervalsRv.visibility = View.GONE
-        placeProgress.visibility = View.VISIBLE
+        placeProgress.visibility = View.GONE
+        placeIntervalsRv.visibility = View.VISIBLE
 
         placeBookingText.text = ""
     }
@@ -175,7 +175,7 @@ class PlaceActivity : LocationActivity(), PlaceView {
     }
 
     override fun showIntervals(data: List<Place.Interval>) {
-        intervalsAdapter = IntervalAdapter(data, intervalHandler)
+        intervalsAdapter = IntervalMatchParentAdapter(data, intervalHandler)
 
         placeIntervalsRv.layoutManager = GridLayoutManager(this, 2)
         placeIntervalsRv.adapter = intervalsAdapter
@@ -186,7 +186,7 @@ class PlaceActivity : LocationActivity(), PlaceView {
         }
     }
 
-    var intervalHandler = object : IntervalAdapter.Handler{
+    var intervalHandler = object : IntervalMatchParentAdapter.Handler{
         override fun itemClicked(position: Int, text: String, offers: List<Long>) {
             presenter.intervalItemClicked(position)
             placeBookingBtn.isEnabled = true

@@ -14,7 +14,7 @@ import com.square.android.presentation.presenter.partyPlace.PartyPlacePresenter
 import com.square.android.presentation.view.partyPlace.PartyPlaceView
 import com.square.android.ui.activity.party.EXTRA_PARTY_PLACE
 import com.square.android.ui.activity.party.PartyActivity
-import com.square.android.ui.activity.place.IntervalAdapter
+import com.square.android.ui.activity.place.IntervalMatchParentAdapter
 import com.square.android.ui.activity.place.OfferDialog
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.places.GridItemDecoration
@@ -44,7 +44,7 @@ class PartyPlaceFragment: BaseFragment(), PartyPlaceView {
 
     private var dialog: OfferDialog? = null
 
-    private var intervalsAdapter: IntervalAdapter? = null
+    private var intervalsAdapter: IntervalMatchParentAdapter? = null
 
     private var offerAdapter: PartyPlaceOfferAdapter? = null
 
@@ -103,7 +103,7 @@ class PartyPlaceFragment: BaseFragment(), PartyPlaceView {
     }
 
     override fun showIntervals(data: List<Place.Interval>) {
-        intervalsAdapter = IntervalAdapter(data, intervalHandler)
+        intervalsAdapter = IntervalMatchParentAdapter(data, intervalHandler)
 
         partyPlaceIntervalsRv.layoutManager = GridLayoutManager(activity!!, 2)
         partyPlaceIntervalsRv.adapter = intervalsAdapter
@@ -114,7 +114,7 @@ class PartyPlaceFragment: BaseFragment(), PartyPlaceView {
         }
     }
 
-    private var intervalHandler = object : IntervalAdapter.Handler{
+    private var intervalHandler = object : IntervalMatchParentAdapter.Handler{
         override fun itemClicked(position: Int, text: String, offers: List<Long>) {
             presenter.intervalItemClicked(position)
             partyPlaceOffersSelectBtn.isEnabled = true
