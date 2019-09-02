@@ -51,9 +51,10 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
 
         adapter = PlacesAdapter(data, this)
         placesList.adapter = adapter
+        placesList.layoutManager = LinearLayoutManager(placesList.context, RecyclerView.VERTICAL,false)
+        placesList.addItemDecoration(MarginItemDecorator(placesList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(), true))
 
         filtersAdapter = FiltersAdapter(types, this, activatedItems)
-
         placesFiltersTypesRv.adapter = filtersAdapter
         placesFiltersTypesRv.layoutManager = LinearLayoutManager(placesFiltersTypesRv.context, RecyclerView.HORIZONTAL,false)
         placesFiltersTypesRv.addItemDecoration(MarginItemDecorator(placesFiltersTypesRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), false))

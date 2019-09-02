@@ -12,6 +12,8 @@
     <dimen name="rv_item_decorator_8">8dp</dimen>
     <dimen name="rv_item_decorator_4">4dp</dimen>
 
+    <dimen name="rv_item_decorator_minus_1">-1dp</dimen>
+
     <dimen name="customBtnPaddingStart">80dp</dimen>
     <dimen name="customBtnPaddingEnd">78dp</dimen>
 

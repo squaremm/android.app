@@ -14,7 +14,9 @@ interface ApiService {
 
     @GET("v2/place")
     fun getPlacesByFilters(@Header("Authorization") authorization: String,
-                           @Body body: PlaceData): Call<List<Place>>
+                           @Query("tf") timeframe: String,
+                           @Query("typology") type: String,
+                           @Query("date") date: String): Call<List<Place>>
 
     @POST("auth/user/signin")
     fun registerUser(@Body authData: AuthData): Call<AuthResponse>

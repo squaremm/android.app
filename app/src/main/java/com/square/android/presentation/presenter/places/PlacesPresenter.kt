@@ -182,7 +182,6 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
                     var mDate = actualDates[selectedDayPosition!!]
 
-                    //TODO there is something wrong with this API call
                     filteredData = repository.getPlacesByFilters(PlaceData().apply { date  = mDate }).await()
 
                     fillDistances(false)
@@ -206,6 +205,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                         filteredData = if(selectedTimeframes.isEmpty()){
                             data!!.filter { it.type in selectedTypes }
                         } else{
+                            //TODO probably should be done with API call(no call allowing list of timeframes and types for now)
                             data!!.filter {it.type in selectedTimeframes.map {t -> t.type } }
                         }
 
@@ -225,10 +225,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
     fun setActualData(){
         actualDataLoaded = true
         fillDistances(true)
-        data?.let {
-            viewState.updatePlaces(it)
-          //  viewState.updateDistances()
-        }
+        data?.let { viewState.updatePlaces(it) }
     }
 
     private fun updateDistances() {
@@ -244,7 +241,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         launch {
             viewState.showProgress()
 
-            data = repository.getPlaces().await()
+            data = repository.getPlacesByFilters(PlaceData()).await()
 
             updateDistances()
 
@@ -291,22 +288,23 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         router.navigateTo(SCREENS.PLACE, id)
     }
 
-    //TODO distances for actualData are not updating
     private fun fillDistances(actualData: Boolean){
         locationPoint?.let {
             if(actualData) {
-                if(!distancesFilled){
-                    distancesFilled = true
+                data?.let {
+                    if(!distancesFilled){
+                        distancesFilled = true
 
-                    data?.forEach { place ->
-                        val placePoint = place.location.latLng()
+                        data!!.forEach { place ->
+                            val placePoint = place.location.latLng()
 
-                        val distance = placePoint.distanceTo(locationPoint!!).toInt()
+                            val distance = placePoint.distanceTo(locationPoint!!).toInt()
 
-                        place.distance = distance
+                            place.distance = distance
+                        }
+                        data = data!!.sortedBy { it.distance }
                     }
-                    data?.let { data = data!!.sortedBy { it.distance } }
-                } else{ }
+                }
             } else {
                 filteredData?.forEach { place ->
                     val placePoint = place.location.latLng()

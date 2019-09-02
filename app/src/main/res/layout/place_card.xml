@@ -4,71 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="24dp"
-    android:layout_marginEnd="24dp"
-    android:layout_marginStart="24dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="false"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    tools:visibility="visible">
+    app:layout_constraintStart_toStartOf="parent" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp" >
 
         <ImageView
             android:id="@+id/placeInfoImage"
             android:layout_width="0dp"
-            android:layout_height="208dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="false"
-            android:src="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            tools:src="@drawable/fill_profile_header_1"
+            tools:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <View
-            android:id="@+id/shadowTop"
-            android:layout_width="wrap_content"
-            android:layout_height="96dp"
-            android:background="@drawable/shadow_top"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/placeInfoAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/placeInfoTitle">
-            <TextView
-                android:id="@+id/placeInfoDistanceLabel"
-                style="@style/Models10Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/distance"
-                android:textColor="@android:color/white" />
-            <TextView
-                android:id="@+id/placeInfoDistance"
-                style="@style/Models16BoldText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                tools:text="300m" />
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/placeInfoTitle"
@@ -76,82 +34,82 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/placeInfoImage"
+            app:layout_constraintEnd_toStartOf="@+id/placeDistance"
             tools:text="Bar&amp;Grill 108" />
 
         <TextView
-            android:id="@+id/placeInfoAddress"
-            style="@style/Models12Text"
-            android:textColor="@android:color/white"
-            android:layout_width="0dp"
+            android:id="@+id/placeDistance"
+            style="@style/Models14Text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintBottom_toBottomOf="@+id/placeInfoTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="1,5 km" />
+
+        <TextView
+            android:id="@+id/placeInfoAddress"
+            style="@style/Models14Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:ellipsize="end"
+            android:layout_marginEnd="16dp"
             android:maxLines="1"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintEnd_toStartOf="@+id/placeExtrasRv"
             app:layout_constraintStart_toStartOf="@+id/placeInfoTitle"
             app:layout_constraintTop_toBottomOf="@+id/placeInfoTitle"
             tools:text="Via vigenano 31" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/placeAvailableValue"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_bias="0.0"
+            style="@style/Models18BoldText"
+            android:textColor="@color/nice_pink"
+            tools:text="No"
+            android:includeFontPadding="false"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/placeInfoAddress"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/Models13BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="1dp"
+            android:includeFontPadding="false"
+            android:text="@string/available_spots"
+            app:layout_constraintBottom_toBottomOf="@+id/placeAvailableValue"
+            app:layout_constraintStart_toEndOf="@+id/placeAvailableValue" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/placeExtrasRv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_height="32dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" >
-            <LinearLayout
-                android:id="@+id/placeAvailabilityLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:gravity="center_vertical"
-                android:background="@drawable/round_bg_pink_red"
-                android:backgroundTint="@android:color/white" >
-                <TextView
-                    android:id="@+id/placeAvailabilityDay"
-                    style="@style/Models16BoldText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    tools:text="Today" />
-
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="1.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:background="@color/gray_divider" />
-
-                <TextView
-                    android:id="@+id/placeAvailabilityText"
-                    style="@style/Models12Text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:singleLine="true"
-                    android:paddingTop="12.5dp"
-                    android:paddingBottom="12.5dp"
-                    tools:text="Lunch - 11 spots left" />
-            </LinearLayout>
-        </LinearLayout>
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/placeAvailableValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/placeInfoAddress"
+            app:layout_constraintVertical_bias="1.0"
+            tools:background="@color/grey_dark"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

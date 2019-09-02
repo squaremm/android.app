@@ -72,7 +72,7 @@ class ActualRepository(private val api: ApiService,
         data
     }
     override fun getPlacesByFilters(placeData: PlaceData): Deferred<List<Place>> = GlobalScope.async {
-        val data = performRequest { api.getPlacesByFilters(localManager.getAuthToken(), placeData) }
+        val data = performRequest { api.getPlacesByFilters(localManager.getAuthToken(), placeData.timeFrame, placeData.typology, placeData.date) }
         data
     }
 
