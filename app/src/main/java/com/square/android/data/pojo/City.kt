@@ -6,9 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class PlaceData(
-        var timeFrame: String = "",
-        var typology: String = "",
-        var date: String = "",
-        var city: String = ""
+class City(
+        var name: String = "",
+        var image: String = ""
 ) : Parcelable

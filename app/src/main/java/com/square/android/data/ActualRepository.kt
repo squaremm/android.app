@@ -67,12 +67,17 @@ class ActualRepository(private val api: ApiService,
         api.addOfferToBook(bookId, OfferToBook(offerId))
     }
 
+    override fun getCities(): Deferred<List<City>> = GlobalScope.async {
+        val data = performRequest { api.getCities(localManager.getAuthToken()) }
+        data
+    }
+
     override fun getTimeFrames(): Deferred<List<FilterTimeframe>> = GlobalScope.async {
         val data = performRequest { api.getTimeFrames(localManager.getAuthToken()) }
         data
     }
     override fun getPlacesByFilters(placeData: PlaceData): Deferred<List<Place>> = GlobalScope.async {
-        val data = performRequest { api.getPlacesByFilters(localManager.getAuthToken(), placeData.timeFrame, placeData.typology, placeData.date) }
+        val data = performRequest { api.getPlacesByFilters(localManager.getAuthToken(), placeData.timeFrame, placeData.typology, placeData.date, placeData.city) }
         data
     }
 

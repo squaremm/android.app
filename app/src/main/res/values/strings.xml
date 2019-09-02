@@ -110,6 +110,8 @@
     <string name="you_can_update_pick">You can update the pick up info within 2 hours from the beginning of the timeframe.</string>
     <string name="select_location">Select location</string>
 
+    <string name="select_your_destination">Select your destination</string>
+
 
 
     <string name="do_you_need_driver_return">Do you need\nthe driver to return?</string>

@@ -5,6 +5,7 @@ import android.text.TextUtils
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.SCREENS
+import com.square.android.data.pojo.City
 import com.square.android.data.pojo.FilterTimeframe
 import com.square.android.data.pojo.Place
 import com.square.android.data.pojo.PlaceData
@@ -31,6 +32,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
     var actualDates: MutableList<String> = mutableListOf()
 
     var timeframes: MutableList<FilterTimeframe> = mutableListOf()
+
+    var cities: List<City>? = null
+
+    var selectedCity: City? = null
 
     var allFilters: MutableList<String> = mutableListOf()
     var allSelected: MutableList<String> = mutableListOf()
@@ -129,6 +134,18 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         }
     }
 
+    fun citySelected(c: City) = launch {
+        viewState.changeCityName(c.name)
+
+        selectedCity = c
+
+        data = repository.getPlacesByFilters(PlaceData().apply { city = selectedCity!!.name }).await()
+
+        distancesFilled = false
+
+        checkFilters()
+    }
+
     fun dayClicked(position: Int){
         selectedDayPosition = position
         viewState.setSelectedDayItem(selectedDayPosition!!)
@@ -168,7 +185,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     if(data != null){
                         actualDataLoaded = false
 
-                        filteredData = data!!.filter { it.name.contains(searchText.toString(), true) }
+                        filteredData = data!!.filter { it.name.contains(searchText.toString(), true) && it.city == selectedCity?.name }
 
                         fillDistances(false)
                         filteredData?.let { viewState.updatePlaces(it) }
@@ -182,7 +199,9 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
                     var mDate = actualDates[selectedDayPosition!!]
 
-                    filteredData = repository.getPlacesByFilters(PlaceData().apply { date  = mDate }).await()
+                    filteredData = repository.getPlacesByFilters(PlaceData().apply {
+                        date  = mDate
+                        selectedCity?.let { city = selectedCity!!.name } }).await()
 
                     fillDistances(false)
                     filteredData?.let { viewState.updatePlaces(it) }
@@ -203,10 +222,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                         val selectedTypes = allSelected - selectedTimeframes.map { it.name }
 
                         filteredData = if(selectedTimeframes.isEmpty()){
-                            data!!.filter { it.type in selectedTypes }
+                            data!!.filter { it.type in selectedTypes && it.city == selectedCity?.name }
                         } else{
                             //TODO probably should be done with API call(no call allowing list of timeframes and types for now)
-                            data!!.filter {it.type in selectedTimeframes.map {t -> t.type } }
+                            data!!.filter {it.type in selectedTimeframes.map {t -> t.type } && it.city == selectedCity?.name}
                         }
 
                         fillDistances(false)
@@ -241,7 +260,15 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         launch {
             viewState.showProgress()
 
-            data = repository.getPlacesByFilters(PlaceData()).await()
+            cities = repository.getCities().await()
+
+            selectedCity = cities!![0]
+            viewState.changeCityName(selectedCity!!.name)
+
+            data = repository.getPlacesByFilters(PlaceData().apply {
+                selectedCity?.let {
+                    city = selectedCity!!.name
+                } }).await()
 
             updateDistances()
 

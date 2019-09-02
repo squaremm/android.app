@@ -14,4 +14,6 @@ interface PlacesView : ProgressView {
 
     fun hideClear()
     fun showClear()
+
+    fun changeCityName(name: String)
 }

@@ -9,6 +9,9 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    @GET("city")
+    fun getCities(@Header("Authorization") authorization: String): Call<List<City>>
+
     @GET("place-time-frame")
     fun getTimeFrames(@Header("Authorization") authorization: String): Call<List<FilterTimeframe>>
 
@@ -16,7 +19,8 @@ interface ApiService {
     fun getPlacesByFilters(@Header("Authorization") authorization: String,
                            @Query("tf") timeframe: String,
                            @Query("typology") type: String,
-                           @Query("date") date: String): Call<List<Place>>
+                           @Query("date") date: String,
+                           @Query("city") city: String): Call<List<Place>>
 
     @POST("auth/user/signin")
     fun registerUser(@Body authData: AuthData): Call<AuthResponse>

@@ -9,7 +9,10 @@ import kotlinx.coroutines.Deferred
 
 interface Repository {
 
+    fun getCities(): Deferred<List<City>>
+
     fun getTimeFrames(): Deferred<List<FilterTimeframe>>
+
     fun getPlacesByFilters(placeData: PlaceData): Deferred<List<Place>>
 
     fun shouldDisplayIntro(): Boolean

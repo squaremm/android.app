@@ -18,23 +18,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/placesCitiesLl"
         tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/placesTitle"
-        style="@style/Models22BoldText"
+    <LinearLayout
+        android:id="@+id/placesCitiesLl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="@string/venues_list"
-        android:textAllCaps="true"
-        android:textColor="@color/nice_pink"
+        android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/placesCity"
+            style="@style/Models20BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Milan" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_down"
+            android:tint="@android:color/black"
+            android:layout_marginStart="5dp"/>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/placesIcDays"
@@ -54,9 +67,9 @@
         android:layout_marginEnd="24dp"
         android:src="@drawable/ic_types"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/placesTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/placesCitiesLl"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/placesTitle" />
+        app:layout_constraintTop_toTopOf="@+id/placesCitiesLl" />
 
     <LinearLayout
         android:id="@+id/placesTypes"
@@ -69,7 +82,7 @@
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placesTitle">
+        app:layout_constraintTop_toBottomOf="@+id/placesCitiesLl">
 
         <LinearLayout
             android:id="@+id/placesClear"

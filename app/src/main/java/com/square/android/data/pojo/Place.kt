@@ -30,7 +30,7 @@ class Place(
 
         var icons: Icons? = null,
 
-
+        var city: String = "",
 
         //TODO data for Party
         @Transient

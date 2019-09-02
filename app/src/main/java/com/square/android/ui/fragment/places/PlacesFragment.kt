@@ -21,6 +21,7 @@ import com.square.android.ui.fragment.LocationFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_places.*
 import androidx.core.content.ContextCompat
+import com.square.android.data.pojo.City
 
 class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, FiltersAdapter.Handler, DaysShortAdapter.Handler {
 
@@ -163,6 +164,20 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
             else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
         }
 
+        placesCitiesLl.setOnClickListener {
+            presenter.cities?.let {
+                val dialog = DialogCities(it, presenter.selectedCity, object : DialogCities.Handler{
+                    override fun cityClicked(selectedCity: City) {
+                        presenter.citySelected(selectedCity)
+                    }
+                })
+                dialog.show(fragmentManager, "")
+            }
+        }
+    }
+
+    override fun changeCityName(name: String) {
+        placesCity.text = name
     }
 
     private fun changeFiltering(){
