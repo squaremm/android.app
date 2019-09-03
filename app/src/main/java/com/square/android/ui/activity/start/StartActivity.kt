@@ -18,6 +18,7 @@ import com.square.android.ui.fragment.fillProfileReferral.FillProfileReferralFra
 import com.square.android.ui.fragment.fillProfileSecond.FillProfileSecondFragment
 import com.square.android.ui.fragment.fillProfileThird.FillProfileThirdFragment
 import com.square.android.ui.fragment.intro.IntroFragment
+import com.square.android.utils.ActivityUtils
 import org.jetbrains.anko.intentFor
 import ru.terrakok.cicerone.Navigator
 
@@ -26,11 +27,12 @@ class StartActivity : BaseActivity(), StartView {
     @InjectPresenter
     lateinit var presenter: StartPresenter
 
-
     override fun provideNavigator(): Navigator = StartNavigator(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ActivityUtils.setTransparentStatusAndDrawBehind(this)
+
         setContentView(R.layout.activity_start)
     }
 
