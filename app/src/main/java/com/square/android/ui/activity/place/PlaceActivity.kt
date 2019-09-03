@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.square.android.data.pojo.Day
 import com.square.android.data.pojo.OfferInfo
+import com.square.android.data.pojo.PlaceExtra
 import com.square.android.extensions.loadImageForIcon
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import com.square.android.ui.fragment.places.GridItemDecoration
@@ -64,6 +65,8 @@ class PlaceActivity : LocationActivity(), PlaceView {
     private var decorationAdded = false
 
     private var intervalsAdapter: IntervalMatchParentAdapter? = null
+
+    private var requirementsAdapter: RequirementsAdapter? = null
 
     var placeAboutSize = 0
 
@@ -241,7 +244,7 @@ class PlaceActivity : LocationActivity(), PlaceView {
         dialog!!.show(offer, place)
     }
 
-    override fun showData(place: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?) {
+    override fun showData(place: Place, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?, extras: List<PlaceExtra>) {
         this.place = place
 
         typeImage?.let { placeAboutImage.loadImageForIcon(it) }
@@ -250,38 +253,21 @@ class PlaceActivity : LocationActivity(), PlaceView {
 
         placeAbout.text = place.description
 
-        //TODO delete this and get data from place
+        //TODO change later - waiting for API
         val aboutItems = listOf("www", "insta")
-
         placeAboutSize = aboutItems.size
-
         adapter = AboutAdapter(aboutItems)
         placeAboutRv.adapter = adapter
         placeAboutRv.layoutManager = LinearLayoutManager(placeAboutRv.context, RecyclerView.HORIZONTAL, false)
         placeAboutRv.addItemDecoration(MarginItemDecorator(placeAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), vertical = false))
 
-        //TODO delete this and get data from place
-        val dressCode: String? = ""
-        val minimumTip: String? = ""
-
-        if(!TextUtils.isEmpty(dressCode) || !TextUtils.isEmpty(minimumTip)){
+        if(!extras.isEmpty()){
             placeRequirementsCl.visibility = View.VISIBLE
 
-            if(!TextUtils.isEmpty(dressCode) && !TextUtils.isEmpty(minimumTip)){
-                placeTipValue.text = minimumTip
-                placeTipContainer.visibility = View.VISIBLE
-
-                placeDressCodeValue.text = dressCode
-            } else {
-                minimumTip?.let {
-                    placeDressCodeIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.r_discount))
-                    placeDressCodeName.text = getString(R.string.minimal_tip)
-                    placeDressCodeValue.text = it
-
-                } ?: run{
-                    placeDressCodeValue.text = dressCode
-                }
-            }
+            requirementsAdapter = RequirementsAdapter(extras, null)
+            placeRequirementsRv.layoutManager = GridLayoutManager(this, 2)
+            placeRequirementsRv.adapter = requirementsAdapter
+            placeRequirementsRv.addItemDecoration(GridItemDecoration(2,placeRequirementsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
         }
 
         if(!offers.isNullOrEmpty()){

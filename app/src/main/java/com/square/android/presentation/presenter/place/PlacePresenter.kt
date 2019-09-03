@@ -99,7 +99,7 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
         }
     }
 
-    fun getStringDate() = calendar2.getStringDate()
+    private fun getStringDate() = calendar2.getStringDate()
 
     fun locationGotten(lastLocation: Location?) {
         lastLocation?.let {
@@ -120,11 +120,18 @@ class PlacePresenter(private val placeId: Long) : BasePresenter<PlaceView>() {
 
             offers = data!!.offers
 
-            val placeTypes: List<PlaceType> = repository.getPlaceTypes().await()
+            val allExtras: List<PlaceExtra> = repository.getPlaceExtras().await().toMutableList()
+            var placeExtras: List<PlaceExtra> = mutableListOf()
 
-            val placeImage: String? = placeTypes.filter { it.type == data!!.type}.firstOrNull()?.image
+            data!!.icons?.let { icons ->
+                if(!icons.extras.isNullOrEmpty()){
+                    placeExtras = allExtras.filter { it.image in icons.extras }
+                }
+            }
 
-            viewState.showData(data!!, offers!!,calendar, placeImage)
+            val typeImage: String? = data!!.icons?.typology?.firstOrNull()
+
+            viewState.showData(data!!, offers, calendar, typeImage, placeExtras)
 
             if (locationPoint != null) {
                 updateLocationInfo()
