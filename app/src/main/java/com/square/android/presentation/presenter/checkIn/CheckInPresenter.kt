@@ -25,14 +25,16 @@ class CheckInPresenter(private val redemptionId: Long, private val offerId: Long
     private fun loadData() {
         launch {
             data = interactor.getOffer(offerId).await()
-            val user = repository.getCurrentUser().await()
+//            val user = repository.getCurrentUser().await()
+//
+//            val placeId = data!!.place.id
+//            val place = repository.getPlace(placeId).await()
+//
+//            redemptionFull = repository.getRedemption(redemptionId).await()
+//
+//            viewState.showData(data!!, user, place, redemptionFull!!)
 
-            val placeId = data!!.place.id
-            val place = repository.getPlace(placeId).await()
-
-            redemptionFull = repository.getRedemption(redemptionId).await()
-
-            viewState.showData(data!!, user, place, redemptionFull!!)
+            viewState.showData(data!!, null, null, null)
 
             viewState.hideProgress()
         }

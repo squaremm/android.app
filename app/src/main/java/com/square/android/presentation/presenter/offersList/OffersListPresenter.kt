@@ -47,9 +47,8 @@ class OffersListPresenter(private val redemptionId: Long) : BasePresenter<Offers
             dialogAllowed = false
 
             val offer = offers!![currentPosition]
-            val place = data!!.redemption.place
 
-            viewState.showOfferDialog(offer, place)
+            viewState.showOfferDialog(offer)
         }
     }
 
@@ -58,7 +57,7 @@ class OffersListPresenter(private val redemptionId: Long) : BasePresenter<Offers
 
         router.navigateTo(SCREENS.CHECK_IN, extras)
 
-        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.ACTIONS_OPENED.apply { venueName = data?.redemption?.place?.name }, hashMapOf("id" to id.toString())), repository)
+//        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.ACTIONS_OPENED.apply { venueName = data?.redemption?.place?.name }, hashMapOf("id" to id.toString())), repository)
     }
 
 }

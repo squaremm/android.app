@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.R
 import com.square.android.data.pojo.Offer
-import com.square.android.data.pojo.PlaceInfo
 import com.square.android.data.pojo.UserInfo
 import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.claimedCoupon.ClaimedCouponPresenter
@@ -17,12 +16,15 @@ import kotlinx.android.synthetic.main.coupon_body.view.*
 import kotlinx.android.synthetic.main.fragment_claimed_coupon.*
 
 class ClaimedCouponFragment : BaseFragment(), ClaimedCouponView {
-    override fun showData(offer: Offer, place: PlaceInfo, userInfo: UserInfo) {
+    override fun showData(offer: Offer, userInfo: UserInfo) {
         coupon.couponImage.loadImage(offer.photo)
         coupon.couponAvatar.loadImage(offer.photo)
 
-        coupon.couponPlaceName.text = place.name
-        coupon.couponAddress.text = place.address
+        //TODO remove name from layout ? OR get place by ID in presenter
+//        coupon.couponPlaceName.text = place.name
+
+        //TODO remove address from layout ? OR get place by ID in presenter
+//        coupon.couponAddress.text = place.address
 
         coupon.couponPersonName.text = userInfo.name
 

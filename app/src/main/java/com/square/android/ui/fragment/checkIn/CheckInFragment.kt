@@ -57,19 +57,19 @@ class CheckInFragment: BaseFragment(), CheckInView{
         couponCheckIn.setOnClickListener {presenter.checkInClicked()}
     }
 
-    override fun showData(offer: Offer, user: Profile.User, place: Place, redemptionFull: RedemptionFull) {
-        couponImage.loadImage(offer.photo)
-
-        user.mainImage?.let {
-            couponAvatar.loadImage(it)
-        }
-
-        couponPersonName.text = user.name
+    override fun showData(offer: Offer, user: Profile.User?, place: Place?, redemptionFull: RedemptionFull?) {
+//        couponImage.loadImage(offer.photo)
+//
+//        user.mainImage?.let {
+//            couponAvatar.loadImage(it)
+//        }
+//
+//        couponPersonName.text = user.name
         couponComponents.text = offer.compositionAsString()
-
-        couponPlaceName.text = place.name
-        couponPlaceAddress.text = place.address
-        couponPlaceDate.text = "${redemptionFull.redemption.date} / ${getString(R.string.time_range, redemptionFull.redemption.startTime, redemptionFull.redemption.endTime)}"
+//
+//        couponPlaceName.text = place.name
+//        couponPlaceAddress.text = place.address
+//        couponPlaceDate.text = "${redemptionFull.redemption.date} / ${getString(R.string.time_range, redemptionFull.redemption.startTime, redemptionFull.redemption.endTime)}"
 
         visibleNow()
     }

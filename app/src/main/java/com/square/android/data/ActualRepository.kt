@@ -124,10 +124,6 @@ class ActualRepository(private val api: ApiService,
         val userId = getUserInfo().id
         val data = performRequest { api.getOffer(offerId, userId) }
 
-        val currentUserId = getUserInfo().id
-
-        data.posts = data.posts.filter { it.user == currentUserId }.toMutableList()
-
         data
     }
 
@@ -190,6 +186,9 @@ class ActualRepository(private val api: ApiService,
     }
 
     override fun getPlace(id: Long): Deferred<Place> = GlobalScope.async {
+
+        println("gfgdfgdfg: "+id)
+
         val data = performRequest { api.getPlace(id) }
         data
     }

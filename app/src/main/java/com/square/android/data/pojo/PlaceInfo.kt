@@ -1,7 +1,9 @@
 package com.square.android.data.pojo
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
 const val SOCIAL_FACEBOOK = "facebook"
 const val SOCIAL_GOOGLE = "google"
@@ -21,12 +23,9 @@ val CREDITS_TO_SOCIAL = mapOf(
 )
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 class PlaceInfo(
         @Json(name="_id")
         var id: Long = 0,
-        var address: String = "",
-        var location: Location = Location(),
-        var name: String = "",
-        var photo   : String? = "",
         var socials: Map<String, String> = mapOf()
-)
+): Parcelable
