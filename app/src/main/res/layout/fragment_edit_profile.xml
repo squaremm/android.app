@@ -221,7 +221,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/background_field" />
 
-
         <TextView
             android:id="@+id/formEditProfileGender"
             style="@style/OldInputField"
@@ -238,14 +237,15 @@
 
         <LinearLayout
             android:id="@+id/formEditProfileGenderContainer"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
-            app:layout_constraintTop_toBottomOf="@id/formEditProfileBirth"
-            app:layout_constraintStart_toStartOf="@id/formEditProfileBirth"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/formEditProfileBirth"
+            app:layout_constraintTop_toBottomOf="@id/formEditProfileBirth">
 
             <RadioGroup
                 android:id="@+id/formEditProfileGenderGroup"
@@ -262,23 +262,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:background="@drawable/background_field"
                     android:buttonTint="@color/login_button"
                     android:checked="true"
                     android:text="@string/gender_female"
-                    android:textSize="13sp"
                     android:textColor="@color/grey_text_field"
-                    android:background="@drawable/background_field" />
+                    android:textSize="13sp" />
 
                 <RadioButton
                     android:id="@+id/formEditProfileGenderMale"
                     style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_field"
                     android:buttonTint="@color/login_button"
                     android:text="@string/gender_male"
-                    android:textSize="13sp"
                     android:textColor="@color/grey_text_field"
-                    android:background="@drawable/background_field"/>
+                    android:textSize="13sp" />
             </RadioGroup>
         </LinearLayout>
 
