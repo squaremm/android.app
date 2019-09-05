@@ -83,7 +83,7 @@ interface Repository {
     fun getIntervals(placeId: Long, date: String): Deferred<IntervalsWrapper>
     fun getIntervalSlots(placeId: Long, date: String): Deferred<List<Place.Interval>>
 
-    fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>>
+//    fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>>
 
     fun removePhoto(userId: Long, photoId: PhotoId): Deferred<MessageResponse>
     fun addPhoto(userId: Long, imageBytes: ByteArray): Deferred<Images>

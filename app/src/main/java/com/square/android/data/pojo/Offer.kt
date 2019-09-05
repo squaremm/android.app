@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
+//TODO there will be more types - facebook review, facebook story etc
 const val TYPE_FACEBOOK_POST = "fbPost"
 const val TYPE_INSTAGRAM_POST = "instaPost"
 const val TYPE_INSTAGRAM_STORY = "instaStories"
@@ -51,6 +52,9 @@ class Offer(
     @JsonClass(generateAdapter = true)
     @Parcelize
     class Action(
+            @Transient
+            var enabled: Boolean = true,
+
             var id: String = "",
             var displayName: String = "",
             var type: String = "",

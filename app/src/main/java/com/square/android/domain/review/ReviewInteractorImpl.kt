@@ -22,22 +22,22 @@ class ReviewInteractorImpl(private val repository: Repository) : ReviewInteracto
     override fun getOffer(id: Long) = GlobalScope.async {
         val offer = repository.getOffer(id).await()
 
-        filterCredits(offer)
+     //   filterCredits(offer)
 
         offer
     }
 
-    private fun filterCredits(offer: Offer) {
-        offer.credits = offer.credits.filterKeys { key ->
-            val socialKey = CREDITS_TO_SOCIAL[key] ?: return@filterKeys false
-
-            val url = offer.place.socials[socialKey]
-
-            if (socialKey == SOCIAL_INSTAGRAM || socialKey == NON_SOCIAL_PHOTO) {
-                true
-            } else {
-                url.isUrl()
-            }
-        }
-    }
+//    private fun filterCredits(offer: Offer) {
+//        offer.credits = offer.credits.filterKeys { key ->
+//            val socialKey = CREDITS_TO_SOCIAL[key] ?: return@filterKeys false
+//
+//            val url = offer.place.socials[socialKey]
+//
+//            if (socialKey == SOCIAL_INSTAGRAM || socialKey == NON_SOCIAL_PHOTO) {
+//                true
+//            } else {
+//                url.isUrl()
+//            }
+//        }
+//    }
 }

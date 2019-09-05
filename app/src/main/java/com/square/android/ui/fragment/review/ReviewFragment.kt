@@ -1,11 +1,11 @@
 package com.square.android.ui.fragment.review
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
@@ -18,7 +18,7 @@ import com.square.android.ui.base.tutorial.TutorialService
 import com.square.android.ui.base.tutorial.TutorialStep
 import com.square.android.ui.dialogs.LoadingDialog
 import com.square.android.ui.fragment.BaseFragment
-import com.square.android.ui.fragment.places.GridItemDecoration
+import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_review.*
 import org.jetbrains.anko.bundleOf
 
@@ -48,10 +48,6 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
     fun providePresenter(): ReviewPresenter = ReviewPresenter(getOfferId(), getRedemptionId())
 
     private var loadingDialog: LoadingDialog? = null
-
-    private lateinit var reviewTypes: List<ReviewType>
-
-    private var filteredTypes: List<ReviewType>? = null
 
     private var adapter: ReviewAdapter? = null
 
@@ -86,42 +82,25 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
         }
     }
 
-    override fun clearSelectedItem() {
-        adapter?.clearSelection()
-    }
-
     override fun showButtons() {
         reviewSubmit.visibility = View.VISIBLE
         reviewSpacing.visibility = View.VISIBLE
         reviewSkip.visibility = View.VISIBLE
     }
 
-    override fun disableItem(position: Int) {
-        adapter?.disableReviewType(position)
+    override fun hideButtons() {
+        reviewSubmit.visibility = View.GONE
+        reviewSpacing.visibility = View.GONE
+        reviewSkip.visibility = View.GONE
     }
 
-    override fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>) {
-        updateReviewTypes()
-
-        val used = data.posts.map { it.type }
-        Log.e("EEEE used actionTypes", used.toString())
-        Log.e("EEEE all actionTypes", actionTypes.toString())
-
-        filteredTypes = reviewTypes.filter { it.key in actionTypes && (it.key !in used || it.key == TYPE_INSTAGRAM_STORY) }
-
-        adapter = ReviewAdapter(filteredTypes!!, data.credits, this)
-
-        reviewList.layoutManager = GridLayoutManager(context, 2)
+    override fun showData(data: Offer, actions: List<Offer.Action>) {
+        adapter = ReviewAdapter(actions,this)
+        reviewList.layoutManager = LinearLayoutManager(reviewList.context, RecyclerView.VERTICAL, false)
+        reviewList.addItemDecoration(MarginItemDecorator(reviewList.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = true))
         reviewList.adapter = adapter
-        reviewList.addItemDecoration(GridItemDecoration(2,reviewList.context.resources.getDimension(R.dimen.value_24dp).toInt(), false))
 
         visibleNow()
-    }
-
-    private fun updateReviewTypes() {
-//        reviewTypes.forEach {
-//            it.enabled = true
-//        }
     }
 
     override fun showProgress() {
@@ -135,101 +114,36 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
     }
 
     override fun setSelectedItem(position: Int) {
-        adapter?.setSelectedItem(position)
+        adapter?.changeSelection(position)
     }
 
     override fun itemClicked(position: Int) {
-        val type = filteredTypes!![position]
-
-        presenter.itemClicked(type.key, position)
+        presenter.itemClicked(position)
     }
 
     override fun showDialog(type: String, coins: Int, index: Int) {
-        val index = filteredTypes!!.indexOfFirst { it.key == type }
-        val reviewType = filteredTypes!![index]
-
-        when(type){
-            TYPE_INSTAGRAM_POST -> {
-
-            }
-            TYPE_INSTAGRAM_STORY ->{
-
-            }
-            else -> {
-                ReviewDialog(activity!!).show(reviewType, coins, index) { s: String, i: Int -> onDialogAction(s, i) }
-            }
-        }
+//        val index = filteredTypes!!.indexOfFirst { it.key == type }
+//        val reviewType = filteredTypes!![index]
+//
+//        when(type){
+//            TYPE_INSTAGRAM_POST -> {
+//
+//            }
+//            TYPE_INSTAGRAM_STORY ->{
+//
+//            }
+//            else -> {
+//                ReviewDialog(activity!!).show(reviewType, coins, index) { s: String, i: Int -> onDialogAction(s, i) }
+//            }
+//        }
     }
 
     private fun onDialogAction(reviewType: String, index: Int){
-        presenter.navigateByKey(index, reviewType)
+//        presenter.navigateByKey(index, reviewType)
     }
 
     private fun getRedemptionId() = arguments?.getLong(EXTRA_REDEMPTION_ID, 0) ?: 0
     private fun getOfferId() = arguments?.getLong(EXTRA_OFFER_ID, 0) ?: 0
-
-    override fun initReviewTypes() {
-        reviewTypes = listOf(
-
-                ReviewType(
-                        //TODO change icon (imageRes)
-                        imageRes = R.drawable.add_photo,
-                        title = getString(R.string.photo_uppercase),
-                        description = getString(R.string.send_photo_description),
-                        key = TYPE_PICTURE
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.instagram_logo,
-                        title = getString(R.string.insta_post),
-                        description = getString(R.string.insta_post_description),
-                        key = TYPE_INSTAGRAM_POST,
-                        content = getString(R.string.review_instagram_post_body)
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.instagram_logo,
-                        title = getString(R.string.insta_story),
-                        description = getString(R.string.insta_story_description),
-                        key = TYPE_INSTAGRAM_STORY,
-                        content = getString(R.string.review_instagram_story_body)
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.trip_advisor_logo,
-                        title = getString(R.string.trip_advisor),
-                        key = TYPE_TRIP_ADVISOR,
-                        app_name = getString(R.string.trip_advisor_name),
-                        showUploadLabel = true
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.google_logo,
-                        title = getString(R.string.google_places),
-                        key = TYPE_GOOGLE_PLACES,
-                        app_name = getString(R.string.google_places_name),
-                        showUploadLabel = true
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.facebook_logo,
-                        title = getString(R.string.facebook_post),
-                        key = TYPE_FACEBOOK_POST,
-                        app_name = getString(R.string.facebook_name),
-                        showUploadLabel = true
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.yelp_logo,
-                        title = getString(R.string.yelp),
-                        key = TYPE_YELP,
-                        app_name = getString(R.string.yelp_name),
-                        showUploadLabel = true
-                )
-        )
-
-//        reviewTypes.filter { it.key }
-    }
 
     override val PERMISSION_REQUEST_CODE: Int?
         get() = 1343

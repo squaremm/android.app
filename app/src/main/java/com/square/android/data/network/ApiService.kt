@@ -112,9 +112,9 @@ interface ApiService {
     fun getIntervalSlots(@Path("id") placeId: Long,
                          @Query("date") date: String) : Call<List<Place.Interval>>
 
-    @GET("v2/offer/{id}/booking/{bookingId}/actions")
-    fun getActions(@Path("id") offerId: Long,
-                   @Path("bookingId") bookingId: Long) : Call<List<ReviewNetType>>
+//    @GET("v2/offer/{id}/booking/{bookingId}/actions")
+//    fun getActions(@Path("id") offerId: Long,
+//                   @Path("bookingId") bookingId: Long) : Call<List<ReviewNetType>>
 
     @DELETE("user/{id}/images")
     fun removePhoto(@Path("id") userId: Long,

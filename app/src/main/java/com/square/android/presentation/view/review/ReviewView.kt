@@ -6,21 +6,17 @@ import com.square.android.data.pojo.Offer
 import com.square.android.presentation.view.LoadingView
 
 interface ReviewView : LoadingView {
-    fun showData(data: Offer, actionTypes: Set<String>, credits: Map<String, Int>)
+    fun showData(data: Offer, actions: List<Offer.Action>)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showDialog(type: String, coins: Int, index: Int)
 
-    fun disableItem(position: Int)
-
     fun setSelectedItem(position: Int)
-
-    fun clearSelectedItem()
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showCongratulations()
 
     fun showButtons()
 
-    fun initReviewTypes()
+    fun hideButtons()
 }

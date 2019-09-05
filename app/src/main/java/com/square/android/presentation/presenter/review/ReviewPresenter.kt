@@ -15,6 +15,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
 
+class ActionExtras(var index: Int, var id: String = "", var photo: ByteArray? = null, var type: String = "")
+
 @InjectViewState
 class ReviewPresenter(private val offerId: Long,
                       private val redemptionId: Long) : BasePresenter<ReviewView>() {
@@ -25,9 +27,10 @@ class ReviewPresenter(private val offerId: Long,
 
     private var data: Offer? = null
 
-    val reviewInfo = ReviewInfo()
+    private var actions: List<Offer.Action> = listOf()
+    var subActions: List<Offer.Action> = listOf()
 
-    private var currentPosition: Int? = null
+    private val filledActions: MutableList<ActionExtras> = mutableListOf()
 
     init {
         bus.register(this)
@@ -37,7 +40,10 @@ class ReviewPresenter(private val offerId: Long,
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSendPictureEvent(event: SendPictureEvent) {
-        addReview(event.data.index, event.data.photo)
+
+        //TODO send action data and add action to  filledActions
+//        addReview(event.data.index, event.data.photo)
+//        viewState.showButtons()
     }
 
     private fun loadData() = launch {
@@ -45,61 +51,68 @@ class ReviewPresenter(private val offerId: Long,
 
         data = interactor.getOffer(offerId).await()
 
-        viewState.initReviewTypes()
+        actions = data!!.actions
+        subActions = data!!.subActions
 
-        val act = repository.getActions(offerId, redemptionId).await()
+        for(subAction in subActions){
+            if(subAction.attempts >= subAction.maxAttempts) subAction.enabled = false
+        }
 
-        val actions = act.mapTo(HashSet(), ReviewNetType::type)
-        val credits = hashMapOf(*act.map { it.apply { it.credits = it.credits ?: 0 } }.map { it.type to it.credits }.toTypedArray()) as HashMap<String, Int>
+        for(action in actions){
+            if(action.type != TYPE_PICTURE){
+                if(action.attempts >= action.maxAttempts) action.enabled = false
+            } else{
+                var disabledCount = 0
+                for(subAction in subActions){
+                    if(!subAction.enabled) disabledCount++
+                }
+                if(disabledCount == subActions.size) action.enabled = false
+            }
+        }
 
         viewState.hideProgress()
-        viewState.showData(data!!, actions, credits)
+        viewState.showData(data!!, actions)
     }
 
-    fun itemClicked(type: String, index: Int) {
-        val coins = data!!.credits[type] ?: 0
+    fun itemClicked(index: Int) {
 
-        reviewInfo.postType = type
+        if(index in filledActions.map { it.index }){
+            //TODO show dialog if user is sure to delete this action. If yes - delete this action from filledActions and fire adapter.changeSelection(index)
+            //TODO then check if filledActions is empty, if is empty - viewState.hideButtons()
+        } else{
+            // viewState.showDialog(type, coins, index)
+        }
 
-        viewState.showDialog(type, coins, index)
+//        reviewInfo.postType = type
     }
 
     fun navigateByKey(index: Int, reviewType: String) {
-        when(reviewType){
-            TYPE_PICTURE -> {
-                router.navigateTo(SCREENS.SEND_PICTURE, index)
-            }
-            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY -> {
-                addReview(index)
-            }
-            else -> {
-                router.navigateTo(SCREENS.UPLOAD_SCREENSHOT, index)
-            }
-        }
-    }
-
-    private fun addReview(index: Int, photo: ByteArray? = null) = launch {
-        viewState.showLoadingDialog()
-
-        currentPosition = index
-
-        interactor.addReview(reviewInfo, offerId, redemptionId, photo).await()
-
-        viewState.disableItem(currentPosition!!)
-        viewState.showButtons()
-
-        currentPosition = null
-
-        viewState.hideLoadingDialog()
+//        when(reviewType){
+//            TYPE_PICTURE -> {
+//                router.navigateTo(SCREENS.SEND_PICTURE, index)
+//            }
+//            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY -> {
+//                addReview(index)
+//            }
+//            else -> {
+//                router.navigateTo(SCREENS.UPLOAD_SCREENSHOT, index)
+//            }
+//        }
     }
 
     fun submitClicked() = launch {
-        viewState.showMessage(R.string.claim_progress)
+        viewState.showLoadingDialog()
 
-        interactor.claimRedemption(redemptionId, offerId).await()
+      //TODO for every action in filledActions
+//        interactor.addReview(ReviewInfo(), offerId, redemptionId, action.photo, action.type or action.id ? ).await()
 
-        sendRedemptionsUpdatedEvent()
-        sendBadgeEvent()
+
+//        interactor.claimRedemption(redemptionId, offerId).await()
+//
+//        sendRedemptionsUpdatedEvent()
+//        sendBadgeEvent()
+
+        viewState.hideLoadingDialog()
 
         viewState.showCongratulations()
     }

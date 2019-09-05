@@ -48,10 +48,10 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>> = GlobalScope.async {
-        val data = performRequest {api.getActions(offerId, bookingId)}
-        data
-    }
+//    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>> = GlobalScope.async {
+//        val data = performRequest {api.getActions(offerId, bookingId)}
+//        data
+//    }
 
     override fun getIntervals(placeId: Long, date: String) : Deferred<IntervalsWrapper> = GlobalScope.async {
         val data = performRequest {api.getIntervals(placeId, date)}

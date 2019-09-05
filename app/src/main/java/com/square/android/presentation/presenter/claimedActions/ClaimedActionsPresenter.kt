@@ -28,7 +28,7 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
 
     private var data: Offer? = null
 
-    val reviewInfo = ReviewInfo()
+//    val reviewInfo = ReviewInfo()
 
     init {
         bus.register(this)
@@ -94,7 +94,7 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
 
         currentPosition = index
 
-        interactor.addReview(reviewInfo, offerId, redemptionId, photo).await()
+//        interactor.addReview(reviewInfo, offerId, redemptionId, photo).await()
 
         viewState.disableItem(currentPosition!!)
 
@@ -106,7 +106,7 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
     fun itemClicked(type: String, index: Int) {
         val coins = data!!.credits[type] ?: 0
 
-        reviewInfo.postType = type
+//        reviewInfo.postType = type
 
         viewState.showDialog(type, coins, index)
     }
