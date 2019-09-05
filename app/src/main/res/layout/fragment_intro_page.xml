@@ -3,17 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingBottom="12dp"
     tools:context=".ui.fragment.introPage.IntroPageFragment" >
 
     <ImageView
         android:id="@+id/introPageImage"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="256dp"
         android:adjustViewBounds="true"
         android:cropToPadding="false"
+        android:layout_marginTop="80dp"
         android:src="@drawable/intro_image_3"
-        app:layout_constraintBottom_toTopOf="@+id/introPageTitle"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,63 +23,62 @@
 
     <TextView
         android:id="@+id/introPageTitle"
-        style="@style/Models22BoldText"
+        style="@style/Models20BoldText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:gravity="center"
+        android:layout_marginTop="40dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/introPageContent"
         app:layout_constraintEnd_toEndOf="@+id/introPageImage"
         app:layout_constraintStart_toStartOf="@id/introPageImage"
+        app:layout_constraintTop_toBottomOf="@+id/introPageImage"
         tools:text="@string/intro_title_1" />
 
     <TextView
         android:id="@+id/introPageContent"
-        style="@style/Models12Text"
+        style="@style/Models13Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:lineSpacingExtra="3dp"
         android:textColor="@color/secondary_text"
-        app:layout_constraintBottom_toTopOf="@+id/selectOfferSubmit"
         app:layout_constraintEnd_toEndOf="@+id/introPageTitle"
         app:layout_constraintStart_toStartOf="@+id/introPageTitle"
+        app:layout_constraintTop_toBottomOf="@+id/introPageTitle"
         tools:text="@string/intro_content_1" />
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.14" />
+        app:layout_constraintGuide_percent="0.12" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.86" />
-
+        app:layout_constraintGuide_percent="0.88" />
 
     <Button
         android:id="@+id/selectOfferSubmit"
         style="@style/Models16Text"
-        android:layout_width="216dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="180dp"
+        android:layout_height="44dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/nice_button_pink_red"
         android:drawableRight="@drawable/button_arrow"
-        android:paddingStart="80dp"
-        android:paddingEnd="78dp"
+        android:paddingStart="65dp"
+        android:paddingEnd="63dp"
+        android:layout_marginTop="56dp"
         android:text="@string/next"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/introPageContent"
         tools:visibility="visible" />
 
 

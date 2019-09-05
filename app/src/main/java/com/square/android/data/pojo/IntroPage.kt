@@ -8,5 +8,4 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class IntroPage(@StringRes val titleRes: Int,
                 @StringRes val contentRes: Int,
-                @DrawableRes val imageRes: Int,
-                @StringRes val buttonText: Int) : Parcelable
+                @DrawableRes val imageRes: Int) : Parcelable

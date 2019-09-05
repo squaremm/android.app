@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import com.square.android.R
 import com.square.android.presentation.view.introPage.IntroPageView
 import com.square.android.presentation.presenter.introPage.IntroPagePresenter
-
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.square.android.data.pojo.IntroPage
 import com.square.android.extensions.loadImage
-
 import com.square.android.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_intro_page.*
 import org.jetbrains.anko.bundleOf
@@ -30,7 +28,6 @@ class IntroPageFragment : BaseFragment(), IntroPageView {
 
             return fragment
         }
-
     }
 
     @InjectPresenter
@@ -56,7 +53,9 @@ class IntroPageFragment : BaseFragment(), IntroPageView {
         }
 
         if (onClickListener == null) {
-            selectOfferSubmit.text = getString(R.string.done)
+            selectOfferSubmit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            selectOfferSubmit.setPadding(0,0,0,0)
+            selectOfferSubmit.text = getString(R.string.lets_start)
         }
 
         selectOfferSubmit.setOnClickListener {
