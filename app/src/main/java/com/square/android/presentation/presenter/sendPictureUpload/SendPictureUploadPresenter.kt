@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.EventBus
 import org.koin.standalone.inject
 
 @InjectViewState
-                                                //TODO what to do with image type?
+
 class SendPictureUploadPresenter(val index: Int, val type: Int): BasePresenter<SendPictureUploadView>(){
 
     private val eventBus: EventBus by inject()

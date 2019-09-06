@@ -1,128 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="false" >
+
+<ScrollView
     android:layout_width="match_parent"
     android:scrollbars="none"
     android:overScrollMode="never"
     android:layout_height="wrap_content" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_background_white"
-        android:backgroundTint="@color/whiteish_purple" >
+        android:animateLayoutChanges="true"
+        android:background="@android:color/white">
 
         <ImageView
-            android:id="@+id/reviewDialogImage"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/circle_white"
-            android:backgroundTint="@color/gray_purple"
-            android:padding="42dp"
+            android:id="@+id/reviewDialogClose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/close_x"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/google_logo" />
+            app:layout_constraintBottom_toTopOf="@id/guideline13"
+            tools:layout_editor_absoluteY="12dp" />
 
-        <TextView
-            android:id="@+id/reviewDialogCoins"
-            style="@style/Models18BoldText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/nice_pink"
-            app:layout_constraintStart_toStartOf="@+id/reviewDialogType"
-            app:layout_constraintEnd_toEndOf="@id/reviewDialogType"
-            app:layout_constraintTop_toBottomOf="@+id/reviewDialogImage"
-            android:layout_marginTop="16dp"
-            tools:text="+ 25 credits" />
-
-        <TextView
-            android:id="@+id/reviewDialogType"
-            style="@style/Models20BoldText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewDialogCoins"
-            tools:text="Add a Google Place review" />
-
-        <TextView
-            android:id="@+id/reviewDialogTask"
-            style="@style/Models16Text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:textColor="@color/secondary_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewDialogType"
-            tools:text="Open Google Places and\nmake a review of this venue!" />
-
-        <TextView
-            android:id="@+id/reviewDialogContent"
-            style="@style/Models16Text"
-            android:textColor="@color/secondary_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
+        <ImageView
+            android:id="@+id/reviewDialogBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewDialogTask"
-            tools:text="DO:\n blah blah\n\nDON'T\nblah blah" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline13"
+            tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/reviewDialogUpload"
-            style="@style/Models16BoldText"
+        <com.square.android.utils.widget.WrapContentHeightViewPager
+            android:id="@+id/acDriverPager"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:visibility="gone"
+            android:layout_marginBottom="40dp"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/guideline13"
+            app:layout_constraintBottom_toTopOf="@+id/reviewBtnAction"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewDialogContent"
-            android:text="@string/review_upload_text" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/reviewBtnAction"
-            style="@style/Models16BoldText"
-            android:layout_width="0dp"
+            style="@style/Models18BoldText"
+            android:layout_width="224dp"
             android:layout_height="wrap_content"
-            android:minHeight="42dp"
-            android:layout_marginTop="48dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/nice_button_red_pink"
-            android:textAllCaps="false"
-            tools:text="Upload a screenshot"
-            android:drawableEnd="@drawable/chevron_right_white"
-            android:drawableStart="@drawable/chevron_right_transc"
-            android:padding="8dp"
-            android:layout_marginBottom="32dp"
-            android:textColor="@color/btn_text_color"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/nice_button_red_pink"
+            android:textAllCaps="true"
+            android:textColor="@color/btn_text_color"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintTop_toBottomOf="@id/reviewDialogUpload"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Open tripadvisor" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="36dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
+
+</androidx.cardview.widget.CardView>

@@ -121,7 +121,14 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
         presenter.itemClicked(position)
     }
 
-    override fun showDialog(type: String, coins: Int, index: Int) {
+    override fun showDialog(action: Offer.Action, index: Int) {
+//                ReviewDialog(activity!!).showaction, index) { s: String, i: Int -> onDialogAction(s, i) }
+
+
+
+
+
+
 //        val index = filteredTypes!!.indexOfFirst { it.key == type }
 //        val reviewType = filteredTypes!![index]
 //

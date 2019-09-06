@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/itemTypologyTitle"
+        style="@style/Models16BoldText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Location" />
+
+    <TextView
+        android:id="@+id/itemTypologyValue"
+        style="@style/Models16Text"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/gray_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="(atmosphere, venue details, etc...)" />
+
+</LinearLayout>

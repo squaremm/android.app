@@ -1,8 +1,6 @@
 package com.square.android.presentation.presenter.review
 
 import com.arellomobile.mvp.InjectViewState
-import com.square.android.R
-import com.square.android.SCREENS
 import com.square.android.data.pojo.*
 import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
@@ -75,29 +73,13 @@ class ReviewPresenter(private val offerId: Long,
     }
 
     fun itemClicked(index: Int) {
-
         if(index in filledActions.map { it.index }){
             //TODO show dialog if user is sure to delete this action. If yes - delete this action from filledActions and fire adapter.changeSelection(index)
             //TODO then check if filledActions is empty, if is empty - viewState.hideButtons()
         } else{
             // viewState.showDialog(type, coins, index)
         }
-
 //        reviewInfo.postType = type
-    }
-
-    fun navigateByKey(index: Int, reviewType: String) {
-//        when(reviewType){
-//            TYPE_PICTURE -> {
-//                router.navigateTo(SCREENS.SEND_PICTURE, index)
-//            }
-//            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY -> {
-//                addReview(index)
-//            }
-//            else -> {
-//                router.navigateTo(SCREENS.UPLOAD_SCREENSHOT, index)
-//            }
-//        }
     }
 
     fun submitClicked() = launch {

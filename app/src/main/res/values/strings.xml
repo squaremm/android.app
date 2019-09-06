@@ -18,6 +18,39 @@
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
 
+    <string name="remember_to">Remember to:</string>
+    <string name="avoid_to">Avoid to:</string>
+    <string name="picture_typologies">Picture typologies:</string>
+
+    <string name="upload_action_prntscr">Upload the print screen\nof the action you just done.</string>
+
+    <string name="upload_action_label">Action required to speed up the process in order to release you the credits.</string>
+
+    <string name="insta_post_remember_1">Make tags visible</string>
+    <string name="insta_post_remember_2">Keep the post on your page for a minimum of 48 hours</string>
+    <string name="insta_post_remember_3">Tags to use: %s</string>
+    <string name="insta_post_remember_4">Hashtags: %s</string>
+    <string name="insta_post_avoid_1">Don\'t remove the post before the given time</string>
+    <string name="insta_post_avoid_2">Be creative, don\'t repost someone else content</string>
+
+
+    <string name="tripadvisor_remember_1">Rate the venue 4-5 stars</string>
+    <string name="tripadvisor_remember_2">Leave an authentic comment about: food, service, location</string>
+    <string name="tripadvisor_avoid_1">Never mention SQUARE app in your review</string>
+    <string name="tripadvisor_avoid_2">Don\'t make your comment like a shopping list. Argument the different subjects and tell your experience</string>
+
+
+
+
+    <string name="_remember_1"></string>
+    <string name="_remember_2"></string>
+    <string name="_remember_3"></string>
+    <string name="_remember_4"></string>
+    <string name="_avoid_1"></string>
+    <string name="_avoid_2"></string>
+
+
+
     <string name="unknown_error">Error occurred. Please try again</string>
     <string name="fill_profile_title">Create Profile</string>
     <string name="hint_name">Name</string>

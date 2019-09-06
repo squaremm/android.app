@@ -9,7 +9,7 @@ interface ReviewView : LoadingView {
     fun showData(data: Offer, actions: List<Offer.Action>)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showDialog(type: String, coins: Int, index: Int)
+    fun showDialog(action: Offer.Action, index: Int)
 
     fun setSelectedItem(position: Int)
 
