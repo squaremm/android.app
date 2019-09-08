@@ -26,30 +26,68 @@
 
     <string name="upload_action_label">Action required to speed up the process in order to release you the credits.</string>
 
+    <string name="insta_story_remember_1">Make tags visible</string>
+    <string name="insta_story_remember_2">The story should be at least 5 seconds</string>
+    <string name="insta_story_remember_3">Tag us @square.app</string>
+    <string name="insta_story_remember_4">Tag the venue using %s</string>
+    <string name="insta_story_avoid_1">Don\'t remove the story before it expires</string>
+    <string name="insta_story_avoid_2">Don\'t repost a story of a friend, covering the tags with other content</string>
+
     <string name="insta_post_remember_1">Make tags visible</string>
     <string name="insta_post_remember_2">Keep the post on your page for a minimum of 48 hours</string>
-    <string name="insta_post_remember_3">Tags to use: %s</string>
-    <string name="insta_post_remember_4">Hashtags: %s</string>
+    <string name="insta_post_remember_3">Tags to use: %s, @square.app</string>
+    <string name="insta_post_remember_4">Hashtags: %s, @squareapp</string>
     <string name="insta_post_avoid_1">Don\'t remove the post before the given time</string>
     <string name="insta_post_avoid_2">Be creative, don\'t repost someone else content</string>
 
-
-    <string name="tripadvisor_remember_1">Rate the venue 4-5 stars</string>
+    <string name="tripadvisor_remember_1">Rate the venue 4–5 stars</string>
     <string name="tripadvisor_remember_2">Leave an authentic comment about: food, service, location</string>
     <string name="tripadvisor_avoid_1">Never mention SQUARE app in your review</string>
     <string name="tripadvisor_avoid_2">Don\'t make your comment like a shopping list. Argument the different subjects and tell your experience</string>
 
+    <string name="yelp_remember_1">Rate the venue 4–5 stars</string>
+    <string name="yelp_remember_2">Leave an authentic comment about: food, service, location</string>
+    <string name="yelp_avoid_1">Never mention SQUARE app in your review</string>
+    <string name="yelp_avoid_2">Don\'t make your comment like a shopping list. Argument the different subjects and tell your experience</string>
 
+    <string name="google_places_remember_1">Rate the venue 4–5 stars</string>
+    <string name="google_places_remember_2">>Leave an authentic comment about: food, service, location</string>
+    <string name="google_places_avoid_1">Never mention SQUARE app in your review</string>
+    <string name="google_places_avoid_2">Don\'t make your comment like a shopping list. Argument the different subjects and tell your experience</string>
 
+    <string name="fb_review_remember_1">Rate the venue 4–5 stars</string>
+    <string name="fb_reviewgoogle_maps_remember_2">>Leave an authentic comment about: food, service, location</string>
+    <string name="fb_review_avoid_1">Never mention SQUARE app in your review</string>
+    <string name="fb_review_avoid_2">Don\'t make your comment like a shopping list. Argument the different subjects and tell your experience</string>
 
-    <string name="_remember_1"></string>
-    <string name="_remember_2"></string>
-    <string name="_remember_3"></string>
-    <string name="_remember_4"></string>
-    <string name="_avoid_1"></string>
-    <string name="_avoid_2"></string>
+    <string name="fb_post_remember_1">Make tags visible</string>
+    <string name="fb_post_remember_2">Keep the post on your page for a minimum of 48 hours</string>
+    <string name="fb_post_remember_3">Tags to use: %s, @square.app</string>
+    <string name="fb_post_remember_4">Hashtags: %s, @squareapp</string>
+    <string name="fb_post_avoid_1">Don\'t remove the post before the given time</string>
+    <string name="fb_post_avoid_2">Be creative, don\'t repost someone else content</string>
 
+    <string name="fb_story_remember_1">Make tags visible</string>
+    <string name="fb_story_remember_2">The story should be at least 5 seconds</string>
+    <string name="fb_story_remember_3">Tag us @square.app</string>
+    <string name="fb_story_remember_4">Tag the venue using %s</string>
+    <string name="fb_story_avoid_1">Don\'t remove the story before it expires</string>
+    <string name="fb_story_avoid_2">Don\'t repost a story of a friend, covering the tags with other content</string>
 
+    <string name="photo_remember_1">Be creative</string>
+    <string name="photo_remember_2">Create a high quality content</string>
+
+<!--  TODO need values for all the types (Model in venue, FoodPic etc...)  -->
+    <string name="photo_still_life">(table composition, food in the picture, etc...)</string>
+    <string name="photo_location">(atmosphere, venue details, etc...)</string>
+    <string name="photo_muse">(the model appears in the picture frame)</string>
+
+    <string name="action_btn_fb">Open facebook</string>
+    <string name="action_btn_instagram">Open instagram</string>
+    <string name="action_btn_tripadvisor">Open tripadvisor</string>
+    <string name="action_btn_google_places">Open maps</string>
+    <string name="action_btn_yelp">Open yelp</string>
+    <string name="action_btn_photo">Upload picture</string>
 
     <string name="unknown_error">Error occurred. Please try again</string>
     <string name="fill_profile_title">Create Profile</string>
@@ -445,32 +483,6 @@
     <string name="thumbnail_how_to_credits">https://img.youtube.com/vi/emSwZ71NGE8/hqdefault.jpg</string>
     <string name="thumbnail_how_to_review">https://img.youtube.com/vi/1uXGxvgioPg/hqdefault.jpg</string>
     <string name="thumbnail_how_to_instagram_story">https://img.youtube.com/vi/8g3ucibKWRA/hqdefault.jpg</string>
-
-    <string name="review_instagram_post_body">
-        <![CDATA[
-         <font color=#7CFC00>Do:</font><br>
-         <font color=#7CFC00>\u2713</font> Make the tag of the venue visible<br>
-         <font color=#7CFC00>\u2713</font> Tag @Square<br>
-         <br>
-         <br>
-         <font color=#FF0000>Don\'t:</font><br>
-         <font color=#FF0000>x</font> Remove the post before 5 days<br>
-        ]]>
-    </string>
-
-    <string name="review_instagram_story_body">
-        <![CDATA[
-         <font color=#7CFC00>Do:</font><br>
-         <font color=#7CFC00>\u2713</font> Make the tag of the venue visible<br>
-         <font color=#7CFC00>\u2713</font> Tag @Square<br>
-         <font color=#7CFC00>\u2713</font> The story should be at least 5 seconds<br>
-         <br>
-         <br>
-         <font color=#FF0000>Don\'t:</font><br>
-         <font color=#FF0000>x</font> Remove the story before it expires<br>
-         <font color=#FF0000>x</font> Repost a story of a friend, covering the tags with other content<br>
-        ]]>
-    </string>
 
     <string name="review_other_body_format">Select a number of stars from 3 to 5 and click next</string>
 

@@ -14,6 +14,7 @@ const val TYPE_GOOGLE_PLACES = "gPost"
 const val TYPE_YELP = "yelpPost"
 const val TYPE_PICTURE = "picture"
 
+//TODO there will be more subTypes
 const val SUBTYPE_FOOD_PIC = "foodPic"
 const val SUBTYPE_ATMOSPHERE = "atmosphere"
 const val SUBTYPE_MODEL_IN_VENUE = "model"

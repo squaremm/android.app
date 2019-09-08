@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.square.android.R
 import com.square.android.data.pojo.*
-import com.square.android.ui.activity.party.LocationEvent
-import com.square.android.ui.activity.place.IntervalAdapter
 import com.square.android.ui.fragment.BaseNoMvpFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
+import kotlinx.android.synthetic.main.fragment_review_action.*
 
 //class DriverRadioEvent(val data: Boolean)
 //
@@ -20,13 +19,15 @@ import com.square.android.ui.fragment.map.MarginItemDecorator
 //
 //class DriverLocationGottenEvent(val data: LocationExtras)
 
-class ReviewActionFragment(private val action: Offer.Action): BaseNoMvpFragment() {
+class ReviewActionFragment(private val action: Offer.Action, private var subActions: List<Offer.Action> = listOf(), private var instaName: String = "", private var fbName: String = "TODO"): BaseNoMvpFragment() {
 
-    private var intervalsAdapter: IntervalAdapter? = null
+    private var rememberItems: MutableList<String>? = null
+    private var avoidItems: MutableList<String>? = null
+    private var typologyItems: MutableMap<String, String>? = null
 
-    private var rememberItems: List<String> = listOf()
-    private var avoidItems: List<String> = listOf()
-    private var typologyItems: Map<String, String> = mapOf()
+    private var rememberAdapter: RememberAdapter? = null
+    private var avoidAdapter: AvoidAdapter? = null
+    private var typologyAdapter: TypologyAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,44 +38,90 @@ class ReviewActionFragment(private val action: Offer.Action): BaseNoMvpFragment(
         super.onViewCreated(view, savedInstanceState)
 
         when(action.type){
+
             //TODO there will be more types - facebook review, facebook story etc
-
             TYPE_FACEBOOK_POST -> {
-
+                rememberItems = mutableListOf(getString(R.string.fb_post_remember_1), getString(R.string.fb_post_remember_2), getString(R.string.fb_post_remember_3, "@"+fbName), getString(R.string.fb_post_remember_4, "@"+fbName))
+                avoidItems = mutableListOf(getString(R.string.fb_post_avoid_1), getString(R.string.fb_post_avoid_2))
             }
             TYPE_INSTAGRAM_POST ->{
-
+                rememberItems = mutableListOf(getString(R.string.insta_post_remember_1),getString(R.string.insta_post_remember_2),getString(R.string.insta_post_remember_3, "@"+instaName.replace("/", "")),getString(R.string.insta_post_remember_4, "@"+instaName.replace("/", "")))
+                avoidItems = mutableListOf(getString(R.string.insta_post_avoid_1), getString(R.string.insta_post_avoid_2))
             }
             TYPE_INSTAGRAM_STORY -> {
-
+                rememberItems = mutableListOf(getString(R.string.insta_story_remember_1), getString(R.string.insta_story_remember_2), getString(R.string.insta_story_remember_3), getString(R.string.insta_story_remember_4, "@"+instaName.replace("/", "")))
+                avoidItems = mutableListOf(getString(R.string.insta_story_avoid_1), getString(R.string.insta_story_avoid_2))
             }
             TYPE_TRIP_ADVISOR -> {
-
+                rememberItems = mutableListOf(getString(R.string.tripadvisor_remember_1), getString(R.string.tripadvisor_remember_2))
+                avoidItems = mutableListOf(getString(R.string.tripadvisor_avoid_1), getString(R.string.tripadvisor_avoid_2))
             }
             TYPE_GOOGLE_PLACES -> {
-
+                rememberItems = mutableListOf(getString(R.string.google_places_remember_1),getString(R.string.google_places_remember_2))
+                avoidItems = mutableListOf(getString(R.string.google_places_avoid_1),getString(R.string.google_places_avoid_2))
             }
             TYPE_YELP -> {
-
+                rememberItems = mutableListOf(getString(R.string.yelp_remember_1), getString(R.string.yelp_remember_2))
+                avoidItems = mutableListOf(getString(R.string.yelp_avoid_1), getString(R.string.yelp_avoid_2))
             }
-
-            //TODO update this drawable
             TYPE_PICTURE -> {
+                rememberItems = mutableListOf(getString(R.string.photo_remember_1), getString(R.string.photo_remember_2))
+                typologyItems = mutableMapOf()
 
+                //TODO update values in strings for all sub actions
+                for(subAction in subActions){
+                    var value = when (subAction.type){
+                        SUBTYPE_FOOD_PIC -> "TODO"
+                        SUBTYPE_ATMOSPHERE -> "TODO"
+                        SUBTYPE_MODEL_IN_VENUE -> "TODO"
+                        SUBTYPE_STILL_LIFE -> getString(R.string.photo_still_life)
+                        else -> "TODO"
+                    }
+                    typologyItems!!.put(subAction.displayName, value)
+                }
+            }
+            else ->{
+                rememberItems = mutableListOf("TODO")
+                avoidItems = mutableListOf("TODO")
             }
         }
 
+        typologyItems?.let {
+            reviewDialogRememberContainer.visibility = View.VISIBLE
+            rememberAdapter = RememberAdapter(rememberItems!!.toList())
+            reviewDialogRememberRv.adapter = rememberAdapter
+            reviewDialogRememberRv.layoutManager = LinearLayoutManager(reviewDialogRememberRv.context, RecyclerView.VERTICAL,false)
+            reviewDialogRememberRv.addItemDecoration(MarginItemDecorator(reviewDialogRememberRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), true))
 
+            reviewDialogTypologiesContainer.visibility = View.VISIBLE
 
-        intervalsAdapter = IntervalAdapter(intervals, intervalHandler)
+            val typologies: MutableList<PictureTypology> = mutableListOf()
+            for((title, value) in typologyItems!!){
+                typologies.add(PictureTypology(title, value))
+            }
 
-        driverIntervalsRv.layoutManager = LinearLayoutManager(driverIntervalsRv.context, RecyclerView.HORIZONTAL, false)
-        driverIntervalsRv.addItemDecoration(MarginItemDecorator(driverIntervalsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = false))
-        driverIntervalsRv.adapter = intervalsAdapter
+            typologyAdapter = TypologyAdapter(typologies)
+            reviewDialogTypologiesRv.adapter = typologyAdapter
+            reviewDialogTypologiesRv.layoutManager = LinearLayoutManager(reviewDialogTypologiesRv.context, RecyclerView.VERTICAL,false)
+            reviewDialogTypologiesRv.addItemDecoration(MarginItemDecorator(reviewDialogTypologiesRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), true))
+        } ?: run{
+            reviewDialogRememberContainer.visibility = View.VISIBLE
+            rememberAdapter = RememberAdapter(rememberItems!!.toList())
+            reviewDialogRememberRv.adapter = rememberAdapter
+            reviewDialogRememberRv.layoutManager = LinearLayoutManager(reviewDialogRememberRv.context, RecyclerView.VERTICAL,false)
+            reviewDialogRememberRv.addItemDecoration(MarginItemDecorator(reviewDialogRememberRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), true))
 
-        driverAddress.setOnClickListener {
-            eventBus.post(LocationEvent(false))
+            reviewDialogAvoidContainer.visibility = View.VISIBLE
+            avoidAdapter = AvoidAdapter(avoidItems!!.toList())
+            reviewDialogAvoidRv.adapter = avoidAdapter
+            reviewDialogAvoidRv.layoutManager = LinearLayoutManager(reviewDialogAvoidRv.context, RecyclerView.VERTICAL,false)
+            reviewDialogAvoidRv.addItemDecoration(MarginItemDecorator(reviewDialogAvoidRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), true))
         }
+
+
+//        driverAddress.setOnClickListener {
+//            eventBus.post(LocationEvent(false))
+//        }
 
     }
 

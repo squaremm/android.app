@@ -9,19 +9,15 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.square.android.R
-import com.square.android.data.pojo.ReviewType
+import com.square.android.data.pojo.Offer
 import com.square.android.data.pojo.TYPE_PICTURE
-import com.square.android.extensions.loadImageInside
 import kotlinx.android.synthetic.main.review_dialog.view.*
 
 class ReviewDialog(private val context: Context) {
-
-    private lateinit var reviewType: ReviewType
     private lateinit var view: View
 
     @SuppressLint("InflateParams")
-    fun show(reviewType: ReviewType, coins: Int, index: Int, onAction: (reviewTypeKey: String, index: Int) -> Unit) {
-        this.reviewType = reviewType
+    fun show(index: Int, action: Offer.Action, onAction: (reviewTypeKey: String, index: Int) -> Unit) {
 
         val inflater = LayoutInflater.from(context)
         view = inflater.inflate(R.layout.review_dialog, null, false)
