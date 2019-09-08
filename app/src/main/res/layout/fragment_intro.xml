@@ -6,20 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@android:color/white"
-    tools:context=".ui.fragment.intro.IntroFragment">
+    tools:context=".ui.fragment.intro.IntroFragment" >
 
-    <androidx.viewpager.widget.ViewPager
+    <com.square.android.utils.widget.WrapContentHeightViewPager
         android:id="@+id/introPager"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:overScrollMode="never" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/introTabs"
-        android:layout_height="wrap_content"
+        android:layout_height="5dp"
         android:layout_width="wrap_content"
+        android:layout_marginTop="36dp"
         app:tabBackground="@drawable/tab_selector"
+        app:tabIndicatorFullWidth="false"
         android:layout_marginBottom="16dp"
         app:tabIndicatorHeight="0dp"
         android:layout_gravity="center"

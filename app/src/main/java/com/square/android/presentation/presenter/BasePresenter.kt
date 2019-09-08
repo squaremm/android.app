@@ -16,6 +16,7 @@ import com.square.android.data.pojo.BillingTokenInfo
 import com.square.android.data.pojo.ProfileInfo
 import com.square.android.data.pojo.TokenInfo
 import com.square.android.presentation.view.BaseView
+import com.square.android.presentation.view.LoadingView
 import com.square.android.presentation.view.ProgressView
 import com.square.android.ui.activity.noConnection.NoConnectionClosedEvent
 import com.square.android.utils.BooleanWrapper
@@ -59,13 +60,18 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
     }
 
     fun allowAndCheckSubs(){
+        Log.e("SUBSCRIPTIONS", "ALLOW AND CHECK")
+
         allowSubsCheck.value = true
         checkSubscriptions(true)
     }
 
     fun checkSubscriptions(skipError: Boolean = false){
+        Log.e("SUBSCRIPTIONS", "CHECK")
         if(allowSubsCheck.value) {
             allowSubsCheck.value = false
+            Log.e("SUBSCRIPTIONS", "CHECK TRUE")
+
             launch ({
 
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions()"))
@@ -93,19 +99,14 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}")
 
+                    for (billing in billings) {
+                        val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
 
-//                TODO uncomment
-                for (billing in billings) {
-                    val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
-                    data.subscriptionId = billing.subscriptionId
-                    data.token = billing.token
-
-                    subscriptions.add(data)
-                }
-
-//                //TODO delete
-//                val data = billingRepository.getSubscription("one","two").await()
-                    
+                        data?.let {
+                            it.subscriptionId = billing.subscriptionId
+                            it.token = billing.token
+                            subscriptions.add(it) }
+                    }
 
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}")
@@ -148,12 +149,12 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
                         Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub IS NULL")
                     }
-                    //////////////////////////////////////////////////////////////////
 
-                    //TODO uncomment when subscriptions working correctly
-                    if(!valid1 && !valid2){
-                        router.navigateTo(SCREENS.PASS_ELIGIBLE)
-                    }
+//                    if(!valid1 && !valid2){
+//                        router.navigateTo(SCREENS.PASS_ELIGIBLE)
+//                        Log.e("SUBSCRIPTIONS", "ELIGIBLE")
+//
+//                    }
 
                 }
                 eventBus.post(SubscriptionErrorEvent(1))
@@ -161,23 +162,22 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> error: ${error.toString()}"))
                 Log.d("SUBSCRIPTIONS LOG","BasePresenter: checkSubscriptions() -> error: ${error.toString()}")
 
-                //TODO uncomment when subscriptions working correctly
-//                    if((error is UnknownHostException || error is SocketTimeoutException || error is ConnectException || error is ConnectionShutdownException)){
-//                        eventBus.post(SubscriptionErrorEvent(2))
-//
-//                        if(!skipError){
-//                            if(allowNoConnectionScreen){
-//                                allowNoConnectionScreen = false
-//                                router.navigateTo(SCREENS.NO_CONNECTION)
-//                            }
-//                        }
-//                    } else{
-//                        eventBus.post(SubscriptionErrorEvent(3))
-//
-//                        if(!skipError){
-//                            router.navigateTo(SCREENS.SUBSCRIPTION_ERROR)
-//                        }
-//                    }
+                    if((error is UnknownHostException || error is SocketTimeoutException || error is ConnectException || error is ConnectionShutdownException)){
+                        eventBus.post(SubscriptionErrorEvent(2))
+
+                        if(!skipError){
+                            if(allowNoConnectionScreen){
+                                allowNoConnectionScreen = false
+                                router.navigateTo(SCREENS.NO_CONNECTION)
+                            }
+                        }
+                    } else{
+                        eventBus.post(SubscriptionErrorEvent(3))
+
+                        if(!skipError){
+                            router.navigateTo(SCREENS.SUBSCRIPTION_ERROR)
+                        }
+                    }
 
             })
         }
@@ -229,6 +229,8 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
         }
 
         (viewState as? ProgressView)?.hideProgress()
+
+        (viewState as? LoadingView)?.hideLoadingDialog()
     }
 
     protected fun launch(tryBlock: suspend CoroutineScope.() -> Unit,

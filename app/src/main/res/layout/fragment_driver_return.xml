@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:paddingBottom="20dp"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/driverReturnImg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"
+        tools:src="@drawable/fill_profile_header_2" />
+
+    <TextView
+        android:id="@+id/driverReturnNeedLabel"
+        style="@style/Models18Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/do_you_need_driver_return"
+        app:layout_constraintBottom_toBottomOf="@+id/driverReturnRadioGroup"
+        app:layout_constraintEnd_toStartOf="@+id/driverReturnRadioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/driverReturnRadioGroup" />
+
+    <RadioGroup
+        android:id="@+id/driverReturnRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverReturnImg" >
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/driverReturnRadioYes"
+            style="@style/Models16BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTint="@color/radio_color"
+            android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+            android:gravity="center_horizontal|bottom"
+            android:text="@string/yes" />
+
+        <RadioButton
+            android:id="@+id/driverReturnRadioNo"
+            style="@style/Models16BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTint="@color/radio_color"
+            android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+            android:gravity="center_horizontal|bottom"
+            android:text="@string/no" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/driverReturnLabel"
+        style="@style/Models16BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/point_of_return"
+        app:layout_constraintStart_toStartOf="@+id/driverReturnNeedLabel"
+        app:layout_constraintTop_toBottomOf="@+id/driverReturnNeedLabel" />
+
+    <com.square.android.utils.widget.ErrorEditText
+        android:id="@+id/driverReturnAddress"
+        style="@style/InputField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/select_location"
+        android:focusable="false"
+        android:longClickable="false"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="@+id/driverReturnRadioGroup"
+        app:layout_constraintStart_toStartOf="@+id/driverReturnLabel"
+        app:layout_constraintTop_toBottomOf="@+id/driverReturnLabel" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/driverReturnIntervalsRv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverReturnAddress"
+        tools:background="@color/gray_hint"
+        tools:layout_height="50dp"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/driverReturnDepartureLabel"
+        style="@style/Models16BoldText"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:text="@string/departure"
+        app:layout_constraintStart_toStartOf="@+id/driverReturnLabel"
+        app:layout_constraintTop_toBottomOf="@+id/driverReturnIntervalsRv" />
+
+    <TextView
+        android:id="@+id/driverReturnDepartureValue"
+        style="@style/Models16Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        tools:text="Just Cavalli"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="@+id/driverReturnDepartureLabel"
+        app:layout_constraintEnd_toEndOf="@+id/driverReturnAddress"
+        app:layout_constraintStart_toEndOf="@+id/driverReturnDepartureLabel"
+        app:layout_constraintTop_toTopOf="@+id/driverReturnDepartureLabel" />
+
+    <View
+        android:id="@+id/driverReturnAddressDisable"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_75_alpha"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/driverReturnAddress"
+        app:layout_constraintEnd_toEndOf="@+id/driverReturnAddress"
+        app:layout_constraintStart_toStartOf="@+id/driverReturnAddress"
+        app:layout_constraintTop_toTopOf="@+id/driverReturnAddress" />
+
+    <View
+        android:id="@+id/driverReturnIntervalsDisable"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_75_alpha"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/driverReturnIntervalsRv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/driverReturnIntervalsRv" />
+
+    <TextView
+        android:id="@+id/driverReturnUpdateInfo"
+        style="@style/Models14Text"
+        android:textColor="@color/secondary_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/you_can_update_pick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverReturnDepartureValue" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

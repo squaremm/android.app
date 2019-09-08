@@ -9,6 +9,19 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    @GET("city")
+    fun getCities(@Header("Authorization") authorization: String): Call<List<City>>
+
+    @GET("place-time-frame")
+    fun getTimeFrames(@Header("Authorization") authorization: String): Call<List<FilterTimeframe>>
+
+    @GET("v2/place")
+    fun getPlacesByFilters(@Header("Authorization") authorization: String,
+                           @Query("tf") timeframe: String,
+                           @Query("typology") type: String,
+                           @Query("date") date: String,
+                           @Query("city") city: String): Call<List<Place>>
+
     @POST("auth/user/signin")
     fun registerUser(@Body authData: AuthData): Call<AuthResponse>
 
@@ -29,6 +42,12 @@ interface ApiService {
 
     @GET("place/{id}")
     fun getPlace(@Path("id") id: Long): Call<Place>
+
+    @GET("place-type")
+    fun getPlaceTypes(@Header("Authorization") authorization: String): Call<List<PlaceType>>
+
+    @GET("place-extra")
+    fun getPlaceExtras(@Header("Authorization") authorization: String) : Call<List<PlaceExtra>>
 
     @POST("v2/place/{id}/book")
     fun book(@Path("id") id: Long,
@@ -63,9 +82,17 @@ interface ApiService {
     fun getOffer(@Path("offerId") offerId: Long,
                  @Query("userID") userId: Long) : Call<Offer>
 
-    @POST("place/offer/{id}/post")
+//    @POST("v2/offer/{id}/booking/{bookingId}/post")
+//    fun addReview(@Path("id") id: Long,
+//                  @Path("bookingId") bookingId: Long,
+//                  @Body info: ReviewInfo) : Call<MessageResponse>
+
+    @POST("v2/offer/{id}/booking/{bookingId}/post")
+    @Multipart
     fun addReview(@Path("id") id: Long,
-                  @Body info: ReviewInfo) : Call<MessageResponse>
+                  @Path("bookingId") bookingId: Long,
+                  @Part("info") info: ReviewInfo,
+                  @Part image: MultipartBody.Part?) : Call<MessageResponse>
 
     @GET("place/{id}/sample")
     fun getFeedbackBody(@Path("id") id: Long) : Call<MessageResponse>
@@ -85,9 +112,9 @@ interface ApiService {
     fun getIntervalSlots(@Path("id") placeId: Long,
                          @Query("date") date: String) : Call<List<Place.Interval>>
 
-    @GET("offer/{id}/booking/{bookingId}/actions")
-    fun getActions(@Path("id") offerId: Long,
-                   @Path("bookingId") bookingId: Long) : Call<List<ReviewNetType>>
+//    @GET("v2/offer/{id}/booking/{bookingId}/actions")
+//    fun getActions(@Path("id") offerId: Long,
+//                   @Path("bookingId") bookingId: Long) : Call<List<ReviewNetType>>
 
     @DELETE("user/{id}/images")
     fun removePhoto(@Path("id") userId: Long,

@@ -18,8 +18,8 @@ static def getDate() {
 }
 
 def versionMajor = 1
-def versionMinor = 0
-def versionPatch = 8
+def versionMinor = 2
+def versionPatch = 5
 
 def versionNameVal = "${versionMajor}.${versionMinor}.${versionPatch}"
 
@@ -30,7 +30,7 @@ android {
         applicationId "com.squaremm.android"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 22
+        versionCode 39
         versionName versionNameVal
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -125,6 +125,11 @@ dependencies {
     implementation "com.afollestad.material-dialogs:commons:0.9.6.0"
 
     implementation 'com.squareup.retrofit2:converter-jackson:2.4.0'
+    implementation "com.squareup.moshi:moshi-kotlin:1.7.0"
+    implementation "com.squareup.moshi:moshi:1.7.0"
+    implementation "com.squareup.moshi:moshi-adapters:1.7.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.7.0"
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
@@ -191,6 +196,12 @@ dependencies {
     implementation 'com.mixpanel.android:mixpanel-android:5.+'
 
     implementation "com.google.android.gms:play-services-gcm:16.0.0"
+
+
+    // Google play services - places
+    implementation 'com.google.android.libraries.places:places:2.0.0'
+
+
 
 
     // ----- Tests -----

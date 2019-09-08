@@ -16,12 +16,13 @@
     <color name="gray_disabled">#C2C2C2</color>
     <color name="gray_btn_disabled">#DDDDDD</color>
     <color name="gray_hint">#757575</color>
+    <color name="gray_hint_ligh">#AAAAAA</color>
     <color name="gray_back_arrow">#555555</color>
     <color name="blueish_gray">#9093AD</color>
     <color name="redish_gray">#F4EBFC</color>
 
     <color name="white_20_alpha">#33FFFFFF</color>
-
+    <color name="white_75_alpha">#BFFFFFFF</color>
 
     <color name="pinkish_white">#F8C2DF</color>
 
@@ -52,6 +53,7 @@
     <color name="nice_red_alpha">#80F7425C</color>
     <color name="nice_pink_alpha_50">#80E82E90</color>
     <color name="nice_pink_alpha_40">#66E82E90</color>
+    <color name="nice_pink_alpha_30">#4DE82E90</color>
     <color name="nice_pink_alpha_10">#1AE82E90</color>
 
     <color name="nice_pink_other">#E751A4</color>

@@ -1,8 +1,8 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
 
 class TokenInfo(
-        @field:JsonProperty("developerPayload")
+        @Json(name="developerPayload")
         var payload: String? = null
 )

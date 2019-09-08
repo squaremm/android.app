@@ -3,7 +3,6 @@
     <dimen name="indicator_size">3dp</dimen>
     <dimen name="point_radius">5dp</dimen>
 
-
     <dimen name="anim_start">4dp</dimen>
     <dimen name="anim_end">2dp</dimen>
 
@@ -11,9 +10,24 @@
     <dimen name="rv_item_decorator_16">16dp</dimen>
     <dimen name="rv_item_decorator_12">12dp</dimen>
     <dimen name="rv_item_decorator_8">8dp</dimen>
+    <dimen name="rv_item_decorator_4">4dp</dimen>
 
+    <dimen name="rv_item_decorator_minus_1">-1dp</dimen>
+
+    <dimen name="customBtnPaddingStart">80dp</dimen>
+    <dimen name="customBtnPaddingEnd">78dp</dimen>
+
+    <dimen name="ac_place_default_margin">20dp</dimen>
+    <dimen name="toolbar_image_height">220dp</dimen>
+    <dimen name="toolbar_extra_space">40dp</dimen>
+    <dimen name="toolbarHeight">56dp</dimen>
+    <dimen name="statusMargin">32dp</dimen>
+    <dimen name="backArrowSize">28dp</dimen>
+    <dimen name="backArrowMarginStart">20dp</dimen>
 
     <dimen name="value_128dp">128dp</dimen>
+    <dimen name="value_32dp">32dp</dimen>
+    <dimen name="value_28dp">28dp</dimen>
     <dimen name="value_24dp">24dp</dimen>
     <dimen name="value_16dp">16dp</dimen>
     <dimen name="value_12dp">12dp</dimen>

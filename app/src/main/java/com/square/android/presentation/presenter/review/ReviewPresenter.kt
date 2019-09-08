@@ -1,12 +1,7 @@
 package com.square.android.presentation.presenter.review
 
 import com.arellomobile.mvp.InjectViewState
-import com.square.android.R
-import com.square.android.SCREENS
-import com.square.android.data.pojo.CREDITS_TO_SOCIAL
-import com.square.android.data.pojo.Offer
-import com.square.android.data.pojo.ReviewInfo
-import com.square.android.data.pojo.TYPE_PICTURE
+import com.square.android.data.pojo.*
 import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
@@ -18,6 +13,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
 
+class ActionExtras(var index: Int, var id: String = "", var photo: ByteArray? = null, var type: String = "")
+
 @InjectViewState
 class ReviewPresenter(private val offerId: Long,
                       private val redemptionId: Long) : BasePresenter<ReviewView>() {
@@ -28,9 +25,10 @@ class ReviewPresenter(private val offerId: Long,
 
     private var data: Offer? = null
 
-    val reviewInfo = ReviewInfo()
+    private var actions: List<Offer.Action> = listOf()
+    var subActions: List<Offer.Action> = listOf()
 
-    private var currentPosition: Int? = null
+    private val filledActions: MutableList<ActionExtras> = mutableListOf()
 
     init {
         bus.register(this)
@@ -40,7 +38,10 @@ class ReviewPresenter(private val offerId: Long,
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSendPictureEvent(event: SendPictureEvent) {
-        lastStageReached(event.data.index, event.data.type)
+
+        //TODO send action data and add action to  filledActions
+//        addReview(event.data.index, event.data.photo)
+//        viewState.showButtons()
     }
 
     private fun loadData() = launch {
@@ -48,78 +49,54 @@ class ReviewPresenter(private val offerId: Long,
 
         data = interactor.getOffer(offerId).await()
 
-        val placeId = data!!.place.id
+        actions = data!!.actions
+        subActions = data!!.subActions
 
-        val feedback = repository.getFeedbackContent(placeId).await()
+        for(subAction in subActions){
+            if(subAction.attempts >= subAction.maxAttempts) subAction.enabled = false
+        }
 
-        reviewInfo.feedback = feedback.message
-
-        viewState.initReviewTypes()
+        for(action in actions){
+            if(action.type != TYPE_PICTURE){
+                if(action.attempts >= action.maxAttempts) action.enabled = false
+            } else{
+                var disabledCount = 0
+                for(subAction in subActions){
+                    if(!subAction.enabled) disabledCount++
+                }
+                if(disabledCount == subActions.size) action.enabled = false
+            }
+        }
 
         viewState.hideProgress()
-        viewState.showData(data!!, reviewInfo.feedback)
+        viewState.showData(data!!, actions)
     }
 
-    fun itemClicked(type: String, index: Int) {
-        val coins = data!!.credits[type] ?: 0
-
-        reviewInfo.postType = type
-
-        if(reviewInfo.postType == TYPE_PICTURE){
-
-            router.navigateTo(SCREENS.SEND_PICTURE, index)
-
+    fun itemClicked(index: Int) {
+        if(index in filledActions.map { it.index }){
+            //TODO show dialog if user is sure to delete this action. If yes - delete this action from filledActions and fire adapter.changeSelection(index)
+            //TODO then check if filledActions is empty, if is empty - viewState.hideButtons()
         } else{
-            viewState.showDialog(type, coins, reviewInfo.feedback)
+            // viewState.showDialog(type, coins, index)
         }
-    }
-
-    fun lastStageReached(index: Int, type: Int? = null) {
-        currentPosition = index
-
-        createPost(type)
-    }
-
-    private fun createPost(type: Int? = null) = launch {
-
-        type?.let {
-            //TODO new addReview for sendPicture?
-
-        } ?: run {
-            interactor.addReview(reviewInfo, offerId).await()
-        }
-
-        viewState.disableItem(currentPosition!!)
-        viewState.showButtons()
-
-        currentPosition = null
+//        reviewInfo.postType = type
     }
 
     fun submitClicked() = launch {
-        viewState.showMessage(R.string.claim_progress)
+        viewState.showLoadingDialog()
 
-        interactor.claimRedemption(redemptionId, offerId).await()
+      //TODO for every action in filledActions
+//        interactor.addReview(ReviewInfo(), offerId, redemptionId, action.photo, action.type or action.id ? ).await()
 
-        sendRedemptionsUpdatedEvent()
-        sendBadgeEvent()
+
+//        interactor.claimRedemption(redemptionId, offerId).await()
+//
+//        sendRedemptionsUpdatedEvent()
+//        sendBadgeEvent()
+
+        viewState.hideLoadingDialog()
 
         viewState.showCongratulations()
-    }
-
-    fun ratingUpdated(rating: Int) {
-        reviewInfo.stars = rating
-    }
-
-    fun copyClicked() {
-        viewState.copyFeedbackToClipboard(reviewInfo.feedback)
-    }
-
-    fun openLinkClicked(type: String) {
-        val socialType = CREDITS_TO_SOCIAL[type] ?: return
-
-        val link = data!!.place.socials[socialType] ?: return
-
-        viewState.openLink(link)
     }
 
     private fun sendBadgeEvent() {

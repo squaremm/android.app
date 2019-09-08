@@ -1,11 +1,11 @@
 package com.square.android.data.pojo
 
 import android.os.Parcelable
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonClass(generateAdapter = true)
 class CampaignBooking(
         var title: String? = null,
         var campaignId: Long = 0,

@@ -606,6 +606,37 @@
                             tools:text="one Instagram post" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/cvTaskPhotoLl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            style="@style/Models16Text"
+                            android:textColor="@color/nice_pink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/photos" />
+
+                        <TextView
+                            style="@style/Models16Text"
+                            android:layout_marginStart="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/make_at_least" />
+
+                        <TextView
+                            android:id="@+id/cvTaskPhotos"
+                            style="@style/Models16BoldText"
+                            android:layout_marginStart="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="one Instagram post" />
+                    </LinearLayout>
+
                     <View
                         android:layout_width="216dp"
                         android:layout_height="1dp"

@@ -5,22 +5,40 @@ import android.text.TextUtils
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.SCREENS
+import com.square.android.data.pojo.City
+import com.square.android.data.pojo.FilterTimeframe
 import com.square.android.data.pojo.Place
+import com.square.android.data.pojo.PlaceData
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.places.PlacesView
 import com.square.android.utils.AnalyticsEvent
 import com.square.android.utils.AnalyticsEvents
 import com.square.android.utils.AnalyticsManager
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import java.lang.Exception
+import java.util.*
 
 @InjectViewState
 class PlacesPresenter : BasePresenter<PlacesView>() {
 
+    var filteringMode = 1
+
+    var actualDataLoaded = true
+
+    private var selectedDayPosition: Int? = null
+
     var types: MutableList<String> = mutableListOf()
-    var filteredTypes: MutableList<String> = mutableListOf()
+
+    var days: MutableList<String> = mutableListOf()
+    var actualDates: MutableList<String> = mutableListOf()
+
+    var timeframes: MutableList<FilterTimeframe> = mutableListOf()
+
+    var cities: List<City>? = null
+
+    var selectedCity: City? = null
+
+    var allFilters: MutableList<String> = mutableListOf()
+    var allSelected: MutableList<String> = mutableListOf()
 
     private var locationPoint: LatLng? = null
 
@@ -34,31 +52,80 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
     var initialized = false
 
+    var locationInitialized = false
+
     init {
         loadData()
     }
 
     fun locationGotten(lastLocation: Location?) {
         lastLocation?.let {
-            locationPoint = LatLng(it.latitude, it.longitude)
+            if(!locationInitialized){
+                locationInitialized = true
 
-            if (data != null) {
-                updateDistances()
+                locationPoint = LatLng(it.latitude, it.longitude)
+
+                if(actualDataLoaded){
+                    updateDistances()
+                }
             }
         }
     }
 
     fun filterClicked(position: Int) {
         try{
-            val contains = filteredTypes.contains(types[position])
+            val isTimeframe = timeframes.firstOrNull{it.name == allFilters[position]} != null
 
-            if(contains){
-                filteredTypes.remove(types[position])
+            if(isTimeframe){
+                if(allFilters[position] in allSelected){
+                    allSelected.remove(allFilters[position])
+                } else{
+                    allSelected.add(allFilters[position])
+                }
+
+                viewState.updateFilters(allFilters, allSelected, false)
+
             } else{
-                filteredTypes.add(types[position])
-            }
+                val contains = allSelected.contains(allFilters[position])
+                val currentTimeframes = timeframes.filter { it.type == allFilters[position] }.map { it.name }
 
-            viewState.setSelectedFilterItem(position, contains)
+                if(contains){
+                    allSelected.remove(allFilters[position])
+                    if(currentTimeframes.isNotEmpty()){
+
+                        val timeframesToRemove: MutableList<String> = mutableListOf()
+
+                        val allTypesWithThoseTimeframes: MutableList<List<String>> = mutableListOf()
+
+                        for(currentTimeframe in currentTimeframes){
+                            val list = timeframes.filter { it.name == currentTimeframe}.map{ it.type }
+
+                            allTypesWithThoseTimeframes.add(list)
+                        }
+
+                        for(x in 0 until currentTimeframes.size){
+                            if(allSelected.firstOrNull{it in allTypesWithThoseTimeframes[x]} == null){
+                                timeframesToRemove.add(currentTimeframes[x])
+                            }
+                        }
+
+                        for(timeframe in timeframesToRemove){
+                            allFilters.remove(timeframe)
+                            allSelected.remove(timeframe)
+                        }
+                    }
+                } else{
+                    allSelected.add(allFilters[position])
+
+                    for(timeframe in currentTimeframes){
+                        if(!allFilters.contains(timeframe)){
+                            allFilters.add(timeframe)
+                        }
+                    }
+                }
+
+                viewState.updateFilters(allFilters, allSelected, true)
+            }
 
             checkFilters()
 
@@ -67,53 +134,125 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         }
     }
 
-    fun refreshFilterViews(){
-        for (type in filteredTypes) {
-            viewState.setSelectedFilterItem(types.indexOf(type), false)
-        }
-    }
+    fun citySelected(c: City) = launch {
+        viewState.changeCityName(c.name)
 
-    fun searchTextChanged(text: CharSequence?){
-        searchText = text
+        selectedCity = c
+
+        data = repository.getPlacesByFilters(PlaceData().apply { city = selectedCity!!.name }).await()
+
+        distancesFilled = false
 
         checkFilters()
     }
 
-    private fun checkFilters(){
-        if(filteredTypes.isEmpty() && TextUtils.isEmpty(searchText)){
+    fun dayClicked(position: Int){
+        selectedDayPosition = position
+        viewState.setSelectedDayItem(selectedDayPosition!!)
+        checkFilters()
+    }
 
-            if(distancesFilled){
-                data?.let { data = data!!.sortedBy { it.distance } }
+    fun searchTextChanged(text: CharSequence?) {
+        searchText = text
+        checkFilters()
+    }
+
+    //mode: 1 - search, 2 - date, 3 - types
+    fun changeFiltering(mode: Int) {
+        filteringMode = mode
+
+        checkFilters()
+    }
+
+    fun clearFilters() {
+        viewState.hideClear()
+
+        allSelected.clear()
+        allFilters.removeAll { it in timeframes.map { it.name } }
+
+        viewState.updateFilters(allFilters, allSelected, true)
+
+        setActualData()
+    }
+
+    //filteringMode: 1 - search, 2 - date, 3 - types
+    private fun checkFilters() = launch {
+        when(filteringMode){
+            1 -> {
+                if (TextUtils.isEmpty(searchText)) {
+                    setActualData()
+                } else {
+                    if(data != null){
+                        actualDataLoaded = false
+
+                        filteredData = data!!.filter { it.name.contains(searchText.toString(), true) && it.city == selectedCity?.name }
+
+                        fillDistances(false)
+                        filteredData?.let { viewState.updatePlaces(it) }
+                    } else {}
+                }
             }
 
-            data?.let {viewState.updatePlaces(it) }
+            2 -> {
+                selectedDayPosition?.let {
+                    actualDataLoaded = false
 
-        } else{
-            data?.let {
-                filteredData = data!!.filter {
-                    if(filteredTypes.isNotEmpty() && TextUtils.isEmpty(searchText)){
-                        it.type in filteredTypes
-                    } else if(filteredTypes.isEmpty() && !TextUtils.isEmpty(searchText) ){
-                        it.name.contains(searchText.toString(), true)
-                    } else{
-                        it.type in filteredTypes && it.name.contains(searchText.toString(), true)
+                    var mDate = actualDates[selectedDayPosition!!]
+
+                    filteredData = repository.getPlacesByFilters(PlaceData().apply {
+                        date  = mDate
+                        selectedCity?.let { city = selectedCity!!.name } }).await()
+
+                    fillDistances(false)
+                    filteredData?.let { viewState.updatePlaces(it) }
+                } ?: run {
+                    setActualData()
+                }
+            }
+
+            3 -> {
+                if(data != null){
+                    if(allSelected.isEmpty()){
+                        viewState.hideClear()
+                        setActualData()
+                    } else {
+                        actualDataLoaded = false
+
+                        val selectedTimeframes = timeframes.filter { it.name in allSelected }
+                        val selectedTypes = allSelected - selectedTimeframes.map { it.name }
+
+                        filteredData = if(selectedTimeframes.isEmpty()){
+                            data!!.filter { it.type in selectedTypes && it.city == selectedCity?.name }
+                        } else{
+                            //TODO probably should be done with API call(no call allowing list of timeframes and types for now)
+                            data!!.filter {it.type in selectedTimeframes.map {t -> t.type } && it.city == selectedCity?.name}
+                        }
+
+                        fillDistances(false)
+                        filteredData?.let { viewState.updatePlaces(it) }
+
+                        viewState.showClear()
                     }
-                }
 
-                if(distancesFilled){
-                    filteredData?.let { filteredData = filteredData!!.sortedBy { it.distance } }
-                }
-
-                filteredData?.let { viewState.updatePlaces(it) }
+                } else {}
             }
+
+            else -> {}
         }
+    }
+
+    fun setActualData(){
+        actualDataLoaded = true
+        fillDistances(true)
+        data?.let { viewState.updatePlaces(it) }
     }
 
     private fun updateDistances() {
         launch {
-            fillDistances().await()
-
-            viewState.updateDistances()
+            if(locationPoint != null){
+                fillDistances(true)
+                viewState.updateDistances()
+            }
         }
     }
 
@@ -121,73 +260,88 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         launch {
             viewState.showProgress()
 
-            data = repository.getPlaces().await()
+            cities = repository.getCities().await()
 
-            if (locationPoint != null) fillDistances().await()
+            selectedCity = cities!![0]
+            viewState.changeCityName(selectedCity!!.name)
 
-            data?.let {
-                for(place in it){
-                    if(!types.contains(place.type)){
-                        types.add(place.type)
-                    }
-                }
-            }
+            data = repository.getPlacesByFilters(PlaceData().apply {
+                selectedCity?.let {
+                    city = selectedCity!!.name
+                } }).await()
 
-            if(distancesFilled){
-                data?.let { data = data!!.sortedBy { it.distance } }
+            updateDistances()
+
+            timeframes = repository.getTimeFrames().await().toMutableList()
+            types = repository.getPlaceTypes().await().map{ it.type }.filterNotNull().toMutableList()
+
+            allFilters = types
+
+            var calendar = Calendar.getInstance()
+
+            for (x in 0 until 7) {
+                days.add(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()).substring(0, 1).toUpperCase())
+                actualDates.add(calendar.get(Calendar.DAY_OF_MONTH).toString()+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.YEAR))
+
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
             }
 
             viewState.hideProgress()
-            viewState.showPlaces(data!!, types)
+            viewState.showData(data!!, allFilters, allSelected, days)
 
             initialized = true
         }
     }
 
-    fun itemClicked(position: Int) {
-        val id: Long
+    fun itemClicked(place: Place) {
+        val id = place.id
 
-        if(filteredTypes.isEmpty()){
-            id = data!![position].id
-
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = data!![position].name }, hashMapOf("id" to id.toString())), repository)
+        if(allSelected.isEmpty()){
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
             AnalyticsManager.logEvent(AnalyticsEvent(
-                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = data!![position].name },
+                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = place.name },
                     hashMapOf("id" to id.toString())),
                     repository)
 
         } else{
-            id = filteredData!![position].id
-
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = filteredData!![position].name }, hashMapOf("id" to id.toString())), repository)
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
             AnalyticsManager.logEvent(AnalyticsEvent(
-                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = filteredData!![position].name },
+                    //TODO change to RESTAURANT_OPENED_USING_FILTERS ?
+                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = place.name },
                     hashMapOf("id" to id.toString())),
                     repository)
         }
 
-        router.navigateTo(SCREENS.PLACE_DETAIL, id)
+        router.navigateTo(SCREENS.PLACE, id)
     }
 
-    private fun fillDistances(): Deferred<Unit> = GlobalScope.async {
+    private fun fillDistances(actualData: Boolean){
+        locationPoint?.let {
+            if(actualData) {
+                data?.let {
+                    if(!distancesFilled){
+                        distancesFilled = true
 
-        if(!distancesFilled){
-            distancesFilled = true
+                        data!!.forEach { place ->
+                            val placePoint = place.location.latLng()
 
-            data?.forEach { place ->
-                val placePoint = place.location.latLng()
+                            val distance = placePoint.distanceTo(locationPoint!!).toInt()
 
-                val distance = placePoint.distanceTo(locationPoint!!).toInt()
+                            place.distance = distance
+                        }
+                        data = data!!.sortedBy { it.distance }
+                    }
+                }
+            } else {
+                filteredData?.forEach { place ->
+                    val placePoint = place.location.latLng()
 
-                place.distance = distance
-            }
+                    val distance = placePoint.distanceTo(locationPoint!!).toInt()
 
-            filteredData?.forEach { place ->
-                val placePoint = place.location.latLng()
+                    place.distance = distance
+                }
 
-                val distance = placePoint.distanceTo(locationPoint!!).toInt()
-
-                place.distance = distance
+                filteredData?.let { filteredData = filteredData!!.sortedBy { it.distance } }
             }
         }
     }

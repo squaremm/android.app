@@ -2,51 +2,44 @@ package com.square.android.ui.fragment.review
 
 import android.view.View
 import com.square.android.R
-import com.square.android.data.pojo.ReviewType
+import com.square.android.data.pojo.*
 import com.square.android.extensions.loadImageInside
 import com.square.android.extensions.makeBlackWhite
 import com.square.android.extensions.removeFilters
 import com.square.android.ui.base.BaseAdapter
-import kotlinx.android.synthetic.main.review_card.*
+import kotlinx.android.synthetic.main.item_review.*
 
-private const val COINS_DEFAULT = 0
+class ReviewAdapter(data: List<Offer.Action>, private val handler: Handler?) :
+        BaseAdapter<Offer.Action, ReviewAdapter.ReviewHolder>(data) {
 
-class ReviewAdapter(data: List<ReviewType>,
-                    private val credits: Map<String, Int>,
-                    private val handler: Handler?) :
-        BaseAdapter<ReviewType, ReviewAdapter.ReviewHolder>(data) {
+    var selectedItems: MutableList<Int> = mutableListOf()
 
-    private var selectedItemPosition: Int? = null
-
-    override fun getLayoutId(viewType: Int) = R.layout.review_card
+    override fun getLayoutId(viewType: Int) = R.layout.item_review
 
     override fun instantiateHolder(view: View): ReviewHolder {
         return ReviewHolder(view, handler)
     }
 
-    fun disableReviewType(position: Int) {
+    //TODO fire when action attempts >= maxAttempts
+    //TODO in ClaimedActions, actions will be sent individually, not in a list
+    // for ClaimedActions
+    fun disableAction(position: Int) {
         data[position].enabled = false
 
         notifyItemChanged(position, ReviewStatePayload)
     }
 
-    fun setSelectedItem(position: Int?) {
-        if (position == null) return
-
-        val previousPosition = selectedItemPosition
-        selectedItemPosition = position
-
-        previousPosition?.let { notifyItemChanged(it, SelectedPayload) }
+    //TODO fire when item added to filled actions to send / deleted from filled actions to send
+    //TODO in ReviewFragment, actions will be sent in a list, all at once. Then fragment will be closed
+    // for ReviewFragment
+    fun changeSelection(position: Int) {
+        if(position in selectedItems){
+            selectedItems.remove(position)
+        } else{
+            selectedItems.add(position)
+        }
 
         notifyItemChanged(position, SelectedPayload)
-    }
-
-    fun clearSelection() {
-        val previousPosition = selectedItemPosition
-
-        selectedItemPosition = null
-
-        previousPosition?.let { notifyItemChanged(it, SelectedPayload) }
     }
 
     @Suppress("ForEachParameterNotUsed")
@@ -56,36 +49,46 @@ class ReviewAdapter(data: List<ReviewType>,
             return
         }
 
-        val item = data[position]
-
         payloads.forEach {
             when (it) {
-                is ReviewStatePayload -> holder.bindEnableState(item)
-                is SelectedPayload -> holder.bindSelected(selectedItemPosition)
+                is ReviewStatePayload -> holder.bindEnableState(data[position])
+                is SelectedPayload -> holder.bindSelected(selectedItems)
             }
         }
     }
 
     override fun bindHolder(holder: ReviewHolder, position: Int) {
-        val reviewType = data[position]
-        val coins = credits[reviewType.key] ?: COINS_DEFAULT
-
-        holder.bind(reviewType, coins)
+        holder.bind(data[position])
     }
 
     class ReviewHolder(view: View,
-                       private val handler: Handler?) : BaseAdapter.BaseHolder<ReviewType>(view) {
-        override fun bind(item: ReviewType, vararg extras: Any?) {
-            val coins = extras[0] as Int
+                       private val handler: Handler?) : BaseAdapter.BaseHolder<Offer.Action>(view) {
+        override fun bind(item: Offer.Action, vararg extras: Any?) {
 
-            reviewItemLogo.loadImageInside(item.imageRes)
-            reviewItemTitle.setText(item.titleRes)
-            reviewItemCoins.text = "+$coins"
+            var d = when(item.type){
+                //TODO there will be more types - facebook review, facebook story etc
+                TYPE_FACEBOOK_POST -> R.drawable.facebook_logo
+                TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY -> R.drawable.instagram_logo
+                TYPE_TRIP_ADVISOR -> R.drawable.trip_advisor_logo
+                TYPE_GOOGLE_PLACES -> R.drawable.google_logo
+                TYPE_YELP -> R.drawable.yelp_logo
+
+                //TODO update this drawable
+                TYPE_PICTURE -> R.drawable.add_photo
+                else -> null
+            }
+
+            d?.let {
+                reviewItemLogo.loadImageInside(it)
+            }
+
+            reviewItemTitle.text = item.displayName
+            reviewItemCoins.text = "+${item.credits}"
 
             bindEnableState(item)
         }
 
-        fun bindEnableState(item: ReviewType) {
+        fun bindEnableState(item: Offer.Action) {
             if (item.enabled) {
                 bindEnabled()
 
@@ -100,25 +103,21 @@ class ReviewAdapter(data: List<ReviewType>,
         private fun bindEnabled() {
             reviewItemLogo.removeFilters()
 
-//            reviewItemCoins.setTextColorRes(R.color.colorPrimary)
-//            reviewItemTitle.setTextColorRes(R.color.primary_text)
-//            reviewItemDescription.setTextColorRes(R.color.secondary_text)
+            reviewItemTitle.isChecked = true
+            reviewItemCoins.isChecked = true
+            reviewItemCreditsLabel.isChecked = true
         }
 
         private fun bindDisabled() {
             reviewItemLogo.makeBlackWhite()
 
-            val textColor = R.color.disabled_text_color
-
-////            reviewItemDescription.setTextColorRes(textColor)
-//            reviewItemTitle.setTextColorRes(textColor)
-//            reviewItemCoins.setTextColorRes(textColor)
+            reviewItemTitle.isChecked = false
+            reviewItemCoins.isChecked = false
+            reviewItemCreditsLabel.isChecked = false
         }
 
-        fun bindSelected(selectedPosition: Int?) {
-            val isActive = selectedPosition == adapterPosition
-
-            reviewContainer.isActivated = isActive
+        fun bindSelected(selectedItems: MutableList<Int>) {
+            reviewContainer.isActivated = selectedItems.contains(adapterPosition)
         }
     }
 

@@ -114,22 +114,23 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
             return
         }
 
-        if (lastLocation == null) {
-            viewState.showMessage(R.string.cannot_obtain_location)
-            return
-        }
-
-        val distance = lastLocation!!.distanceTo(item.place.location)
-
-        if (distance > MAXIMAL_DISTANCE) {
-            viewState.showMessage(R.string.too_far_from_book)
-            return
-        }
+        //TODO IMPORTANT - uncomment later
+//        if (lastLocation == null) {
+//            viewState.showMessage(R.string.cannot_obtain_location)
+//            return
+//        }
+//
+//        val distance = lastLocation!!.distanceTo(item.place.location)
+//
+//        if (distance > MAXIMAL_DISTANCE) {
+//            viewState.showMessage(R.string.too_far_from_book)
+//            return
+//        }
 
         router.navigateTo(SCREENS.SELECT_OFFER, item.id)
 
-        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.OFFER_SELECT.apply { venueName = item.place.name },
-                hashMapOf("id" to item.id.toString())), repository)
+//        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.OFFER_SELECT.apply { venueName = item.place.name },
+//                hashMapOf("id" to item.id.toString())), repository)
     }
 
     fun claimedInfoClicked(position: Int) {

@@ -10,12 +10,17 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.square.android.Network.BASE_API_URL
 import com.square.android.Network.GOOGLE_BILLING_API_URL
 import com.square.android.data.network.*
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.greenrobot.eventbus.EventBus
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 private const val MAX_TIMEOUT = 15L
@@ -54,9 +59,16 @@ private fun createClientBase(interceptor: AuthInterceptor) = OkHttpClient.Builde
         .writeTimeout(MAX_TIMEOUT, TimeUnit.SECONDS)
         .build()
 
+private fun createMoshi() = Moshi.Builder()
+        .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
+        .add(IgnoreStringForArrays())
+        .add(IgnoreObjectIfIncorrect())
+        .add(KotlinJsonAdapterFactory())
+        .build()
+
 private fun createRetrofit(okHttp: OkHttpClient, baseUrl: String) = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(createMoshi()).asLenient())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttp)
         .build()

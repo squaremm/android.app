@@ -10,6 +10,7 @@ import org.json.JSONObject
 enum class AnalyticsEvents(var venueName: String? = null) {
     VENUE_CLICKED,
     BOOKING_MADE,
+    PARTY_BOOKING_MADE,
     RESTAURANT_OPENED_FROM_MAP,
     RESTAURANT_OPENED_FROM_LIST,
     BOOKING_OPENED,

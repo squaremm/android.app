@@ -3,7 +3,6 @@ package com.square.android.presentation.view.offersList
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.square.android.data.pojo.OfferInfo
-import com.square.android.data.pojo.PlaceInfo
 import com.square.android.data.pojo.RedemptionFull
 import com.square.android.presentation.view.ProgressView
 
@@ -12,5 +11,5 @@ interface OffersListView : ProgressView {
     fun setSelectedItem(position: Int)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showOfferDialog(offer: OfferInfo, place: PlaceInfo)
+    fun showOfferDialog(offer: OfferInfo)
 }

@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.square.android.utils.widget.CheckableLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemFilterContainer"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:minWidth="128dp"
-    android:background="@drawable/filter_background"
-    android:elevation="1dp"
-    android:stateListAnimator="@animator/image_button_anim"
-    android:padding="12dp" >
+    android:layout_height="43dp"
+    android:padding="12dp"
+    android:minWidth="88dp"
+    android:background="@drawable/interval_background" >
 
-    <ImageView
-        android:id="@+id/itemFilterIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:tint="@color/nice_pink"
-        tools:src="@drawable/ic_pin" />
-
-    <TextView
-        android:id="@+id/itemFilterText"
-        style="@style/Models18Text"
-        android:layout_width="wrap_content"
+    <CheckedTextView
+        android:id="@+id/itemFilterName"
+        style="@style/Models16BoldText"
+        android:textColor="@color/interval_time_color"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Hairdresser"
+        android:gravity="center_horizontal"
         android:includeFontPadding="false"
-        android:layout_marginTop="12dp" />
+        android:textAlignment="gravity"
+        tools:text="Gym" />
 
-</LinearLayout>
+</com.square.android.utils.widget.CheckableLinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/requirementContainer"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/requirementImage"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/r_hanger" />
+
+    <TextView
+        android:id="@+id/requirementType"
+        style="@style/Models14BoldText"
+        android:layout_width="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/requirementImage"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Dress Code:" />
+
+    <TextView
+        android:id="@+id/requirementValue"
+        style="@style/Models14Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/requirementImage"
+        app:layout_constraintTop_toBottomOf="@+id/requirementType"
+        tools:text="Elegant" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

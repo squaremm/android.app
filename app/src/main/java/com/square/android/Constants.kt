@@ -20,7 +20,8 @@ object SCREENS {
     const val PLACES = "PLACES"
     const val PROFILE = "PROFILE"
 
-    const val PLACE_DETAIL = "PLACE_DETAIL"
+    const val PLACE= "PLACE"
+
     const val EDIT_PROFILE = "EDIT_PROFILE"
     const val GALLERY = "GALLERY"
 
@@ -43,6 +44,7 @@ object SCREENS {
     const val CAMPAIGN_FINISHED = "CAMPAIGN_FINISHED"
 
     const val NOT_APPROVED = "NOT_APPROVED"
+    const val WINNER = "WINNER"
     const val UPLOAD_PICS = "UPLOAD_PICS"
     const val ADD_PHOTO = "ADD_PHOTO"
     const val APPROVAL = "APPROVAL"
@@ -54,10 +56,17 @@ object SCREENS {
     const val PASS_ELIGIBLE = "PASS_ELIGIBLE"
 
     const val SEND_PICTURE = "SEND_PICTURE"
+    const val UPLOAD_SCREENSHOT = "UPLOAD_SCREENSHOT"
+
     const val SEND_PICTURE_CHOOSE = "SEND_PICTURE_CHOOSE"
     const val SEND_PICTURE_UPLOAD = "SEND_PICTURE_UPLOAD"
 
     const val SCAN_QR = "SCAN_QR"
+
+    const val PARTY = "PARTY"
+
+    const val PARTY_DETAILS = "PARTY_DETAILS"
+    const val PARTY_PLACE = "PARTY_PLACE"
 
 }
 
@@ -72,6 +81,10 @@ object Network {
     const val OAUTH_API_URL = "https://accounts.google.com/o/oauth2/"
 
     const val OAUTH_CLIENT_ID = "221995887985-g17rh0796sh4g1nvt7p8oinok5l83tri.apps.googleusercontent.com"
+
+
+
+    const val GOOGLE_PLACES_KEY = "AIzaSyAfoqnBahxyDd-5la1JpPCS2qKBicKg7L0"
 }
 
 object SOCIAL {

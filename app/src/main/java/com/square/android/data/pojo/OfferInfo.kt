@@ -1,22 +1,26 @@
 package com.square.android.data.pojo;
 
 import android.os.Parcelable
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonIgnoreType
+import com.square.android.data.network.IgnoreStringForArrays
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonClass(generateAdapter = true)
 class OfferInfo(
-        @field:JsonProperty("_id")
+        @Json(name="_id")
         var id: Long = 0,
         var closed: Boolean = false,
-        @field:JsonProperty("isAvailable")
+        @Json(name="isAvailable")
         var isAvailable: Boolean = false,
-        var composition: List<String> = listOf(),
-        var credits: Map<String, Int> = mapOf(),
+        @IgnoreStringForArrays.IgnoreJsonArrayError
+        var composition: List<String>? = listOf(),
+//        var credits: Map<String, Int> = mapOf(),
+//        var actions: List<Action> = listOf(),
         var name: String = "",
-        var photo: String = "",
+        var photo: String? = "",
         var mainImage: String? = "",
         var place: Int = 0,
         var price: Int = 0,
@@ -24,7 +28,7 @@ class OfferInfo(
         var timeframes: List<String>? = null
 ): Parcelable {
     fun compositionAsList() = buildString {
-        composition.forEachIndexed { index, component ->
+        composition?.forEachIndexed { index, component ->
             append("${index + 1}. $component\n")
         }
     }
@@ -33,7 +37,7 @@ class OfferInfo(
             ?.filter(String::isNotEmpty)
             ?.joinToString(separator = "\n")
 
-    fun compositionAsString() = composition.joinToString(separator = ",")
+    fun compositionAsString() = composition?.joinToString(separator = ",")
 
-    fun compositionAsStr() = composition.joinToString(separator = "\n")
+    fun compositionAsStr() = composition?.joinToString(separator = "\n")
 }

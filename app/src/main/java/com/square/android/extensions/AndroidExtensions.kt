@@ -31,11 +31,18 @@ import com.square.android.R.color.placeholder
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import java.io.ByteArrayOutputStream
-import java.io.IOException
-
 
 private const val PREFIX_METER = "m"
 private const val PREFIX_KILOMETER = "km"
+
+
+fun ImageView.loadImageForIcon(url: String) {
+    if (URLUtil.isValidUrl(url)) {
+        Picasso.get()
+                .load(url)
+                .into(this)
+    }
+}
 
 fun ImageView.loadImage(url: String,
                         @ColorRes placeholder: Int = R.color.placeholder,
@@ -48,6 +55,13 @@ fun ImageView.loadImage(url: String,
                 .centerCrop()
                 .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
                 .placeholder(placeholder)
+                .into(this)
+    } else{
+        Picasso.get()
+                .load(R.drawable.placeholder)
+                .fit()
+                .centerCrop()
+                .transform(RoundedCornersTransformation(roundedCornersRadiusPx, 0, whichCornersToRound))
                 .into(this)
     }
 }

@@ -1,22 +1,19 @@
 package com.square.android.ui.fragment.places
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.square.android.R
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.item_filter.*
 
 class FiltersAdapter(data: List<String>,
-                  private val handler: Handler?) : BaseAdapter<String, FiltersAdapter.FilterHolder>(data) {
+                  private val handler: Handler?, private var activatedItems: MutableList<String>) : BaseAdapter<String, FiltersAdapter.FilterHolder>(data) {
 
     override fun getLayoutId(viewType: Int) = R.layout.item_filter
 
     override fun getItemCount() = data.size
 
-    private var activatedItems: MutableList<Int> = mutableListOf()
-
     override fun bindHolder(holder: FilterHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], activatedItems)
     }
 
     @Suppress("ForEachParameterNotUsed")
@@ -27,54 +24,42 @@ class FiltersAdapter(data: List<String>,
         }
 
         payloads.filter { it is FiltersAdapter.SelectedPayload }
-                .forEach { holder.bindSelected() }
+                .forEach { holder.bindSelected(data[position], activatedItems) }
     }
 
-    fun setSelectedItem(position: Int?, contains: Boolean) {
+    fun updateData(activated: MutableList<String>){
+        activatedItems = activated
 
-        if (position == null) return
-
-        if(contains){
-            activatedItems.remove(position)
-        } else{
-            if(!activatedItems.contains(position)){
-                activatedItems.add(position)
-            }
-        }
-
-        notifyItemChanged(position, SelectedPayload)
+        notifyItemRangeChanged(0, data.size, SelectedPayload)
     }
 
-    override fun instantiateHolder(view: View): FilterHolder = FilterHolder(view, handler, activatedItems)
+    override fun instantiateHolder(view: View): FilterHolder = FilterHolder(view, handler)
 
     class FilterHolder(containerView: View,
-                    handler: Handler?, val activatedItems: MutableList<Int> ) : BaseHolder<String>(containerView) {
+                    handler: Handler?) : BaseHolder<String>(containerView) {
 
         init {
             containerView.setOnClickListener { handler?.filterClicked(adapterPosition) }
         }
 
         override fun bind(item: String, vararg extras: Any?) {
-            itemFilterText.text = item
+            val activatedItems = if(extras[0] == null) null else extras[0] as MutableList<String>
 
-            bindSelected()
+            itemFilterName.text = item
 
-            //TODO icon for every place type
-//            when(item){
-//
-//            }
-
-            //TODO delete when icons made for every place type
-            itemFilterIcon.setImageDrawable(ContextCompat.getDrawable(itemFilterIcon.context, R.drawable.ic_marker_pink))
+            bindSelected(item, activatedItems)
         }
 
-        fun bindSelected() {
-            itemFilterContainer.isActivated = activatedItems.contains(adapterPosition)
+        fun bindSelected(item: String, activatedItems: MutableList<String>?) {
+            activatedItems?.let {
+                itemFilterContainer.isChecked = it.contains(item)
+                itemFilterName.isChecked = it.contains(item)
+            }
         }
     }
 
     interface Handler {
-        fun filterClicked(position: Int)
+        fun filterClicked(place: Int)
     }
 
     object SelectedPayload

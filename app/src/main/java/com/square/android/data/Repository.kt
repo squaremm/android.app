@@ -8,6 +8,13 @@ import com.square.android.ui.base.tutorial.TutorialService
 import kotlinx.coroutines.Deferred
 
 interface Repository {
+
+    fun getCities(): Deferred<List<City>>
+
+    fun getTimeFrames(): Deferred<List<FilterTimeframe>>
+
+    fun getPlacesByFilters(placeData: PlaceData): Deferred<List<Place>>
+
     fun shouldDisplayIntro(): Boolean
     fun introDisplayed()
 
@@ -29,6 +36,10 @@ interface Repository {
     fun getCurrentUser(): Deferred<Profile.User>
 
     fun getPlaces(): Deferred<List<Place>>
+
+    fun getPlaceTypes(): Deferred<List<PlaceType>>
+
+    fun getPlaceExtras(): Deferred<List<PlaceExtra>>
 
     fun setUserId(id: Long)
 
@@ -58,7 +69,7 @@ interface Repository {
 
     fun claimOffer(offerId: Long) : MessageResponse
 
-    fun addReview(offerId: Long, info: ReviewInfo) : MessageResponse
+    fun addReview(offerId: Long, bookingId: Long, info: ReviewInfo, imageBytes: ByteArray?) : MessageResponse
 
     fun getPlaceOffers(placeId: Long) : Deferred<List<OfferInfo>>
 
@@ -72,7 +83,7 @@ interface Repository {
     fun getIntervals(placeId: Long, date: String): Deferred<IntervalsWrapper>
     fun getIntervalSlots(placeId: Long, date: String): Deferred<List<Place.Interval>>
 
-    fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>>
+//    fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>>
 
     fun removePhoto(userId: Long, photoId: PhotoId): Deferred<MessageResponse>
     fun addPhoto(userId: Long, imageBytes: ByteArray): Deferred<Images>

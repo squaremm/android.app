@@ -21,7 +21,6 @@ import com.square.android.utils.FileUtils
 import com.square.android.utils.IMAGE_PICKER_RC
 import com.square.android.utils.PermissionsManager
 import kotlinx.android.synthetic.main.activity_gallery.*
-import kotlinx.android.synthetic.main.activity_place_detail.*
 import ru.terrakok.cicerone.Navigator
 
 const val USER_EXTRA = "GalleryActivity:USER_EXTRA"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:id="@+id/partyDinnerContainer"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/partyDinnerImg"
+        android:layout_width="164dp"
+        android:layout_height="0dp"
+        tools:src="@color/placeholder"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:background="@drawable/background_rounded_4dp"
+        android:backgroundTint="@color/nice_pink"
+        android:padding="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/partyDinnerCheckmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check_circle"
+        android:tint="@color/nice_pink"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/partyDinnerImg"
+        app:layout_constraintEnd_toEndOf="@+id/partyDinnerImg"
+        app:layout_constraintStart_toEndOf="@+id/partyDinnerImg"
+        app:layout_constraintTop_toTopOf="@+id/partyDinnerImg" />
+
+    <TextView
+        android:id="@+id/partyDinnerName"
+        style="@style/Models16BoldText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="@+id/partyDinnerImg"
+        app:layout_constraintStart_toStartOf="@+id/partyDinnerImg"
+        app:layout_constraintTop_toBottomOf="@+id/partyDinnerImg"
+        tools:text="La Perla d'Oro" />
+
+    <TextView
+        android:id="@+id/partyDinnerSpots"
+        style="@style/Models14Text"
+        android:textColor="@color/secondary_text"
+        android:layout_width="0dp"
+        android:layout_marginTop="3dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@+id/partyDinnerImg"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/partyDinnerImg"
+        app:layout_constraintTop_toBottomOf="@+id/partyDinnerName"
+        tools:text="4 spots" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

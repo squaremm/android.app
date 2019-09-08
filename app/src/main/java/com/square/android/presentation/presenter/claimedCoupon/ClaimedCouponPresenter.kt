@@ -2,10 +2,7 @@ package com.square.android.presentation.presenter.claimedCoupon
 
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.data.pojo.Offer
-import com.square.android.data.pojo.PlaceInfo
-
 import com.square.android.presentation.presenter.BasePresenter
-
 import com.square.android.presentation.view.claimedCoupon.ClaimedCouponView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -28,7 +25,7 @@ class ClaimedCouponPresenter : BasePresenter<ClaimedCouponView>() {
             val userInfo = repository.getUserInfo()
             val redemption = repository.getRedemption(event.redemptionId).await()
 
-            viewState.showData(event.offer, redemption.redemption.place, userInfo)
+            viewState.showData(event.offer, userInfo)
         }
     }
 

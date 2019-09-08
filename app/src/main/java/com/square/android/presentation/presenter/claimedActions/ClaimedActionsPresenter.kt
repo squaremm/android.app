@@ -1,12 +1,12 @@
 package com.square.android.presentation.presenter.claimedActions
 
 import com.arellomobile.mvp.InjectViewState
-import com.square.android.data.pojo.CREDITS_TO_SOCIAL
-import com.square.android.data.pojo.Offer
-import com.square.android.data.pojo.ReviewInfo
+import com.square.android.SCREENS
+import com.square.android.data.pojo.*
 import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.claimedCoupon.OfferLoadedEvent
+import com.square.android.presentation.presenter.sendPicture.SendPictureEvent
 import com.square.android.presentation.view.claimedActions.ClaimedActionsView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -28,10 +28,15 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
 
     private var data: Offer? = null
 
-    val reviewInfo = ReviewInfo()
+//    val reviewInfo = ReviewInfo()
 
     init {
         bus.register(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSendPictureEvent(event: SendPictureEvent) {
+        addReview(event.data.index, event.data.photo)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -46,59 +51,64 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
 
     private fun processData(offer: Offer) {
         launch {
-
-            val placeId = data!!.place.id
-            val feedback = repository.getFeedbackContent(placeId).await()
-            reviewInfo.feedback = feedback.message
-
             viewState.initReviewTypes()
 
             val actions = GlobalScope.async {
                 offer.posts.mapTo(HashSet(), Offer.Post::type)
             }
 
-            viewState.showData(actions.await(), offer.credits,reviewInfo.feedback, data!!.instaUser  )
+            viewState.showData(actions.await(), offer.credits)
+
+            // TODO - new?
+//            val placeId = data!!.place.id
+//            val feedback = repository.getFeedbackContent(placeId).await()
+//            reviewInfo.feedback = feedback.message
+//
+//            viewState.initReviewTypes()
+//            val act = repository.getActions(offer.id, redemptionId).await()
+//
+//            val actions = act.mapTo(HashSet(), ReviewNetType::type)
+//            val credits = hashMapOf(*act.map { it.type to it.credits }.toTypedArray())
+
+//            viewState.showData(actions, credits, reviewInfo.feedback, data!!.instaUser  )
         }
     }
 
-    private fun createPost() {
-        launch {
-            interactor.addReview(reviewInfo, offerId).await()
+    fun navigateByKey(index: Int, reviewType: String) {
 
-            viewState.disableItem(currentPosition!!)
-
-            currentPosition = null
+        when(reviewType){
+            TYPE_PICTURE -> {
+                router.navigateTo(SCREENS.SEND_PICTURE, index)
+            }
+            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY -> {
+                addReview(index)
+            }
+            else -> {
+                router.navigateTo(SCREENS.UPLOAD_SCREENSHOT, index)
+            }
         }
     }
 
-    fun lastStageReached(index: Int) {
+    private fun addReview(index: Int, photo: ByteArray? = null) = launch {
+        viewState.showLoadingDialog()
+
         currentPosition = index
 
-        createPost()
+//        interactor.addReview(reviewInfo, offerId, redemptionId, photo).await()
+
+        viewState.disableItem(currentPosition!!)
+
+        currentPosition = null
+
+        viewState.hideLoadingDialog()
     }
 
-    fun itemClicked(type: String) {
+    fun itemClicked(type: String, index: Int) {
         val coins = data!!.credits[type] ?: 0
 
-        reviewInfo.postType = type
+//        reviewInfo.postType = type
 
-        viewState.showDialog(type, coins, reviewInfo.feedback)
-    }
-
-    fun ratingUpdated(rating: Int) {
-        reviewInfo.stars = rating
-    }
-
-    fun copyClicked() {
-        viewState.copyFeedbackToClipboard(reviewInfo.feedback)
-    }
-
-    fun openLinkClicked(type: String) {
-        val socialType = CREDITS_TO_SOCIAL[type] ?: return
-
-        val link = data!!.place.socials[socialType] ?: return
-
-        viewState.openLink(link)
+        viewState.showDialog(type, coins, index)
     }
 
     override fun onDestroy() {

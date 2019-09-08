@@ -1,11 +1,11 @@
 package com.square.android.data.pojo
 
 import android.os.Parcelable
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonClass(generateAdapter = true)
 class BillingSubscription(
 
         var kind: String? = null,
@@ -53,14 +53,14 @@ class BillingSubscription(
 ): Parcelable {
 
     @Parcelize
-    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonClass(generateAdapter = true)
     class CancelSurveyResult(
             var cancelSurveyReason: Int = 0,
             var userInputCancelReason: String? = null
     ): Parcelable
 
     @Parcelize
-    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonClass(generateAdapter = true)
     class PriceChange(
             var newPrice: NewPrice,
 
@@ -74,7 +74,7 @@ class BillingSubscription(
 
     ): Parcelable{
         @Parcelize
-        @JsonIgnoreProperties(ignoreUnknown = true)
+        @JsonClass(generateAdapter = true)
         class NewPrice(
                 var priceMicros: String? = null,
                 var currency: String? = null

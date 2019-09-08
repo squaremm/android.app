@@ -69,10 +69,10 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
             for (billing in billings) {
                 val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
 
-                data.subscriptionId = billing.subscriptionId
-                data.token = billing.token
-
-                subscriptions.add(data)
+                data?.let {
+                    it.subscriptionId = billing.subscriptionId
+                    it.token = billing.token
+                    subscriptions.add(it) }
             }
 
             Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> subscriptionsList: ${subscriptions.toString()}")

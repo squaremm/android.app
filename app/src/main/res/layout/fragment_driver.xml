@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingBottom="20dp"
+    android:background="@android:color/white"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/driverImg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"
+        tools:src="@drawable/fill_profile_header_2" />
+
+    <TextView
+        android:id="@+id/driverNeedLabel"
+        style="@style/Models18Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/do_you_need_driver"
+        app:layout_constraintBottom_toBottomOf="@+id/driverRadioGroup"
+        app:layout_constraintEnd_toStartOf="@+id/driverRadioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/driverRadioGroup" />
+
+    <RadioGroup
+        android:id="@+id/driverRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverImg" >
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/driverRadioYes"
+            style="@style/Models16BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTint="@color/radio_color"
+            android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+            android:gravity="center_horizontal|bottom"
+            android:text="@string/yes" />
+
+        <RadioButton
+            android:id="@+id/driverRadioNo"
+            style="@style/Models16BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTint="@color/radio_color"
+            android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+            android:gravity="center_horizontal|bottom"
+            android:text="@string/no" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/driverDepartureLabel"
+        style="@style/Models16BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/point_of_departure"
+        app:layout_constraintStart_toStartOf="@+id/driverNeedLabel"
+        app:layout_constraintTop_toBottomOf="@+id/driverNeedLabel" />
+
+    <com.square.android.utils.widget.ErrorEditText
+        android:id="@+id/driverAddress"
+        style="@style/InputField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/select_your_location"
+        android:focusable="false"
+        android:longClickable="false"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="@+id/driverRadioGroup"
+        app:layout_constraintStart_toStartOf="@+id/driverDepartureLabel"
+        app:layout_constraintTop_toBottomOf="@+id/driverDepartureLabel" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/driverIntervalsRv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverAddress"
+        tools:background="@color/gray_hint"
+        tools:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/driverStop1"
+        style="@style/Models16BoldText"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:text="@string/stop_1"
+        app:layout_constraintStart_toStartOf="@+id/driverDepartureLabel"
+        app:layout_constraintTop_toBottomOf="@+id/driverIntervalsRv" />
+
+    <TextView
+        android:id="@+id/driverStop1Value"
+        style="@style/Models16Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        tools:text="La Perla d'Oro"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/driverStop1"
+        app:layout_constraintEnd_toEndOf="@+id/driverAddress"
+        app:layout_constraintStart_toEndOf="@+id/driverStop1"
+        app:layout_constraintTop_toTopOf="@+id/driverStop1" />
+
+    <TextView
+        android:id="@+id/driverDestination"
+        style="@style/Models16BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/destination"
+        app:layout_constraintStart_toStartOf="@+id/driverDepartureLabel"
+        app:layout_constraintTop_toBottomOf="@+id/driverStop1" />
+
+    <TextView
+        android:id="@+id/driverDestinationValue"
+        style="@style/Models16Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        tools:text="Just Cavalli"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="@+id/driverDestination"
+        app:layout_constraintEnd_toEndOf="@+id/driverAddress"
+        app:layout_constraintStart_toEndOf="@+id/driverDestination"
+        app:layout_constraintTop_toTopOf="@+id/driverDestination" />
+
+    <View
+        android:id="@+id/driverDisabledView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_75_alpha"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/driverUpdateInfo"
+        app:layout_constraintEnd_toEndOf="@+id/driverIntervalsRv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/driverDepartureLabel" />
+
+    <TextView
+        android:id="@+id/driverUpdateInfo"
+        style="@style/Models14Text"
+        android:textColor="@color/secondary_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/you_can_update_pick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverDestination" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

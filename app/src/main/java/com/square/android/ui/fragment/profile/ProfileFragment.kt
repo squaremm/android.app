@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mukesh.countrypicker.Country
 import com.mukesh.countrypicker.CountryPicker
 import com.square.android.R
@@ -14,6 +15,8 @@ import com.square.android.extensions.clearText
 import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.profile.ProfilePresenter
 import com.square.android.presentation.view.profile.ProfileView
+import com.square.android.ui.activity.party.DriverDialog
+import com.square.android.ui.activity.party.DriverExtras
 import com.square.android.ui.fragment.BaseFragment
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -70,7 +73,20 @@ class ProfileFragment: BaseFragment(), ProfileView {
 
         profileSettings.setOnClickListener { presenter.openSettings() }
 
-        how_it_works.setOnClickListener { presenter.navigateTutorialVideos() }
+        how_it_works.setOnClickListener {
+            //TODO uncomment later
+//            presenter.navigateTutorialVideos()
+
+            //TODO delete later
+            val dialog = DriverDialog(DriverExtras(listOf(), listOf(), "Just Cavalli", "La Perla d'Oro", false),object : DriverDialog.Handler{
+                override fun confirmClicked(needDriver: Boolean, departureLatLng: LatLng?, departureIntervalId: String?, needReturn: Boolean, returnLatLng: LatLng?, returnIntervalId: String?) {
+
+                    println("ASASASAS needDriver:"+needDriver+", needReturn:"+needReturn)
+                }
+            })
+            dialog.show(fragmentManager, "")
+            
+        }
 
         profileSubscribe.setOnClickListener { presenter.subButtonClicked() }
     }

@@ -8,7 +8,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
 import com.square.android.data.pojo.OfferInfo
-import com.square.android.data.pojo.PlaceInfo
 import com.square.android.data.pojo.RedemptionFull
 import com.square.android.presentation.presenter.offersList.OffersListPresenter
 import com.square.android.presentation.view.offersList.OffersListView
@@ -68,12 +67,12 @@ class OffersListFragment: BaseFragment(), OffersListView, OffersListAdapter.Hand
         offersListRv.visibility = View.VISIBLE
     }
 
-    override fun showOfferDialog(offer: OfferInfo, place: PlaceInfo) {
+    override fun showOfferDialog(offer: OfferInfo) {
         currentId = offer.id
 
         dialog = SelectOfferDialog(activity!!)
 
-        dialog!!.show(offer, place) { presenter.dialogSubmitClicked(offer.id) }
+        dialog!!.show(offer) { presenter.dialogSubmitClicked(offer.id) }
     }
 
     override fun showData(data: List<OfferInfo>, redemptionFull: RedemptionFull) {

@@ -1,6 +1,8 @@
 package com.square.android.ui.fragment.places
 
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.square.android.R
 import com.square.android.data.pojo.Place
 import com.square.android.extensions.asDistance
@@ -8,6 +10,7 @@ import com.square.android.extensions.loadFirstOrPlaceholder
 import com.square.android.extensions.loadImage
 import com.square.android.extensions.setTextCarryingEmpty
 import com.square.android.ui.base.BaseAdapter
+import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.place_card.*
 
 class PlacesAdapter(data: List<Place>,
@@ -17,10 +20,15 @@ class PlacesAdapter(data: List<Place>,
 
     override fun getItemCount() = data.size
 
-    override fun instantiateHolder(view: View): PlacesHolder = PlacesHolder(view, handler)
+    override fun instantiateHolder(view: View) = PlacesHolder(view, handler)
 
     fun updateDistances() {
         notifyItemRangeChanged(0, data.size, DistancePayload)
+    }
+
+    override fun bindHolder(holder: PlacesHolder, position: Int) {
+        super.bindHolder(holder, position)
+        holder.containerView.setOnClickListener { handler.itemClicked(data[position]) }
     }
 
     @Suppress("ForEachParameterNotUsed")
@@ -39,10 +47,6 @@ class PlacesAdapter(data: List<Place>,
     class PlacesHolder(containerView: View,
                        handler: Handler) : BaseHolder<Place>(containerView) {
 
-        init {
-            containerView.setOnClickListener { handler.itemClicked(adapterPosition) }
-        }
-
         override fun bind(item: Place, vararg extras: Any?) {
             placeInfoAddress.text = item.address
             if (item.mainImage != null) {
@@ -50,18 +54,16 @@ class PlacesAdapter(data: List<Place>,
             } else {
                 placeInfoImage.loadFirstOrPlaceholder(item.photos)
             }
-            placeInfoTitle.text =  placeInfoTitle.context.getString(R.string.place_name_comma, item.name)
 
-            if(item.availableOfferSpots > 0){
-                placeAvailabilityLabel.visibility = View.VISIBLE
+            placeInfoTitle.text = item.name
 
-                placeAvailabilityDay.text = item.availableOfferDay
+            placeAvailableValue.text = if(item.availableOfferSpots > 0) item.availableOfferSpots.toString() else placeAvailableValue.context.getString(R.string.no)
 
-                if(item.availableOfferSpots == 1){
-                    placeAvailabilityText.text = placeAvailabilityText.context.getString(R.string.place_availability_one_format, item.type, item.availableOfferSpots)
-                } else{
-                    placeAvailabilityText.text = placeAvailabilityText.context.getString(R.string.place_availability_format, item.type, item.availableOfferSpots)
-                }
+            item.icons?.let {
+                placeExtrasRv.visibility = View.VISIBLE
+                placeExtrasRv.adapter = PlaceExtrasAdapter(it.extras)
+                placeExtrasRv.layoutManager = LinearLayoutManager(placeExtrasRv.context, RecyclerView.HORIZONTAL,false)
+                placeExtrasRv.addItemDecoration(MarginItemDecorator(placeExtrasRv.context.resources.getDimension(R.dimen.rv_item_decorator_minus_1).toInt(), false))
             }
 
             bindDistance(item)
@@ -69,12 +71,12 @@ class PlacesAdapter(data: List<Place>,
 
         fun bindDistance(item: Place) {
             val distance = item.distance.asDistance()
-            placeInfoDistance.setTextCarryingEmpty(distance)
+            placeDistance.setTextCarryingEmpty(distance)
         }
     }
 
     interface Handler {
-        fun itemClicked(position: Int)
+        fun itemClicked(place: Place)
     }
 }
 

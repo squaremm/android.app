@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp"
+    app:cardUseCompatPadding="false"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingEnd="32dp"
+        android:id="@+id/reviewContainer"
+        android:background="@color/review_bg_color"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" >
+
+        <ImageView
+            android:id="@+id/reviewItemLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:cropToPadding="false"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/trip_advisor_logo" />
+
+        <CheckedTextView
+            android:id="@+id/reviewItemTitle"
+            style="@style/Models18BoldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/checked_black_transc"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textAlignment="gravity"
+            android:checked="true"
+            android:checkMark="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/reviewItemLogo"
+            app:layout_constraintEnd_toStartOf="@+id/reviewDivider"
+            app:layout_constraintStart_toEndOf="@+id/reviewItemLogo"
+            app:layout_constraintTop_toTopOf="@+id/reviewItemLogo"
+            tools:text="Tripadvisor" />
+
+        <View
+            android:id="@+id/reviewDivider"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/gray_divider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/reviewLl"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/reviewLl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/reviewItemLogo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/reviewItemLogo" >
+
+            <CheckedTextView
+                android:id="@+id/reviewItemCoins"
+                style="@style/Models20BoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:checked="true"
+                android:textColor="@color/checked_pink_transc"
+                android:textAlignment="gravity"
+                android:checkMark="@null"
+                android:layout_marginBottom="3dp"
+                android:includeFontPadding="false"
+                tools:text="+50" />
+
+            <CheckedTextView
+                android:id="@+id/reviewItemCreditsLabel"
+                style="@style/Models14Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:textColor="@color/checked_gray_transc"
+                android:checked="true"
+                android:checkMark="@null"
+                android:includeFontPadding="false"
+                android:text="@string/credits" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

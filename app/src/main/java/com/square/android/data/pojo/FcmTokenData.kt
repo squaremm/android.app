@@ -1,9 +1,9 @@
 package com.square.android.data.pojo
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
 
 data class FcmTokenData(
-        @field:JsonProperty("uid")
+        @Json(name="uid")
         val uuid: String? = null,
 
         val type: String = "Android",

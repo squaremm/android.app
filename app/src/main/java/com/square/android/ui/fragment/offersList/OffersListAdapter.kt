@@ -69,7 +69,7 @@ class OffersListAdapter(data: List<OfferInfo>,
             offerTitle.text = item.name
             offerPrice.text = item.price.toString()
 
-            offerImage.loadImage(item.mainImage ?: item.photo)
+            offerImage.loadImage((item.mainImage ?: item.photo)?: "")
         }
 
         fun bindSelected(selectedPosition: Int?) {

@@ -10,4 +10,8 @@
         <item name="colorPrimaryDark">@color/greyish_app_bg</item>
     </style>
 
+    <style name="StartActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
 </resources>

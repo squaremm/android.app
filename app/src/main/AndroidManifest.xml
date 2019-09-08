@@ -44,7 +44,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.placeDetail.PlaceDetailActivity"
+            android:name=".ui.activity.party.PartyActivity"
             android:parentActivityName=".ui.activity.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CollapsingToolbarActivity" />
@@ -100,6 +100,16 @@
             android:name=".ui.activity.sendPicture.SendPictureActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
+
+        <activity
+            android:name=".ui.activity.uploadScreenshot.UploadScreenshotActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteStatusActivity" />
+
+        <activity
+            android:name=".ui.activity.place.PlaceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CollapsingToolbarActivity" />
 
         <service android:name=".data.network.fcm.FirebaseMessagingService"
             android:stopWithTask="false"

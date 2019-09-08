@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/itemRememberImg"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_circle_checkmark"
+        android:tint="@color/status_green" />
+    
+    <TextView
+        android:id="@+id/itemRememberText"
+        style="@style/Models16BoldText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Rate the venue 4-5 stars" />
+
+</LinearLayout>

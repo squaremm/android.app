@@ -20,6 +20,11 @@ import retrofit2.HttpException
 
 private const val TOKEN_PREFIX = "Bearer "
 
+object PlaceThings {
+    var placeTypes: List<PlaceType>? = null
+    var placeExtras: List<PlaceExtra>? = null
+}
+
 class ActualRepository(private val api: ApiService,
                        private val localManager: LocalDataManager) : Repository {
 
@@ -43,10 +48,10 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>> = GlobalScope.async {
-        val data = performRequest {api.getActions(offerId, bookingId)}
-        data
-    }
+//    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>> = GlobalScope.async {
+//        val data = performRequest {api.getActions(offerId, bookingId)}
+//        data
+//    }
 
     override fun getIntervals(placeId: Long, date: String) : Deferred<IntervalsWrapper> = GlobalScope.async {
         val data = performRequest {api.getIntervals(placeId, date)}
@@ -60,6 +65,20 @@ class ActualRepository(private val api: ApiService,
 
     override fun addOfferToBook(bookId: Long, offerId: Long) = performRequest {
         api.addOfferToBook(bookId, OfferToBook(offerId))
+    }
+
+    override fun getCities(): Deferred<List<City>> = GlobalScope.async {
+        val data = performRequest { api.getCities(localManager.getAuthToken()) }
+        data
+    }
+
+    override fun getTimeFrames(): Deferred<List<FilterTimeframe>> = GlobalScope.async {
+        val data = performRequest { api.getTimeFrames(localManager.getAuthToken()) }
+        data
+    }
+    override fun getPlacesByFilters(placeData: PlaceData): Deferred<List<Place>> = GlobalScope.async {
+        val data = performRequest { api.getPlacesByFilters(localManager.getAuthToken(), placeData.timeFrame, placeData.typology, placeData.date, placeData.city) }
+        data
     }
 
     override fun getBadgeCount(): Deferred<BadgeInfo> = GlobalScope.async {
@@ -78,8 +97,18 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun addReview(offerId: Long, info: ReviewInfo) = performRequest {
-        api.addReview(offerId, info)
+    override fun addReview(offerId: Long, bookingId: Long, info: ReviewInfo, imageBytes: ByteArray?) = performRequest {
+        var body: MultipartBody.Part? = null
+
+        imageBytes?.let {
+            val requestFile = RequestBody.create(
+                    MediaType.parse("image/*"),
+                    imageBytes
+            )
+            body = MultipartBody.Part.createFormData("images", "", requestFile)
+        }
+
+        api.addReview(offerId, offerId, info, body)
     }
 
     override fun claimOffer(offerId: Long) = performRequest {
@@ -94,10 +123,6 @@ class ActualRepository(private val api: ApiService,
     override fun getOffer(offerId: Long) = GlobalScope.async {
         val userId = getUserInfo().id
         val data = performRequest { api.getOffer(offerId, userId) }
-
-        val currentUserId = getUserInfo().id
-
-        data.posts = data.posts.filter { it.user == currentUserId }.toMutableList()
 
         data
     }
@@ -161,6 +186,9 @@ class ActualRepository(private val api: ApiService,
     }
 
     override fun getPlace(id: Long): Deferred<Place> = GlobalScope.async {
+
+        println("gfgdfgdfg: "+id)
+
         val data = performRequest { api.getPlace(id) }
         data
     }
@@ -177,12 +205,35 @@ class ActualRepository(private val api: ApiService,
         places
     }
 
+    override fun getPlaceTypes(): Deferred<List<PlaceType>> = GlobalScope.async {
+        PlaceThings.placeTypes?.let {
+            it
+        } ?: run{
+            var data = performRequest { api.getPlaceTypes(localManager.getAuthToken()) }
+            PlaceThings.placeTypes = data
+
+            data
+        }
+    }
+
+    override fun getPlaceExtras(): Deferred<List<PlaceExtra>> = GlobalScope.async {
+        PlaceThings.placeExtras?.let {
+            it
+        } ?: run{
+            var data = performRequest {api.getPlaceExtras(localManager.getAuthToken())}
+            PlaceThings.placeExtras = data
+
+            data
+        }
+    }
+
     override fun setLoggedIn(isLogged: Boolean) {
         localManager.setLoggedIn(isLogged)
     }
 
     override fun getCurrentUser(): Deferred<Profile.User> = GlobalScope.async {
         val data = performRequest { api.getCurrentProfile() }
+        setUserPaymentRequired(data.isPaymentRequired)
         data
     }
 

@@ -73,14 +73,15 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
             notApprovedJoinBtn.text = getString(R.string.waiting_for_acceptance)
             notApprovedJoinBtn.isAllCaps = false
             notApprovedJoinBtn.setTextColor(ContextCompat.getColor(notApprovedJoinBtn.context, R.color.nice_pink))
-        } else if (campaign.hasWinner) {
+        } else if(!campaign.isJoinable){
+            notApprovedJoinBtn.visibility = View.GONE
+        }
+        if (campaign.hasWinner) {
             notApprovedJoinBtn.isEnabled = false
             notApprovedJoinBtn.text = getString(R.string.ended)
             notApprovedJoinBtn.isAllCaps = false
             notApprovedJoinBtn.setTextColor(Color.WHITE)
             notApprovedJoinBtn.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(notApprovedJoinBtn.context, R.color.black_trans_75))
-        } else if(!campaign.isJoinable){
-            notApprovedJoinBtn.visibility = View.GONE
         }
 
         if(TextUtils.isEmpty(campaign.description)){
@@ -159,17 +160,24 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
             cvTask.visibility = View.GONE
         } else {
             campaign.tasks!!.firstOrNull{ it.type == "photo" }?.also {
-                cvTaskStories.text = if(it.count == 1) it.count.toString() + " " + getString(R.string.photo) else it.count.toString() + " " + getString(R.string.photos_lowercase)
+                cvTaskStories.text = it.description//if(it.count == 1) it.count.toString() + " " + getString(R.string.photo) else it.count.toString() + " " + getString(R.string.photos_lowercase)
 
             } ?: run {
                 cvTaskStoriesLl.visibility = View.GONE
             }
 
             campaign.tasks!!.firstOrNull{ it.type == "post" }?.also {
-                cvTaskPosts.text = if(it.count == 1) it.count.toString() + " " + getString(R.string.ig_post) else it.count.toString() + " " + getString(R.string.ig_posts)
+                cvTaskPosts.text = it.description//if(it.count == 1) it.count.toString() + " " + getString(R.string.ig_post) else it.count.toString() + " " + getString(R.string.ig_posts)
 
             } ?: run {
                 cvTaskPostsLl.visibility = View.GONE
+            }
+
+            campaign.tasks!!.firstOrNull{ it.type == "story" }?.also {
+                cvTaskPhotos.text = it.description//if(it.count == 1) it.count.toString() + " " + getString(R.string.ig_post) else it.count.toString() + " " + getString(R.string.ig_posts)
+
+            } ?: run {
+                cvTaskPhotoLl.visibility = View.GONE
             }
 
             val ss = SpannableString(getString(R.string.when_publishing_tag) +" @" + (campaign.title).toLowerCase())

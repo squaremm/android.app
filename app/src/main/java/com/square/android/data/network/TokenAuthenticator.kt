@@ -12,7 +12,7 @@ import com.square.android.data.pojo.RefreshTokenResult
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
-import java.lang.Exception
+import java.io.IOException
 
 class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
 
@@ -28,22 +28,16 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
 
     val service: OauthApiService = client.create(OauthApiService::class.java)
 
-    var lastCheckedToken: String? = null
-
     override fun authenticate(route: Route?, response: Response?): Request? {
-        Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> TokenAuthenticator: authenticate()" + response?.toString() + response?.request()?.toString() + " " + response?.request()?.headers()?.toString())
+        Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> TokenAuthenticator: authenticate() " + response?.toString() + response?.request()?.toString() + " " + response?.request()?.headers()?.toString())
         Crashlytics.logException(Throwable("TokenAuthenticator: authenticate()"))
 
-        if (response?.code() != 400 && (lastCheckedToken == manager.getOauthToken() || lastCheckedToken == null)) {
+        if (response?.code() != 400) {
             if (refreshToken()) {
                 Log.d("SUBSCRIPTIONS LOG", "SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> NEW TOKEN OBTAINED SUCCESSFULLY")
                 Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> NEW TOKEN OBTAINED SUCCESSFULLY"))
 
                 val newToken = manager.getOauthToken()
-
-                lastCheckedToken = newToken
-
-                println("LOL SUBSCRIPTIONS new token: " + newToken + " ; response: " + response?.request()?.toString())
 
                 return response?.request()?.newBuilder()
                         ?.header("Authorization", newToken)
@@ -51,12 +45,11 @@ class TokenAuthenticator(private val manager: LocalDataManager): Authenticator {
             } else {
                 Log.d("SUBSCRIPTIONS LOG", "SUBSCRIPTIONS -> TokenAuthenticator: getToken() -> NEW TOKEN NOT OBTAINED")
                 Crashlytics.logException(Throwable("TokenAuthenticator: getToken() -> NEW TOKEN NOT OBTAINED"))
-                return null
+                return response?.request()?.newBuilder()?.build()
             }
         } else {
-            return response?.request()?.newBuilder()
-                    ?.header("Authorization", manager.getOauthToken())
-                    ?.build()
+            Log.d("SUBSCRIPTIONS LOG", "SUBSCRIPTIONS -> TokenAuthenticator: response?.code() == 400")
+            throw IOException()
         }
     }
 
