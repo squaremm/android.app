@@ -17,7 +17,7 @@
         android:paddingStart="24dp"
         android:paddingEnd="32dp"
         android:id="@+id/reviewContainer"
-        android:background="@color/review_bg_color"
+        android:background="@drawable/review_bg_color"
         android:paddingTop="8dp"
         android:paddingBottom="8dp" >
 

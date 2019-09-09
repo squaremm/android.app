@@ -9,8 +9,7 @@ import com.square.android.extensions.removeFilters
 import com.square.android.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.item_review.*
 
-class ReviewAdapter(data: List<Offer.Action>, private val handler: Handler?) :
-        BaseAdapter<Offer.Action, ReviewAdapter.ReviewHolder>(data) {
+class ReviewAdapter(data: List<Offer.Action>, private val handler: Handler?): BaseAdapter<Offer.Action, ReviewAdapter.ReviewHolder>(data) {
 
     var selectedItems: MutableList<Int> = mutableListOf()
 
@@ -79,7 +78,7 @@ class ReviewAdapter(data: List<Offer.Action>, private val handler: Handler?) :
             }
 
             d?.let {
-                reviewItemLogo.loadImageInside(it)
+                reviewItemLogo.loadImageInside(it, whitePlaceholder = true)
             }
 
             reviewItemTitle.text = item.displayName

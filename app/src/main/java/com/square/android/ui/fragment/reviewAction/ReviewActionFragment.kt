@@ -8,18 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.square.android.R
 import com.square.android.data.pojo.*
+import com.square.android.extensions.loadImageInside
 import com.square.android.ui.fragment.BaseNoMvpFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
 import kotlinx.android.synthetic.main.fragment_review_action.*
 
-//class DriverRadioEvent(val data: Boolean)
-//
-//class DriverFilledEvent(val data: DriverFragmentExtras)
-
-//
-//class DriverLocationGottenEvent(val data: LocationExtras)
-
-class ReviewActionFragment(private val action: Offer.Action, private var subActions: List<Offer.Action> = listOf(), private var instaName: String = "", private var fbName: String = "TODO"): BaseNoMvpFragment() {
+class ReviewActionFragment(private val action: Offer.Action, private var subActions: List<Offer.Action> = listOf(), private var instaName: String, private var fbName: String): BaseNoMvpFragment() {
 
     private var rememberItems: MutableList<String>? = null
     private var avoidItems: MutableList<String>? = null
@@ -118,12 +112,25 @@ class ReviewActionFragment(private val action: Offer.Action, private var subActi
             reviewDialogAvoidRv.addItemDecoration(MarginItemDecorator(reviewDialogAvoidRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), true))
         }
 
+        var d = when(action.type){
+            //TODO there will be more types - facebook review, facebook story etc
+            TYPE_FACEBOOK_POST -> R.drawable.facebook_logo
+            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY -> R.drawable.instagram_logo
+            TYPE_TRIP_ADVISOR -> R.drawable.trip_advisor_logo
+            TYPE_GOOGLE_PLACES -> R.drawable.google_logo
+            TYPE_YELP -> R.drawable.yelp_logo
 
-//        driverAddress.setOnClickListener {
-//            eventBus.post(LocationEvent(false))
-//        }
+            //TODO update this drawable
+            TYPE_PICTURE -> R.drawable.add_photo
+            else -> null
+        }
 
+        d?.let {
+            reviewDialogImage.loadImageInside(it, whitePlaceholder = true)
+        }
+
+        reviewDialogName.text = action.displayName
+        reviewDialogCreditsValue.text = "+${action.credits}"
     }
-
 
 }

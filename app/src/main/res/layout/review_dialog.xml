@@ -3,28 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
     app:cardUseCompatPadding="false" >
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:scrollbars="none"
-    android:overScrollMode="never"
-    android:layout_height="wrap_content" >
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:background="@android:color/white">
 
         <ImageView
             android:id="@+id/reviewDialogClose"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="12dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/close_x"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,28 +27,36 @@
 
         <ImageView
             android:id="@+id/reviewDialogBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="12dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="24dp"
             android:src="@drawable/arrow_back"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/guideline13"
             tools:visibility="visible" />
 
-        <com.square.android.utils.widget.WrapContentHeightViewPager
-            android:id="@+id/acDriverPager"
+        <com.square.android.utils.widget.PagingViewPager
+            android:id="@+id/reviewPager"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            app:layout_constraintTop_toBottomOf="@+id/guideline13"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toTopOf="@+id/reviewBtnAction"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline13" />
+
+        <ProgressBar
+            android:id="@+id/reviewProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:indeterminate="true"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone"
+            android:indeterminateTint="@color/placesPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/reviewBtnAction"
@@ -68,7 +70,7 @@
             android:background="@drawable/nice_button_red_pink"
             android:textAllCaps="true"
             android:textColor="@color/btn_text_color"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/reviewProgress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Open tripadvisor" />
@@ -78,10 +80,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="36dp" />
+            app:layout_constraintGuide_begin="44dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
 
 </androidx.cardview.widget.CardView>

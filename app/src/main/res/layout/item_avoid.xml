@@ -17,7 +17,7 @@
         android:id="@+id/itemAvoidText"
         style="@style/Models16BoldText"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Never mention SQUARE app in your review" />

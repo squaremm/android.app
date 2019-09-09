@@ -6,14 +6,11 @@ import com.square.android.domain.review.ReviewInteractor
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.main.BadgeStateChangedEvent
 import com.square.android.presentation.presenter.redemptions.RedemptionsUpdatedEvent
-import com.square.android.presentation.presenter.sendPicture.SendPictureEvent
 import com.square.android.presentation.view.review.ReviewView
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
 
-class ActionExtras(var index: Int, var id: String = "", var photo: ByteArray? = null, var type: String = "")
+class ActionExtras(var index: Int, var id: String = "", var photo: ByteArray? = null)
 
 @InjectViewState
 class ReviewPresenter(private val offerId: Long,
@@ -31,17 +28,7 @@ class ReviewPresenter(private val offerId: Long,
     private val filledActions: MutableList<ActionExtras> = mutableListOf()
 
     init {
-        bus.register(this)
-
         loadData()
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSendPictureEvent(event: SendPictureEvent) {
-
-        //TODO send action data and add action to  filledActions
-//        addReview(event.data.index, event.data.photo)
-//        viewState.showButtons()
     }
 
     private fun loadData() = launch {
@@ -77,17 +64,24 @@ class ReviewPresenter(private val offerId: Long,
             //TODO show dialog if user is sure to delete this action. If yes - delete this action from filledActions and fire adapter.changeSelection(index)
             //TODO then check if filledActions is empty, if is empty - viewState.hideButtons()
         } else{
-            // viewState.showDialog(type, coins, index)
+            //TODO get fb user name from API
+            viewState.showDialog(index, actions[index], subActions, data!!.instaUser, "TODO")
+
+            //        reviewInfo.postType = type
         }
-//        reviewInfo.postType = type
+    }
+
+    fun addAction(index: Int, photo: ByteArray){
+        //TODO start from here
+
+        //TODO check action and add it to filledActions
     }
 
     fun submitClicked() = launch {
         viewState.showLoadingDialog()
 
       //TODO for every action in filledActions
-//        interactor.addReview(ReviewInfo(), offerId, redemptionId, action.photo, action.type or action.id ? ).await()
-
+//        interactor.addReview(ReviewInfo(), offerId, redemptionId, action.photo, action.id ? ).await()
 
 //        interactor.claimRedemption(redemptionId, offerId).await()
 //
@@ -112,9 +106,4 @@ class ReviewPresenter(private val offerId: Long,
         bus.post(event)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        bus.unregister(this)
-    }
 }

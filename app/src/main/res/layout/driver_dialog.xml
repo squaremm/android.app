@@ -39,12 +39,12 @@
         app:tabIndicatorHeight="0dp"
         app:tabRippleColor="@android:color/white" />
 
-        <com.square.android.utils.widget.WrapContentHeightViewPager
+        <com.square.android.utils.widget.PagingViewPager
             android:id="@+id/acDriverPager"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="24dp"
             android:overScrollMode="never"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@+id/acDriverBtn"
@@ -67,7 +67,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:enabled="false"
-            app:layout_constraintTop_toBottomOf="@+id/driverUpdateInfo"
             app:layout_constraintVertical_bias="0.0"
             tools:visibility="visible" />
 

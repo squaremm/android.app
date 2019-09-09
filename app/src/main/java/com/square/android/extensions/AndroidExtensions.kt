@@ -141,12 +141,12 @@ fun ImageView.loadFirstOrPlaceholder(photos: List<String>?) {
     }
 }
 
-fun ImageView.loadImageInside(@DrawableRes drawableRes: Int) {
+fun ImageView.loadImageInside(@DrawableRes drawableRes: Int, whitePlaceholder: Boolean = false) {
     Picasso.get()
             .load(drawableRes)
             .fit()
             .centerInside()
-            .placeholder(placeholder)
+            .placeholder(if(whitePlaceholder) R.color.white else placeholder)
             .into(this)
 }
 

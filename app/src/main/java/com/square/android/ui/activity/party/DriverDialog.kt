@@ -201,8 +201,9 @@ class DriverDialog(var driverExtras: DriverExtras, private val handler: Handler?
 
         val metrics = resources.displayMetrics
         val screenWidth = (metrics.widthPixels * 0.9).toInt()
+        val screenHeight = (metrics.heightPixels * 0.9).toInt()
 
-        dialog.window?.setLayout(screenWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(screenWidth, screenHeight)
     }
 
     private fun setUpPager() {

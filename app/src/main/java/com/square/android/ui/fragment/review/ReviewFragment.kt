@@ -13,9 +13,6 @@ import com.square.android.data.pojo.*
 import com.square.android.presentation.presenter.review.ReviewPresenter
 import com.square.android.presentation.view.review.ReviewView
 import com.square.android.ui.activity.selectOffer.SelectOfferActivity
-import com.square.android.ui.base.tutorial.Tutorial
-import com.square.android.ui.base.tutorial.TutorialService
-import com.square.android.ui.base.tutorial.TutorialStep
 import com.square.android.ui.dialogs.LoadingDialog
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.ui.fragment.map.MarginItemDecorator
@@ -27,7 +24,7 @@ const val EXTRA_REDEMPTION_ID = "EXTRA_REDEMPTION_ID"
 
 class ReviewExtras(val redemptionId: Long, val offerId: Long)
 
-class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
+class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler, ReviewDialog.Handler{
 
     companion object {
         @Suppress("DEPRECATION")
@@ -121,61 +118,42 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
         presenter.itemClicked(position)
     }
 
-    override fun showDialog(action: Offer.Action, index: Int) {
-//                ReviewDialog(activity!!).showaction, index) { s: String, i: Int -> onDialogAction(s, i) }
-
-
-
-
-
-
-//        val index = filteredTypes!!.indexOfFirst { it.key == type }
-//        val reviewType = filteredTypes!![index]
-//
-//        when(type){
-//            TYPE_INSTAGRAM_POST -> {
-//
-//            }
-//            TYPE_INSTAGRAM_STORY ->{
-//
-//            }
-//            else -> {
-//                ReviewDialog(activity!!).show(reviewType, coins, index) { s: String, i: Int -> onDialogAction(s, i) }
-//            }
-//        }
+    override fun showDialog(index: Int, action: Offer.Action, subActions: List<Offer.Action>, instaName: String, fbName: String) {
+        val dialog = ReviewDialog(index, action, subActions, instaName, fbName, this, false)
+        dialog.show(fragmentManager, "")
     }
 
-    private fun onDialogAction(reviewType: String, index: Int){
-//        presenter.navigateByKey(index, reviewType)
+    override fun sendClicked(index: Int, photo: ByteArray) {
+       presenter.addAction(index, photo)
     }
 
     private fun getRedemptionId() = arguments?.getLong(EXTRA_REDEMPTION_ID, 0) ?: 0
     private fun getOfferId() = arguments?.getLong(EXTRA_OFFER_ID, 0) ?: 0
 
-    override val PERMISSION_REQUEST_CODE: Int?
-        get() = 1343
-
-    override val tutorial: Tutorial?
-        get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REVIEW)
-                .addNextStep(TutorialStep(
-                        // width percentage, height percentage for text with arrow
-                        floatArrayOf(0.50f, 0.78f),
-                        getString(R.string.tut_5_1),
-                        TutorialStep.ArrowPos.TOP,
-                        R.drawable.arrow_bottom_right_x_top_left,
-                        0.35f,
-                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
-                        // 0f,0f,0f,0f for covering entire screen
-                        floatArrayOf(0f,0f,0.30f,500f),
-                        1,
-                        // delay before showing view in ms
-                        500f))
-
-                .setOnNextStepIsChangingListener {
-
-                }
-                .setOnContinueTutorialListener {
-
-                }
-                .build()
+//    override val PERMISSION_REQUEST_CODE: Int?
+//        get() = 1343
+//
+//    override val tutorial: Tutorial?
+//        get() =  Tutorial.Builder(tutorialKey = TutorialService.TutorialKey.REVIEW)
+//                .addNextStep(TutorialStep(
+//                        // width percentage, height percentage for text with arrow
+//                        floatArrayOf(0.50f, 0.78f),
+//                        getString(R.string.tut_5_1),
+//                        TutorialStep.ArrowPos.TOP,
+//                        R.drawable.arrow_bottom_right_x_top_left,
+//                        0.35f,
+//                        // marginStart dp, marginEnd dp, horizontal center of the transView in 0.0f - 1f, height of the transView in dp
+//                        // 0f,0f,0f,0f for covering entire screen
+//                        floatArrayOf(0f,0f,0.30f,500f),
+//                        1,
+//                        // delay before showing view in ms
+//                        500f))
+//
+//                .setOnNextStepIsChangingListener {
+//
+//                }
+//                .setOnContinueTutorialListener {
+//
+//                }
+//                .build()
 }

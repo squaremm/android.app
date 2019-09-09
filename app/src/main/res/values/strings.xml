@@ -23,8 +23,11 @@
     <string name="picture_typologies">Picture typologies:</string>
 
     <string name="upload_action_prntscr">Upload the print screen\nof the action you just done.</string>
-
     <string name="upload_action_label">Action required to speed up the process in order to release you the credits.</string>
+
+    <string name="upload_photo_gallery">Take a photo or upload a picture from your gallery</string>
+    <string name="upload_photo_label">If the picture will be selected from the venue, you\'ll receive 50 credits</string>
+
 
     <string name="insta_story_remember_1">Make tags visible</string>
     <string name="insta_story_remember_2">The story should be at least 5 seconds</string>
@@ -51,12 +54,12 @@
     <string name="yelp_avoid_2">Don\'t make your comment like a shopping list. Argument the different subjects and tell your experience</string>
 
     <string name="google_places_remember_1">Rate the venue 4–5 stars</string>
-    <string name="google_places_remember_2">>Leave an authentic comment about: food, service, location</string>
+    <string name="google_places_remember_2">Leave an authentic comment about: food, service, location</string>
     <string name="google_places_avoid_1">Never mention SQUARE app in your review</string>
     <string name="google_places_avoid_2">Don\'t make your comment like a shopping list. Argument the different subjects and tell your experience</string>
 
     <string name="fb_review_remember_1">Rate the venue 4–5 stars</string>
-    <string name="fb_reviewgoogle_maps_remember_2">>Leave an authentic comment about: food, service, location</string>
+    <string name="fb_reviewgoogle_maps_remember_2">Leave an authentic comment about: food, service, location</string>
     <string name="fb_review_avoid_1">Never mention SQUARE app in your review</string>
     <string name="fb_review_avoid_2">Don\'t make your comment like a shopping list. Argument the different subjects and tell your experience</string>
 

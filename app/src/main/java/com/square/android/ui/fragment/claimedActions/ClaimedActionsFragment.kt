@@ -24,9 +24,9 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
     @ProvidePresenter
     fun providePresenter() = ClaimedActionsPresenter()
 
-    private lateinit var reviewTypes: List<ReviewType>
-
-    private var filteredTypes: List<ReviewType>? = null
+//    private lateinit var reviewTypes: List<ReviewType>
+//
+//    private var filteredTypes: List<ReviewType>? = null
 
     private var adapter: ReviewAdapter? = null
 
@@ -48,13 +48,13 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
     override fun showData(actionTypes: Set<String>, credits: Map<String, Int>) {
         updateReviewTypes()
 
-        filteredTypes = reviewTypes.filter { it.key in actionTypes}
+//        filteredTypes = reviewTypes.filter { it.key in actionTypes}
 
-        adapter = ReviewAdapter(filteredTypes!!, credits, this)
-
-        actionsList.layoutManager = GridLayoutManager(context, 2)
-        actionsList.adapter = adapter
-        actionsList.addItemDecoration(GridItemDecoration(2,actionsList.context.resources.getDimension(R.dimen.value_24dp).toInt(), false))
+//        adapter = ReviewAdapter(filteredTypes!!, credits, this)
+//
+//        actionsList.layoutManager = GridLayoutManager(context, 2)
+//        actionsList.adapter = adapter
+//        actionsList.addItemDecoration(GridItemDecoration(2,actionsList.context.resources.getDimension(R.dimen.value_24dp).toInt(), false))
     }
 
     override fun hideLoadingDialog() {
@@ -66,31 +66,31 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
     }
 
     override fun clearSelectedItem() {
-        adapter?.clearSelection()
+//        adapter?.clearSelection()
     }
 
     override fun disableItem(position: Int) {
-        adapter?.disableReviewType(position)
+//        adapter?.disableReviewType(position)
     }
 
     override fun setSelectedItem(position: Int) {
-        adapter?.setSelectedItem(position)
+//        adapter?.setSelectedItem(position)
     }
 
     override fun itemClicked(position: Int) {
-        val type = filteredTypes!![position]
-
-        presenter.itemClicked(type.key, position)
+//        val type = filteredTypes!![position]
+//
+//        presenter.itemClicked(type.key, position)
     }
 
     override fun showDialog(type: String, coins: Int, index: Int) {
-        val index = filteredTypes!!.indexOfFirst { it.key == type }
-        val reviewType = filteredTypes!![index]
-
-        ReviewDialog(activity!!)
-                .show(reviewType, coins, index) { s: String, i: Int ->
-                    presenter.navigateByKey(index = i, reviewType = s)
-                }
+//        val index = filteredTypes!!.indexOfFirst { it.key == type }
+//        val reviewType = filteredTypes!![index]
+//
+//        ReviewDialog(activity!!)
+//                .show(reviewType, coins, index) { s: String, i: Int ->
+//                    presenter.navigateByKey(index = i, reviewType = s)
+//                }
     }
 
     private fun updateReviewTypes() {
@@ -104,64 +104,64 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
     override fun hideProgress() {}
 
     override fun initReviewTypes() {
-        reviewTypes = listOf(
-
-                ReviewType(
-                        //TODO change icon (imageRes)
-                        imageRes = R.drawable.add_photo,
-                        title = getString(R.string.photo_uppercase),
-                        description = getString(R.string.send_photo_description),
-                        key = TYPE_PICTURE
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.instagram_logo,
-                        title = getString(R.string.insta_post),
-                        description = getString(R.string.insta_post_description),
-                        key = TYPE_INSTAGRAM_POST,
-                        content = getString(R.string.review_instagram_post_body)
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.instagram_logo,
-                        title = getString(R.string.insta_story),
-                        description = getString(R.string.insta_story_description),
-                        key = TYPE_INSTAGRAM_STORY,
-                        content = getString(R.string.review_instagram_story_body)
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.trip_advisor_logo,
-                        title = getString(R.string.trip_advisor),
-                        key = TYPE_TRIP_ADVISOR,
-                        app_name = getString(R.string.trip_advisor_name),
-                        showUploadLabel = true
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.google_logo,
-                        title = getString(R.string.google_places),
-                        key = TYPE_GOOGLE_PLACES,
-                        app_name = getString(R.string.google_places_name),
-                        showUploadLabel = true
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.facebook_logo,
-                        title = getString(R.string.facebook_post),
-                        key = TYPE_FACEBOOK_POST,
-                        app_name = getString(R.string.facebook_name),
-                        showUploadLabel = true
-                ),
-
-                ReviewType(
-                        imageRes = R.drawable.yelp_logo,
-                        title = getString(R.string.yelp),
-                        key = TYPE_YELP,
-                        app_name = getString(R.string.yelp_name),
-                        showUploadLabel = true
-                )
-        )
+//        reviewTypes = listOf(
+//
+//                ReviewType(
+//                        //TODO change icon (imageRes)
+//                        imageRes = R.drawable.add_photo,
+//                        title = getString(R.string.photo_uppercase),
+//                        description = getString(R.string.send_photo_description),
+//                        key = TYPE_PICTURE
+//                ),
+//
+//                ReviewType(
+//                        imageRes = R.drawable.instagram_logo,
+//                        title = getString(R.string.insta_post),
+//                        description = getString(R.string.insta_post_description),
+//                        key = TYPE_INSTAGRAM_POST,
+//                        content = getString(R.string.review_instagram_post_body)
+//                ),
+//
+//                ReviewType(
+//                        imageRes = R.drawable.instagram_logo,
+//                        title = getString(R.string.insta_story),
+//                        description = getString(R.string.insta_story_description),
+//                        key = TYPE_INSTAGRAM_STORY,
+//                        content = getString(R.string.review_instagram_story_body)
+//                ),
+//
+//                ReviewType(
+//                        imageRes = R.drawable.trip_advisor_logo,
+//                        title = getString(R.string.trip_advisor),
+//                        key = TYPE_TRIP_ADVISOR,
+//                        app_name = getString(R.string.trip_advisor_name),
+//                        showUploadLabel = true
+//                ),
+//
+//                ReviewType(
+//                        imageRes = R.drawable.google_logo,
+//                        title = getString(R.string.google_places),
+//                        key = TYPE_GOOGLE_PLACES,
+//                        app_name = getString(R.string.google_places_name),
+//                        showUploadLabel = true
+//                ),
+//
+//                ReviewType(
+//                        imageRes = R.drawable.facebook_logo,
+//                        title = getString(R.string.facebook_post),
+//                        key = TYPE_FACEBOOK_POST,
+//                        app_name = getString(R.string.facebook_name),
+//                        showUploadLabel = true
+//                ),
+//
+//                ReviewType(
+//                        imageRes = R.drawable.yelp_logo,
+//                        title = getString(R.string.yelp),
+//                        key = TYPE_YELP,
+//                        app_name = getString(R.string.yelp_name),
+//                        showUploadLabel = true
+//                )
+//        )
 
 //        reviewTypes.filter { it.key }
     }
