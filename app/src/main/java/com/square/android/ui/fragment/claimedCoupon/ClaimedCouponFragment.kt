@@ -18,7 +18,9 @@ import kotlinx.android.synthetic.main.fragment_claimed_coupon.*
 class ClaimedCouponFragment : BaseFragment(), ClaimedCouponView {
     override fun showData(offer: Offer, userInfo: UserInfo) {
         coupon.couponImage.loadImage(offer.photo)
-        coupon.couponAvatar.loadImage(offer.photo)
+
+        //TODO load user photo
+        // coupon.couponAvatar.loadImage(offer.photo)
 
         //TODO remove name from layout ? OR get place by ID in presenter
 //        coupon.couponPlaceName.text = place.name

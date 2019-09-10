@@ -2,14 +2,11 @@ package com.square.android.presentation.presenter.claimedRedemption
 
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.data.pojo.Offer
-
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.claimedCoupon.OfferLoadedEvent
-
 import com.square.android.presentation.view.claimedRedemption.ClaimedRedemptionView
 import org.greenrobot.eventbus.EventBus
 import org.koin.standalone.inject
-
 
 @InjectViewState
 class ClaimedRedemptionPresenter(
@@ -36,7 +33,4 @@ class ClaimedRedemptionPresenter(
         bus.post(couponEvent)
     }
 
-    fun exit() {
-        router.exit()
-    }
 }

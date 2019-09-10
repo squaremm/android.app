@@ -9,10 +9,10 @@
     android:clipToPadding="false"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
+    android:paddingTop="8dp"
     tools:context=".ui.fragment.claimedCoupon.ClaimedCouponFragment">
 
     <androidx.cardview.widget.CardView
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="16dp"

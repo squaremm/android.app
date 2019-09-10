@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.viewpager.widget.ViewPager
 import com.square.android.R
@@ -22,7 +23,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.ext.android.inject
 
 class ReviewDialog(val index: Int, val action: Offer.Action, private val subActions: List<Offer.Action> = listOf(), private val instaName: String,
-                   private val fbName: String, private val handler: Handler, private val mCancelable: Boolean): DialogFragment() {
+                   private val fbName: String, private val handler: Handler, private val mCancelable: Boolean, private val fromClaimed: Boolean): DialogFragment() {
 
     private var currentPagerPosition = 0
 
@@ -89,18 +90,24 @@ class ReviewDialog(val index: Int, val action: Offer.Action, private val subActi
     }
 
     private fun openByType() {
-        //TODO open different app by type
+        val mPackage = when(action.type){
+            //TODO there will be more types - facebook review, facebook story etc
+            TYPE_FACEBOOK_POST -> getString(R.string.facebook_package)
+            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY -> getString(R.string.instagram_package)
+            TYPE_TRIP_ADVISOR -> getString(R.string.tripadvisor_package)
+            TYPE_GOOGLE_PLACES -> getString(R.string.google_maps_package)
+            TYPE_YELP -> getString(R.string.yelp_package)
+            else -> ""
+        }
 
-        //TODO there will be more types - facebook review, facebook story etc
-//        when(action.type){
-//            TYPE_FACEBOOK_POST ->
-//            TYPE_INSTAGRAM_POST, TYPE_INSTAGRAM_STORY ->
-//            TYPE_TRIP_ADVISOR ->
-//            TYPE_GOOGLE_PLACES ->
-//            TYPE_YELP ->
-//            TYPE_PICTURE -> reviewPager.setCurrentItem(0,true)
-//        }
+        if(action.type != TYPE_PICTURE){
+            val intent = activity?.packageManager?.getLaunchIntentForPackage(mPackage)
 
+            intent?.let {
+                intent.addCategory(Intent.CATEGORY_LAUNCHER)
+                startActivity(intent)
+            } ?: run{ Toast.makeText(activity, getString(R.string.app_not_installed), Toast.LENGTH_SHORT).show()}
+        }
 
         reviewPager.setCurrentItem(1,true)
     }
@@ -152,7 +159,8 @@ class ReviewDialog(val index: Int, val action: Offer.Action, private val subActi
                 else -> "TODO"
             }
         } else{
-            reviewBtnAction.text = getString(R.string.send)
+
+            reviewBtnAction.text = if(fromClaimed) getString(R.string.send) else getString(R.string.accept)
         }
     }
 
@@ -170,7 +178,6 @@ class ReviewDialog(val index: Int, val action: Offer.Action, private val subActi
 
         uri?.let {eventBus.post(PhotoResultEvent(it))}
     }
-
 
     interface Handler {
         fun sendClicked(index: Int, photo: ByteArray)

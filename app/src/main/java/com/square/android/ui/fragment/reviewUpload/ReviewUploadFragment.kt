@@ -56,8 +56,6 @@ class ReviewUploadFragment(private var actionType: String): BaseNoMvpFragment(),
         updateLabel(true)
 
         uploadImv.setOnClickListener { if(imageUri == null) openPhotoPicker() else deleteImage() }
-
-        //TODO remove SendPictureActivity, UploadScreenshotActivity, SendPictureChoose, SendPictureUpload and all related things(layouts, adapters, etc)
     }
 
     override fun onPermissionResult(granted: Boolean) {

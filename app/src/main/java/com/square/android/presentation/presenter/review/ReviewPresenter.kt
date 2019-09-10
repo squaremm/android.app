@@ -61,32 +61,58 @@ class ReviewPresenter(private val offerId: Long,
 
     fun itemClicked(index: Int) {
         if(index in filledActions.map { it.index }){
-            //TODO show dialog if user is sure to delete this action. If yes - delete this action from filledActions and fire adapter.changeSelection(index)
-            //TODO then check if filledActions is empty, if is empty - viewState.hideButtons()
+            viewState.showDeleteDialog(index)
         } else{
             //TODO get fb user name from API
             viewState.showDialog(index, actions[index], subActions, data!!.instaUser, "TODO")
+        }
+    }
 
-            //        reviewInfo.postType = type
+    fun deleteFromFilled(index: Int){
+        filledActions.remove(filledActions.first { it.index == index })
+
+        viewState.changeSelection(index)
+
+        if(filledActions.isEmpty()){
+            viewState.hideButton()
         }
     }
 
     fun addAction(index: Int, photo: ByteArray){
-        //TODO start from here
+        if(filledActions.isEmpty()){
+            viewState.showButton()
+        }
 
-        //TODO check action and add it to filledActions
+        filledActions.add(ActionExtras(index, actions[index].id, photo))
+
+        viewState.changeSelection(index)
     }
 
     fun submitClicked() = launch {
         viewState.showLoadingDialog()
 
-      //TODO for every action in filledActions
-//        interactor.addReview(ReviewInfo(), offerId, redemptionId, action.photo, action.id ? ).await()
+        //TODO error: D/OkHttp: <-- HTTP FAILED: javax.net.ssl.SSLException: Write error: ssl=0x7b6ed76208: I/O error during system call, Broken pipe
+        //TODO changed ReviewInfo to link:String in api.addReview
+        for(filledAction in filledActions){
+            filledAction.photo?.let {
+                interactor.addReview(offerId, redemptionId, filledAction.id, it).await()
+            }
+        }
 
-//        interactor.claimRedemption(redemptionId, offerId).await()
-//
-//        sendRedemptionsUpdatedEvent()
-//        sendBadgeEvent()
+        //TODO this part is working
+        claimRedemption()
+    }
+
+    fun skipClicked() {
+        viewState.showLoadingDialog()
+        claimRedemption()
+    }
+
+    private fun claimRedemption() = launch {
+        interactor.claimRedemption(redemptionId, offerId).await()
+
+        sendRedemptionsUpdatedEvent()
+        sendBadgeEvent()
 
         viewState.hideLoadingDialog()
 

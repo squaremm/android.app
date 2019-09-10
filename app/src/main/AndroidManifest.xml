@@ -97,16 +97,6 @@
             android:theme="@style/GreyishStatusActivity" />
 
         <activity
-            android:name=".ui.activity.sendPicture.SendPictureActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/WhiteStatusActivity" />
-
-        <activity
-            android:name=".ui.activity.uploadScreenshot.UploadScreenshotActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/WhiteStatusActivity" />
-
-        <activity
             android:name=".ui.activity.place.PlaceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CollapsingToolbarActivity" />

@@ -97,18 +97,14 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun addReview(offerId: Long, bookingId: Long, info: ReviewInfo, imageBytes: ByteArray?) = performRequest {
-        var body: MultipartBody.Part? = null
+    override fun addReview(offerId: Long, bookingId: Long, link: String, actionId: String, imageBytes: ByteArray) = performRequest {
+        val requestFile = RequestBody.create(
+                MediaType.parse("image/*"),
+                imageBytes
+        )
+        val body = MultipartBody.Part.createFormData("images", "", requestFile)
 
-        imageBytes?.let {
-            val requestFile = RequestBody.create(
-                    MediaType.parse("image/*"),
-                    imageBytes
-            )
-            body = MultipartBody.Part.createFormData("images", "", requestFile)
-        }
-
-        api.addReview(offerId, offerId, info, body)
+        api.addReview(localManager.getAuthToken(), offerId, offerId, link, actionId, body)
     }
 
     override fun claimOffer(offerId: Long) = performRequest {

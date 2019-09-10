@@ -2,19 +2,14 @@ package com.square.android.presentation.view.claimedActions
 
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.square.android.data.pojo.Offer
 import com.square.android.presentation.view.LoadingView
 
 interface ClaimedActionsView : LoadingView {
-    fun showData(actionTypes: Set<String>, credits: Map<String, Int>)
+    fun showData(data: Offer, actions: List<Offer.Action>)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showDialog(type: String, coins: Int, index: Int)
+    fun showDialog(index: Int, action: Offer.Action,subActions: List<Offer.Action>, instaName: String, fbName: String )
 
-    fun setSelectedItem(position: Int)
-
-    fun disableItem(position: Int)
-
-    fun initReviewTypes()
-
-    fun clearSelectedItem()
+    fun disableAction(position: Int)
 }

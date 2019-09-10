@@ -11,12 +11,14 @@ interface ReviewView : LoadingView {
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showDialog(index: Int, action: Offer.Action,subActions: List<Offer.Action>, instaName: String, fbName: String )
 
-    fun setSelectedItem(position: Int)
+    fun showDeleteDialog(index: Int)
+
+    fun changeSelection(position: Int)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showCongratulations()
 
-    fun showButtons()
+    fun showButton()
 
-    fun hideButtons()
+    fun hideButton()
 }

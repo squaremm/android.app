@@ -15,6 +15,7 @@ class CongratulationsDialog(private val context: Context) {
 
         val dialog = AlertDialog.Builder(context)
                 .setView(view)
+                .setCancelable(false)
                 .create()
 
         view.congratulationsSubmit.setOnClickListener { dialog.cancel(); listener.invoke() }

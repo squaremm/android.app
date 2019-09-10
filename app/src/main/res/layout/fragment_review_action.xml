@@ -20,7 +20,7 @@
         android:cropToPadding="false"
         android:scaleType="centerInside"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/trip_advisor_logo" />
