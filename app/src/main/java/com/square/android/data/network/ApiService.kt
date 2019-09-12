@@ -9,6 +9,66 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    // Ride / DriverRide
+
+    //TODO not working, API returns: "\"driverRideId\" is required" even when driverRideId is defined
+    @POST("ride")
+    fun createRide(@Header("Authorization") authorization: String,
+                   @Body rideData: RideData): Call<MessageResponse>
+
+    @PUT("ride")
+    fun editRide(@Header("Authorization") authorization: String,
+                 @Body ride: Ride): Call<MessageResponse>
+
+    @DELETE("ride/{id}")
+    fun deleteRide(@Header("Authorization") authorization: String,
+                   @Path("id") rideId: String): Call<MessageResponse>
+
+    // filters: oneWay, return
+    // get all or filter by id or pending
+    //TODO id is userId or eventId? String or Long?
+    @GET("ride")
+    fun getUsersRides(@Header("Authorization") authorization: String,
+                     @Query("id") id: Long,
+                     @Query("pending") pending: Boolean,
+                     @Query("filter") filter: String): Call<List<Ride>>
+
+    @POST("ride/rate")
+    fun rateRide(@Header("Authorization") authorization: String,
+                 @Body rideData: RideData): Call<MessageResponse>
+
+    @GET("driver-ride/place")
+    fun getRideTimeframesForPlace(@Header("Authorization") authorization: String,
+                               @Query("placeId") placeId: Long): Call<List<DriverRide>>
+
+    //
+
+    // Event booking
+    @POST("event-booking")
+    fun bookEvent(@Header("Authorization") authorization: String,
+                  @Body bookEventData: BookEventData): Call<MessageResponse>
+
+
+    //TODO id is eventId?
+    //TODO BookEventData or BookEventData.EventBooking
+    @GET("event-booking")
+    fun getUserEventBookings(@Header("Authorization") authorization: String,
+    @Query("id") id: String): Call<List<BookEventData.EventBooking>>
+
+
+    @PUT("event-booking")
+    fun editEventBookings(@Header("Authorization") authorization: String,
+                 @Path("id") rideId: String,
+                 @Body eventBooking: BookEventData): Call<MessageResponse>
+
+
+    //TODO what it returns?
+    // GET /api/event-booking/summary?id=xxx
+    // fun getEventBookingSummary()
+
+    //
+
+
     @GET("city")
     fun getCities(@Header("Authorization") authorization: String): Call<List<City>>
 
