@@ -141,6 +141,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:max_height="128dp"
+                android:requiresFadingEdge="vertical"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -152,6 +153,7 @@
                 <LinearLayout
                     android:id="@+id/pickupIntervalList"
                     android:layout_width="match_parent"
+                    android:background="@android:color/white"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
             </com.square.android.utils.widget.ScrollViewMaxHeight>

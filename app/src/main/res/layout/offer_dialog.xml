@@ -103,6 +103,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="12dp"
             android:visibility="gone"
+            android:requiresFadingEdge="vertical"
             tools:visibility="visible"
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
@@ -113,6 +114,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
+                android:background="@android:color/white"
                 android:layout_height="250dp" >
 
                 <TextView

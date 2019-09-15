@@ -14,7 +14,6 @@ import android.widget.LinearLayout
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.square.android.data.pojo.Place
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -26,6 +25,7 @@ import com.square.android.Network.GOOGLE_PLACES_KEY
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import com.square.android.data.pojo.DriverRide
 import com.square.android.ui.fragment.driver.*
 import com.square.android.ui.fragment.driverReturn.ReturnFilledEvent
 import com.square.android.ui.fragment.driverReturn.ReturnLocationGottenEvent
@@ -35,7 +35,7 @@ const val AUTOCOMPLETE_REQUEST_CODE = 666
 
 class LocationEvent(val fromReturn: Boolean)
 
-class DriverExtras(val driveIntervals: List<Place.Interval>, val returnIntervals: List<Place.Interval>, val destination: String, val dinnerPlace: String? = null, val isPremium: Boolean)
+class DriverExtras(val driveIntervals: List<DriverRide>, val returnIntervals: List<DriverRide>, val destination: String, val dinnerPlace: String? = null, val isPremium: Boolean)
 
 class LocationExtras(val latLng: LatLng? = null, val address: String?)
 

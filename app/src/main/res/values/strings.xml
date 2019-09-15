@@ -22,6 +22,12 @@
     <string name="avoid_to">Avoid to:</string>
     <string name="picture_typologies">Picture typologies:</string>
 
+    <string name="event_details">Event Details</string>
+    <string name="one_way_from">One way from</string>
+    <string name="return_to">Return to</string>
+    <string name="transfer">Transfer</string>
+    <string name="status">Status:</string>
+
     <string name="accept">Accept</string>
 
     <string name="app_not_installed">This application is not installed on your device</string>

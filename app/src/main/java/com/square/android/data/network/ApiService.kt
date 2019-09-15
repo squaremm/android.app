@@ -11,7 +11,8 @@ interface ApiService {
 
     // Ride / DriverRide
 
-    //TODO not working, API returns: "\"driverRideId\" is required" even when driverRideId is defined
+    //TODO doesn't work, API returns: "\"driverRideId\" is required" even when driverRideId is defined
+    //TODo or maybe all id's are checked and they must match
     @POST("ride")
     fun createRide(@Header("Authorization") authorization: String,
                    @Body rideData: RideData): Call<MessageResponse>
@@ -26,11 +27,10 @@ interface ApiService {
 
     // filters: oneWay, return
     // get all or filter by id or pending
-    //TODO id is userId or eventId? String or Long?
     @GET("ride")
     fun getUsersRides(@Header("Authorization") authorization: String,
-                     @Query("id") id: Long,
-                     @Query("pending") pending: Boolean,
+                     @Query("id") rideId: String?,
+                     @Query("pending") pending: Boolean?,
                      @Query("filter") filter: String): Call<List<Ride>>
 
     @POST("ride/rate")
@@ -49,11 +49,9 @@ interface ApiService {
                   @Body bookEventData: BookEventData): Call<MessageResponse>
 
 
-    //TODO id is eventId?
-    //TODO BookEventData or BookEventData.EventBooking
     @GET("event-booking")
     fun getUserEventBookings(@Header("Authorization") authorization: String,
-    @Query("id") id: String): Call<List<BookEventData.EventBooking>>
+    @Query("id") eventBookingId: String?): Call<List<BookEventData.EventBooking>>
 
 
     @PUT("event-booking")

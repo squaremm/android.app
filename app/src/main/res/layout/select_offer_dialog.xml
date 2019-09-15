@@ -48,6 +48,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
+            android:requiresFadingEdge="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/offerDialogName"
@@ -58,6 +59,7 @@
                 style="@style/Models18Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:color/white"
                 tools:text="1X Pizza\n1X Water\n2X Beer\n1X Burger" />
         </com.square.android.utils.widget.ScrollViewMaxHeight>
 
