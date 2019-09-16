@@ -65,16 +65,83 @@
         android:orientation="vertical"
         android:overScrollMode="never"
         android:paddingStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:paddingTop="8dp"
         android:paddingEnd="32dp"
         android:paddingBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/eventDetailsCheckOutLl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventDetailsLl"
-        tools:listitem="@layout/item_event_details"
+        tools:listitem="@layout/item_event_detail"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <LinearLayout
+        android:id="@+id/eventDetailsCheckOutLl"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:paddingBottom="32dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_divider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/nice_button_purple_pink_alpha"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/eventDetailsCheckOutIc1"
+                android:layout_width="48dp"
+                android:layout_height="36dp"
+                tools:background="@android:color/white"
+                android:src="@drawable/r_dial"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/eventDetailsCheckOutLabel"
+                style="@style/Models16Text"
+                android:textColor="@android:color/white"
+                android:layout_width="0dp"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/check_out_from_party"
+                app:layout_constraintStart_toEndOf="@+id/eventDetailsCheckOutIc1"
+                app:layout_constraintEnd_toStartOf="@+id/eventDetailsCheckOutIc2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <ImageView
+                android:id="@+id/eventDetailsCheckOutIc2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                tools:background="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/r_dial"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

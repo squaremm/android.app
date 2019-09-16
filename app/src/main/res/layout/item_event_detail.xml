@@ -23,6 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/itemEventDetailsIcon"
         tools:background="@color/nice_pink" />
 
+<!-- grey out by enabled = false  -->
     <TextView
         android:id="@+id/itemEventDetailsName"
         style="@style/Models20BoldText"
@@ -31,7 +32,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="32dp"
         android:includeFontPadding="false"
-        android:visibility="visible"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/itemEventDetailsSecondary"
         app:layout_constraintStart_toEndOf="@+id/itemEventDetailsIcon"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,12 +47,14 @@
         android:gravity="center_vertical"
         android:includeFontPadding="false"
         android:textColor="@color/gray_hint_ligh"
-        android:visibility="visible"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/itemEventDetailsName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/itemEventDetailsName"
         tools:text="La Perla d'Oro" />
 
+    <!-- grey out by enabled = false  -->
     <TextView
         android:id="@+id/itemEventDetailsTransfer"
         style="@style/Models16Text"
@@ -60,9 +64,19 @@
         android:gravity="center_vertical"
         android:text="@string/transfer"
         android:visibility="gone"
+        tools:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/itemEventDetailsIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
+    _____ disabled: _____
+    grey out by enabled = false
+
+    _____ no dinner _____
+    itemEventDetailsNameTo.visibility = View.GONE
+    itemEventDetailsArrow.visibility = View.GONE
+    itemEventDetailsNameFrom.text = "-"
+    -->
     <LinearLayout
         android:id="@+id/itemEventDetailsTransferLl"
         android:layout_width="wrap_content"
@@ -73,6 +87,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone"
+        tools:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -88,6 +103,7 @@
             tools:text="La perla d'Oro" />
 
         <ImageView
+            android:id="@+id/itemEventDetailsArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
@@ -105,6 +121,48 @@
 
     </LinearLayout>
 
+
+    <!--
+    _____ normal: _____
+    * itemEventDetailsContainer *
+    checked = false
+    enabled = true
+    * itemEventDetailsImage *
+    alpha = 1f
+    * TextViews *
+    enabled = true
+
+    _____ checked: _____
+    * itemEventDetailsContainer *
+    checked = true
+    enabled = true
+    * itemEventDetailsImage *
+    alpha = 1f
+    * TextViews *
+    enabled = true
+
+    _____ greyed out: _____
+    * itemEventDetailsContainer *
+    checked = false
+    enabled = true
+    * itemEventDetailsImage *
+    alpha = 1f
+    * TextViews *
+    enabled = false
+
+    _____ no dinner: _____
+    if dinner -> itemEventDetailsNoDinnerLabel.visibility = View.VISIBLE, TextViews.visibility = View.GONE
+    + below
+
+    _____ disabled: _____
+    * itemEventDetailsContainer *
+    checked = false
+    enabled = false
+    * itemEventDetailsImage *
+    alpha = 0.3f
+    * TextViews *
+    enabled = false
+    -->
     <com.square.android.utils.widget.CheckableLinearLayout
         android:id="@+id/itemEventDetailsContainer"
         android:layout_width="0dp"
@@ -112,11 +170,12 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/interval_background"
+        android:background="@drawable/item_event_bg"
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        android:visibility="visible"
+        tools:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/itemEventDetailsIcon"
@@ -128,11 +187,27 @@
             android:layout_height="72dp"
             tools:src="@drawable/fill_profile_footer_2" />
 
+        <TextView
+            android:id="@+id/itemEventDetailsNoDinnerLabel"
+            style="@style/Models14BoldText"
+            android:textColor="@color/gray_hint_ligh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:lineSpacingExtra="5dp"
+            android:layout_marginStart="16dp"
+            android:includeFontPadding="false"
+            android:text="@string/no_dinner_available" />
+
         <LinearLayout
+            android:id="@+id/itemEventDetailsContainerDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:gravity="center_vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:orientation="vertical">
 
             <LinearLayout
@@ -156,7 +231,7 @@
                     android:layout_marginStart="4dp"
                     android:gravity="center_vertical"
                     android:includeFontPadding="false"
-                    android:textColor="@color/nice_pink"
+                    android:textColor="@color/event_details_status_text_color"
                     tools:text="Booked" />
             </LinearLayout>
 

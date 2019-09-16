@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+        <shape>
+            <gradient android:angle="0"
+                android:startColor="@color/nice_purple"
+                android:endColor="@color/nice_pink" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <item android:state_enabled="false">
+        <shape>
+            <gradient android:angle="0"
+                android:startColor="@color/nice_purple_alpha_50"
+                android:endColor="@color/nice_pink_alpha_50" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+</selector>
