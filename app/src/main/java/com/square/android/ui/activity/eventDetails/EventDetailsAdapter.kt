@@ -41,30 +41,57 @@ class EventDetailsAdapter(data: List<EventDetail>,
             itemEventDetailsNoDinnerLabel.visibility = View.GONE
             itemEventDetailsContainerDetails.visibility = View.GONE
 
+            if(item.available){
+                itemEventDetailsIcon.visibility = View.VISIBLE
+            }
+
+            if(item.highlighted){
+                // itemEventDetailsLine.setImageDrawable() to highlighted
+                // itemEventDetailsIcon.imageTintList to highlighted
+            } else{
+                // itemEventDetailsLine.setImageDrawable() to normal
+                // itemEventDetailsIcon.imageTintList to normal
+            }
+
             when(item.type){
-                TYPE_ONE_WAY -> {
+                TYPE_ONE_WAY, TYPE_PARTY, TYPE_RETURN_TO, TYPE_DINNER  -> {
+                    // itemEventDetailsIcon.setImageDrawable() to circle
+
                     itemEventDetailsContainer.visibility = View.VISIBLE
                     itemEventDetailsName.visibility = View.VISIBLE
                     itemEventDetailsSecondary.visibility = View.VISIBLE
 
-                    //TODO ...
-                }
-
-                TYPE_DINNER -> {
-
+                    itemEventDetailsStatus.text = item.status
                 }
 
                 TYPE_TRANSFER -> {
+                    // itemEventDetailsIcon.setImageDrawable() to square
 
+                    itemEventDetailsTransfer.visibility = View.VISIBLE
+                    itemEventDetailsTransferLl.visibility = View.VISIBLE
+
+                    if(item.available){
+                        itemEventDetailsTransfer.isEnabled = true
+                        itemEventDetailsNameFrom.isEnabled = true
+                        itemEventDetailsNameTo.isEnabled = true
+
+                        itemEventDetailsArrow.visibility = View.VISIBLE
+                        itemEventDetailsNameTo.visibility = View.VISIBLE
+
+                        itemEventDetailsNameFrom.text = item.placeFrom
+                        itemEventDetailsNameTo.text = item.placeTo
+                    } else{
+                        itemEventDetailsTransfer.isEnabled = false
+                        itemEventDetailsNameFrom.isEnabled = false
+                        itemEventDetailsNameTo.isEnabled = false
+
+                        itemEventDetailsArrow.visibility = View.GONE
+                        itemEventDetailsNameTo.visibility = View.GONE
+
+                        itemEventDetailsNameFrom.text = "-"
+                    }
                 }
 
-                TYPE_PARTY -> {
-
-                }
-
-                TYPE_RETURN_TO -> {
-
-                }
             }
 
         }

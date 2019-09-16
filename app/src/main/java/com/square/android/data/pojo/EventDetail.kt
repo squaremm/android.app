@@ -21,18 +21,15 @@ class EventDetail(
         var idLong: Long? = null,
 
         // if not
-        // hide itemEventDetailsIcon
-        // transfer - hide itemEventDetailsNameTo and itemEventDetailsArrow, itemEventDetailsNameTo text = "-"
         // other views - disabled state
         // dinner - above + hide itemEventDetailsContainer, show no dinner available label
         var available: Boolean = true,
 
-        // for icon and line
         //(EXCEPT PARTY - see checkedIn) if highlighted - user can't click it and access it's options
         var highlighted: Boolean = false,
 
 
         // for party, if not checked in - allow clicking for check in + below
-        // for everything else - if checkedIn - itemEventDetailsContainer checked state
+        // for everything else except transfer - if checkedIn - itemEventDetailsContainer checked state
         var checkedIn: Boolean = false
 )
