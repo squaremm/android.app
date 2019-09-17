@@ -28,7 +28,9 @@
     <string name="transfer">Transfer</string>
     <string name="status">Status:</string>
     <string name="no_dinner_available">No dinner\navailable</string>
+    <string name="no_ride_available">No ride\navailable</string>
     <string name="check_out_from_party">Check out from party</string>
+    <string name="party">Party</string>
 
     <string name="accept">Accept</string>
 

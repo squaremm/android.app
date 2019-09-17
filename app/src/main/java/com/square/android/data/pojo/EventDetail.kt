@@ -20,16 +20,10 @@ class EventDetail(
         var idString: String? = null,
         var idLong: Long? = null,
 
-        // if not
-        // other views - disabled state
-        // dinner - above + hide itemEventDetailsContainer, show no dinner available label
         var available: Boolean = true,
 
-        //(EXCEPT PARTY - see checkedIn) if highlighted - user can't click it and access it's options
+        //(EXCEPT PARTY - party requires !checkedIn too) if !highlighted - user can click it and access it's options
         var highlighted: Boolean = false,
 
-
-        // for party, if not checked in - allow clicking for check in + below
-        // for everything else except transfer - if checkedIn - itemEventDetailsContainer checked state
         var checkedIn: Boolean = false
 )

@@ -60,6 +60,11 @@
             android:theme="@style/WhiteStatusActivity" />
 
         <activity
+            android:name=".ui.activity.eventDetails.EventDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteStatusActivity" />
+
+        <activity
             android:name=".ui.activity.gallery.GalleryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.R
+import com.square.android.data.pojo.DriverRide
 import com.square.android.data.pojo.Place
 import com.square.android.ui.activity.party.DriverExtras
 import com.square.android.ui.activity.party.LocationEvent
@@ -34,7 +35,7 @@ class DriverFragment(private val driverExtras: DriverExtras): BaseNoMvpFragment(
     private var intervalsAdapter: IntervalAdapter? = null
 
     //TODO change to list later?
-    private var intervals: MutableList<Place.Interval> = driverExtras.driveIntervals.toMutableList()
+    private var intervals: MutableList<DriverRide> = driverExtras.driveIntervals.toMutableList()
 
     private var currentPositionIntervals: Int? = null
 
@@ -86,16 +87,16 @@ class DriverFragment(private val driverExtras: DriverExtras): BaseNoMvpFragment(
             }
         }
 
-        //TODO just for tests, delete later
-        intervals.add(Place.Interval("abcd","13:00","21:00", listOf(),3,""))
-        intervals.add(Place.Interval("eeee","21:00","23:50", listOf(),0,""))
-        intervals.add(Place.Interval("aaaa","05:00","12:00", listOf(),8,""))
-
-        intervalsAdapter = IntervalAdapter(intervals, intervalHandler)
-
-        driverIntervalsRv.layoutManager = LinearLayoutManager(driverIntervalsRv.context, RecyclerView.HORIZONTAL, false)
-        driverIntervalsRv.addItemDecoration(MarginItemDecorator(driverIntervalsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = false))
-        driverIntervalsRv.adapter = intervalsAdapter
+          //TODO change to DriverRide?
+//        intervals.add(Place.Interval("abcd","13:00","21:00", listOf(),3,""))
+//        intervals.add(Place.Interval("eeee","21:00","23:50", listOf(),0,""))
+//        intervals.add(Place.Interval("aaaa","05:00","12:00", listOf(),8,""))
+//
+//        intervalsAdapter = IntervalAdapter(intervals, intervalHandler)
+//
+//        driverIntervalsRv.layoutManager = LinearLayoutManager(driverIntervalsRv.context, RecyclerView.HORIZONTAL, false)
+//        driverIntervalsRv.addItemDecoration(MarginItemDecorator(driverIntervalsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = false))
+//        driverIntervalsRv.adapter = intervalsAdapter
 
         driverAddress.setOnClickListener {
             eventBus.post(LocationEvent(false))
