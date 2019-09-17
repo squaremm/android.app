@@ -52,7 +52,7 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler {
     lateinit var presenter: ReviewPresenter
 
     @ProvidePresenter
-    fun providePresenter(): ReviewPresenter = ReviewPresenter(getRedemptionId(), getOfferId())
+    fun providePresenter(): ReviewPresenter = ReviewPresenter(getOfferId(), getRedemptionId())
 
     private lateinit var reviewTypes: List<ReviewType>
 

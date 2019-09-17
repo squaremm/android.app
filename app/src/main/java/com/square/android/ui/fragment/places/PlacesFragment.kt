@@ -40,19 +40,19 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
     override fun showPlaces(data: List<Place>, types: MutableList<String>) {
         placesList.visibility = View.VISIBLE
 
-        if(data.isNotEmpty()){
-            placesFiltersRv.visibility = View.VISIBLE
-            placesSearchLl.visibility = View.VISIBLE
-        }
+//        if(data.isNotEmpty()){
+//            placesFiltersRv.visibility = View.VISIBLE
+//            placesSearchLl.visibility = View.VISIBLE
+//        }
 
         adapter = PlacesAdapter(data, this)
         placesList.adapter = adapter
 
-        filtersAdapter =  FiltersAdapter(types, this)
-
-        placesFiltersRv.adapter = filtersAdapter
-        placesFiltersRv.layoutManager = LinearLayoutManager(placesFiltersRv.context, RecyclerView.HORIZONTAL,false)
-        placesFiltersRv.addItemDecoration(MarginItemDecorator(placesFiltersRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
+//        filtersAdapter =  FiltersAdapter(types, this)
+//
+//        placesFiltersRv.adapter = filtersAdapter
+//        placesFiltersRv.layoutManager = LinearLayoutManager(placesFiltersRv.context, RecyclerView.HORIZONTAL,false)
+//        placesFiltersRv.addItemDecoration(MarginItemDecorator(placesFiltersRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), false))
     }
 
     override fun updatePlaces(data: List<Place>) {

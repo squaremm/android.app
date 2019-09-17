@@ -30,7 +30,7 @@ android {
         applicationId "com.squaremm.android"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 22
+        versionCode 42
         versionName versionNameVal
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

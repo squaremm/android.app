@@ -147,7 +147,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
     fun itemClicked(position: Int) {
         val id: Long
 
-        if(filteredTypes.isEmpty()){
+        if(filteredTypes.isEmpty() && TextUtils.isEmpty(searchText)){
             id = data!![position].id
 
             AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = data!![position].name }, hashMapOf("id" to id.toString())), repository)

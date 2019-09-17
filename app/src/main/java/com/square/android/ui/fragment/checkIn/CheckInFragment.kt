@@ -55,6 +55,12 @@ class CheckInFragment: BaseFragment(), CheckInView{
         (activity as SelectOfferActivity).configureStep(2)
 
         couponCheckIn.setOnClickListener {presenter.checkInClicked()}
+
+        couponSv.setOnTouchListener { v, event ->
+            couponSv.parent.requestDisallowInterceptTouchEvent(true)
+
+            false
+        }
     }
 
     override fun showData(offer: Offer, user: Profile.User, place: Place, redemptionFull: RedemptionFull) {

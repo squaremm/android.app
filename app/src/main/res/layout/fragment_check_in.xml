@@ -15,6 +15,11 @@
     android:clipToPadding="false"
     app:cardUseCompatPadding="false" >
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:layout_height="match_parent" >
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,6 +89,7 @@
                 android:layout_marginEnd="24dp"
                 android:visibility="gone"
                 tools:visibility="visible"
+                android:requiresFadingEdge="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator"
@@ -95,6 +101,7 @@
                     android:gravity="center_horizontal"
                     android:lineSpacingExtra="12dp"
                     android:includeFontPadding="false"
+                    android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="1X Pizza\n1X Water\n2X Beer\n1X Burger" />
@@ -194,4 +201,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
     </androidx.cardview.widget.CardView>
