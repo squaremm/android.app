@@ -20,4 +20,8 @@ class EventDetailsPresenter(val eventId: Long): BasePresenter<EventDetailsView>(
         viewState.showData(data, "TODO")
     }
 
+    fun itemClicked(position: Int){
+
+    }
+
 }

@@ -32,6 +32,8 @@
     <string name="check_out_from_party">Check out from party</string>
     <string name="party">Party</string>
 
+    <string name="your_final_selection">Your final selection</string>
+
     <string name="accept">Accept</string>
 
     <string name="app_not_installed">This application is not installed on your device</string>
