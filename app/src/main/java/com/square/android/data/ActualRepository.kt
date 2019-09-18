@@ -156,7 +156,7 @@ class ActualRepository(private val api: ApiService,
     }
 
     override fun book(placeId: Long, bookInfo: BookInfo): Deferred<MessageResponse> = GlobalScope.async {
-        val data = performRequestCheckingMessage { api.book(placeId, bookInfo) }
+        val data = performBookingRequest { api.book(placeId, bookInfo) }
         data
     }
 
@@ -245,6 +245,21 @@ class ActualRepository(private val api: ApiService,
         if (response.isSuccessful) {
             return response.body()!!
         } else {
+            throw HttpException(response)
+        }
+    }
+
+    private inline fun <T> performBookingRequest(block: () -> Call<T>): T {
+        val response = block().execute()
+
+        if (response.isSuccessful) {
+            return response.body()!!
+        } else {
+
+            if(response.code() == 400){
+                throw java.lang.Exception("BOOKING IN THE PAST")
+            }
+
             throw HttpException(response)
         }
     }

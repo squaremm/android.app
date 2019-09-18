@@ -17,6 +17,8 @@
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
 
+    <string name="cant_book_past">You can\'t book in the past!</string>
+
     <string name="unknown_error">Error occurred. Please try again</string>
     <string name="fill_profile_title">Create Profile</string>
     <string name="hint_name">Name</string>

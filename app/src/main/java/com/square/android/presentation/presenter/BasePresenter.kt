@@ -7,6 +7,7 @@ import com.crashlytics.android.Crashlytics
 import com.google.gson.Gson
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME
+import com.square.android.R
 import com.square.android.SCREENS
 import com.square.android.data.BillingRepository
 import com.square.android.data.Repository
@@ -224,7 +225,11 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                 }
         } else{
             if(!TextUtils.isEmpty(it.errorMessage)){
-                viewState.showMessage(it.errorMessage)
+                if(it.errorMessage == "BOOKING IN THE PAST"){
+                    viewState.showMessage(R.string.cant_book_past)
+                } else{
+                    viewState.showMessage(it.errorMessage)
+                }
             }
         }
 
