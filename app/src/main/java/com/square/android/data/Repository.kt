@@ -38,6 +38,8 @@ interface Repository {
     fun setUserName(name: String, surname: String)
     fun setSocialLink(username: String)
 
+    fun isUserPremium(): Boolean
+
     fun setUserPaymentRequired(paymentRequired: Boolean)
 
     fun getUserInfo() : UserInfo

@@ -20,6 +20,10 @@ import retrofit2.HttpException
 
 private const val TOKEN_PREFIX = "Bearer "
 
+object SubscriptionInfo {
+    var subscriptionChecked: Boolean = false
+}
+
 class ActualRepository(private val api: ApiService,
                        private val localManager: LocalDataManager) : Repository {
 
@@ -311,6 +315,8 @@ class ActualRepository(private val api: ApiService,
     override fun setUserEntitlement(entitlementId: String, active: Boolean) {
         localManager.setUserEntitlement(entitlementId, active)
     }
+
+    override fun isUserPremium(): Boolean { return localManager.isUserPremium() }
 
     override fun getUserEntitlement(entitlementId: String): Boolean = localManager.getUserEntitlement(entitlementId)
 

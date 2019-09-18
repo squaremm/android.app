@@ -6,7 +6,6 @@ import com.square.android.App
 import com.square.android.data.Repository
 import org.json.JSONObject
 
-
 enum class AnalyticsEvents(var venueName: String? = null) {
     VENUE_CLICKED,
     BOOKING_MADE,
@@ -40,4 +39,19 @@ object AnalyticsManager {
         }
         App.INSTANCE.mixpanel.track(eventName, mixpanelEvent)
     }
+
+    fun logUser(userId: Long, isUserPremium: Boolean, isPaymentRequired: Boolean){
+        App.INSTANCE.mixpanel.people.identify(userId.toString())
+
+        val plan = if(!isPaymentRequired){
+            "Premium"
+        } else{
+            if(isUserPremium) "Paid" else "Free"
+        }
+
+        println("User Analytics - logUser -> plan: "+plan)
+
+        App.INSTANCE.mixpanel.people.set("Plan", plan )
+    }
+
 }

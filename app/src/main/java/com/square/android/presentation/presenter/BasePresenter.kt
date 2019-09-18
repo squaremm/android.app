@@ -11,6 +11,7 @@ import com.square.android.R
 import com.square.android.SCREENS
 import com.square.android.data.BillingRepository
 import com.square.android.data.Repository
+import com.square.android.data.SubscriptionInfo
 import com.square.android.data.network.errorMessage
 import com.square.android.data.pojo.BillingSubscription
 import com.square.android.data.pojo.BillingTokenInfo
@@ -19,6 +20,7 @@ import com.square.android.data.pojo.TokenInfo
 import com.square.android.presentation.view.BaseView
 import com.square.android.presentation.view.ProgressView
 import com.square.android.ui.activity.noConnection.NoConnectionClosedEvent
+import com.square.android.utils.AnalyticsManager
 import com.square.android.utils.BooleanWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -95,7 +97,6 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> billings: ${billings.toString()}")
 
 
-//                TODO uncomment
                 for (billing in billings) {
                     val data = billingRepository.getSubscription(billing.subscriptionId!!, billing.token!!).await()
                     data.subscriptionId = billing.subscriptionId
@@ -103,10 +104,6 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
                     subscriptions.add(data)
                 }
-
-//                //TODO delete
-//                val data = billingRepository.getSubscription("one","two").await()
-                    
 
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> subscriptions: ${subscriptions.toString()}")
@@ -151,13 +148,22 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     }
                     //////////////////////////////////////////////////////////////////
 
-                    //TODO uncomment when subscriptions working correctly
                     if(!valid1 && !valid2){
                         router.navigateTo(SCREENS.PASS_ELIGIBLE)
                     }
 
                 }
                 eventBus.post(SubscriptionErrorEvent(1))
+
+                if(!SubscriptionInfo.subscriptionChecked){
+                    SubscriptionInfo.subscriptionChecked = true
+
+                    val userId = repository.getUserId()
+                    val isUserPremium = repository.isUserPremium()
+                    println("User Analytics - Subscription checked -> userId: "+userId+", isUserPremium: "+isUserPremium+", isPaymentRequired: "+isPaymentRequired)
+                    AnalyticsManager.logUser(userId, isUserPremium, isPaymentRequired)
+                }
+
             }, { error ->
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> error: ${error.toString()}"))
                 Log.d("SUBSCRIPTIONS LOG","BasePresenter: checkSubscriptions() -> error: ${error.toString()}")

@@ -191,6 +191,13 @@ class LocalDataManager(context: Context) {
     fun getUserEntitlement(entitlementId: String) =
             preferences.getBoolean(KEY_ENTITLEMENT+entitlementId, false)
 
+
+    fun isUserPremium(): Boolean{
+        return getUserEntitlement(SUBSCRIPTION_PER_WEEK_NAME) || getUserEntitlement(SUBSCRIPTION_PER_MONTH_NAME)
+
+        //Check every subscriptionId in app
+    }
+
     fun setUserEntitlement(entitlementId: String, active: Boolean){
         preferences.edit()
                 .putBoolean(KEY_ENTITLEMENT+entitlementId, active)

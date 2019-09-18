@@ -11,6 +11,7 @@ import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.presenter.profile.ProfileUpdatedEvent
 
 import com.square.android.presentation.view.editProfile.EditProfileView
+import com.square.android.utils.AnalyticsManager
 import org.greenrobot.eventbus.EventBus
 import org.koin.standalone.inject
 
@@ -65,6 +66,12 @@ class EditProfilePresenter : BasePresenter<EditProfileView>() {
 
             val event = ProfileUpdatedEvent()
             eventBus.post(event)
+
+            val userId = repository.getUserId()
+            val isUserPremium = repository.isUserPremium()
+            val isPaymentRequired = repository.getUserInfo().isPaymentRequired
+            println("User Analytics - Profile edited -> userId: "+userId+", isUserPremium: "+isUserPremium+", isPaymentRequired: "+isPaymentRequired)
+            AnalyticsManager.logUser(userId, isUserPremium, isPaymentRequired)
 
             router.showSystemMessage(result.message)
             
