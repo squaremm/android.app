@@ -69,7 +69,7 @@
         android:layout_height="44dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/nice_button_pink_red"
-        android:drawableRight="@drawable/button_arrow"
+        android:drawableEnd="@drawable/button_arrow"
         android:paddingStart="65dp"
         android:paddingEnd="63dp"
         android:layout_marginTop="56dp"

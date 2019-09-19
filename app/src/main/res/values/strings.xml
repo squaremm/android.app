@@ -463,6 +463,8 @@
 
     <string name="available_spots">Available Spots</string>
 
+    <string name="available_offers">Available Offers</string>
+
     <string name="send">Send</string>
 
     <string name="pick_gift_at_location">Pick up the gift at location:</string>

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- TODO: Make layout cover whole screen including status bar  -->
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_marginTop="40dp"
+        android:overScrollMode="never" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cSummaryContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@color/coupon_bg"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <ImageView
+                    android:id="@+id/cSummaryDashedLine"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/dashed_line"
+                    android:layerType="software"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryAddress" />
+
+                <ImageView
+                    android:id="@+id/cSummaryThankYouImg"
+                    android:layout_width="156dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryOffers"
+                    tools:background="@color/nice_pink" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/rounded_bg_stroke"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/view4"
+                    app:layout_constraintStart_toEndOf="@+id/cSummaryImgContainer"
+                    app:layout_constraintTop_toTopOf="@+id/cSummaryImgContainer">
+
+                    <TextView
+                        android:id="@+id/cSummaryDate"
+                        style="@style/Models14BoldText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:includeFontPadding="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cSummaryUserName"
+                        tools:text="23.05.2019" />
+
+                    <TextView
+                        android:id="@+id/cSummaryTime"
+                        style="@style/Models12Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center_horizontal"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/secondary_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cSummaryUserName"
+                        tools:text="00:30 am - 04:00 am" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/cSummaryName"
+                    style="@style/Models20BoldText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="32dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Just Cavalli" />
+
+                <TextView
+                    android:id="@+id/cSummaryAddress"
+                    style="@style/Models16Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryName"
+                    tools:text="Via Giuseppe Verdi, 31" />
+
+                <TextView
+                    android:id="@+id/cSummaryUserName"
+                    style="@style/Models18BoldText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="32dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/redemptionImage"
+                    tools:text="Samantha M." />
+
+                <TextView
+                    android:id="@+id/cSummaryLabel"
+                    style="@style/Models15Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center_horizontal"
+                    android:includeFontPadding="false"
+                    android:text="@string/your_final_selection"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryUserName" />
+
+                <TextView
+                    android:id="@+id/cSummaryCheckedAt"
+                    style="@style/Models16BoldText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/background_rounded_4dp"
+                    android:backgroundTint="@color/nice_pink"
+                    android:gravity="center_horizontal"
+                    android:includeFontPadding="false"
+                    android:paddingStart="4dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/your_final_selection"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/cSummaryImgContainer"
+                    app:layout_constraintEnd_toEndOf="@+id/view4"
+                    app:layout_constraintStart_toEndOf="@+id/cSummaryImgContainer"
+                    tools:text="Checked in at 00:34" />
+
+                <TextView
+                    android:id="@+id/cSummaryEventName"
+                    style="@style/Models15Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    app:layout_constraintEnd_toEndOf="@+id/cSummaryImgContainer"
+                    app:layout_constraintStart_toStartOf="@+id/cSummaryImgContainer"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryImgContainer"
+                    tools:text="Night out" />
+
+                <TextView
+                    android:id="@+id/cSummaryCreditsValue"
+                    style="@style/Models14BoldText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/nice_pink"
+                    app:layout_constraintStart_toStartOf="@+id/cSummaryImgContainer"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryEventName"
+                    tools:text="300" />
+
+                <TextView
+                    android:id="@+id/cSummaryCreditsLabel"
+                    style="@style/Models14Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/credits_lowercase"
+                    android:textColor="@color/nice_pink"
+                    app:layout_constraintBottom_toBottomOf="@+id/cSummaryCreditsValue"
+                    app:layout_constraintStart_toEndOf="@+id/cSummaryCreditsValue"
+                    app:layout_constraintTop_toTopOf="@+id/cSummaryCreditsValue" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/divider"
+                    app:layout_constraintBottom_toBottomOf="@+id/cSummaryLabel"
+                    app:layout_constraintEnd_toStartOf="@+id/cSummaryLabel"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cSummaryLabel" />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/divider"
+                    app:layout_constraintBottom_toBottomOf="@+id/cSummaryLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cSummaryLabel"
+                    app:layout_constraintTop_toTopOf="@+id/cSummaryLabel" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cSummaryOffers"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryCreditsValue"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_offer_summary" />
+
+                <com.square.android.ui.view.CircleImageView
+                    android:id="@+id/redemptionImage"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="32dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/circle_white"
+                    android:cropToPadding="false"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryDashedLine"
+                    tools:src="@drawable/r_dial" />
+
+                <com.square.android.utils.widget.CheckableLinearLayout
+                    android:id="@+id/cSummaryImgContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/interval_background"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="@+id/view5"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryLabel">
+
+                    <ImageView
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/fill_profile_header_1" />
+                </com.square.android.utils.widget.CheckableLinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_check_circle"
+                    android:tint="@color/nice_pink"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/cSummaryImgContainer"
+                    app:layout_constraintEnd_toEndOf="@+id/cSummaryImgContainer"
+                    app:layout_constraintStart_toEndOf="@+id/cSummaryImgContainer"
+                    app:layout_constraintTop_toTopOf="@+id/cSummaryImgContainer"
+                    tools:visibility="visible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/round_background"
+                android:backgroundTint="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/cSummaryContent"
+                app:layout_constraintEnd_toStartOf="@+id/cSummaryContent"
+                app:layout_constraintStart_toStartOf="@+id/cSummaryContent"
+                app:layout_constraintTop_toTopOf="@+id/cSummaryContent" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/round_background"
+                android:backgroundTint="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/cSummaryContent"
+                app:layout_constraintEnd_toEndOf="@+id/cSummaryContent"
+                app:layout_constraintStart_toEndOf="@+id/cSummaryContent"
+                app:layout_constraintTop_toTopOf="@+id/cSummaryContent" />
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/round_background"
+                android:backgroundTint="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/cSummaryContent"
+                app:layout_constraintEnd_toStartOf="@+id/cSummaryContent"
+                app:layout_constraintStart_toStartOf="@+id/cSummaryContent"
+                app:layout_constraintTop_toBottomOf="@+id/cSummaryContent" />
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/round_background"
+                android:backgroundTint="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/cSummaryContent"
+                app:layout_constraintEnd_toEndOf="@+id/cSummaryContent"
+                app:layout_constraintStart_toEndOf="@+id/cSummaryContent"
+                app:layout_constraintTop_toBottomOf="@+id/cSummaryContent" />
+
+            <ImageView
+                android:id="@+id/cSummaryClose"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/close_x"
+                android:tint="@android:color/white"
+                android:paddingEnd="6dp"
+                android:paddingTop="6dp"
+                app:layout_constraintBottom_toTopOf="@+id/cSummaryContent"
+                app:layout_constraintEnd_toEndOf="@+id/cSummaryContent"
+                app:layout_constraintStart_toEndOf="@+id/cSummaryContent"
+                app:layout_constraintTop_toTopOf="@+id/cSummaryContent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</FrameLayout>
+
