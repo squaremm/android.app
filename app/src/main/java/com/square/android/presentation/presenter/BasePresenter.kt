@@ -168,24 +168,22 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                 Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> error: ${error.toString()}"))
                 Log.d("SUBSCRIPTIONS LOG","BasePresenter: checkSubscriptions() -> error: ${error.toString()}")
 
-                //TODO uncomment when subscriptions working correctly
-//                    if((error is UnknownHostException || error is SocketTimeoutException || error is ConnectException || error is ConnectionShutdownException)){
-//                        eventBus.post(SubscriptionErrorEvent(2))
-//
-//                        if(!skipError){
-//                            if(allowNoConnectionScreen){
-//                                allowNoConnectionScreen = false
-//                                router.navigateTo(SCREENS.NO_CONNECTION)
-//                            }
-//                        }
-//                    } else{
-//                        eventBus.post(SubscriptionErrorEvent(3))
-//
-//                        if(!skipError){
-//                            router.navigateTo(SCREENS.SUBSCRIPTION_ERROR)
-//                        }
-//                    }
+                    if((error is UnknownHostException || error is SocketTimeoutException || error is ConnectException || error is ConnectionShutdownException)){
+                        eventBus.post(SubscriptionErrorEvent(2))
 
+                        if(!skipError){
+                            if(allowNoConnectionScreen){
+                                allowNoConnectionScreen = false
+                                router.navigateTo(SCREENS.NO_CONNECTION)
+                            }
+                        }
+                    } else{
+                        eventBus.post(SubscriptionErrorEvent(3))
+
+                        if(!skipError){
+                            router.navigateTo(SCREENS.SUBSCRIPTION_ERROR)
+                        }
+                    }
             })
         }
     }
