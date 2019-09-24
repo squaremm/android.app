@@ -18,6 +18,7 @@ import com.square.android.R
 import com.square.android.SCREENS
 import com.square.android.androidx.navigator.AppNavigator
 import com.square.android.data.network.fcm.NotificationType
+import com.square.android.data.pojo.Event
 import com.square.android.data.pojo.Profile
 import com.square.android.presentation.presenter.main.MainPresenter
 import com.square.android.presentation.view.main.MainView
@@ -27,6 +28,7 @@ import com.square.android.ui.activity.claimedRedemption.CLAIMED_OFFER_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.CLAIMED_REDEMPTION_EXTRA_ID
 import com.square.android.ui.activity.claimedRedemption.ClaimedExtras
 import com.square.android.ui.activity.claimedRedemption.ClaimedRedemptionActivity
+import com.square.android.ui.activity.event.*
 import com.square.android.ui.fragment.editProfile.EditProfileFragment
 import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
@@ -167,8 +169,12 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                     SCREENS.SELECT_OFFER ->
                         context.intentFor<SelectOfferActivity>(OFFER_EXTRA_ID to data as Long)
 
-//                  SCREENS.PARTY ->
-//                        context.intentFor<PartyActivity>(PARTY_EXTRA_ID to data as Long)
+                    SCREENS.EVENT ->{
+                        val extras = data as EventExtras
+                        context.intentFor<EventActivity>(
+                                EXTRA_EVENT to extras.event,
+                                EXTRA_EVENT_PLACE to extras.place)
+                    }
 
                     SCREENS.PLACE ->
                         context.intentFor<PlaceActivity>(PLACE_EXTRA_ID to data as Long)

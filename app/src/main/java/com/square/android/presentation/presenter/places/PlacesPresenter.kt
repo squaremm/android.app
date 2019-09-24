@@ -5,12 +5,10 @@ import android.text.TextUtils
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.SCREENS
-import com.square.android.data.pojo.City
-import com.square.android.data.pojo.FilterTimeframe
-import com.square.android.data.pojo.Place
-import com.square.android.data.pojo.PlaceData
+import com.square.android.data.pojo.*
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.places.PlacesView
+import com.square.android.ui.activity.event.EventExtras
 import com.square.android.utils.AnalyticsEvent
 import com.square.android.utils.AnalyticsEvents
 import com.square.android.utils.AnalyticsManager
@@ -42,9 +40,9 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
     private var locationPoint: LatLng? = null
 
-    private var data: List<Place>? = null
+    private var data: MutableList<Place>? = null
 
-    private var filteredData: List<Place>? = null
+    private var filteredData: MutableList<Place>? = null
 
     var distancesFilled: Boolean = false
 
@@ -53,6 +51,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
     var initialized = false
 
     var locationInitialized = false
+
+    var events: List<Event> = listOf()
+
+    var eventPlaces: MutableList<Place> = mutableListOf()
 
     init {
         loadData()
@@ -139,7 +141,11 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
         selectedCity = c
 
-        data = repository.getPlacesByFilters(PlaceData().apply { city = selectedCity!!.name }).await()
+        data = repository.getPlacesByFilters(PlaceData().apply { city = selectedCity!!.name }).await().toMutableList()
+
+        for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+            data!!.add(place)
+        }
 
         distancesFilled = false
 
@@ -185,7 +191,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     if(data != null){
                         actualDataLoaded = false
 
-                        filteredData = data!!.filter { it.name.contains(searchText.toString(), true) && it.city == selectedCity?.name }
+                        filteredData = data!!.filter { it.name.contains(searchText.toString(), true) && it.city == selectedCity?.name }.toMutableList()
 
                         fillDistances(false)
                         filteredData?.let { viewState.updatePlaces(it) }
@@ -197,11 +203,15 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                 selectedDayPosition?.let {
                     actualDataLoaded = false
 
-                    var mDate = actualDates[selectedDayPosition!!]
+                    val mDate = actualDates[selectedDayPosition!!]
 
                     filteredData = repository.getPlacesByFilters(PlaceData().apply {
                         date  = mDate
-                        selectedCity?.let { city = selectedCity!!.name } }).await()
+                        selectedCity?.let { city = selectedCity!!.name } }).await().toMutableList()
+
+                    for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+                        filteredData!!.add(place)
+                    }
 
                     fillDistances(false)
                     filteredData?.let { viewState.updatePlaces(it) }
@@ -222,10 +232,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                         val selectedTypes = allSelected - selectedTimeframes.map { it.name }
 
                         filteredData = if(selectedTimeframes.isEmpty()){
-                            data!!.filter { it.type in selectedTypes && it.city == selectedCity?.name }
+                            data!!.filter { it.type in selectedTypes && it.city == selectedCity?.name }.toMutableList()
                         } else{
                             //TODO probably should be done with API call(no call allowing list of timeframes and types for now)
-                            data!!.filter {it.type in selectedTimeframes.map {t -> t.type } && it.city == selectedCity?.name}
+                            data!!.filter {it.type in selectedTimeframes.map {t -> t.type } && it.city == selectedCity?.name}.toMutableList()
                         }
 
                         fillDistances(false)
@@ -268,7 +278,22 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
             data = repository.getPlacesByFilters(PlaceData().apply {
                 selectedCity?.let {
                     city = selectedCity!!.name
-                } }).await()
+                } }).await().toMutableList()
+
+            events = repository.getEvents().await()
+
+            for(event in events){
+                val place = repository.getPlace(event.placeId).await()
+                eventPlaces.add(place.apply {
+                    event.timeframe?.freeSpots?.let {
+                        availableOfferSpots = it
+                    }
+                })
+            }
+
+            for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+                data!!.add(place)
+            }
 
             updateDistances()
 
@@ -277,7 +302,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
             allFilters = types
 
-            var calendar = Calendar.getInstance()
+            val calendar = Calendar.getInstance()
 
             for (x in 0 until 7) {
                 days.add(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()).substring(0, 1).toUpperCase())
@@ -287,7 +312,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
             }
 
             viewState.hideProgress()
-            viewState.showData(data!!, allFilters, allSelected, days)
+            viewState.showData(data!!.toList(), allFilters, allSelected, days)
 
             initialized = true
         }
@@ -312,7 +337,12 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     repository)
         }
 
-        router.navigateTo(SCREENS.PLACE, id)
+        if(id in eventPlaces.map { it.id }){
+            val extras = EventExtras(events.first { it.placeId == id }, place)
+            router.navigateTo(SCREENS.EVENT, extras)
+        } else {
+            router.navigateTo(SCREENS.PLACE, id)
+        }
     }
 
     private fun fillDistances(actualData: Boolean){
@@ -329,7 +359,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
                             place.distance = distance
                         }
-                        data = data!!.sortedBy { it.distance }
+                        data = data!!.sortedBy { it.distance }.toMutableList()
                     }
                 }
             } else {
@@ -341,7 +371,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     place.distance = distance
                 }
 
-                filteredData?.let { filteredData = filteredData!!.sortedBy { it.distance } }
+                filteredData?.let { filteredData = filteredData!!.sortedBy { it.distance }.toMutableList() }
             }
         }
     }

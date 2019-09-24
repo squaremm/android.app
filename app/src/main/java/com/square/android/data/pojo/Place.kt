@@ -2,7 +2,6 @@ package com.square.android.data.pojo
 
 import android.os.Parcelable
 import com.square.android.data.network.IgnoreObjectIfIncorrect
-import com.square.android.data.network.IgnoreStringForArrays
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
@@ -32,24 +31,9 @@ class Place(
 
         var city: String = "",
 
-        //TODO data for Party
-        @Transient
-        var placesOffers: List<PlaceOffers> = listOf(),
-        @Transient
-        var timeframe: Timeframe? = null,
-        @Transient
-        var participants: List<Long> = listOf(),
-        @Transient
-        var requirements: Map<String, String> = mapOf(),
-
-
-
-
-        //TODO this stays here, set this to slots from PlaceOffers when making a list of Place in party
+        //set this to slots from PlaceOffers when making a list of Place in event
         @Transient
         var slots: Int = 0,
-
-
 
         // Availability label data
         var availableOfferDay: String? = null,
@@ -57,37 +41,12 @@ class Place(
 
 ) : Parcelable {
 
-
     @Parcelize
     @JsonClass(generateAdapter = true)
     class Icons(
             var typology: List<String> = listOf(),
             var extras: List<String> = listOf()
     ) : Parcelable
-
-
-
-
-    //TODO data for Party
-    @Parcelize
-    @JsonClass(generateAdapter = true)
-    class Timeframe(
-            var spots: Int = 0,
-            var start: String = "",
-            var end: String = "",
-            var description: String = ""
-    ) : Parcelable
-    @Parcelize
-    @JsonClass(generateAdapter = true)
-    class PlaceOffers(
-            var slots: Int = 0,
-            var placeId: Long = 0,
-            var offerIds: List<Long> = listOf()
-    ) : Parcelable
-
-
-
-
 
     var distance: Int? = null
 

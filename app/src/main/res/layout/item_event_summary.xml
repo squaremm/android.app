@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemEventSummaryMainContainer"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/itemEventSummaryIcon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_circle_no" />
+
+    <ImageView
+        android:id="@+id/itemEventSummaryLine"
+        android:layout_width="6dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/itemEventSummaryIcon"
+        app:layout_constraintStart_toStartOf="@id/itemEventSummaryIcon"
+        app:layout_constraintTop_toBottomOf="@+id/itemEventSummaryIcon"
+        tools:background="@color/nice_pink" />
+
+    <TextView
+        android:id="@+id/itemEventSummaryName"
+        style="@style/Models20BoldText"
+        android:layout_width="0dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:includeFontPadding="false"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/itemEventSummarySecondary"
+        app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/one_way_from" />
+
+    <TextView
+        android:id="@+id/itemEventSummarySecondary"
+        style="@style/Models16BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:textColor="@color/gray_hint_ligh"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/itemEventSummaryName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/itemEventSummaryName"
+        tools:text="La Perla d'Oro" />
+
+    <TextView
+        android:id="@+id/itemEventSummaryTransfer"
+        style="@style/Models16Text"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginStart="32dp"
+        android:gravity="center_vertical"
+        android:text="@string/transfer"
+        android:visibility="gone"
+        tools:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/itemEventSummaryTransferLl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon"
+        app:layout_constraintTop_toBottomOf="@+id/itemEventSummaryTransfer">
+
+        <TextView
+            android:id="@+id/itemEventSummaryNameFrom"
+            style="@style/Models16Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            tools:text="La perla d'Oro" />
+
+        <ImageView
+            android:id="@+id/itemEventSummaryArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:src="@drawable/arrow_right"
+            android:tint="@android:color/black" />
+
+        <TextView
+            android:id="@+id/itemEventSummaryNameTo"
+            style="@style/Models16Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            tools:text="Just Cavalli" />
+
+    </LinearLayout>
+
+    <com.square.android.utils.widget.CheckableLinearLayout
+        android:id="@+id/itemEventSummaryContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/item_event_bg"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        tools:visibility="visible"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon"
+        app:layout_constraintTop_toBottomOf="@+id/itemEventSummaryName">
+
+        <ImageView
+            android:id="@+id/itemEventSummaryImage"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            tools:src="@drawable/fill_profile_footer_2" />
+
+        <TextView
+            android:id="@+id/itemEventSummaryDisabledLabel"
+            style="@style/Models14BoldText"
+            android:textColor="@color/gray_hint_ligh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:lineSpacingExtra="5dp"
+            android:layout_marginStart="16dp"
+            android:includeFontPadding="false"
+            tools:text="@string/no_dinner_available" />
+
+        <LinearLayout
+            android:id="@+id/itemEventSummaryContainerDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/itemEventSummaryStatusLabel"
+                    style="@style/Models14Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:text="@string/status" />
+
+                <TextView
+                    android:id="@+id/itemEventSummaryStatus"
+                    style="@style/Models14BoldText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/event_details_status_text_color"
+                    tools:text="Booked" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/itemEventSummaryTime"
+                style="@style/Models14Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                tools:text="8.00 pm - 9.30 pm" />
+
+            <TextView
+                android:id="@+id/itemEventSummaryAddress"
+                style="@style/Models12Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                tools:text="Via Gregorio Vespucci 14" />
+        </LinearLayout>
+
+    </com.square.android.utils.widget.CheckableLinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,33 @@
 package com.square.android.presentation.view.eventDetails
 
-import com.square.android.data.pojo.EventDetail
+import com.square.android.data.pojo.Event
+import com.square.android.data.pojo.OfferInfo
+import com.square.android.data.pojo.Place
 import com.square.android.presentation.view.BaseView
+import java.util.*
 
 interface EventDetailsView : BaseView {
 
-    fun showData(items: List<EventDetail>, dinnerStatus: String)
+//    fun showData(event: Event, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?)
+    fun showData(event: Event, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?, places: List<Place>)
 
+    // TODO change to?
+    //  fun showIntervals(data: List<Place.Timeframe>)
+    fun showIntervals(data: List<Place.Interval>)
+
+    fun updateMonthName(calendar: Calendar)
+
+    fun setSelectedDayItem(position: Int)
+
+    fun setSelectedIntervalItem(position: Int)
+
+    fun showProgress()
+
+    fun hideProgress()
+
+    fun setSelectedPlaceItem(index: Int)
+
+    fun updateRestaurantName(placename: String)
+
+    fun hideBookingProgress()
 }

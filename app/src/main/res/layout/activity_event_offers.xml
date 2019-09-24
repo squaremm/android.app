@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/eventOffersBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:tint="@android:color/black"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/eventOffersTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventOffersTitle"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/eventOffersTitle"
+        style="@style/Models20BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="12dp"
+        android:includeFontPadding="false"
+        android:text="@string/party"
+        app:layout_constraintStart_toEndOf="@+id/eventOffersBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/eventOffersDate"
+        style="@style/Models16BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:includeFontPadding="false"
+        app:layout_constraintBottom_toBottomOf="@+id/eventOffersTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventOffersTitle"
+        tools:text="23.05.2019" />
+
+    <TextView
+        android:id="@+id/eventOffersInterval"
+        style="@style/Models14BoldText"
+        android:textColor="@color/gray_hint_ligh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="3dp"
+        app:layout_constraintEnd_toEndOf="@+id/eventOffersDate"
+        app:layout_constraintStart_toStartOf="@+id/eventOffersDate"
+        app:layout_constraintTop_toBottomOf="@+id/eventOffersDate"
+        tools:text="00:30 am\n04:00 am" />
+
+    <TextView
+        android:id="@+id/eventOffersAvailableOffers"
+        style="@style/Models16BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/available_offers"
+        app:layout_constraintStart_toStartOf="@+id/eventOffersBack"
+        app:layout_constraintTop_toBottomOf="@+id/eventOffersInterval" />
+
+<!--  TODO make images rounded corners 4dp in loadImage
+      TODO add padding between in grid(24dp?)
+      TODO make items selectable(multiple selection) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventOffers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/eventOffersNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventOffersAvailableOffers"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/item_event_offer"
+        tools:spanCount="2" />
+
+    <Button
+        android:id="@+id/eventOffersNext"
+        style="@style/Models16Text"
+        android:layout_width="180dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/nice_button_red_pink_alpha"
+        android:drawableEnd="@drawable/button_arrow"
+        android:layout_marginBottom="32dp"
+        android:paddingStart="60dp"
+        android:paddingEnd="58dp"
+        android:text="@string/next"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

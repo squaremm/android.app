@@ -15,8 +15,8 @@ import com.square.android.extensions.clearText
 import com.square.android.extensions.loadImage
 import com.square.android.presentation.presenter.profile.ProfilePresenter
 import com.square.android.presentation.view.profile.ProfileView
-import com.square.android.ui.activity.party.DriverDialog
-import com.square.android.ui.activity.party.DriverExtras
+import com.square.android.ui.activity.event.DriverDialog
+import com.square.android.ui.activity.event.DriverExtras
 import com.square.android.ui.fragment.BaseFragment
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.fragment_profile.*

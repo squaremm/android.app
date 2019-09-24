@@ -53,6 +53,72 @@ class ActualRepository(private val api: ApiService,
 //        data
 //    }
 
+
+// Event / ride endpoints
+    override fun createRide(rideData: RideData): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest {api.createRide(localManager.getAuthToken(), rideData)}
+        data
+    }
+
+    override fun editRide(ride: Ride): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest {api.editRide(localManager.getAuthToken(), ride)}
+        data
+    }
+
+    override fun deleteRide(rideId: String): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest {api.deleteRide(localManager.getAuthToken(), rideId)}
+        data
+    }
+
+    override fun getUserRide(rideId: String): Deferred<Ride?> = GlobalScope.async {
+        val data = performRequest {api.getUserRide(localManager.getAuthToken(), rideId, null, null)}
+
+        data.firstOrNull()
+    }
+
+    override fun getUserRides(filter: String, pending: Boolean?): Deferred<List<Ride>> = GlobalScope.async {
+        val data = performRequest {api.getUserRides(localManager.getAuthToken(), null, pending, filter)}
+
+        data
+    }
+
+    override fun rateRide(rideData: RideData): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest {api.rateRide(localManager.getAuthToken(), rideData)}
+        data
+    }
+
+    override fun getRideTimeframesForPlace(placeId: Long): Deferred<List<DriverRide>> = GlobalScope.async {
+        val data = performRequest {api.getRideTimeframesForPlace(localManager.getAuthToken(), placeId)}
+        data
+    }
+
+    override fun bookEvent(bookEventData: BookEventData): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest {api.bookEvent(localManager.getAuthToken(), bookEventData)}
+        data
+    }
+
+    override fun getUserEventBookings(eventBookingId: String?): Deferred<List<BookEventData.EventBooking>> = GlobalScope.async {
+        val data = performRequest {api.getUserEventBookings(localManager.getAuthToken(), eventBookingId)}
+        data
+    }
+
+    override fun editEventBookings(rideId: String, eventBooking: BookEventData): Deferred<MessageResponse> = GlobalScope.async {
+        val data = performRequest {api.editEventBookings(localManager.getAuthToken(), rideId, eventBooking)}
+        data
+    }
+
+    override fun getEvents(): Deferred<List<Event>> = GlobalScope.async {
+        val data = performRequest {api.getEvents(localManager.getAuthToken())}
+        data
+    }
+
+    override fun getEvent(eventId: String): Deferred<Event?> = GlobalScope.async {
+        val data = performRequest {api.getEvent(localManager.getAuthToken(), eventId)}
+        data.firstOrNull()
+    }
+//////////////////////
+
+
     override fun getIntervals(placeId: Long, date: String) : Deferred<IntervalsWrapper> = GlobalScope.async {
         val data = performRequest {api.getIntervals(placeId, date)}
         data

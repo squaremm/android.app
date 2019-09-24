@@ -44,7 +44,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.party.PartyActivity"
+            android:name=".ui.activity.event.EventActivity"
             android:parentActivityName=".ui.activity.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CollapsingToolbarActivity" />
@@ -60,7 +60,7 @@
             android:theme="@style/WhiteStatusActivity" />
 
         <activity
-            android:name=".ui.activity.eventDetails.EventDetailsActivity"
+            android:name=".ui.activity.eventSummary.EventSummaryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WhiteStatusActivity" />
 

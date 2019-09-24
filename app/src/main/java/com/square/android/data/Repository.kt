@@ -9,6 +9,31 @@ import kotlinx.coroutines.Deferred
 
 interface Repository {
 
+    fun createRide(rideData: RideData): Deferred<MessageResponse>
+
+    fun editRide(ride: Ride): Deferred<MessageResponse>
+
+    fun deleteRide(rideId: String): Deferred<MessageResponse>
+
+    fun getUserRide(rideId: String): Deferred<Ride?>
+
+    fun getUserRides(filter: String, pending: Boolean?): Deferred<List<Ride>>
+
+    fun rateRide(rideData: RideData): Deferred<MessageResponse>
+
+    fun getRideTimeframesForPlace(placeId: Long): Deferred<List<DriverRide>>
+
+    fun bookEvent(bookEventData: BookEventData): Deferred<MessageResponse>
+
+    fun getUserEventBookings(eventBookingId: String?): Deferred<List<BookEventData.EventBooking>>
+
+    fun editEventBookings(rideId: String, eventBooking: BookEventData): Deferred<MessageResponse>
+
+    fun getEvents(): Deferred<List<Event>>
+
+    fun getEvent(eventId: String): Deferred<Event?>
+
+
     fun getCities(): Deferred<List<City>>
 
     fun getTimeFrames(): Deferred<List<FilterTimeframe>>

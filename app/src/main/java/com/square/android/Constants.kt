@@ -57,10 +57,10 @@ object SCREENS {
 
     const val SCAN_QR = "SCAN_QR"
 
-    const val PARTY = "PARTY"
+    const val EVENT = "EVENT"
 
-    const val PARTY_DETAILS = "PARTY_DETAILS"
-    const val PARTY_PLACE = "PARTY_PLACE"
+    const val EVENT_DETAILS = "EVENT_DETAILS"
+    const val EVENT_PLACE = "EVENT_PLACE"
 
 }
 

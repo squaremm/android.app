@@ -9,10 +9,8 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    // Ride / DriverRide
-
     //TODO doesn't work, API returns: "\"driverRideId\" is required" even when driverRideId is defined
-    //TODo or maybe all id's are checked and they must match
+    //TODO or maybe all id's are checked and they must match
     @POST("ride")
     fun createRide(@Header("Authorization") authorization: String,
                    @Body rideData: RideData): Call<MessageResponse>
@@ -25,13 +23,20 @@ interface ApiService {
     fun deleteRide(@Header("Authorization") authorization: String,
                    @Path("id") rideId: String): Call<MessageResponse>
 
-    // filters: oneWay, return
-    // get all or filter by id or pending
+    // get ride by id
     @GET("ride")
-    fun getUsersRides(@Header("Authorization") authorization: String,
-                     @Query("id") rideId: String?,
+    fun getUserRide(@Header("Authorization") authorization: String,
+                     @Query("id") rideId: String,
                      @Query("pending") pending: Boolean?,
-                     @Query("filter") filter: String): Call<List<Ride>>
+                     @Query("filter") filter: String?): Call<List<Ride>>
+
+    // filters: oneWay, return
+    // filter by filter and pending if needed
+    @GET("ride")
+    fun getUserRides(@Header("Authorization") authorization: String,
+                      @Query("id") rideId: String?,
+                      @Query("pending") pending: Boolean?,
+                      @Query("filter") filter: String): Call<List<Ride>>
 
     @POST("ride/rate")
     fun rateRide(@Header("Authorization") authorization: String,
@@ -41,9 +46,6 @@ interface ApiService {
     fun getRideTimeframesForPlace(@Header("Authorization") authorization: String,
                                @Query("placeId") placeId: Long): Call<List<DriverRide>>
 
-    //
-
-    // Event booking
     @POST("event-booking")
     fun bookEvent(@Header("Authorization") authorization: String,
                   @Body bookEventData: BookEventData): Call<MessageResponse>
@@ -59,13 +61,16 @@ interface ApiService {
                  @Path("id") rideId: String,
                  @Body eventBooking: BookEventData): Call<MessageResponse>
 
-
-    //TODO what it returns?
+    //TODO not working? What it returns?
     // GET /api/event-booking/summary?id=xxx
     // fun getEventBookingSummary()
 
-    //
+    @GET("event")
+    fun getEvent(@Header("Authorization") authorization: String,
+                 @Query("id") eventId: String): Call<List<Event>>
 
+    @GET("event")
+    fun getEvents(@Header("Authorization") authorization: String): Call<List<Event>>
 
     @GET("city")
     fun getCities(@Header("Authorization") authorization: String): Call<List<City>>
