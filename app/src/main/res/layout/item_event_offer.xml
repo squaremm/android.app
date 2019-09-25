@@ -28,9 +28,40 @@
         android:includeFontPadding="false"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/eventOfferCreditsLl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Entrance" />
+
+<!--  TODO visible in dinnerOffers  -->
+    <LinearLayout
+        android:id="@+id/eventOfferCreditsLl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" >
+
+        <TextView
+            android:id="@+id/eventOfferCreditsValue"
+            style="@style/Models16BoldText"
+            android:textColor="@color/nice_pink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            tools:text="250" />
+
+        <TextView
+            style="@style/Models16Text"
+            android:textColor="@color/nice_pink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="4dp"
+            android:text="@string/credits_lowercase" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

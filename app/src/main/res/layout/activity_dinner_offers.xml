@@ -8,43 +8,43 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/eventOffersBack"
+        android:id="@+id/dinnerOffersBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:tint="@android:color/black"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/eventOffersTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/dinnerOffersTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/eventOffersTitle"
+        app:layout_constraintTop_toTopOf="@+id/dinnerOffersTitle"
         app:srcCompat="@drawable/ic_arrow_back" />
 
     <TextView
-        android:id="@+id/eventOffersTitle"
+        android:id="@+id/dinnerOffersTitle"
         style="@style/Models20BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginStart="12dp"
         android:includeFontPadding="false"
-        android:text="@string/party"
-        app:layout_constraintStart_toEndOf="@+id/eventOffersBack"
+        tools:text="La Perla d'Oro"
+        app:layout_constraintStart_toEndOf="@+id/dinnerOffersBack"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/eventOffersDate"
+        android:id="@+id/dinnerOffersDate"
         style="@style/Models16Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:includeFontPadding="false"
-        app:layout_constraintBottom_toBottomOf="@+id/eventOffersTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/dinnerOffersTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/eventOffersTitle"
+        app:layout_constraintTop_toTopOf="@+id/dinnerOffersTitle"
         tools:text="23.05.2019" />
 
     <TextView
-        android:id="@+id/eventOffersInterval"
+        android:id="@+id/dinnerOffersInterval"
         style="@style/Models14BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,26 +52,25 @@
         android:includeFontPadding="false"
         android:lineSpacingExtra="3dp"
         android:textColor="@color/gray_hint_ligh"
-        app:layout_constraintEnd_toEndOf="@+id/eventOffersDate"
-        app:layout_constraintTop_toBottomOf="@+id/eventOffersDate"
+        app:layout_constraintEnd_toEndOf="@+id/dinnerOffersDate"
+        app:layout_constraintTop_toBottomOf="@+id/dinnerOffersDate"
         tools:text="00:30 am\n04:00 am" />
 
     <TextView
-        android:id="@+id/eventOffersAvailableOffers"
+        android:id="@+id/dinnerOffersAvailableOffers"
         style="@style/Models16BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:lineSpacingExtra="3dp"
         android:text="@string/available_offers"
-        app:layout_constraintStart_toStartOf="@+id/eventOffersBack"
-        app:layout_constraintTop_toBottomOf="@+id/eventOffersInterval" />
+        app:layout_constraintStart_toStartOf="@+id/dinnerOffersBack"
+        app:layout_constraintTop_toBottomOf="@+id/dinnerOffersInterval" />
 
-<!--  TODO make images rounded corners 4dp in loadImage
-      TODO add padding between in grid(24dp?)
-      TODO make items selectable(multiple selection) -->
+    <!--  TODO make images rounded corners 4dp in loadImage
+          TODO add padding between in grid(24dp?)  -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/eventOffers"
+        android:id="@+id/dinnerOffers"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
@@ -81,28 +80,27 @@
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:scrollbars="none"
+        app:layout_goneMarginBottom="0dp"
         android:requiresFadingEdge="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/eventOffersNext"
+        app:layout_constraintBottom_toTopOf="@+id/dinnerOffersNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventOffersAvailableOffers"
+        app:layout_constraintTop_toBottomOf="@+id/dinnerOffersAvailableOffers"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_event_offer"
         tools:spanCount="2" />
 
+<!--  TODO show when offer is selected  -->
     <Button
-        android:id="@+id/eventOffersNext"
-        style="@style/Models16Text"
+        android:id="@+id/dinnerOffersNext"
+        style="@style/Models16BoldText"
         android:layout_width="180dp"
         android:layout_height="44dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/nice_button_red_pink_alpha"
-        android:drawableEnd="@drawable/button_arrow"
         android:layout_marginBottom="24dp"
-        android:paddingStart="60dp"
-        android:paddingEnd="58dp"
-        android:text="@string/next"
+        android:text="@string/check_in"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
