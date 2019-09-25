@@ -14,12 +14,12 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.square.android.R
 import com.square.android.data.pojo.Day
 import com.square.android.data.pojo.Event
-import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.Place
 import com.square.android.extensions.loadImageForIcon
 import com.square.android.presentation.presenter.eventDetails.EventDetailsPresenter
 import com.square.android.presentation.view.eventDetails.EventDetailsView
 import com.square.android.ui.activity.event.EXTRA_EVENT
+import com.square.android.ui.activity.event.EXTRA_EVENT_PLACE
 import com.square.android.ui.activity.event.EventActivity
 import com.square.android.ui.activity.place.AboutAdapter
 import com.square.android.ui.activity.place.DaysAdapter
@@ -30,15 +30,17 @@ import com.square.android.ui.fragment.places.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_event_details.*
 import org.jetbrains.anko.bundleOf
 import java.util.*
+import java.text.SimpleDateFormat
+
 
 class EventDetailsFragment: BaseFragment(), EventDetailsView{
 
     companion object {
         @Suppress("DEPRECATION")
-        fun newInstance(event: Event): EventDetailsFragment {
+        fun newInstance(event: Event, place: Place): EventDetailsFragment {
             val fragment = EventDetailsFragment()
 
-            val args = bundleOf(EXTRA_EVENT to event)
+            val args = bundleOf(EXTRA_EVENT to event, EXTRA_EVENT_PLACE to place)
             fragment.arguments = args
 
             return fragment
@@ -53,15 +55,13 @@ class EventDetailsFragment: BaseFragment(), EventDetailsView{
 
     private var offersAdapter: OfferAdapter? = null
 
-    private var intervalsAdapter: EventIntervalAdapter? = null
-
     private var placesAdapter: EventPlaceAdapter? = null
 
     @InjectPresenter
     lateinit var presenter: EventDetailsPresenter
 
     @ProvidePresenter
-    fun providePresenter() = EventDetailsPresenter(getEvent())
+    fun providePresenter() = EventDetailsPresenter(getEvent(), getPlace())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -78,15 +78,12 @@ class EventDetailsFragment: BaseFragment(), EventDetailsView{
         }
     }
 
-    override fun showData(event: Event, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?, places: List<Place>) {
+    //TODO set when details selected (activity as EventActivity).setEventBookingText(detailName)
 
-        //TODO waiting for API
-        //TODO get detail from event
-//        (activity as EventActivity).setEventBookingText(detailName)
-
+    override fun showData(event: Event, place: Place, calendar: Calendar, typeImage: String?, places: List<Place>) {
         typeImage?.let { eventAboutImage.loadImageForIcon(it) }
 
-//        eventAbout.text = event.description
+        eventAbout.text = place.description
 
         //TODO waiting for API
         //TODO delete this and get data from event
@@ -99,8 +96,7 @@ class EventDetailsFragment: BaseFragment(), EventDetailsView{
         eventAboutRv.layoutManager = LinearLayoutManager(eventAboutRv.context, RecyclerView.HORIZONTAL, false)
         eventAboutRv.addItemDecoration(MarginItemDecorator(eventAboutRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), vertical = false))
 
-        //TODO waiting for API
-        //TODO delete this and get data from event
+       //TODO this is from event.requirements - make as recyclerView
 //        val dressCode: String? = ""
 //        val minimumTip: String? = ""
 //
@@ -124,14 +120,16 @@ class EventDetailsFragment: BaseFragment(), EventDetailsView{
 //            }
 //        }
 
-        if(!offers.isNullOrEmpty()){
-            //TODO waiting for API
+        //TODO get from place.offers
+        //TODO + restaurant ( set its value when selected from EventPlaceFragment)
+        if(!place.offers.isNullOrEmpty()){
             //TODO alpha 0.3 te, ktorych klub nie oferuje
 
             eventrOffersLabel.visibility = View.VISIBLE
             eventOffersRv.visibility = View.VISIBLE
 
-            offersAdapter = OfferAdapter(offers, null, true)
+            //TODO change to adapter with event_offer as layout
+            offersAdapter = OfferAdapter(place.offers, null, true)
             eventOffersRv.adapter = offersAdapter
 
             eventOffersRv.layoutManager = GridLayoutManager(activity!!, 3)
@@ -183,20 +181,28 @@ class EventDetailsFragment: BaseFragment(), EventDetailsView{
                 eventAbout.viewTreeObserver.removeOnGlobalLayoutListener(this)
             }
         })
+
+        //TODO show interval based on event.timeframe
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
+        val startDate = Calendar.getInstance().apply { timeInMillis = dateFormat.parse(event.timeframe?.start).time}
+        val endDate = Calendar.getInstance().apply { timeInMillis = dateFormat.parse(event.timeframe?.end).time}
+
+
+        val startHour: String = if(startDate.get(Calendar.HOUR_OF_DAY) < 10) "0"+startDate.get(Calendar.HOUR_OF_DAY) else startDate.get(Calendar.HOUR_OF_DAY).toString()
+        val startMinute: String = if(startDate.get(Calendar.MINUTE) < 10) "0"+startDate.get(Calendar.MINUTE) else startDate.get(Calendar.MINUTE).toString()
+        val endHour: String = if(endDate.get(Calendar.HOUR_OF_DAY) < 10) "0"+endDate.get(Calendar.HOUR_OF_DAY) else endDate.get(Calendar.HOUR_OF_DAY).toString()
+        val endMinute: String = if(endDate.get(Calendar.MINUTE) < 10) "0"+endDate.get(Calendar.MINUTE) else endDate.get(Calendar.MINUTE).toString()
+
+        eventInterval.text = startHour+":"+startMinute+" - "+endHour+":"+endMinute
+        eventIntervalSpots.text = event.timeframe?.freeSpots.toString()
+
+        //TODO show date based on event.timeframe
     }
 
     var placeHandler = object : EventPlaceAdapter.Handler{
         override fun itemClicked(position: Int) {
             presenter.placeItemClicked(position)
-        }
-    }
-
-    var intervalHandler = object : EventIntervalAdapter.Handler{
-        override fun itemClicked(position: Int, enabled: Boolean) {
-            if(enabled){
-                presenter.intervalItemClicked(position)
-                (activity as EventActivity).setTimeframeSelected(true)
-            }
         }
     }
 
@@ -269,32 +275,59 @@ class EventDetailsFragment: BaseFragment(), EventDetailsView{
         return day.toString() + s
     }
 
-    //TODO one interval or multiple?
-    override fun showIntervals(data: List<Place.Interval>) {
-        intervalsAdapter = EventIntervalAdapter(data, intervalHandler)
+    //TODO DELETE THIS FROM LAYOUT and make just one interval
+//    override fun showIntervals(data: List<Place.Interval>) {
+//        intervalsAdapter = EventIntervalAdapter(data, intervalHandler)
+//
+//        eventIntervalsRv.adapter = intervalsAdapter
+//
+//        eventIntervalsRv.layoutManager = LinearLayoutManager(eventIntervalsRv.context, RecyclerView.VERTICAL, false)
+//        eventIntervalsRv.addItemDecoration(MarginItemDecorator(eventIntervalsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = true))
+//    }
 
-        eventIntervalsRv.adapter = intervalsAdapter
 
-        eventIntervalsRv.layoutManager = LinearLayoutManager(eventIntervalsRv.context, RecyclerView.VERTICAL, false)
-        eventIntervalsRv.addItemDecoration(MarginItemDecorator(eventIntervalsRv.context.resources.getDimension(R.dimen.rv_item_decorator_8).toInt(), vertical = true))
-    }
+    //TODO event interval logic
+//            override fun bind(item: Place.Interval, vararg extras: Any? ) {
+//                val selectedPosition = if(extras[0] == null) null else extras[0] as Int
+//
+//                bindSelected(item, selectedPosition)
+//
+//                var enabled = item.slots > 0
+//
+//                eventIntervalContainer.isEnabled = enabled
+//                eventInterval.isEnabled = enabled
+//                eventIntervalSpots.isEnabled = enabled
+//                eventIntervalSeparator1.isEnabled = enabled
+//                eventIntervalSeparator2.isEnabled = enabled
+//                eventIntervalDescription.isEnabled = enabled
+//
+//                var text = eventInterval.context.getString(R.string.time_range, item.start, item.end)
+//                eventInterval.text = text
+//
+//                eventIntervalDescription.text = item.description
+//
+//                eventIntervalContainer.setOnClickListener {
+//                    if(enabled){
+//                        handler?.itemClicked(adapterPosition, enabled)
+//                    }
+//                }
+//
+//                eventIntervalSpots.text = item.slots.toString()
+//            }
+//
+//            fun bindSelected(item: Place.Interval,selectedPosition: Int?) {
+//                eventIntervalContainer.isChecked = (selectedPosition == adapterPosition)
+//                eventInterval.isChecked = (selectedPosition == adapterPosition)
+//                eventIntervalSpots.isChecked = (selectedPosition == adapterPosition)
+//                eventIntervalSeparator1.isChecked = (selectedPosition == adapterPosition)
+//                eventIntervalSeparator2.isChecked = (selectedPosition == adapterPosition)
+//                eventIntervalDescription.isChecked = (selectedPosition == adapterPosition)
+//            }
+
+
 
     override fun setSelectedDayItem(position: Int) {
         daysAdapter?.setSelectedItem(position)
-    }
-
-    override fun setSelectedIntervalItem(position: Int) {
-        intervalsAdapter?.setSelectedItem(position)
-    }
-
-    override fun showProgress() {
-        eventIntervalsRv.visibility = View.GONE
-        eventProgress.visibility = View.VISIBLE
-    }
-
-    override fun hideProgress() {
-        eventIntervalsRv.visibility = View.GONE
-        eventProgress.visibility = View.VISIBLE
     }
 
     override fun hideBookingProgress() {
@@ -320,4 +353,5 @@ class EventDetailsFragment: BaseFragment(), EventDetailsView{
     }
 
     private fun getEvent() = arguments?.getParcelable(EXTRA_EVENT) as Event
+    private fun getPlace() = arguments?.getParcelable(EXTRA_EVENT_PLACE) as Place
 }

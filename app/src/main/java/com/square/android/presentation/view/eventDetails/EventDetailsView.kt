@@ -9,21 +9,11 @@ import java.util.*
 interface EventDetailsView : BaseView {
 
 //    fun showData(event: Event, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?)
-    fun showData(event: Event, offers: List<OfferInfo>, calendar: Calendar, typeImage: String?, places: List<Place>)
-
-    // TODO change to?
-    //  fun showIntervals(data: List<Place.Timeframe>)
-    fun showIntervals(data: List<Place.Interval>)
+    fun showData(event: Event, place: Place, calendar: Calendar, typeImage: String?, places: List<Place>)
 
     fun updateMonthName(calendar: Calendar)
 
     fun setSelectedDayItem(position: Int)
-
-    fun setSelectedIntervalItem(position: Int)
-
-    fun showProgress()
-
-    fun hideProgress()
 
     fun setSelectedPlaceItem(index: Int)
 

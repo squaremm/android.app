@@ -7,6 +7,7 @@ import com.square.android.SCREENS
 import com.square.android.data.pojo.*
 import com.square.android.presentation.presenter.BasePresenter
 import com.square.android.presentation.view.event.EventView
+import com.square.android.ui.activity.event.EventExtras
 import org.greenrobot.eventbus.EventBus
 import org.koin.standalone.inject
 
@@ -24,6 +25,7 @@ class EventPresenter(val event: Event, val place: Place) : BasePresenter<EventVi
 
     var latLng: LatLng? = null
     var address: String? = null
+    var distance: Int = 0
 
     init {
         loadData()
@@ -34,7 +36,7 @@ class EventPresenter(val event: Event, val place: Place) : BasePresenter<EventVi
             locationPoint = LatLng(it.latitude, it.longitude)
         }
 
-        updateLocationInfo()
+        updateLocationAndAddress(latLng, address)
     }
 
     fun bookClicked() = launch {
@@ -55,22 +57,27 @@ class EventPresenter(val event: Event, val place: Place) : BasePresenter<EventVi
         address = place.address
         latLng = place.location.latLng()
 
-        router.replaceScreen(SCREENS.EVENT_DETAILS, event)
+        router.replaceScreen(SCREENS.EVENT_DETAILS, EventExtras(event, place))
 
         viewState.hideProgress()
     }
 
-    fun updateLocationInfo() {
-        if(locationPoint != null && latLng != null){
-            val distance = latLng!!.distanceTo(locationPoint!!).toInt()
+    fun updateLocationAndAddress(mLatLng: LatLng?, mAddress: String?) {
+        latLng = mLatLng
+        address = mAddress
 
-            place.distance = distance
+        if(locationPoint != null && latLng != null){
+            val mDistance = latLng!!.distanceTo(locationPoint!!).toInt()
+
+            distance = mDistance
 
             showLocationInfo()
         }
+
+        viewState.showAddress(address)
     }
 
     private fun showLocationInfo() {
-        viewState.showDistance(place.distance)
+        viewState.showDistance(distance)
     }
 }

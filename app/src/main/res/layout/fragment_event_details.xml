@@ -320,34 +320,76 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventDinnerInfoRv" />
 
-        <ProgressBar
-            android:id="@+id/eventProgress"
-            android:layout_width="wrap_content"
+        <com.square.android.utils.widget.CheckableLinearLayout
+            android:id="@+id/eventIntervalContainer"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:indeterminateTint="@color/nice_red"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/eventTimeframesLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/eventIntervalsRv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ac_place_default_margin"
+            android:layout_marginEnd="@dimen/ac_place_default_margin"
             android:layout_marginTop="16dp"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingStart="@dimen/ac_place_default_margin"
-            android:paddingEnd="@dimen/ac_place_default_margin"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:nestedScrollingEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="12dp"
+            android:background="@drawable/interval_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventProgress"
-            tools:background="@color/gray_hint"
-            tools:layout_height="50dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventTimeframesLabel" >
+
+            <CheckedTextView
+                android:id="@+id/eventInterval"
+                style="@style/Models16Text"
+                android:textColor="@color/interval_time_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="10:00 - 13:00" />
+
+            <CheckedTextView
+                android:id="@+id/eventIntervalSeparator1"
+                style="@style/Models16Text"
+                android:textColor="@color/interval_time_color"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="|"
+                android:includeFontPadding="false"
+                android:gravity="center_vertical"
+                android:textAlignment="gravity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <CheckedTextView
+                android:id="@+id/eventIntervalDescription"
+                style="@style/Models16Text"
+                android:textColor="@color/interval_time_color"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAlignment="gravity"
+                android:layout_height="wrap_content"
+                tools:text="min. stay 2 h" />
+
+            <CheckedTextView
+                android:id="@+id/eventIntervalSeparator2"
+                style="@style/Models16Text"
+                android:textColor="@color/interval_time_color"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="|"
+                android:includeFontPadding="false"
+                android:gravity="center_vertical"
+                android:textAlignment="gravity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <CheckedTextView
+                android:id="@+id/eventIntervalSpots"
+                style="@style/Models14Text"
+                android:textColor="@color/interval_time_color"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:text="10" />
+
+        </com.square.android.utils.widget.CheckableLinearLayout>
 
         <TextView
             android:id="@+id/eventIntervalsInfo"
@@ -358,8 +400,10 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="@dimen/ac_place_default_margin"
             android:layout_marginEnd="@dimen/ac_place_default_margin"
+            android:visibility="gone"
+            tools:visibility="visible"
             tools:text="* Event starting on May 7th and ending on May 8th."
-            app:layout_constraintTop_toBottomOf="@+id/eventIntervalsRv"
+            app:layout_constraintTop_toBottomOf="@+id/eventIntervalContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

@@ -3,7 +3,6 @@ package com.square.android.presentation.presenter.eventDetails
 import com.arellomobile.mvp.InjectViewState
 import com.square.android.SCREENS
 import com.square.android.data.pojo.Event
-import com.square.android.data.pojo.OfferInfo
 import com.square.android.data.pojo.Place
 import com.square.android.data.pojo.PlaceType
 import com.square.android.extensions.getStringDate
@@ -17,21 +16,15 @@ import org.greenrobot.eventbus.ThreadMode
 import org.koin.standalone.inject
 import java.util.*
 
-//TODO send place.type
 @InjectViewState
-class EventDetailsPresenter(var event: Event) : BasePresenter<EventDetailsView>() {
-
-    private var offers: List<OfferInfo> = listOf()
+class EventDetailsPresenter(var event: Event, var place: Place) : BasePresenter<EventDetailsView>() {
 
     private var places: MutableList<Place> = mutableListOf()
 
     private var currentPositionPlaces: Int? = null
-    private var currentPositionIntervals: Int? = null
 
     private var calendar: Calendar = Calendar.getInstance()
     private var calendar2: Calendar = Calendar.getInstance()
-
-    private lateinit var intervalSlots: List<Place.Interval>
 
     private val eventBus: EventBus by inject()
 
@@ -68,21 +61,15 @@ class EventDetailsPresenter(var event: Event) : BasePresenter<EventDetailsView>(
 
             val placeTypes: List<PlaceType> = repository.getPlaceTypes().await()
 
-//            val placeImage: String? = placeTypes.filter { it.type == event.type}.firstOrNull()?.image
+            val typeImage: String? = placeTypes.firstOrNull{it.type == place.type}?.image
 
-            viewState.showData(event, offers,calendar, null, places)
-
-            loadIntervals()
+            viewState.showData(event, place, calendar, typeImage, places)
         }
     }
 
-    fun intervalItemClicked(position: Int){
-        currentPositionIntervals = position
-
-        viewState.setSelectedIntervalItem(position)
-    }
-
     private fun doBooking(){
+        //TODO show driver dialog
+
 //        val result = repository.bookEvent(eventId, bookInfo).await()
 //
 //
@@ -101,18 +88,6 @@ class EventDetailsPresenter(var event: Event) : BasePresenter<EventDetailsView>(
         viewState.hideBookingProgress()
     }
 
-    private fun loadIntervals() {
-        launch {
-            viewState.showProgress()
-
-//            intervalSlots = repository.getIntervalSlots(event.id, getStringDate()).await()
-//
-//            viewState.hideProgress()
-//
-//            viewState.showIntervals(intervalSlots)
-        }
-    }
-
     fun dayItemClicked(position: Int) {
         viewState.setSelectedDayItem(position)
 
@@ -120,8 +95,6 @@ class EventDetailsPresenter(var event: Event) : BasePresenter<EventDetailsView>(
         calendar2.add(Calendar.DAY_OF_YEAR, position)
 
         viewState.updateMonthName(calendar2)
-
-        loadIntervals()
     }
 
     fun getStringDate() = calendar2.getStringDate()

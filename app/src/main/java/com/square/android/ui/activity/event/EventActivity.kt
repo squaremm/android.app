@@ -196,7 +196,14 @@ class EventActivity: LocationActivity(), EventView {
         }
     }
 
+    override fun showAddress(address: String?) {
+        eventAddress.text = address
+    }
+
     override fun showData(place: Place) {
+        showDistance(place.distance)
+        showAddress(place.address)
+
         eventMainImage.loadImage(place.mainImage ?: (place.photos?.firstOrNull() ?: ""))
 
         eventName.text = place.name
@@ -235,10 +242,7 @@ class EventActivity: LocationActivity(), EventView {
     }
 
     fun showPlaceData(name: String, image: String, address: String, latLng: LatLng) {
-        presenter.address = address
-        presenter.latLng = latLng
-
-        presenter.updateLocationInfo()
+        presenter.updateLocationAndAddress(latLng, address)
 
         eventMainImage.loadImage(image)
 
@@ -265,10 +269,7 @@ class EventActivity: LocationActivity(), EventView {
 
     //TODO fire when user navigates back to eventDetailsFragment(by himself or by clicking Select button)
     fun backToEvent(){
-        presenter.address = presenter.place.address
-        presenter.latLng = presenter.place.location.latLng()
-
-        presenter.updateLocationInfo()
+        presenter.updateLocationAndAddress(presenter.place.location.latLng(), presenter.place.address )
 
         eventMainImage.loadImage(presenter.place.mainImage ?: (presenter.place.photos?.firstOrNull() ?: ""))
 
@@ -302,7 +303,11 @@ class EventActivity: LocationActivity(), EventView {
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? {
             return when (screenKey) {
-                SCREENS.EVENT_DETAILS -> EventDetailsFragment.newInstance(data as Event)
+                SCREENS.EVENT_DETAILS ->{
+                    val extras = data as EventExtras
+                    EventDetailsFragment.newInstance(extras.event, extras.place)
+                }
+
                 SCREENS.EVENT_PLACE -> EventPlaceFragment.newInstance(data as Place)
                 else -> throw IllegalArgumentException("Unknown screen key: $screenKey")
             }

@@ -17,4 +17,6 @@ interface EventView : BaseView {
     fun hideBottomView()
 
     fun showDistance(distance: Int?)
+
+    fun showAddress(address: String?)
 }

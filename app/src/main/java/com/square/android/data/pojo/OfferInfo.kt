@@ -1,7 +1,6 @@
 package com.square.android.data.pojo;
 
 import android.os.Parcelable
-import com.fasterxml.jackson.annotation.JsonIgnoreType
 import com.square.android.data.network.IgnoreStringForArrays
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
