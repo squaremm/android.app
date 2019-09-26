@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+</LinearLayout>
+
+
+<!--
+Item wiadomości może zawierać:
+- TextView z tłem
+- godzinę wysłania wiadomości
+- avatar osoby z którą piszesz
+- TextView - czerwony napis "Couldn't send. Try again"
+- Jakiś progress indicator przy wiadomości oznaczający wysyłanie
+
+TextView Try again, godzina - na dole, pod tv kolorowym wiadomosci
+
+Indicator - po prawej, dolny rog od tv kolorowego wiadomosci?
+-->
