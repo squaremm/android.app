@@ -160,6 +160,11 @@
     <string name="credits">Credits</string>
     <string name="credits_lowercase">credits</string>
 
+    <string name="dinner_plan">Dinner Plan</string>
+    <string name="restaurant_location">Restaurant Location</string>
+    <string name="chat_with_the_driver">Chat with the driver</string>
+    <string name="be_ready_pick_up">Please be ready outside of the restaurant at %s for the driver pick up.</string>
+
     <string name="place_detail_title">Place info</string>
     <string name="page_about">About</string>
     <string name="page_offer">Offers</string>

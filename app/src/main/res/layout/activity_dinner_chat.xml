@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:scrollbars="none"
+    android:overScrollMode="never" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/dinnerChatBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dinnerChatTitle"
+            style="@style/Models20BoldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:includeFontPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dinnerChatBack"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatBack"
+            tools:text="Nobu Milano" />
+
+        <com.square.android.ui.view.CircleImageView
+            android:id="@+id/dinnerChatImage"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="32dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/circle_white"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatTitle"
+            tools:src="@drawable/r_dial" />
+
+        <TextView
+            android:id="@+id/dinnerChatUserName"
+            style="@style/Models18BoldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatImage"
+            tools:text="Samantha M." />
+
+        <TextView
+            android:id="@+id/dinnerChatLabel"
+            style="@style/Models15Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:text="@string/dinner_plan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatUserName" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/divider"
+            app:layout_constraintBottom_toBottomOf="@+id/dinnerChatLabel"
+            app:layout_constraintEnd_toStartOf="@+id/dinnerChatLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatLabel" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/divider"
+            app:layout_constraintBottom_toBottomOf="@+id/dinnerChatLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dinnerChatLabel"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatLabel" />
+
+        <com.square.android.utils.widget.CheckableLinearLayout
+            android:id="@+id/dinnerChatImgContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/interval_background"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@+id/view5"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatLabel">
+
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/fill_profile_header_1" />
+        </com.square.android.utils.widget.CheckableLinearLayout>
+
+        <ImageView
+            android:id="@+id/dinnerChatCheckmark"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_check_circle"
+            android:tint="@color/nice_pink"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/dinnerChatImgContainer"
+            app:layout_constraintEnd_toEndOf="@+id/dinnerChatImgContainer"
+            app:layout_constraintStart_toEndOf="@+id/dinnerChatImgContainer"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatImgContainer"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/rounded_bg_stroke"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/view4"
+            app:layout_constraintStart_toEndOf="@+id/dinnerChatImgContainer"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatImgContainer" >
+
+            <TextView
+                android:id="@+id/dinnerChatDate"
+                style="@style/Models14BoldText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dinnerChatUserName"
+                tools:text="23.05.2019" />
+
+            <TextView
+                android:id="@+id/dinnerChatTime"
+                style="@style/Models12Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:textColor="@color/secondary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dinnerChatUserName"
+                tools:text="00:30 am - 04:00 am" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dinnerChatCheckedAt"
+            style="@style/Models16BoldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/background_rounded_4dp"
+            android:backgroundTint="@color/nice_pink"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:paddingStart="4dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="5dp"
+            android:text="@string/your_final_selection"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/dinnerChatImgContainer"
+            app:layout_constraintEnd_toEndOf="@+id/view4"
+            app:layout_constraintStart_toEndOf="@+id/dinnerChatImgContainer"
+            tools:text="Checked in at 00:34" />
+
+        <TextView
+            android:id="@+id/dinnerChatEventName"
+            style="@style/Models15Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            tools:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/dinnerChatImgContainer"
+            app:layout_constraintStart_toStartOf="@+id/dinnerChatImgContainer"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatImgContainer"
+            tools:text="Night out" />
+
+        <TextView
+            android:id="@+id/dinnerChatCreditsValue"
+            style="@style/Models14BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:textColor="@color/nice_pink"
+            app:layout_constraintStart_toStartOf="@+id/dinnerChatImgContainer"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatEventName"
+            tools:text="300" />
+
+        <TextView
+            android:id="@+id/dinnerChatCreditsLabel"
+            style="@style/Models14Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:text="@string/credits_lowercase"
+            android:textColor="@color/nice_pink"
+            app:layout_constraintBottom_toBottomOf="@+id/dinnerChatCreditsValue"
+            app:layout_constraintStart_toEndOf="@+id/dinnerChatCreditsValue"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatCreditsValue" />
+
+        <TextView
+            android:id="@+id/dinnerChatLocationLabel"
+            style="@style/Models18Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/restaurant_location"
+            app:layout_constraintEnd_toEndOf="@+id/view4"
+            app:layout_constraintStart_toStartOf="@+id/view5"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatCreditsValue" />
+
+        <ImageView
+            android:id="@+id/dinnerChatPinImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/r_pin"
+            app:layout_constraintStart_toStartOf="@+id/view5"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatAddress" />
+
+        <TextView
+            android:id="@+id/dinnerChatAddress"
+            style="@style/Models14Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/view4"
+            app:layout_constraintStart_toEndOf="@+id/dinnerChatPinImage"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatLocationLabel"
+            tools:text="Via Vigevano, 13\n20127, Milan" />
+
+        <ImageView
+            android:id="@+id/dinnerChatDriverImg"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/r_dial"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteX="178dp" />
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="56dp"
+            android:background="@color/divider"
+            app:layout_constraintBottom_toBottomOf="@+id/dinnerChatDriverImg"
+            app:layout_constraintEnd_toStartOf="@+id/dinnerChatDriverImg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatDriverImg" />
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/divider"
+            app:layout_constraintBottom_toBottomOf="@+id/dinnerChatDriverImg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dinnerChatDriverImg"
+            app:layout_constraintTop_toTopOf="@+id/dinnerChatDriverImg" />
+
+        <TextView
+            android:id="@+id/dinnerChatBeReady"
+            style="@style/Models15Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:lineSpacingExtra="4dp"
+            app:layout_constraintStart_toStartOf="@+id/view6"
+            app:layout_constraintEnd_toEndOf="@+id/view7"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatDriverImg"
+            tools:text="Please be ready outside of the restaurant at 23:15 for the driver pick up." />
+
+        <Button
+            android:id="@+id/dinnerChatBtn"
+            style="@style/Models16BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:enabled="false"
+            android:background="@drawable/white_button_background"
+            android:text="@string/chat_with_the_driver"
+            android:textAllCaps="true"
+            android:textColor="@color/white_btn_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerChatBeReady"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

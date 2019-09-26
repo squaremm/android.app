@@ -3,7 +3,7 @@
 <!-- TODO: Make layout cover whole screen including status bar  -->
 
 
-<!-- TODO: use this layout for dinner check in and event check in -->
+<!-- TODO: use this layout for dinner check in summary and event check in summary -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -140,7 +140,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/redemptionImage"
+                    app:layout_constraintTop_toBottomOf="@+id/cSummaryImage"
                     tools:text="Samantha M." />
 
                 <TextView
@@ -257,7 +257,7 @@
                     tools:listitem="@layout/item_offer_summary" />
 
                 <com.square.android.ui.view.CircleImageView
-                    android:id="@+id/redemptionImage"
+                    android:id="@+id/cSummaryImage"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="32dp"
@@ -288,7 +288,7 @@
                 </com.square.android.utils.widget.CheckableLinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/cSummaryCheckmark"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_check_circle"
