@@ -1,8 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:gravity="end|center_vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <com.square.android.ui.view.CircleImageView
+            android:id="@+id/messageImage"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/circle_white"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            tools:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/messageText"
+            tools:src="@drawable/r_dial" />
+
+        <TextView
+            android:id="@+id/messageText"
+            style="@style/Models15Text"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background_white"
+            android:backgroundTint="@color/nice_pink"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:minHeight="48dp"
+            android:maxWidth="232dp"
+            android:lineSpacingExtra="5dp"
+            android:gravity="center_vertical|start"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Afgdfg gfdgdf gfdgd gfdg Piiiiiiiiiiii" />
+
+        <ProgressBar
+            android:id="@+id/messageProgress"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="10dp"
+            android:indeterminateTint="@color/nice_pink"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/messageText" />
+
+        <TextView
+            android:id="@+id/messageTime"
+            style="@style/Models13Text"
+            android:textColor="@color/grey_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/messageProgress"
+            app:layout_constraintTop_toBottomOf="@+id/messageText"
+            tools:text="08:19 pm" />
+
+        <TextView
+            android:id="@+id/messageTryAgainClick"
+            style="@style/Models13Text"
+            android:textColor="@color/status_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/messageTime"
+            app:layout_constraintTop_toBottomOf="@+id/messageText"
+            android:text="@string/try_again_underline" />
+
+        <TextView
+            android:id="@+id/messageTryAgain"
+            style="@style/Models13Text"
+            android:textColor="@color/status_red"
+            android:layout_marginEnd="2.5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/messageTryAgainClick"
+            app:layout_constraintTop_toBottomOf="@+id/messageText"
+            android:text="@string/couldnt_send" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
 

@@ -167,6 +167,7 @@
 
     <string name="color">Color:</string>
     <string name="type_your_message">Type your message…</string>
+    <string name="couldnt_send">Couldn\'t send.</string>
 
     <string name="place_detail_title">Place info</string>
     <string name="page_about">About</string>
@@ -364,6 +365,7 @@
     <string name="seems_offline">It seems you are offline!</string>
     <string name="connect_to_an">Connect to an internet source\nto use Square correctly</string>
     <string name="try_again">Try again</string>
+    <string name="try_again_underline"><u>Try again</u></string>
 
     <string name="how_it_works">How it works</string>
 
