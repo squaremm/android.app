@@ -7,6 +7,7 @@ import com.square.android.presentation.view.driverChat.DriverChatView
 @InjectViewState
 class DriverChatPresenter: BasePresenter<DriverChatView>(){
 
+
     init {
         loadData()
     }
