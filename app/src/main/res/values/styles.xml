@@ -85,8 +85,48 @@
         <item name="android:background">@drawable/input_field_spinner_bg</item>
     </style>
 
+
+    <style name="NewInputField" parent="BaseEditText">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="colorAccent">@color/nice_pink</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textColorHint">@color/grey_dark</item>
+        <item name="android:background">@drawable/background_rounded_4dp</item>
+        <item name="android:elevation">1dp</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+
+    <style name="NewInputSpinner" parent="NewInputField">
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:drawableRight">@drawable/spinner_arrow_selector</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/background_rounded_4dp</item>
+    </style>
+
+
     <style name="InputTitle" parent="OldInputField">
         <item name="android:textColor">?android:textColorHint</item>
+    </style>
+
+    <style name="RatingBarStyle" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressTint">@color/yellow</item>
+        <item name="android:secondaryProgressTint">@color/yellow</item>
+        <item name="android:progressBackgroundTint">@color/gray_hint_light</item>
+        <item name="android:numStars">5</item>
+        <item name="android:stepSize">0.1</item>
+        <item name="android:isIndicator">false</item>
     </style>
 
     <!-- Text styles -->

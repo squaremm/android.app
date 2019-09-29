@@ -255,7 +255,7 @@
             android:ellipsize="end"
             android:hint="@string/select_timeframe"
             android:maxLines="1"
-            android:textColorHint="@color/gray_hint_ligh"
+            android:textColorHint="@color/gray_hint_light"
             app:layout_constraintEnd_toStartOf="@+id/eventBookingBtn"
             app:layout_constraintStart_toEndOf="@+id/eventBookingImv"
             app:layout_constraintTop_toBottomOf="@+id/eventBookingDate" />

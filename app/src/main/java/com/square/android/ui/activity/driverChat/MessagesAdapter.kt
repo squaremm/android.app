@@ -93,11 +93,5 @@ class MessagesAdapter(data: List<Any>, private val userId: Long, private val han
 
     interface Handler {
         fun tryAgainClicked(position: Int)
-
-        fun cancelClicked(position: Int)
-
-        fun claimedItemClicked(position: Int)
-
-        fun campaignItemClicked(position: Int)
     }
 }

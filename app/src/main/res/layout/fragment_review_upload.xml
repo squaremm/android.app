@@ -47,7 +47,7 @@
                 android:id="@+id/reviewDialogUploadLabel"
                 style="@style/Models14BoldText"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/gray_hint_ligh"
+                android:textColor="@color/gray_hint_light"
                 android:layout_width="match_parent"
                 android:lineSpacingExtra="4dp"
                 android:layout_height="wrap_content"

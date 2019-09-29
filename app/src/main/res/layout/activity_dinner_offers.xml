@@ -51,7 +51,7 @@
         android:layout_marginTop="3dp"
         android:includeFontPadding="false"
         android:lineSpacingExtra="3dp"
-        android:textColor="@color/gray_hint_ligh"
+        android:textColor="@color/gray_hint_light"
         app:layout_constraintEnd_toEndOf="@+id/dinnerOffersDate"
         app:layout_constraintTop_toBottomOf="@+id/dinnerOffersDate"
         tools:text="00:30 am\n04:00 am" />

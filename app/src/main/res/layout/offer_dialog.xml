@@ -77,14 +77,14 @@
             android:visibility="gone"
             tools:visibility="visible"
             android:layout_marginTop="16dp"
-            android:textColor="@color/gray_hint_ligh"
+            android:textColor="@color/gray_hint_light"
             app:layout_constraintEnd_toEndOf="@+id/divider"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <TextView
             android:id="@+id/offerDialogDetails"
             style="@style/Models18Text"
-            android:textColor="@color/gray_hint_ligh"
+            android:textColor="@color/gray_hint_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"

@@ -46,7 +46,7 @@
         android:layout_height="27dp"
         android:gravity="center_vertical"
         android:includeFontPadding="false"
-        android:textColor="@color/gray_hint_ligh"
+        android:textColor="@color/gray_hint_light"
         android:visibility="gone"
         tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/itemEventSummaryName"
@@ -138,7 +138,7 @@
         <TextView
             android:id="@+id/itemEventSummaryDisabledLabel"
             style="@style/Models14BoldText"
-            android:textColor="@color/gray_hint_ligh"
+            android:textColor="@color/gray_hint_light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

@@ -136,6 +136,13 @@
     <string name="hint_current_agency">Current agency</string>
     <string name="fill_profile_counter_2">2/3</string>
 
+    <string name="license_no">License nº</string>
+    <string name="expiration_date">Expiration date</string>
+    <string name="car_brand">Car brand</string>
+    <string name="car_model">Car model</string>
+    <string name="car_color">Car color</string>
+    <string name="car_plate">Car plate</string>
+
     <string name="birthday_format">%s of %s</string>
     <string name="birthday_display_format">%s/%s/%s</string>
     <string name="action_map">Map</string>
@@ -146,6 +153,8 @@
     <string name="name_format">%s %s</string>
     <string name="level_default">0</string>
     <string name="credits_format">%d Credits</string>
+
+    <string name="profile">Profile</string>
 
     <string name="credits_plus_format">+ %d credits</string>
 
@@ -237,6 +246,7 @@
     <string name="action_editProfile">Edit profile</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
+    <string name="log_out">Log out</string>
     <string name="contact_us">Contact us</string>
     <string name="terms">Terms and conditions</string>
     <string name="privacy_policy">Privacy policy</string>
@@ -255,6 +265,10 @@
     <string name="insta_post_description">Tag the venue and the app in an Instagram post showing yourself there!</string>
     <string name="insta_story_description">Tag the venue and the app in an Instagram story showing yourself there!</string>
     <string name="send_photo_description">Make and send a photo!</string>
+
+
+    <string name="terms_">Terms</string>
+    <string name="privacy">Privacy</string>
 
     <string name="insta_post">Instagram Post</string>
     <string name="insta_story">Instagram Story</string>

@@ -16,7 +16,7 @@
     <color name="gray_disabled">#C2C2C2</color>
     <color name="gray_btn_disabled">#DDDDDD</color>
     <color name="gray_hint">#757575</color>
-    <color name="gray_hint_ligh">#AAAAAA</color>
+    <color name="gray_hint_light">#AAAAAA</color>
     <color name="gray_back_arrow">#555555</color>
     <color name="blueish_gray">#9093AD</color>
     <color name="redish_gray">#F4EBFC</color>

@@ -112,7 +112,7 @@
 
             <TextView
                 android:id="@+id/chatCarName"
-                android:textColor="@color/gray_hint_ligh"
+                android:textColor="@color/gray_hint_light"
                 style="@style/Models16Text"
                 android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
             <TextView
                 android:id="@+id/chatCarPlate"
                 style="@style/Models16Text"
-                android:textColor="@color/gray_hint_ligh"
+                android:textColor="@color/gray_hint_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -150,7 +150,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:layout_marginStart="5dp"
-                    android:textColor="@color/gray_hint_ligh"
+                    android:textColor="@color/gray_hint_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="Black" />
