@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/driverPickupDate"
-        style="@style/Models16Text"
+        style="@style/Models18Text"
         android:textColor="@color/gray_hint_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

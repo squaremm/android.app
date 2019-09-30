@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- TODO: Cover whole screen with this layout, including status bar - see: StartActivity - onCreate() - ActivityUtils.setTransparentStatusAndDrawBehind  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/eventRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<ImageView
+    android:id="@+id/pickupInfoBgImage"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:scaleType="centerCrop"
+    tools:src="@drawable/referral_field_background"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/pGuideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/pGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <!--////////// Complete //////////-->
+    <com.square.android.ui.view.CircleImageView
+        android:id="@+id/pickupInfoImg"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circle_white"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/pGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickupInfoBgImage"
+        tools:src="@drawable/r_dial" />
+
+    <TextView
+        android:id="@+id/pickupInfoName"
+        style="@style/Models20BoldText"
+        android:layout_width="0dp"
+        android:includeFontPadding="false"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickupInfoImg"
+        tools:text="Anna Markova" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:clipChildren="false"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clipToPadding="false"
+        android:paddingBottom="20dp" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pickupInfoComplete"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/separator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/nice_button_purple_pink_alpha"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/pickupInfoCompleteIc1"
+                android:layout_width="48dp"
+                android:layout_height="36dp"
+                tools:background="@android:color/white"
+                android:src="@drawable/r_dial"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/pickupInfoCompleteLabel"
+                style="@style/Models18BoldText"
+                android:textColor="@android:color/white"
+                android:layout_width="0dp"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/pick_up_complete"
+                app:layout_constraintStart_toEndOf="@+id/pickupInfoCompleteIc1"
+                app:layout_constraintEnd_toStartOf="@+id/pickupInfoCompleteIc2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <ImageView
+                android:id="@+id/pickupInfoCompleteIc2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                tools:background="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/r_dial"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

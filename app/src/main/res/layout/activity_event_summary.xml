@@ -27,7 +27,6 @@
             android:tint="@android:color/black" />
 
         <TextView
-            android:id="@+id/eventSummaryCity"
             style="@style/Models20BoldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,6 +95,7 @@
             android:background="@color/gray_divider" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/eventSummaryCheckOutCl"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="16dp"

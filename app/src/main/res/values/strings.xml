@@ -136,12 +136,6 @@
     <string name="hint_current_agency">Current agency</string>
     <string name="fill_profile_counter_2">2/3</string>
 
-    <string name="license_no">License nº</string>
-    <string name="expiration_date">Expiration date</string>
-    <string name="car_brand">Car brand</string>
-    <string name="car_model">Car model</string>
-    <string name="car_color">Car color</string>
-    <string name="car_plate">Car plate</string>
 
     <string name="birthday_format">%s of %s</string>
     <string name="birthday_display_format">%s/%s/%s</string>
@@ -153,8 +147,6 @@
     <string name="name_format">%s %s</string>
     <string name="level_default">0</string>
     <string name="credits_format">%d Credits</string>
-
-    <string name="profile">Profile</string>
 
     <string name="credits_plus_format">+ %d credits</string>
 
@@ -173,7 +165,6 @@
     <string name="restaurant_location">Restaurant Location</string>
     <string name="chat_with_the_driver">Chat with the driver</string>
     <string name="be_ready_pick_up">Please be ready outside of the restaurant at %s for the driver pick up.</string>
-    <string name="chat">Chat</string>
 
     <string name="color">Color:</string>
     <string name="type_your_message">Type your message…</string>
@@ -207,8 +198,31 @@
 
     <string name="select">Select</string>
 
+<!-- TODO: strings for driver app CUT -->
     <string name="my_pick_up">My Pick up</string>
     <string name="go_to">Go to</string>
+    <string name="chat">Chat</string>
+    <string name="profile">Profile</string>
+    <string name="license_no">License nº</string>
+    <string name="expiration_date">Expiration date</string>
+    <string name="car_brand">Car brand</string>
+    <string name="car_model">Car model</string>
+    <string name="car_color">Car color</string>
+    <string name="car_plate">Car plate</string>
+    <string name="itinerary">Itinerary</string>
+    <string name="drop_off">Drop off</string>
+    <string name="pick_up_complete">Pick up complete</string>
+
+<!-- TODO: layouts for driver app to CUT
+    activity_driver_itinerary
+    activity_driver_my_pickup
+    activity_driver_profile
+    item_pick_up
+    fragment_driver_my_pickup
+    item_driver_itinerary
+    activity_driver_pickup_info
+-->
+
 
     <string name="select_timeframe">Select your timeframe</string>
 

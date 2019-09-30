@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:animateLayoutChanges="true" >
+
+    <TextView
+        android:id="@+id/driverItineraryLabel"
+        style="@style/Models20BoldText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/itinerary"
+        app:layout_constraintEnd_toStartOf="@+id/driverItineraryDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/driverItineraryDate"
+        style="@style/Models18Text"
+        android:textColor="@color/gray_hint_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        tools:text="Jun 13th, 2019"
+        app:layout_constraintBottom_toBottomOf="@+id/driverItineraryLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/driverItineraryLabel" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/driverItineraryList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:paddingStart="32dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverItineraryLabel"
+        tools:listitem="@layout/item_driver_itinerary"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

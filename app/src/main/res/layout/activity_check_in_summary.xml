@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- TODO: Make layout cover whole screen including status bar  -->
+<!-- TODO: Cover whole screen with this layout, including status bar - see: StartActivity - onCreate() - ActivityUtils.setTransparentStatusAndDrawBehind  -->
 
 
 <!-- TODO: use this layout for dinner check in summary and event check in summary -->

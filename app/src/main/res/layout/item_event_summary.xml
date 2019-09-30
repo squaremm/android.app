@@ -33,7 +33,7 @@
         android:layout_marginStart="32dp"
         android:includeFontPadding="false"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/itemEventSummarySecondary"
         app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,68 +48,11 @@
         android:includeFontPadding="false"
         android:textColor="@color/gray_hint_light"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/itemEventSummaryName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/itemEventSummaryName"
         tools:text="La Perla d'Oro" />
-
-    <TextView
-        android:id="@+id/itemEventSummaryTransfer"
-        style="@style/Models16Text"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
-        android:layout_marginStart="32dp"
-        android:gravity="center_vertical"
-        android:text="@string/transfer"
-        android:visibility="gone"
-        tools:visibility="gone"
-        app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/itemEventSummaryTransferLl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        tools:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon"
-        app:layout_constraintTop_toBottomOf="@+id/itemEventSummaryTransfer">
-
-        <TextView
-            android:id="@+id/itemEventSummaryNameFrom"
-            style="@style/Models16Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            tools:text="La perla d'Oro" />
-
-        <ImageView
-            android:id="@+id/itemEventSummaryArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:src="@drawable/arrow_right"
-            android:tint="@android:color/black" />
-
-        <TextView
-            android:id="@+id/itemEventSummaryNameTo"
-            style="@style/Models16Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            tools:text="Just Cavalli" />
-
-    </LinearLayout>
 
     <com.square.android.utils.widget.CheckableLinearLayout
         android:id="@+id/itemEventSummaryContainer"
@@ -122,7 +65,7 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        tools:visibility="visible"
+        tools:visibility="gone"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -206,5 +149,82 @@
         </LinearLayout>
 
     </com.square.android.utils.widget.CheckableLinearLayout>
+
+    <!-- Transfer -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemEventTransferContainer"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon" >
+
+        <TextView
+            android:id="@+id/itemEventTransfer"
+            style="@style/Models16Text"
+            android:layout_width="0dp"
+            android:layout_height="27dp"
+            android:gravity="center_vertical"
+            android:text="@string/transfer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemEventNameFrom"
+            style="@style/Models16Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="7.5dp"
+            android:paddingEnd="4dp"
+            android:gravity="center_vertical"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemEventTransfer"
+            app:layout_constraintEnd_toStartOf="@+id/itemEventGuideline"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="La perla d'Oro" />
+
+        <ImageView
+            android:id="@+id/itemEventArrow"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/arrow_right"
+            android:tint="@android:color/black"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="@+id/itemEventNameFrom"
+            app:layout_constraintEnd_toStartOf="@+id/itemEventGuideline"
+            app:layout_constraintStart_toEndOf="@+id/itemEventNameFrom"
+            app:layout_constraintTop_toTopOf="@+id/itemEventNameFrom" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/itemEventGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/itemEventNameTo"
+            style="@style/Models16Text"
+            android:paddingStart="4dp"
+            android:layout_width="0dp"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            tools:text="Just Cavalli"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemEventTransfer"
+            app:layout_constraintStart_toEndOf="@+id/itemEventArrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

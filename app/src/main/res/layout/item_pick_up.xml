@@ -11,6 +11,37 @@
     tools:layout_marginStart="16dp"
     tools:layout_marginTop="16dp" >
 
+    <com.square.android.ui.view.CircleImageView
+        android:id="@+id/chatImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circle_white"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/r_dial" />
+
+    <TextView
+        android:id="@+id/itemPickupName"
+        style="@style/Models16BoldText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toStartOf="@+id/view8"
+        app:layout_constraintStart_toEndOf="@+id/chatImage"
+        app:layout_constraintTop_toTopOf="@+id/chatImage"
+        tools:text="Anna Markova" />
+
     <LinearLayout
         android:id="@+id/itemPickupFromLl"
         android:layout_width="0dp"
@@ -114,21 +145,6 @@
         app:layout_constraintStart_toStartOf="@+id/itemPickupGoToLl"
         app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
-    <TextView
-        android:id="@+id/itemPickupName"
-        style="@style/Models16BoldText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toStartOf="@+id/view8"
-        app:layout_constraintStart_toEndOf="@+id/chatImage"
-        app:layout_constraintTop_toTopOf="@+id/chatImage"
-        tools:text="Anna Markova" />
-
     <View
         android:id="@+id/view8"
         android:layout_width="0.75dp"
@@ -154,21 +170,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
-
-    <com.square.android.ui.view.CircleImageView
-        android:id="@+id/chatImage"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/circle_white"
-        android:cropToPadding="false"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/r_dial" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
