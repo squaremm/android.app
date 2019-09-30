@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/driverPickupDate"
+        style="@style/Models16Text"
+        android:textColor="@color/gray_hint_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        tools:text="Jun 13th, 2019"
+        app:layout_constraintBottom_toBottomOf="@+id/driverPickupLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/driverPickupLabel" />
+
+    <TextView
+        android:id="@+id/driverPickupLabel"
+        style="@style/Models20BoldText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/my_pick_up"
+        app:layout_constraintEnd_toStartOf="@+id/driverPickupDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/driverPickupTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverPickupLabel"
+        app:tabIndicator="@drawable/indicator"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:tabIndicatorColor="@color/placesPrimary"
+        app:tabSelectedTextColor="@color/placesPrimary"
+        app:tabTextColor="@color/secondary_text"  />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/driverPickupPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/driverPickupTab" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
