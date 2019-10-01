@@ -152,7 +152,7 @@
 
     <!-- Transfer -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/itemEventTransferContainer"
+        android:id="@+id/itemEventSummaryTransferContainer"
         android:visibility="gone"
         tools:visibility="visible"
         android:layout_width="0dp"
@@ -163,7 +163,7 @@
         app:layout_constraintStart_toEndOf="@+id/itemEventSummaryIcon" >
 
         <TextView
-            android:id="@+id/itemEventTransfer"
+            android:id="@+id/itemEventSummaryTransfer"
             style="@style/Models16Text"
             android:layout_width="0dp"
             android:layout_height="27dp"
@@ -174,7 +174,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/itemEventNameFrom"
+            android:id="@+id/itemEventSummaryNameFrom"
             style="@style/Models16Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -186,32 +186,32 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemEventTransfer"
-            app:layout_constraintEnd_toStartOf="@+id/itemEventGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/itemEventSummaryTransfer"
+            app:layout_constraintEnd_toStartOf="@+id/itemEventSummaryGuideline"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="La perla d'Oro" />
 
         <ImageView
-            android:id="@+id/itemEventArrow"
+            android:id="@+id/itemEventSummaryArrow"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@drawable/arrow_right"
             android:tint="@android:color/black"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="@+id/itemEventNameFrom"
-            app:layout_constraintEnd_toStartOf="@+id/itemEventGuideline"
-            app:layout_constraintStart_toEndOf="@+id/itemEventNameFrom"
-            app:layout_constraintTop_toTopOf="@+id/itemEventNameFrom" />
+            app:layout_constraintBottom_toBottomOf="@+id/itemEventSummaryNameFrom"
+            app:layout_constraintEnd_toStartOf="@+id/itemEventSummaryGuideline"
+            app:layout_constraintStart_toEndOf="@+id/itemEventSummaryNameFrom"
+            app:layout_constraintTop_toTopOf="@+id/itemEventSummaryNameFrom" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/itemEventGuideline"
+            android:id="@+id/itemEventSummaryGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
         <TextView
-            android:id="@+id/itemEventNameTo"
+            android:id="@+id/itemEventSummaryNameTo"
             style="@style/Models16Text"
             android:paddingStart="4dp"
             android:layout_width="0dp"
@@ -221,8 +221,8 @@
             android:layout_marginTop="8dp"
             tools:text="Just Cavalli"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemEventTransfer"
-            app:layout_constraintStart_toEndOf="@+id/itemEventArrow"
+            app:layout_constraintTop_toBottomOf="@+id/itemEventSummaryTransfer"
+            app:layout_constraintStart_toEndOf="@+id/itemEventSummaryArrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>

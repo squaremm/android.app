@@ -1,16 +1,11 @@
 package com.square.android.ui.fragment.fillProfileSecond
 
 import android.os.Bundle
-import android.telephony.PhoneNumberFormattingTextWatcher
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.mukesh.countrypicker.Country
-import com.mukesh.countrypicker.CountryPicker
-import com.mukesh.countrypicker.listeners.OnCountryPickerListener
 import com.square.android.R
 import com.square.android.data.pojo.ProfileInfo
 import com.square.android.extensions.content
@@ -23,22 +18,13 @@ import kotlinx.android.synthetic.main.profile_form_2.view.*
 import org.jetbrains.anko.bundleOf
 
 private const val EXTRA_MODEL = "EXTRA_MODEL"
-private const val COUNTRY_DEFAULT_ISO = "US"
 
-class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCountryPickerListener {
+class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
 
     override fun showData(profileInfo: ProfileInfo) {
         form.formProfileAccount.setText(profileInfo.email)
-        form.formDialPhoneNumber.setText(profileInfo.phoneN)
-
-        if(!TextUtils.isEmpty(profileInfo.phoneC)){
-            form.formDialCode.text = profileInfo.phoneC
-        }
-        if(profileInfo.flagCode != -1){
-            form.formDialFlag.setImageResource(profileInfo.flagCode)
-        }
         form.formProfileMotherAgency.setText(profileInfo.motherAgency)
-        form.formProfileCurrentAgency.setText(profileInfo.currentAgency)
+//        form.formProfileCurrentAgency.setText(profileInfo.currentAgency)
     }
 
     companion object {
@@ -52,25 +38,13 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
 
             return fragment
         }
-
     }
 
     @InjectPresenter
     lateinit var presenter: FillProfileSecondPresenter
 
-    private lateinit var countryPicker: CountryPicker
-
     @ProvidePresenter
     fun providePresenter(): FillProfileSecondPresenter = FillProfileSecondPresenter(getModel())
-
-    override fun showDialInfo(country: Country) {
-        form.formDialCode.text = country.dialCode
-        form.formDialFlag.setImageResource(country.flag)
-    }
-
-    override fun onSelectCountry(country: Country) {
-        presenter.countrySelected(country)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -80,81 +54,43 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        form.formDialPhoneNumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-        form.formDialPhoneNumber.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if(hasFocus){
-                form.formDialPhoneLl.setBackgroundResource(R.drawable.input_field_enabled)
-            } else{
-                form.formDialPhoneLl.setBackgroundResource(R.drawable.input_field_disabled)
-            }
-         }
-
         fillProfile2Next.setOnClickListener {
             nextClicked()
         }
 
-        form.formDialCountryLl.setOnClickListener {showCountryDialog()}
-
-        showDefaultDialInfo()
+        fillProfile2Back.setOnClickListener { activity?.onBackPressed() }
     }
-
 
     fun isValid(item: CharSequence) = item.isNotEmpty()
-
-    private fun showDefaultDialInfo() {
-
-        //TODO: change CountryPicker dialog design
-        countryPicker = CountryPicker.Builder().with(activity!!)
-                .listener(this)
-                .build()
-
-        val country = countryPicker.getCountryByISO(COUNTRY_DEFAULT_ISO)
-
-        showDialInfo(country)
-    }
-
-    private fun showCountryDialog() {
-        activity?.let {
-            countryPicker.showDialog(it)
-        }
-    }
 
     private fun nextClicked() {
         if(!isValid(form.formProfileAccount.content)){
             form.formProfileAccount.showCustomError(getString(R.string.username_error))
         }
 
-        if(!isValid(form.formDialPhoneNumber.content)){
-            form.formDialPhoneNumber.showCustomError(getString(R.string.phone_error))
-        }
-
         if(!isValid(form.formProfileMotherAgency.content)){
             form.formProfileMotherAgency.showCustomError(getString(R.string.mother_agency_error))
         }
 
-        if(!isValid(form.formProfileCurrentAgency.content)){
-            form.formProfileCurrentAgency.showCustomError(getString(R.string.current_agency_error))
-        }
+//        if(!isValid(form.formProfileCurrentAgency.content)){
+//            form.formProfileCurrentAgency.showCustomError(getString(R.string.current_agency_error))
+//        }
 
-        if(!form.formProfileAccount.errorShowing && !form.formDialPhoneNumber.errorShowing && !form.formProfileMotherAgency.errorShowing && !form.formProfileCurrentAgency.errorShowing){
+        if(!form.formProfileAccount.errorShowing && !form.formProfileMotherAgency.errorShowing){
+//        if(!form.formProfileAccount.errorShowing && !form.formProfileMotherAgency.errorShowing && !form.formProfileCurrentAgency.errorShowing){
 
             val account = form.formProfileAccount.content
 
-            val phone = "${form.formDialCode.content} ${form.formDialPhoneNumber.content}"
-
-            val phoneN = form.formDialPhoneNumber.content
-            val phoneC = form.formDialCode.content
-
             val motherAgency = form.formProfileMotherAgency.content
 
-            val currentAgency = form.formProfileCurrentAgency.content
+//            val currentAgency = form.formProfileCurrentAgency.content
 
             presenter.nextClicked(account = account,
-                    phone = phone,
-                    motherAgency = motherAgency,
-                    currentAgency = currentAgency,
-                    phoneN = phoneN,
-                    phoneC = phoneC)
+                    motherAgency = motherAgency)
+
+//            presenter.nextClicked(account = account,
+//                    motherAgency = motherAgency,
+//                    currentAgency = currentAgency)
 
             activity?.hideKeyboard()
         }
@@ -169,20 +105,13 @@ class FillProfileSecondFragment : BaseFragment(), FillProfileSecondView, OnCount
            profileInfo.instagramName = form.formProfileAccount.content
         }
 
-        if(isValid(form.formDialPhoneNumber.content)){
-           profileInfo.phone = "${form.formDialCode.content} ${form.formDialPhoneNumber.content}"
-        }
-
         if(isValid(form.formProfileMotherAgency.content)){
             profileInfo.motherAgency = form.formProfileMotherAgency.content
         }
 
-        if(isValid(form.formProfileCurrentAgency.content)){
-            profileInfo.currentAgency = form.formProfileCurrentAgency.content
-        }
-
-        profileInfo.phoneN = form.formDialPhoneNumber.content
-        profileInfo.phoneC = form.formDialCode.content
+//        if(isValid(form.formProfileCurrentAgency.content)){
+//            profileInfo.currentAgency = form.formProfileCurrentAgency.content
+//        }
 
         presenter.saveState(profileInfo, 2)
 

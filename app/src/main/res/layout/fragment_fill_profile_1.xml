@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:context=".ui.fragment.fillProfileFirst.FillProfileFirstFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/fill_profile_header_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +26,7 @@
 
         <TextView
             android:id="@+id/textView"
-            style="@style/Models20BoldText"
+            style="@style/Models20Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -36,13 +39,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        style="@style/Models22Text"
+        style="@style/Models20BoldText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tell_us"
-        android:gravity="center_horizontal"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/tell_us" />
 
     <include
         android:id="@+id/form"
@@ -52,14 +57,17 @@
 
     <Button
         android:id="@+id/fillProfile1Next"
-        style="@style/Models16BoldText"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
+        style="@style/Models18BoldText"
+        android:layout_width="180dp"
+        android:layout_height="44dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/nice_button_red_pink_alpha"
         android:text="@string/next"
-        android:enabled="false"
+        android:enabled="true"
         android:textAllCaps="false"
+        android:paddingStart="58dp"
+        android:paddingEnd="58dp"
+        android:drawableEnd="@drawable/button_arrow"
         android:textColor="@android:color/white"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="32dp"

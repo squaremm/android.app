@@ -1,6 +1,8 @@
 package com.square.android.ui.fragment.fillProfileFirst
 
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,10 +26,20 @@ import org.jetbrains.anko.bundleOf
 import java.util.*
 
 private const val EXTRA_MODEL = "EXTRA_MODEL"
+private const val COUNTRY_DEFAULT_ISO = "US"
 
 class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  ValidationCallback<CharSequence>, OnCountryPickerListener  {
 
     override fun showData(profileInfo: ProfileInfo) {
+        form.formDialPhoneNumber.setText(profileInfo.phoneN)
+
+        if(!TextUtils.isEmpty(profileInfo.phoneC)){
+            form.formDialCode.text = profileInfo.phoneC
+        }
+        if(profileInfo.flagCode != -1){
+            form.formDialFlag.setImageResource(profileInfo.flagCode)
+        }
+
         form.formProfileName.setText(profileInfo.name)
         form.formProfileLastName.setText(profileInfo.surname)
         form.formProfileNationality.text = profileInfo.nationality
@@ -46,13 +58,21 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
 
             return fragment
         }
-
     }
     @InjectPresenter
     lateinit var presenter: FillProfileFirstPresenter
 
     @ProvidePresenter
     fun providePresenter(): FillProfileFirstPresenter = FillProfileFirstPresenter(getModel())
+
+    private lateinit var countryPicker: CountryPicker
+
+    private var fromDial: Boolean = false
+
+    override fun showDialInfo(country: Country) {
+        form.formDialCode.text = country.dialCode
+        form.formDialFlag.setImageResource(country.flag)
+    }
 
     private var dialog: SelectGenderDialog? = null
 
@@ -63,6 +83,10 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        form.formDialPhoneNumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+        form.formDialCodeLl.setOnClickListener {showCountryDialDialog()}
+        showDefaultDialInfo()
 
         form.formProfileBirth.setOnClickListener { showBirthDialog() }
 
@@ -75,14 +99,34 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
         setUpValidation()
     }
 
+    private fun showDefaultDialInfo() {
+
+        //TODO: change CountryPicker dialog design
+        countryPicker = CountryPicker.Builder().with(activity!!)
+                .listener(this)
+                .build()
+
+        val country = countryPicker.getCountryByISO(COUNTRY_DEFAULT_ISO)
+
+        showDialInfo(country)
+    }
+
     override fun displayNationality(country: Country) {
         form.formProfileNationality.text = country.name
     }
 
-    private fun showCountryDialog() {
+    private fun showCountryDialDialog() {
+        activity?.let {
+            fromDial = true
+            countryPicker.showDialog(it)
+        }
+    }
 
+    private fun showCountryDialog() {
         //TODO: change CountryPicker dialog design
         activity?.let {
+            fromDial = false
+
             CountryPicker.Builder().with(it)
                     .listener(this)
                     .build()
@@ -104,7 +148,11 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
     }
 
     override fun onSelectCountry(country: Country) {
-        presenter.countrySelected(country)
+        if(!fromDial){
+            presenter.countrySelected(country)
+        } else{
+            presenter.countryDialSelected(country)
+        }
     }
 
     override fun isValid(item: CharSequence) = item.isNotEmpty()
@@ -119,11 +167,20 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
             form.formProfileLastName.showCustomError(getString(R.string.last_name_error))
         }
 
-        if(!form.formProfileName.errorShowing && !form.formProfileLastName.errorShowing){
+        if(!isValid(form.formDialPhoneNumber.content)){
+            form.formDialPhoneNumber.showCustomError(getString(R.string.phone_error))
+        }
+
+        if(!form.formProfileName.errorShowing && !form.formProfileLastName.errorShowing && !form.formDialPhoneNumber.errorShowing){
             val name = form.formProfileName.content
             val surname = form.formProfileLastName.content
 
-            presenter.nextClicked(name = name, surname = surname)
+            val phone = "${form.formDialCode.content} ${form.formDialPhoneNumber.content}"
+
+            val phoneN = form.formDialPhoneNumber.content
+            val phoneC = form.formDialCode.content
+
+            presenter.nextClicked(name = name, surname = surname, phone = phone, phoneN = phoneN, phoneC = phoneC)
         }
     }
 
@@ -171,7 +228,6 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
     }
 
     override fun onStop() {
-
         val profileInfo = presenter.info
 
         if(isValid(form.formProfileName.content)){
@@ -181,6 +237,13 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
         if(isValid(form.formProfileLastName.content)){
           profileInfo.surname =  form.formProfileLastName.content
         }
+
+        if(isValid(form.formDialPhoneNumber.content)){
+            profileInfo.phone = "${form.formDialCode.content} ${form.formDialPhoneNumber.content}"
+        }
+
+        profileInfo.phoneN = form.formDialPhoneNumber.content
+        profileInfo.phoneC = form.formDialCode.content
 
         presenter.saveState(profileInfo, 1)
 

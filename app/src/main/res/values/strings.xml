@@ -132,10 +132,14 @@
     <string name="password_label">Password</string>
     <string name="confirm_password_label">Confirm password</string>
     <string name="phone">Phone</string>
+    <string name="mobile_number">Your mobile number</string>
     <string name="mother_agency">Mother agency:</string>
+    <string name="mother_agency_if_any">Mother agency (if any)</string>
     <string name="hint_current_agency">Current agency</string>
     <string name="fill_profile_counter_2">2/3</string>
-
+    <string name="city">City</string>
+    <string name="agency_name">Agency name</string>
+    <string name="mandatory_fields">* These fields are mandatory</string>
 
     <string name="birthday_format">%s of %s</string>
     <string name="birthday_display_format">%s/%s/%s</string>
@@ -357,7 +361,7 @@
     <string name="cant_use_square">You can\'t use SQUARE on this day</string>
     <string name="offer_availability">Offer Availability:</string>
 
-
+    <string name="agencies">Agencies</string>
     <string name="tell_us">Tell us about you</string>
     <string name="choose_gender">Choose your gender</string>
     <string name="username_instagram_account">Username - Instagram Account</string>

@@ -263,7 +263,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:tint="gray_back_arrow"
+                    android:tint="@color/gray_back_arrow"
                     android:src="@drawable/r_pin" />
 
                 <TextView

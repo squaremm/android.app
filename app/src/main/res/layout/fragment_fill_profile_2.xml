@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:clipToPadding="false"
+    android:clipChildren="false"
     tools:context=".ui.fragment.fillProfileSecond.FillProfileSecondFragment"
     android:background="@color/white" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
         <ImageView
             android:layout_width="match_parent"
@@ -35,14 +37,34 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        style="@style/Models22Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tell_us"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="8dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp" >
+
+            <ImageView
+                android:id="@+id/fillProfile2Back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/claimedRedemptionTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/claimedRedemptionTitle"
+                app:srcCompat="@drawable/ic_arrow_back" />
+
+            <TextView
+                style="@style/Models20BoldText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/agencies"
+                android:gravity="center_horizontal" />
+
+        </LinearLayout>
 
     <include
         android:id="@+id/form"
@@ -50,13 +72,17 @@
 
     <Button
         android:id="@+id/fillProfile2Next"
-        style="@style/Models16BoldText"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
+        style="@style/Models18BoldText"
+        android:layout_width="180dp"
+        android:layout_height="44dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/nice_button_red_pink_alpha"
         android:text="@string/next"
+        android:enabled="true"
         android:textAllCaps="false"
+        android:paddingStart="58dp"
+        android:paddingEnd="58dp"
+        android:drawableEnd="@drawable/button_arrow"
         android:textColor="@android:color/white"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="32dp"

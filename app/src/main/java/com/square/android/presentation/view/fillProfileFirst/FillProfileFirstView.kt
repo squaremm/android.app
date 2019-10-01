@@ -9,4 +9,6 @@ interface FillProfileFirstView : BaseView {
     fun displayNationality(country: Country)
     fun displayGender(gender: String)
     fun showData(profileInfo: ProfileInfo)
+
+    fun showDialInfo(country: Country)
 }

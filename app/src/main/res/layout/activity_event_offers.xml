@@ -100,7 +100,7 @@
         android:background="@drawable/nice_button_red_pink_alpha"
         android:drawableEnd="@drawable/button_arrow"
         android:layout_marginBottom="24dp"
-        android:paddingStart="60dp"
+        android:paddingStart="58dp"
         android:paddingEnd="58dp"
         android:text="@string/next"
         android:textAllCaps="true"

@@ -1,7 +1,6 @@
 package com.square.android.presentation.presenter.fillProfileSecond
 
 import com.arellomobile.mvp.InjectViewState
-import com.mukesh.countrypicker.Country
 import com.square.android.SCREENS
 import com.square.android.data.pojo.ProfileInfo
 import com.square.android.presentation.presenter.BasePresenter
@@ -14,20 +13,12 @@ class FillProfileSecondPresenter(val info: ProfileInfo) : BasePresenter<FillProf
         viewState.showData(info)
     }
 
-    fun nextClicked(account: String, phone: String, motherAgency: String, currentAgency: String, phoneN: String, phoneC: String) {
+    fun nextClicked(account: String, motherAgency: String) {
+//    fun nextClicked(account: String, motherAgency: String, currentAgency: String) {
         info.instagramName = account
-        info.phone = phone
         info.motherAgency = motherAgency
-        info.currentAgency = currentAgency
-        info.phoneN = phoneN
-        info.phoneC = phoneC
+//        info.currentAgency = currentAgency
 
         router.navigateTo(SCREENS.FILL_PROFILE_THIRD, info)
-    }
-
-    fun countrySelected(country: Country) {
-        info.flagCode = country.flag
-
-        viewState.showDialInfo(country)
     }
 }

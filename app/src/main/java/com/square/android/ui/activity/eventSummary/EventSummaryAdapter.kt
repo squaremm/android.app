@@ -37,8 +37,7 @@ class EventSummaryAdapter(data: List<EventSummary>,
 
         override fun bind(item: EventSummary, vararg extras: Any? ) {
             itemEventSummaryIcon.visibility = View.GONE
-            itemEventSummaryTransfer.visibility = View.GONE
-            itemEventSummaryTransferLl.visibility = View.GONE
+            itemEventSummaryTransferContainer.visibility = View.GONE
             itemEventSummaryName.visibility = View.GONE
             itemEventSummarySecondary.visibility = View.GONE
             itemEventSummaryContainer.visibility = View.GONE
@@ -162,8 +161,7 @@ class EventSummaryAdapter(data: List<EventSummary>,
                 TYPE_TRANSFER -> {
                     // itemEventSummaryIcon.setImageDrawable() to square
 
-                    itemEventSummaryTransfer.visibility = View.VISIBLE
-                    itemEventSummaryTransferLl.visibility = View.VISIBLE
+                    itemEventSummaryTransferContainer.visibility = View.VISIBLE
 
                     if(item.available){
                         itemEventSummaryArrow.visibility = View.VISIBLE
