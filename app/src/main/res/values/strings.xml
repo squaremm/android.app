@@ -434,4 +434,5 @@
     <string name="youtube_tutorial">https://www.youtube.com/watch?v=6VCsX_Hw9js</string>
     <string name="select_a_spot">Select a spot:</string>
     <string name="select_a_place">Select a place:</string>
+    <string name="booked">Booked!</string>
 </resources>

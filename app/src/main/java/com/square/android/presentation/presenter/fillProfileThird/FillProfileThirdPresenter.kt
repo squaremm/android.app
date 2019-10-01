@@ -16,7 +16,7 @@ class FillProfileThirdPresenter(val info: ProfileInfo) : BasePresenter<FillProfi
     }
 
     fun nextClicked(photos: List<ByteArray>, photosUri: List<Uri>) {
-//        info.imagesUri = photosUri
+        info.imagesUri = photosUri
 
         info.images = photos
         router.navigateTo(SCREENS.FILL_PROFILE_REFERRAL, info)

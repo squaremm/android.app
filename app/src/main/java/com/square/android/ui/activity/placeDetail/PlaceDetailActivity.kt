@@ -22,6 +22,7 @@ import ru.terrakok.cicerone.Navigator
 const val PLACE_EXTRA_ID = "EXTRA_ID"
 
 class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
+
     @InjectPresenter
     lateinit var presenter: PlaceDetailPresenter
 
@@ -45,6 +46,10 @@ class PlaceDetailActivity : LocationActivity(), PlaceDetailView {
 
     override fun locationGotten(lastLocation: Location?) {
         presenter.locationGotten(lastLocation)
+    }
+
+    override fun onBooked() {
+        showMessage(getString(R.string.booked))
     }
 
     override fun showDistance(distance: Int?) {

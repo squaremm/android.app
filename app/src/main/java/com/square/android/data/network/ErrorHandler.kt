@@ -1,5 +1,6 @@
 package com.square.android.data.network
 
+import android.util.Log
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.square.android.App
 import com.square.android.BuildConfig
@@ -14,11 +15,13 @@ val Throwable.errorMessage: String
         if (BuildConfig.DEBUG)
             printStackTrace()
 
-        return when (this) {
+        val returnValue = when (this) {
             is HttpException -> processHttp(this)
             is UnknownHostException -> processUnknownHost()
             else -> message ?: App.getString(R.string.unknown_error)
         }
+
+        return returnValue
     }
 
 fun processUnknownHost(): String {
@@ -39,10 +42,14 @@ fun tryParseMessage(exception: HttpException): MessageResponse? {
     val mapper  = ObjectMapper()
 
     return try {
-        val error = exception.response().errorBody()!!.string()
+        var error = exception.response().errorBody()?.string()
+        if (error.isNullOrBlank()) {
+            error = exception.response().errorBody().toString()
+        }
 
         mapper.readValue(error, MessageResponse::class.java)
     } catch (e: Exception) {
+        e.printStackTrace()
         null
     }
 }

@@ -31,24 +31,24 @@ private const val EXTRA_MODEL = "EXTRA_MODEL"
 class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, PermissionsListener {
 
     override fun showData(profileInfo: ProfileInfo) {
-//        profileInfo.images?.let {
-//            images = it.toMutableList()
-//        }
-//        profileInfo.imagesUri?.let {
-//            imagesUri = it.toMutableList()
-//
-//            for (x in 0 until imagesUri.size){
-//                if(imagesUri[x] != null){
-//                    when(x){
-//                        0 -> form3Img1.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
-//                        1 -> form3Img2.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
-//                        2 -> form3Img3.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
-//                    }
-//                }
-//            }
-//        }
-//
-//        fillProfile3Next.isEnabled = checkImagesFilled()
+        profileInfo.images?.let {
+            images = it.toMutableList()
+        }
+        profileInfo.imagesUri?.let {
+            imagesUri = it.toMutableList()
+
+            for (x in 0 until imagesUri.size){
+                if(imagesUri[x] != null){
+                    when(x){
+                        0 -> form3Img1.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
+                        1 -> form3Img2.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
+                        2 -> form3Img3.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
+                    }
+                }
+            }
+        }
+
+        fillProfile3Next.isEnabled = checkImagesFilled()
     }
 
     companion object {

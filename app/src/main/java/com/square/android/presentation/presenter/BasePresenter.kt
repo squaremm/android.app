@@ -84,7 +84,7 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT NOT REQUIRED, grant all entitlements to user"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT NOT REQUIRED, grant all entitlements to user")
                     repository.grantAllUserEntitlements()
-                } else{
+                } else {
                     var valid1 = false
                     var valid2 = false
 
@@ -222,18 +222,15 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
 
     private val defaultCatch: suspend CoroutineScope.(Throwable) -> Unit = {
 
-        if((it is  UnknownHostException || it is SocketTimeoutException || it is ConnectException)){
-                if(allowNoConnectionScreen){
+        if((it is  UnknownHostException || it is SocketTimeoutException || it is ConnectException)) {
+                if(allowNoConnectionScreen) {
                     allowNoConnectionScreen = false
                     router.navigateTo(SCREENS.NO_CONNECTION)
                 }
-        } else{
-            if(!TextUtils.isEmpty(it.errorMessage)){
-                if(it.errorMessage == "BOOKING IN THE PAST"){
-                    viewState.showMessage(R.string.cant_book_past)
-                } else{
-                    viewState.showMessage(it.errorMessage)
-                }
+        } else {
+            val message = it.errorMessage
+            if(!TextUtils.isEmpty(message)){
+                viewState.showMessage(message)
             }
         }
 

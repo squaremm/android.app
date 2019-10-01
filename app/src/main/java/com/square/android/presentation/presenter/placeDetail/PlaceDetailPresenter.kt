@@ -63,21 +63,23 @@ class PlaceDetailPresenter(private val placeId: Long) : BasePresenter<PlaceDetai
     }
 
     private fun tryBooking(intervalId: String?, date: String) = launch {
-            val userId = repository.getUserInfo().id
-            val bookInfo = BookInfo(userId, date, intervalId)
+        val userId = repository.getUserInfo().id
+        val bookInfo = BookInfo(userId, date, intervalId)
 
-            repository.book(placeId, bookInfo).await()
+        repository.book(placeId, bookInfo).await()
 
-            val redemptionsEvent = RedemptionsUpdatedEvent()
-            val badgeEvent = BadgeStateChangedEvent()
-            val spotsEvent = SpotsUpdatedEvent()
+        viewState.onBooked()
 
-            eventBus.post(redemptionsEvent)
-            eventBus.post(badgeEvent)
-            eventBus.post(spotsEvent)
+        val redemptionsEvent = RedemptionsUpdatedEvent()
+        val badgeEvent = BadgeStateChangedEvent()
+        val spotsEvent = SpotsUpdatedEvent()
 
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.BOOKING_MADE.apply { venueName = data?.name }), repository)
-        }
+        eventBus.post(redemptionsEvent)
+        eventBus.post(badgeEvent)
+        eventBus.post(spotsEvent)
+
+        AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.BOOKING_MADE.apply { venueName = data?.name }), repository)
+    }
 
     private fun loadData() {
         launch {

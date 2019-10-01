@@ -1,5 +1,6 @@
 package com.square.android.data
 
+import com.google.gson.Gson
 import com.square.android.SOCIAL
 import com.square.android.data.local.LocalDataManager
 import com.square.android.data.network.ApiService
@@ -260,9 +261,10 @@ class ActualRepository(private val api: ApiService,
             return response.body()!!
         } else {
 
-            if(response.code() == 400){
-                throw java.lang.Exception("BOOKING IN THE PAST")
-            }
+//            if(response.code() == 400) {
+//                Gson().getAdapter(MessageResponse.class)
+//                throw java.lang.Exception("BOOKING IN THE PAST")
+//            }
 
             throw HttpException(response)
         }

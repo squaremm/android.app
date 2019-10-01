@@ -1,33 +1,34 @@
 package com.square.android.data.pojo
 
+import android.net.Uri
 import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnore
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ProfileInfo(var name: String = "",
-                  var surname: String = "",
-                  var birthDate: String = "",
-                  var gender: String = "",
-                  var nationality: String = "",
-                  var email: String = "",
-                  var instagramName: String = "",
-                  var phone: String = "",
-                  var motherAgency: String = "",
-                  var currentAgency: String = "",
-                  var referral: String = "",
+                       var surname: String = "",
+                       var birthDate: String = "",
+                       var gender: String = "",
+                       var nationality: String = "",
+                       var email: String = "",
+                       var instagramName: String = "",
+                       var phone: String = "",
+                       var motherAgency: String = "",
+                       var currentAgency: String = "",
+                       var referral: String = "",
 
 
-//                  @JsonIgnore
-//                  var imagesUri: List<Uri>? = null,
-                  @JsonIgnore
+                       @JsonIgnore
+                  var imagesUri: List<Uri>? = null,
+                       @JsonIgnore
                   var images: List<ByteArray>? = null,
-                  @JsonIgnore
+                       @JsonIgnore
                   var displayBirthday: String = "",
-                  @JsonIgnore
+                       @JsonIgnore
                   var phoneN: String = "",
-                  @JsonIgnore
+                       @JsonIgnore
                   var phoneC: String = "",
-                  @JsonIgnore
+                       @JsonIgnore
                   var flagCode: Int = -1
 ): Parcelable
