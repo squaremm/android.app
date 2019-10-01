@@ -212,6 +212,11 @@
     <string name="itinerary">Itinerary</string>
     <string name="drop_off">Drop off</string>
     <string name="pick_up_complete">Pick up complete</string>
+    <string name="pick_up_info">Pick up info</string>
+    <string name="departure_point">Departure point</string>
+    <string name="destination_point">Destination point</string>
+    <string name="no_show">Are you incurring in a no show?</string>
+    <string name="click_here">Click here</string>
 
 <!-- TODO: layouts for driver app to CUT
     activity_driver_itinerary
