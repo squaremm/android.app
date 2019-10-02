@@ -134,12 +134,12 @@
     <string name="phone">Phone</string>
     <string name="mobile_number">Your mobile number</string>
     <string name="mother_agency">Mother agency:</string>
-    <string name="mother_agency_if_any">Mother agency (if any)</string>
+    <string name="mother_agency_">Mother agency</string>
     <string name="hint_current_agency">Current agency</string>
     <string name="fill_profile_counter_2">2/3</string>
     <string name="city">City</string>
     <string name="agency_name">Agency name</string>
-    <string name="mandatory_fields">* These fields are mandatory</string>
+    <string name="mandatory_fields">These fields are mandatory</string>
 
     <string name="birthday_format">%s of %s</string>
     <string name="birthday_display_format">%s/%s/%s</string>
@@ -375,6 +375,11 @@
     <string name="phone_error">Enter a valid phone number</string>
     <string name="mother_agency_error">Enter your mother agency name</string>
     <string name="current_agency_error">Enter your current agency name</string>
+    <string name="agency_error">Enter agency name</string>
+    <string name="select_a_city">Select a city</string>
+
+    <string name="select_a_city_or_delete">Select a city or delete agency name</string>
+    <string name="enter_agency_or_unselect">Enter agency name or unselect the city</string>
 
     <string name="insert_invitation_code">Insert invitation code</string>
 

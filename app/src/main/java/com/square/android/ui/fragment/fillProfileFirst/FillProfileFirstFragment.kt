@@ -45,6 +45,8 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
         form.formProfileNationality.text = profileInfo.nationality
         form.formProfileBirth.text = profileInfo.displayBirthday
         form.formProfileGender.text = profileInfo.gender
+
+        form.formProfileAccount.setText(profileInfo.instagramName)
     }
 
     companion object {
@@ -155,23 +157,31 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
         }
     }
 
-    override fun isValid(item: CharSequence) = item.isNotEmpty()
+    override fun isValid(item: CharSequence) = item.toString().trim().isNotEmpty()
 
     private fun nextClicked() {
 
         if(!isValid( form.formProfileName.content)){
+            form.formProfileName.setText("")
             form.formProfileName.showCustomError(getString(R.string.name_error))
         }
 
         if(!isValid( form.formProfileLastName.content)){
+            form.formProfileLastName.setText("")
             form.formProfileLastName.showCustomError(getString(R.string.last_name_error))
         }
 
         if(!isValid(form.formDialPhoneNumber.content)){
+            form.formDialPhoneNumber.setText("")
             form.formDialPhoneNumber.showCustomError(getString(R.string.phone_error))
         }
 
-        if(!form.formProfileName.errorShowing && !form.formProfileLastName.errorShowing && !form.formDialPhoneNumber.errorShowing){
+        if(!isValid(form.formProfileAccount.content)){
+            form.formProfileAccount.setText("")
+            form.formProfileAccount.showCustomError(getString(R.string.username_error))
+        }
+
+        if(!form.formProfileName.errorShowing && !form.formProfileLastName.errorShowing && !form.formDialPhoneNumber.errorShowing && !form.formProfileAccount.errorShowing){
             val name = form.formProfileName.content
             val surname = form.formProfileLastName.content
 
@@ -180,7 +190,9 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
             val phoneN = form.formDialPhoneNumber.content
             val phoneC = form.formDialCode.content
 
-            presenter.nextClicked(name = name, surname = surname, phone = phone, phoneN = phoneN, phoneC = phoneC)
+            val account = form.formProfileAccount.content
+
+            presenter.nextClicked(name = name, surname = surname, phone = phone, phoneN = phoneN, phoneC = phoneC, account = account)
         }
     }
 
@@ -240,6 +252,10 @@ class FillProfileFirstFragment : BaseFragment(), FillProfileFirstView,  Validati
 
         if(isValid(form.formDialPhoneNumber.content)){
             profileInfo.phone = "${form.formDialCode.content} ${form.formDialPhoneNumber.content}"
+        }
+
+        if(isValid(form.formProfileAccount.content)){
+            profileInfo.instagramName = form.formProfileAccount.content
         }
 
         profileInfo.phoneN = form.formDialPhoneNumber.content

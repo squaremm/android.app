@@ -115,7 +115,6 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
 
         setNationality(user.nationality)
 
-        formEditProfileAgency.content = user.currentAgency
         formEditProfileMotherAgency.content = user.motherAgency
         formEditProfileEmail.content = user.email
         formEditProfilePhone.content = user.phone
@@ -164,7 +163,7 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
                 formEditProfileNationality,
 
                 formEditProfileEmail, formEditProfilePhone,
-                formEditProfileMotherAgency, formEditProfileAgency
+                formEditProfileMotherAgency
         )
 
         addTextValidation(validateList, this)
@@ -201,7 +200,6 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
         val email = formEditProfileEmail.content
         val phone = formEditDialCode.content + formEditProfilePhone.content
         val motherAgency = formEditProfileMotherAgency.content
-        val currentAgency = formEditProfileAgency.content
 
         return ProfileInfo(
                 name = name,
@@ -211,7 +209,6 @@ class EditProfileFragment : BaseFragment(), EditProfileView, ValidationCallback<
                 phone = phone,
                 motherAgency = motherAgency,
                 nationality = nationality,
-                currentAgency = currentAgency,
                 birthDate = birthday
         )
     }

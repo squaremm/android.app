@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:clipToPadding="false"
-    android:clipChildren="false"
     tools:context=".ui.fragment.fillProfileSecond.FillProfileSecondFragment"
     android:background="@color/white" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fillProfileHeader2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
 
         <ImageView
             android:layout_width="match_parent"
@@ -38,6 +40,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/fillProfileName2Ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -45,6 +48,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/fillProfileHeader2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="8dp" >
 
             <ImageView
@@ -66,9 +72,23 @@
 
         </LinearLayout>
 
-    <include
-        android:id="@+id/form"
-        layout="@layout/profile_form_2" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:requiresFadingEdge="vertical"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@+id/fillProfileName2Ll"
+        app:layout_constraintBottom_toTopOf="@+id/fillProfile2Next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp" >
+        <include
+            android:id="@+id/form"
+            layout="@layout/profile_form_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
     <Button
         android:id="@+id/fillProfile2Next"
@@ -88,15 +108,19 @@
         android:layout_marginTop="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/fillProfileImv2" />
 
     <ImageView
+        android:id="@+id/fillProfileImv2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="172dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/fill_profile_footer_2" />
-</LinearLayout>
+        android:src="@drawable/fill_profile_footer_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,9 +13,8 @@ class FillProfileSecondPresenter(val info: ProfileInfo) : BasePresenter<FillProf
         viewState.showData(info)
     }
 
-    fun nextClicked(account: String, motherAgency: String) {
-//    fun nextClicked(account: String, motherAgency: String, currentAgency: String) {
-        info.instagramName = account
+    fun nextClicked(motherAgency: String) {
+//    fun nextClicked(motherAgency: String, currentAgency: String) {
         info.motherAgency = motherAgency
 //        info.currentAgency = currentAgency
 

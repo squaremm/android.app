@@ -8,22 +8,18 @@
     android:clipChildren="false"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
+    android:paddingBottom="16dp"
+    android:background="@android:color/white"
     tools:showIn="@layout/fragment_fill_profile_2" >
-
-    <com.square.android.utils.widget.ErrorEditText
-        android:id="@+id/formProfileAccount"
-        style="@style/NewInputField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/username_instagram_account" />
 
     <com.square.android.utils.widget.ErrorEditText
         android:id="@+id/formProfileMotherAgency"
         style="@style/NewInputField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/mother_agency_if_any"
+        android:hint="@string/mother_agency_"
+        android:drawablePadding="4dp"
+        android:drawableEnd="@drawable/ic_postscript"
         android:inputType="textPersonName" />
 
     <LinearLayout
@@ -31,25 +27,46 @@
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/formProfileCity1"
-            style="@style/NewInputSpinner"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:id="@+id/formProfileAgency1Error"
+            style="@style/Models14Text"
+            android:textColor="@color/nice_red"
+            android:text="@string/select_a_city"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/city" />
+            android:layout_marginTop="32dp" />
 
-        <com.square.android.utils.widget.ErrorEditText
-            android:id="@+id/formDialAgency1"
-            style="@style/NewInputField"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_marginStart="16dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/agency_name"
-            android:inputType="textPersonName" />
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/formProfileCity1"
+                style="@style/NewInputSpinner"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:hint="@string/city" />
+
+            <com.square.android.utils.widget.ErrorEditText
+                android:id="@+id/formProfileAgency1"
+                style="@style/NewInputField"
+                android:drawablePadding="4dp"
+                android:drawableEnd="@drawable/ic_postscript"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginStart="16dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/agency_name"
+                android:inputType="textPersonName" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -58,25 +75,43 @@
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/formProfileCity2"
-            style="@style/NewInputSpinner"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:id="@+id/formProfileAgency2Error"
+            style="@style/Models14Text"
+            android:textColor="@color/nice_red"
+            android:text="@string/select_a_city_or_delete"
+            android:visibility="gone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/city" />
+            android:layout_marginTop="32dp" />
 
-        <com.square.android.utils.widget.ErrorEditText
-            android:id="@+id/formDialAgency2"
-            style="@style/NewInputField"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_marginStart="16dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/agency_name"
-            android:inputType="textPersonName" />
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/formProfileCity2"
+                style="@style/NewInputSpinner"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:hint="@string/city" />
+
+            <com.square.android.utils.widget.ErrorEditText
+                android:id="@+id/formProfileAgency2"
+                style="@style/NewInputField"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginStart="16dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/agency_name"
+                android:inputType="textPersonName" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -85,34 +120,54 @@
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/formProfileCity3"
-            style="@style/NewInputSpinner"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:id="@+id/formProfileAgency3Error"
+            style="@style/Models14Text"
+            android:textColor="@color/nice_red"
+            android:text="@string/select_a_city_or_delete"
+            android:visibility="gone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/city" />
+            android:layout_marginTop="32dp" />
 
-        <com.square.android.utils.widget.ErrorEditText
-            android:id="@+id/formDialAgency3"
-            style="@style/NewInputField"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_marginStart="16dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/agency_name"
-            android:inputType="textPersonName" />
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/formProfileCity3"
+                style="@style/NewInputSpinner"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:hint="@string/city" />
+
+            <com.square.android.utils.widget.ErrorEditText
+                android:id="@+id/formProfileAgency3"
+                style="@style/NewInputField"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginStart="16dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/agency_name"
+                android:inputType="textPersonName" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/formMandatory"
         style="@style/Models14Text"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:textColor="@color/gray_hint"
         android:layout_width="wrap_content"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_postscript"
         android:layout_height="wrap_content"
         android:text="@string/mandatory_fields" />
 

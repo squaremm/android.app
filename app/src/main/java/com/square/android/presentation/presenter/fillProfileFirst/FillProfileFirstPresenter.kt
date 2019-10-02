@@ -21,12 +21,13 @@ class FillProfileFirstPresenter(val info: ProfileInfo) : BasePresenter<FillProfi
         viewState.showBirthday(displayBirthday)
     }
 
-    fun nextClicked(name: String, surname: String, phone: String, phoneN: String, phoneC: String) {
+    fun nextClicked(name: String, surname: String, phone: String, phoneN: String, phoneC: String, account: String) {
         info.name = name
         info.surname = surname
         info.phone = phone
         info.phoneN = phoneN
         info.phoneC = phoneC
+        info.instagramName = account
 
         router.navigateTo(SCREENS.FILL_PROFILE_SECOND, info)
     }

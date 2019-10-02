@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="24dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:inputType="textPersonName"
@@ -91,25 +91,9 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/formEditProfileAgency"
+            app:layout_constraintBottom_toTopOf="@id/container_coins"
             app:layout_constraintEnd_toStartOf="@id/iv_gallery"
             tools:text="Anna Markova Anna Markova Anna Markova" />
-
-
-        <EditText
-            android:id="@+id/formEditProfileAgency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            app:layout_constraintStart_toStartOf="@+id/formEditProfileName"
-            app:layout_constraintBottom_toTopOf="@id/container_coins"
-            android:background="@null"
-            android:drawableEnd="@drawable/pencil"
-            android:drawablePadding="8dp"
-            android:layout_marginBottom="24dp"
-            tools:text="Model Agency" />
 
         <LinearLayout
             android:id="@+id/container_coins"
