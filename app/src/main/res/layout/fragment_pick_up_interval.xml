@@ -140,7 +140,7 @@
                 android:id="@+id/pickupSv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:max_height="128dp"
+                app:scroll_view_max_height="128dp"
                 android:requiresFadingEdge="vertical"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"

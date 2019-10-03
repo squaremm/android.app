@@ -28,18 +28,6 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/formProfileAgency1Error"
-            style="@style/Models14Text"
-            android:textColor="@color/nice_red"
-            android:text="@string/select_a_city"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,6 +56,17 @@
                 android:inputType="textPersonName" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/formProfileAgency1Error"
+            style="@style/Models14Text"
+            android:textColor="@color/nice_red"
+            android:text="@string/select_a_city"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -76,16 +75,6 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/formProfileAgency2Error"
-            style="@style/Models14Text"
-            android:textColor="@color/nice_red"
-            android:text="@string/select_a_city_or_delete"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,6 +102,16 @@
                 android:inputType="textPersonName" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/formProfileAgency2Error"
+            style="@style/Models14Text"
+            android:textColor="@color/nice_red"
+            android:text="@string/select_a_city_or_delete"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -121,16 +120,6 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/formProfileAgency3Error"
-            style="@style/Models14Text"
-            android:textColor="@color/nice_red"
-            android:text="@string/select_a_city_or_delete"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -157,6 +146,16 @@
                 android:hint="@string/agency_name"
                 android:inputType="textPersonName" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/formProfileAgency3Error"
+            style="@style/Models14Text"
+            android:textColor="@color/nice_red"
+            android:text="@string/select_a_city_or_delete"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 

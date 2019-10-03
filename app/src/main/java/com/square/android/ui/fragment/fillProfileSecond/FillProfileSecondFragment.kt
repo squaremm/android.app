@@ -26,7 +26,6 @@ class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
 
     override fun showData(profileInfo: ProfileInfo) {
         form.formProfileMotherAgency.setText(profileInfo.motherAgency)
-//        form.formProfileCurrentAgency.setText(profileInfo.currentAgency)
 
         if(!TextUtils.isEmpty(profileInfo.city1)){
             form.formProfileCity1.text = profileInfo.city1
@@ -65,15 +64,7 @@ class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
     @ProvidePresenter
     fun providePresenter(): FillProfileSecondPresenter = FillProfileSecondPresenter(getModel())
 
-    private var agency2CityError: Boolean = false
-    private var agency2AgencyError: Boolean = false
-
-    private var agency3CityError: Boolean = false
-    private var agency3AgencyError: Boolean = false
-
-    //TODO create city picker and change this value depending on which form.formProfileCity was clicked
-    //TODO Use this value to determine which formProfileAgencyError should be hidden when city is selected and which form.formProfileCity.text should be filled with selected city value
-    private var cityPickerNumber: Int = 1
+    private var dialog: SelectCityDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -94,8 +85,7 @@ class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(agency2AgencyError){
-                    agency2AgencyError = false
+                if(form.formProfileAgency2Error.visibility == View.VISIBLE){
                     form.formProfileAgency2Error.visibility = View.GONE
                 }
             }
@@ -106,12 +96,46 @@ class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(agency3AgencyError){
-                    agency3AgencyError = false
+                if(form.formProfileAgency3Error.visibility == View.VISIBLE){
                     form.formProfileAgency3Error.visibility = View.GONE
                 }
             }
         })
+
+        form.formProfileCity1.setOnClickListener {
+            context?.let {
+                dialog = SelectCityDialog(it, presenter.cities){ city: String ->
+
+                    if(!TextUtils.isEmpty(city.trim())){
+                        form.formProfileAgency1Error.visibility = View.GONE
+                    }
+                    form.formProfileCity1.text = city
+                }
+                dialog!!.show(form.formProfileCity1.content)
+            }
+        }
+
+        form.formProfileCity2.setOnClickListener {
+            context?.let {
+                dialog = SelectCityDialog(it, presenter.cities){ city: String ->
+                    form.formProfileAgency2Error.visibility = View.GONE
+
+                    form.formProfileCity2.text = city
+                }
+                dialog!!.show(form.formProfileCity2.content)
+            }
+        }
+
+        form.formProfileCity3.setOnClickListener {
+            context?.let {
+                dialog = SelectCityDialog(it, presenter.cities){ city: String ->
+                    form.formProfileAgency3Error.visibility = View.GONE
+
+                    form.formProfileCity3.text = city
+                }
+                dialog!!.show(form.formProfileCity3.content)
+            }
+        }
     }
 
     fun isValid(item: CharSequence) = item.toString().trim().isNotEmpty()
@@ -135,7 +159,6 @@ class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
         if(!isValid(form.formProfileCity1.content)){
             form.formProfileAgency1Error.visibility = View.VISIBLE
             agency1Ok = false
-            //TODO when city selected for agency1 -> form.formProfileAgency1Error.visibility = View.GONE
         }
 
         if(isValid(form.formProfileAgency2.content) || isValid(form.formProfileCity2.content)){
@@ -144,26 +167,16 @@ class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
                 form.formProfileAgency2Error.text = getString(R.string.select_a_city_or_delete)
                 form.formProfileAgency2Error.visibility = View.VISIBLE
 
-                agency2CityError = true
-                agency2AgencyError = false
-
                 agency2Ok = false
-
-                //TODO when city selected for agency2, if agency2CityError -> agency2CityError = false, form.formProfileAgency2Error.visibility = View.GONE
             } else if(!isValid(form.formProfileAgency2.content)){
                 form.formProfileAgency2.setText("")
-
                 form.formProfileAgency2Error.text = getString(R.string.enter_agency_or_unselect)
                 form.formProfileAgency2Error.visibility = View.VISIBLE
 
-                agency2AgencyError = true
-                agency2CityError = false
-
                 agency2Ok = false
-            } else{
-                agency2AgencyError = false
-                agency2CityError = false
             }
+        } else{
+            form.formProfileAgency2Error.visibility = View.GONE
         }
 
         if(isValid(form.formProfileAgency3.content) || isValid(form.formProfileCity3.content)){
@@ -172,38 +185,30 @@ class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
                 form.formProfileAgency3Error.text = getString(R.string.select_a_city_or_delete)
                 form.formProfileAgency3Error.visibility = View.VISIBLE
 
-                agency3CityError = true
-                agency3AgencyError = false
-
                 agency3Ok = false
-
-                //TODO when city selected for agency3, if agency3CityError -> agency3CityError = false, form.formProfileAgency3Error.visibility = View.GONE
             } else if(!isValid(form.formProfileAgency3.content)){
                 form.formProfileAgency3.setText("")
-
                 form.formProfileAgency3Error.text = getString(R.string.enter_agency_or_unselect)
                 form.formProfileAgency3Error.visibility = View.VISIBLE
 
-                agency3AgencyError = true
-                agency3CityError = false
-
                 agency3Ok = false
-            } else{
-                agency3AgencyError = false
-                agency3CityError = false
             }
+        } else{
+            form.formProfileAgency3Error.visibility = View.GONE
         }
 
         if(!form.formProfileMotherAgency.errorShowing && agency1Ok && agency2Ok && agency3Ok){
-
             val motherAgency = form.formProfileMotherAgency.content
+            val city1 = form.formProfileCity1.content
+            val agency1 = form.formProfileAgency1.content
 
-//            val currentAgency = form.formProfileCurrentAgency.content
+            val city2 = form.formProfileCity2.content
+            val agency2 = form.formProfileAgency2.content
 
-            presenter.nextClicked(motherAgency = motherAgency)
+            val city3 = form.formProfileCity3.content
+            val agency3 = form.formProfileAgency3.content
 
-//            presenter.nextClicked(motherAgency = motherAgency,
-//                    currentAgency = currentAgency)
+            presenter.nextClicked(motherAgency = motherAgency, city1 = city1, agency1 = agency1, city2 = city2, agency2 = agency2, city3 = city3, agency3 = agency3)
 
             activity?.hideKeyboard()
         }
@@ -218,9 +223,23 @@ class FillProfileSecondFragment: BaseFragment(), FillProfileSecondView {
             profileInfo.motherAgency = form.formProfileMotherAgency.content
         }
 
-//        if(isValid(form.formProfileCurrentAgency.content)){
-//            profileInfo.currentAgency = form.formProfileCurrentAgency.content
-//        }
+        if(isValid(form.formProfileCity1.content)){
+            profileInfo.city1 = form.formProfileCity1.content
+        }
+
+        if(isValid(form.formProfileAgency1.content)){
+            profileInfo.agency1 = form.formProfileAgency1.content
+        }
+
+        if(isValid(form.formProfileAgency2.content) && isValid(form.formProfileCity2.content)){
+            profileInfo.city2 = form.formProfileCity2.content
+            profileInfo.agency2 = form.formProfileAgency2.content
+        }
+
+        if(isValid(form.formProfileAgency3.content) && isValid(form.formProfileCity3.content)){
+            profileInfo.city3 = form.formProfileCity3.content
+            profileInfo.agency3 = form.formProfileAgency3.content
+        }
 
         presenter.saveState(profileInfo, 2)
 

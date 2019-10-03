@@ -2,10 +2,10 @@ package com.square.android.utils.widget
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.ScrollView
+import androidx.recyclerview.widget.RecyclerView
 import com.square.android.R
 
-class ScrollViewMaxHeight : ScrollView {
+class RecyclerViewMaxHeight: RecyclerView{
 
     private var maxHeight = WITHOUT_MAX_HEIGHT_VALUE
 
@@ -24,12 +24,12 @@ class ScrollViewMaxHeight : ScrollView {
 
     private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
         val a = context.theme.obtainStyledAttributes(
-                attrs, R.styleable.ScrollViewMaxHeight, defStyleAttr, defStyleRes)
-        maxHeight = a.getDimensionPixelSize(R.styleable.ScrollViewMaxHeight_scroll_view_max_height, maxHeight)
+                attrs, R.styleable.RecyclerViewMaxHeight, defStyleAttr, defStyleRes)
+        maxHeight = a.getDimensionPixelSize(R.styleable.RecyclerViewMaxHeight_recycler_max_height, maxHeight)
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        var heightMeasureSpec = heightMeasureSpec
+    override fun onMeasure(widthSpec: Int, heightSpec: Int) {
+        var heightMeasureSpec = heightSpec
         try {
             var heightSize = MeasureSpec.getSize(heightMeasureSpec)
             if (maxHeight != WITHOUT_MAX_HEIGHT_VALUE && heightSize > maxHeight) {
@@ -39,7 +39,7 @@ class ScrollViewMaxHeight : ScrollView {
             layoutParams.height = heightSize
         } catch (e: Exception) {
         } finally {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+            super.onMeasure(widthSpec, heightMeasureSpec)
         }
     }
 

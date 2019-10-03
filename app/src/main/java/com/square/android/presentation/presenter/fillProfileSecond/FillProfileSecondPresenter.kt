@@ -9,14 +9,31 @@ import com.square.android.presentation.view.fillProfileSecond.FillProfileSecondV
 @InjectViewState
 class FillProfileSecondPresenter(val info: ProfileInfo) : BasePresenter<FillProfileSecondView>() {
 
+    var cities: MutableList<String> = mutableListOf()
+
     init {
+        loadData()
+    }
+
+    private fun loadData(){
+        //TODO load cities from API
+        cities.add("Milan")
+        cities.add("London")
+        cities.add("Budapest")
+
+        cities.add(0,"")
+
         viewState.showData(info)
     }
 
-    fun nextClicked(motherAgency: String) {
-//    fun nextClicked(motherAgency: String, currentAgency: String) {
+    fun nextClicked(motherAgency: String, city1: String, agency1: String, city2: String, agency2: String, city3: String, agency3: String) {
         info.motherAgency = motherAgency
-//        info.currentAgency = currentAgency
+        info.city1 = city1
+        info.agency1 = agency1
+        info.city2 = city2
+        info.agency2 = agency2
+        info.city3 = city3
+        info.agency3 = agency3
 
         router.navigateTo(SCREENS.FILL_PROFILE_THIRD, info)
     }

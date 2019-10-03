@@ -440,6 +440,7 @@
     <string name="status_under_review">Under review</string>
     <string name="status_approved">Approved</string>
     <string name="status_rejected">Rejected</string>
+    <string name="upload_your_pictures">Upload your pictures</string>
 
 
     <string name="waiting_for_acceptance">Waiting for acceptance</string>
