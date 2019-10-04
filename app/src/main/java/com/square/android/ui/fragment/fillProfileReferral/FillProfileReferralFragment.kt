@@ -2,10 +2,13 @@ package com.square.android.ui.fragment.fillProfileReferral
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.firebase.iid.FirebaseInstanceId
@@ -16,6 +19,7 @@ import com.square.android.extensions.content
 import com.square.android.extensions.hideKeyboard
 import com.square.android.presentation.presenter.fillProfileReferral.FillProfileReferralPresenter
 import com.square.android.presentation.view.fillProfileReferral.FillProfileReferralView
+import com.square.android.ui.dialogs.LoadingDialog
 import com.square.android.ui.fragment.BaseFragment
 import com.square.android.utils.TokenUtils
 import com.square.android.utils.ValidationCallback
@@ -24,15 +28,13 @@ import org.jetbrains.anko.bundleOf
 
 private const val EXTRA_MODEL = "EXTRA_MODEL"
 
-private const val POSITION_CONTENT = 0
-private const val POSITION_PROGRESS = 1
-
 private const val CODE_LENGTH = 4
 
 class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, ValidationCallback<CharSequence> {
 
+    // Commented because we're not saving data from previous fragment too(images)
     override fun showData(profileInfo: ProfileInfo) {
-     codeField.setText(profileInfo.referral)
+//     codeField.setText(profileInfo.referral)
     }
 
     override fun sendFcmToken() {
@@ -44,13 +46,13 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
         }
     }
 
-    private var isValid: Boolean = false
-
     @InjectPresenter
     lateinit var presenter: FillProfileReferralPresenter
 
     @ProvidePresenter
     fun providePresenter() = FillProfileReferralPresenter(getModel())
+
+    private var loadingDialog: LoadingDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -60,50 +62,43 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadingDialog = LoadingDialog(activity!!)
+
         initializeFields()
 
-        fillReferralSkip.setOnClickListener {skipClick()}
+        fillReferralSkip.setOnClickListener { presenter.skipClicked() }
+
+        fillReferralBtnConfirm.setOnClickListener { presenter.confirmClicked(codeField.content) }
+
+        fillProfile4Back.setOnClickListener { activity?.onBackPressed() }
 
         codeField.setMaxLength(CODE_LENGTH)
-    }
 
-    private fun skipClick(){
-        if(!isValid){
-            presenter.skipClicked()
-        } else{
-            codeReady()
-        }
-    }
-
-    private fun codeReady(){
-        val code = codeField.content
-
-        presenter.confirmClicked(code)
-    }
-
-    override fun showProgress() {
-        fillReferralFlipper.displayedChild = POSITION_PROGRESS
-    }
-
-    override fun hideProgress() {
-        fillReferralFlipper.displayedChild = POSITION_CONTENT
+        val ss = SpannableString(getString(R.string.fill_referral_title))
+        ss.setSpan(ForegroundColorSpan(ContextCompat.getColor(context!!, android.R.color.black)), ss.length - 12 , ss.length - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        fillProfileReferralLabel.text = ss
     }
 
     override fun isValid(item: CharSequence) = item.length == CODE_LENGTH
 
     override fun validityChanged(isValid: Boolean) {
         if (isValid) {
-            codeReady()
             codeField.hideKeyboard()
         }
 
-        this.isValid = isValid
-
-        fillReferralSkip.text = if(isValid) getString(R.string.confirm) else getString(R.string.skip)
+        fillReferralBtnConfirm.isEnabled = isValid
     }
 
     private fun initializeFields() {
         addTextValidation(listOf(codeField), this)
+    }
+
+    override fun showProgress() {
+        loadingDialog?.show()
+    }
+
+    override fun hideProgress() {
+        loadingDialog?.dismiss()
     }
 
     private fun getModel() = arguments?.getParcelable(EXTRA_MODEL) as ProfileInfo
@@ -118,20 +113,16 @@ class FillProfileReferralFragment : BaseFragment(), FillProfileReferralView, Val
 
             return fragment
         }
-
     }
 
-    override fun onStop() {
-        val profileInfo = presenter.info
-        profileInfo.referral = codeField.content
-        presenter.keptImages = profileInfo.images
-        profileInfo.images = null
+    // Commented because we're not saving data from previous fragment too(images)
+//    override fun onStop() {
+//        val profileInfo = presenter.info
+//        profileInfo.referral = codeField.content
+//
+//        presenter.saveState(profileInfo, 4)
+//
+//        super.onStop()
+//    }
 
-        //this must be be 3 not 4
-        presenter.saveState(profileInfo, 3)
-
-        profileInfo.images = presenter.keptImages
-
-        super.onStop()
-    }
 }

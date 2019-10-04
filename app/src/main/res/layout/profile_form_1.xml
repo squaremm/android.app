@@ -104,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/mobile_number"
                 android:digits="0123456789"
+                android:imeOptions="actionNext"
                 android:inputType="phone" />
 
         </LinearLayout>

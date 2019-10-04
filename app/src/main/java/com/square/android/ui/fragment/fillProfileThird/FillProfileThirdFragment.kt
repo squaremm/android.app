@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.core.content.ContextCompat
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -30,25 +31,34 @@ private const val EXTRA_MODEL = "EXTRA_MODEL"
 
 class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, PermissionsListener {
 
+    // Commented because we're not saving images on device right now
     override fun showData(profileInfo: ProfileInfo) {
-//        profileInfo.images?.let {
-//            images = it.toMutableList()
-//        }
-//        profileInfo.imagesUri?.let {
-//            imagesUri = it.toMutableList()
+
+//            profileInfo.images?.let {
+//                images = it.toMutableList()
+//            }
+//            profileInfo.imagesUri?.let {
+//                imagesUri = it.toMutableList()
 //
-//            for (x in 0 until imagesUri.size){
-//                if(imagesUri[x] != null){
-//                    when(x){
-//                        0 -> form3Img1.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
-//                        1 -> form3Img2.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
-//                        2 -> form3Img3.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
+//                for (x in 0 until imagesUri.size) {
+//                    if (imagesUri[x] != null) {
+//                        when (x) {
+//                            0 -> form3Img1.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_12dp), placeholder = R.color.white)
+//                            1 -> form3Img2.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_12dp), placeholder = R.color.white)
+//                            2 -> form3Img3.loadImage(imagesUri[x]!!, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_12dp), placeholder = R.color.white)
+//                        }
 //                    }
 //                }
 //            }
-//        }
 //
-//        fillProfile3Next.isEnabled = checkImagesFilled()
+//            fillProfile3Next.isEnabled = checkImagesFilled()
+
+
+        // clearing images because we don't save them now
+        presenter.info.images = null
+        images = mutableListOf(null, null, null)
+        imagesUri = mutableListOf(null, null, null)
+        fillProfile3Next.isEnabled = false
     }
 
     companion object {
@@ -92,6 +102,24 @@ class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, Permission
         form3Img1.setOnClickListener { imageClicked(0) }
         form3Img2.setOnClickListener { imageClicked(1) }
         form3Img3.setOnClickListener { imageClicked(2) }
+
+        fillProfile3Back.setOnClickListener { activity?.onBackPressed() }
+
+        form3Img1.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                form3ProfilePic.width = form3Img1.measuredWidth
+
+                form3Img1.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+
+        form3Img3.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                form3OtherPic.width = form3Img3.measuredWidth
+
+                form3Img3.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
     }
 
     private fun imageClicked(index: Int){
@@ -114,6 +142,8 @@ class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, Permission
 
         images[index] = null
         imagesUri[index] = null
+
+        checkEnabledAndMissing()
     }
 
     private fun nextClicked(){
@@ -147,15 +177,19 @@ class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, Permission
             images[photoSelected] = uri.toBytes(context!!)
 
             when(photoSelected){
-                0 -> form3Img1.loadImage(uri, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
-                1 -> form3Img2.loadImage(uri, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
-                2 -> form3Img3.loadImage(uri, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_128dp))
+                0 -> form3Img1.loadImage(uri, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_12dp),placeholder = R.color.white)
+                1 -> form3Img2.loadImage(uri, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_12dp),placeholder = R.color.white)
+                2 -> form3Img3.loadImage(uri, roundedCornersRadiusPx = context!!.dimen(R.dimen.value_12dp),placeholder = R.color.white)
             }
 
-            fillProfile3Next.isEnabled = checkImagesFilled()
-
-            form3PhotoMissing.visibility = if(images.filterNotNull().size == 2) View.VISIBLE else View.GONE
+            checkEnabledAndMissing()
         }
+    }
+
+    private fun checkEnabledAndMissing(){
+        fillProfile3Next.isEnabled = checkImagesFilled()
+
+        form3PhotoMissing.visibility = if(images.filterNotNull().size == 2) View.VISIBLE else View.GONE
     }
 
     private fun checkImagesFilled() = images.filterNotNull().size == 3
@@ -178,8 +212,10 @@ class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, Permission
         }
     }
 
+    // Commented because we're not saving images on device right now
     override fun onStop() {
-        val profileInfo = presenter.info
+
+//        val profileInfo = presenter.info
 
 //        if(images.isNotEmpty()){
 //            profileInfo.images = images.filterNotNull().toList()
@@ -188,8 +224,8 @@ class FillProfileThirdFragment: BaseFragment(), FillProfileThirdView, Permission
 //        if(imagesUri.isNotEmpty()){
 //            profileInfo.imagesUri = imagesUri.filterNotNull().toList()
 //        }
-
-        presenter.saveState(profileInfo, 3)
+//
+//        presenter.saveState(profileInfo, 3)
 
         super.onStop()
     }

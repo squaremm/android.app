@@ -248,9 +248,6 @@ class ActualRepository(private val api: ApiService,
     }
 
     override fun getPlace(id: Long): Deferred<Place> = GlobalScope.async {
-
-        println("gfgdfgdfg: "+id)
-
         val data = performRequest { api.getPlace(id) }
         data
     }

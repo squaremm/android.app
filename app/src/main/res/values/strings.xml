@@ -202,6 +202,11 @@
 
     <string name="select">Select</string>
 
+
+    <string name="profile_picture">Profile Picture</string>
+    <string name="others">Others</string>
+
+
 <!-- TODO: strings for driver app CUT -->
     <string name="my_pick_up">My Pick up</string>
     <string name="go_to">Go to</string>
@@ -406,7 +411,7 @@
 
 
     <string name="add_three_photos">Add 3 of your photos</string>
-    <string name="photo_missing">One of the 3 photos is missing.</string>
+    <string name="photo_missing">One of the 3 photos is missing</string>
 
     <string name="seems_offline">It seems you are offline!</string>
     <string name="connect_to_an">Connect to an internet source\nto use Square correctly</string>
@@ -594,7 +599,7 @@
     <string name="claim_progress">Claiming booking…</string>
     <string name="skip">Skip</string>
     <string name="fill_profile_counter_3" tools:ignore="TypographyFractions">3/3</string>
-    <string name="fill_referral_title">Insert invitation code if you have to gain 10 credits</string>
+    <string name="fill_referral_title">If you received an invitation code from a friend, please insert it in the boxes below.\nGain up to 150 credits!</string>
     <string name="confirm">Confirm</string>
     <string name="cannot_obtain_location">Location cannot be obtained. Check that you gave us permissions and your GPS signal is poor</string>
     <string name="too_far_from_book">You\'re too far from the place</string>
@@ -616,6 +621,7 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="send_password">Send password</string>
     <string name="want_to_login">Want to log in?</string>
+    <string name="referral_code">Referral Code</string>
 
     <string name="text_copied">Text copied!</string>
 

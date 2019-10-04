@@ -43,6 +43,12 @@ class StartPresenter : BasePresenter<StartView>() {
                     router.navigateTo( SCREENS.FILL_PROFILE_SECOND, profileInfo)
                     router.navigateTo( SCREENS.FILL_PROFILE_THIRD, profileInfo)
                    }
+                4 -> {
+                    router.replaceScreen(SCREENS.FILL_PROFILE_FIRST, profileInfo)
+                    router.navigateTo( SCREENS.FILL_PROFILE_SECOND, profileInfo)
+                    router.navigateTo( SCREENS.FILL_PROFILE_THIRD, profileInfo)
+                    router.navigateTo( SCREENS.FILL_PROFILE_REFERRAL, profileInfo)
+                }
                 else -> router.replaceScreen(SCREENS.FILL_PROFILE_FIRST,profileInfo)
             }
         }
