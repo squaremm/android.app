@@ -44,24 +44,24 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pass_eligible)
 
-        passPayBtn.setOnClickListener {
-            if(subscriptionsSupported(billingClient)){
-                if(checkBillingReady()){
-                    selectedSkuDetails?.let {
-                        val flowParams = BillingFlowParams.newBuilder()
-                                .setSkuDetails(it)
-                                .build()
-                        billingClient.launchBillingFlow(this, flowParams)
-                    }
-                }
-            } else{
-                Crashlytics.log("BILLING -> PassEligibleActivity: subscriptions not supported")
-
-                Log.d("BILLING","subscriptions not supported")
-
-                showMessage(getString(R.string.subscriptions_not_supported))
-            }
-        }
+//        passPayBtn.setOnClickListener {
+//            if(subscriptionsSupported(billingClient)){
+//                if(checkBillingReady()){
+//                    selectedSkuDetails?.let {
+//                        val flowParams = BillingFlowParams.newBuilder()
+//                                .setSkuDetails(it)
+//                                .build()
+//                        billingClient.launchBillingFlow(this, flowParams)
+//                    }
+//                }
+//            } else{
+//                Crashlytics.log("BILLING -> PassEligibleActivity: subscriptions not supported")
+//
+//                Log.d("BILLING","subscriptions not supported")
+//
+//                showMessage(getString(R.string.subscriptions_not_supported))
+//            }
+//        }
 
         passBtnWeekly.setOnClickListener { setSelectedProduct(1) }
 
@@ -95,8 +95,8 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
 
                 productLoaded = true
 
-                passProgress.visibility = View.GONE
-                passPayBtn.visibility = View.VISIBLE
+//                passProgress.visibility = View.GONE
+//                passPayBtn.visibility = View.VISIBLE
 
                 setSelectedProduct(0)
 
@@ -117,35 +117,36 @@ class PassEligibleActivity: BaseBillingActivity(), PassEligibleView{
                 0 -> {
                     selectedSkuDetails = skuDetailsList!!.firstOrNull { it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME }
 
+                    passBtnMonthly.setTextColor(ContextCompat.getColor(passBtnMonthly.context, android.R.color.white))
+                    passBtnMonthly.backgroundTintList = null
+
                     passBtnWeekly.setTextColor(ContextCompat.getColor(passBtnWeekly.context, R.color.gray_disabled))
                     passBtnWeekly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnWeekly.context, android.R.color.white))
 
-                    passBtnMonthly.setTextColor(ContextCompat.getColor(passBtnMonthly.context, android.R.color.black))
-                    passBtnMonthly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnMonthly.context, R.color.gray_btn_disabled))
                 }
 
                 1 -> {
                     selectedSkuDetails = skuDetailsList!!.firstOrNull { it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME }
 
+                    passBtnWeekly.setTextColor(ContextCompat.getColor(passBtnWeekly.context, android.R.color.white))
+                    passBtnWeekly.backgroundTintList = null
+
 
                     passBtnMonthly.setTextColor(ContextCompat.getColor(passBtnMonthly.context, R.color.gray_disabled))
                     passBtnMonthly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnMonthly.context, android.R.color.white))
-
-                    passBtnWeekly.setTextColor(ContextCompat.getColor(passBtnWeekly.context, android.R.color.black))
-                    passBtnWeekly.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(passBtnWeekly.context, R.color.gray_btn_disabled))
                 }
             }
 
             selectedSkuDetails?.let {
-                passCardPrice.text = it.price
-                passCardTime.text = if(it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME) getString(R.string.slash_month) else getString(R.string.slash_week)
+//                passCardPrice.text = it.price
+//                passCardTime.text = if(it.sku == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME) getString(R.string.slash_month) else getString(R.string.slash_week)
             }
         }
     }
 
     private fun hideMainProgress(){
         passMainProgress.visibility = View.GONE
-        passCardView.visibility = View.VISIBLE
+//        passCardView.visibility = View.VISIBLE
     }
 
     override fun handlePurchases(nullOrEmpty: Boolean) {

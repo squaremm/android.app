@@ -460,14 +460,10 @@
     <string name="clear_all">Clear all</string>
 
     <string name="you_have_x_followers">You have 4000\-5000 followers!</string>
-    <string name="good_news">Good news!</string>
-    <string name="you_are_eligible">You are eligible for the</string>
-    <string name="square_pass_program">SQUARE Pass Program:</string>
     <string name="slash_week">/ week</string>
     <string name="slash_month">/ month</string>
-    <string name="pass_features_one">Free access to all our Venues, Gyms, Hairdressers</string>
-    <string name="pass_features_two">Access to our organic growth plan</string>
     <string name="pay">Pay</string>
+    <string name="membership">Membership</string>
 
     <string name="_continue">Continue</string>
     <string name="oh_no">Oh no!</string>
@@ -540,7 +536,10 @@
 
     <string name="no_address">No address provided</string>
 
+    <string name="basic_plan">Basic Plan</string>
     <string name="premium_plan">Premium Plan</string>
+    <string name="per_week">per week</string>
+    <string name="per_month">per month</string>
 
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>

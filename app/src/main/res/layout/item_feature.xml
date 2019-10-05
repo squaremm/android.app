@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    >
+
+    <ImageView
+        android:id="@+id/itemFeatureCheckmark"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/checkmark"
+        android:tint="@color/nice_pink" />
+
+    <TextView
+        android:id="@+id/itemFeatureText"
+        style="@style/Models13Text"
+        android:layout_marginStart="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        tools:text="15 available bookings" />
+
+    <TextView
+        android:id="@+id/itemFeatureTextSecondary"
+        style="@style/Models12Text"
+        android:textColor="@color/secondary_text"
+        android:layout_marginStart="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        tools:text="(gym excluded)" />
+
+</LinearLayout>
