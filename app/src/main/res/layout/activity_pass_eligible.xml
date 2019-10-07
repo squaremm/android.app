@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/fillProfile2Back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/featureArrowSize"
+        android:layout_height="@dimen/featureArrowSize"
         android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:tint="@android:color/black"
@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/passLogo"
-        android:layout_width="128dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/featureLogoWidth"
+        android:layout_height="@dimen/featureLogoHeight"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:scaleType="fitXY"
@@ -33,7 +33,9 @@
 
     <TextView
         android:id="@+id/passCardTitle"
-        style="@style/Models16BoldText"
+        android:textSize="@dimen/featureTitleTextSize"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/membership"
@@ -68,8 +70,8 @@
     <LinearLayout
         android:id="@+id/passBtnsRl"
         android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="@dimen/featureBtnHeight"
+        android:layout_marginTop="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/bg_rounded_max_gray_stroke_trans"
@@ -80,9 +82,10 @@
 
         <TextView
             android:id="@+id/passBtnWeekly"
-            style="@style/Models16Text"
+            android:textSize="@dimen/featureBtnTextSize"
             android:gravity="center"
-            android:layout_width="112dp"
+            android:textStyle=""
+            android:layout_width="@dimen/featureBtnWidth"
             android:layout_height="match_parent"
             android:layout_marginStart="3.5dp"
             android:layout_marginTop="3.5dp"
@@ -94,124 +97,293 @@
 
         <TextView
             android:id="@+id/passBtnMonthly"
-            style="@style/Models16Text"
+            android:textSize="@dimen/featureBtnTextSize"
             android:textColor="@android:color/white"
             android:gravity="center"
-            android:layout_width="112dp"
+            android:layout_width="@dimen/featureBtnWidth"
             android:layout_height="match_parent"
             android:layout_marginEnd="3.5dp"
             android:layout_marginTop="3.5dp"
             android:layout_marginBottom="3.5dp"
             android:background="@drawable/gradient_rounded_8dp"
-            android:text="@string/monthly"/>
+            android:text="@string/monthly" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/passPlan1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:layout_height="200dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:orientation="vertical"
-        android:clipChildren="false"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="16dp"
+        android:requiresFadingEdge="vertical"
         app:layout_constraintTop_toBottomOf="@+id/passBtnsRl"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:layout_constraintBottom_toTopOf="@+id/passPayContainer" >
 
-        <RadioButton
-            android:id="@+id/passCb1"
-            style="@style/Models16BoldText"
-            android:layout_marginStart="-5dp"
-            android:paddingStart="5dp"
-            android:clickable="false"
-            android:layout_marginBottom="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/basic_plan" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_height="150dp"
-            android:background="@drawable/interval_background" >
+            android:background="@android:color/white"
+            android:orientation="vertical" >
 
+            <!--  Plan1  -->
             <LinearLayout
-                android:id="@+id/passPriceLabel"
-                android:layout_width="88dp"
+                android:id="@+id/passPlan1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/featurePlanStartEndMargin"
+                android:layout_marginEnd="@dimen/featurePlanStartEndMargin"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
+                android:clipChildren="false" >
 
-                <TextView
-                    android:id="@+id/passPrice"
-                    style="@style/Models22BoldText"
-                    android:layout_width="wrap_content"
-                    android:includeFontPadding="false"
-                    android:layout_height="wrap_content"
-                    tools:text="114.99€" />
-
-                <TextView
-                    android:id="@+id/passPer"
-                    style="@style/Models16Text"
-                    android:textColor="@color/gray_disabled"
+                <RadioButton
+                    android:id="@+id/passCb1"
+                    android:textSize ="@dimen/featurePlanCbTextSize"
+                    android:textStyle="bold"
+                    android:layout_marginStart="-5dp"
+                    android:paddingStart="5dp"
+                    android:clickable="false"
+                    android:layout_marginBottom="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    tools:text="@string/per_week" />
+                    android:text="@string/basic_plan" />
+
+                <com.square.android.utils.widget.CheckableLinearLayout
+                    android:id="@+id/passPlan1Bg"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/interval_background" >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/featurePlanContainerHeight" >
+
+                        <LinearLayout
+                            android:id="@+id/passPriceLabel1"
+                            android:layout_width="@dimen/featurePriceMinWidth"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_marginStart="12dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" >
+
+                            <TextView
+                                android:id="@+id/passPrice1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/featurePriceTextSize"
+                                android:textStyle="bold"
+                                tools:text="4.99€" />
+
+                            <TextView
+                                android:id="@+id/passPer1"
+                                android:layout_marginTop="2dp"
+                                android:textSize="@dimen/featurePerTextSize"
+                                android:textColor="@color/gray_hint_light"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                tools:text="@string/per_week" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/passDivider1"
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/divider_bg_color"
+                            android:layout_marginStart="12dp"
+                            android:enabled="false"
+                            android:hint=""
+                            android:text=""
+                            app:layout_constraintStart_toEndOf="@+id/passPriceLabel1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/passRv1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/passDivider1"
+                            tools:listitem="@layout/item_feature"
+                            tools:itemCount="4" >
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.square.android.utils.widget.CheckableLinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/divider"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/divider_bg_color"
-                android:layout_marginStart="16dp"
-                android:enabled="false"
-                android:hint=""
-                android:text=""
-                app:layout_constraintStart_toEndOf="@+id/passPriceLabel"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="0dp"
+            <!--  Plan2  -->
+            <LinearLayout
+                android:id="@+id/passPlan2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/divider"
-                tools:listitem="@layout/item_feature"
-                tools:itemCount="4"
-                >
+                tools:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/featurePlanStartEndMargin"
+                android:layout_marginEnd="@dimen/featurePlanStartEndMargin"
+                android:orientation="vertical"
+                android:clipChildren="false" >
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:orientation="horizontal" >
 
-            </androidx.recyclerview.widget.RecyclerView>
+                    <RadioButton
+                        android:id="@+id/passCb2"
+                        android:textSize ="@dimen/featurePlanCbTextSize"
+                        android:textStyle="bold"
+                        android:layout_marginStart="-5dp"
+                        android:clickable="false"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/premium_plan" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_star"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="2dp"
+                        android:tint="@color/status_orange" />
 
+                </LinearLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="-12dp"
+                    android:layout_height="wrap_content" >
 
+                    <com.square.android.utils.widget.CheckableLinearLayout
+                        android:id="@+id/passPlan2Bg"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/interval_background"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/passPlan2MostPopular" >
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/featurePlanContainerHeight" >
 
-    </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/passPriceLabel2"
+                                android:layout_width="@dimen/featurePriceMinWidth"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:layout_marginStart="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" >
 
+                                <TextView
+                                    android:id="@+id/passPrice2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:includeFontPadding="false"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/featurePriceTextSize"
+                                    android:textStyle="bold"
+                                    tools:text="12.99€" />
 
+                                <TextView
+                                    android:id="@+id/passPer2"
+                                    android:layout_marginTop="2dp"
+                                    android:textSize="@dimen/featurePerTextSize"
+                                    android:textColor="@color/gray_hint_light"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:includeFontPadding="false"
+                                    tools:text="@string/per_week" />
 
+                            </LinearLayout>
 
+                            <TextView
+                                android:id="@+id/passDivider2"
+                                android:layout_width="1dp"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginBottom="12dp"
+                                android:background="@drawable/divider_bg_color"
+                                android:layout_marginStart="12dp"
+                                android:enabled="false"
+                                android:hint=""
+                                android:text=""
+                                app:layout_constraintStart_toEndOf="@+id/passPriceLabel2"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
 
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/passRv2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:paddingStart="4dp"
+                                android:paddingEnd="4dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/passDivider2"
+                                tools:listitem="@layout/item_feature"
+                                tools:itemCount="4" >
 
+                            </androidx.recyclerview.widget.RecyclerView>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.square.android.utils.widget.CheckableLinearLayout>
+
+                    <TextView
+                        android:id="@+id/passPlan2MostPopular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/most_popular"
+                        android:textColor="@android:color/white"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginEnd="12dp"
+                        android:includeFontPadding="false"
+                        android:textSize="@dimen/featurePopularTextSize"
+                        android:background="@drawable/background_rounded_max"
+                        android:backgroundTint="@color/nice_pink"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 <!--    <androidx.cardview.widget.CardView-->
 <!--        android:id="@+id/passCardView"-->
@@ -423,23 +595,30 @@
 <!--    </androidx.cardview.widget.CardView>-->
 
 
+<!-- TODO bottom layout with swipe to pay btn only -->
+<LinearLayout
+    android:id="@+id/passPayContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_height="80dp"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" >
+
+</LinearLayout>
 
 
-
-
-
-
-
-    <ProgressBar
-        android:id="@+id/passMainProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="visible"
-        tools:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passCardLabelTwo"
-        app:layout_constraintBottom_toBottomOf="parent" />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/passMainProgress"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:indeterminate="true"-->
+<!--        android:visibility="visible"-->
+<!--        tools:visibility="gone"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/passCardLabelTwo"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

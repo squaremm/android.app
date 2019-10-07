@@ -5,19 +5,20 @@
     android:gravity="center_vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    >
+    android:layout_marginBottom="12dp" >
 
     <ImageView
         android:id="@+id/itemFeatureCheckmark"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="@dimen/featureItemImageSize"
+        android:layout_height="@dimen/featureItemImageSize"
         android:src="@drawable/checkmark"
         android:tint="@color/nice_pink" />
 
     <TextView
         android:id="@+id/itemFeatureText"
-        style="@style/Models13Text"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/featureItemTextSize"
         android:layout_marginStart="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,8 +27,9 @@
 
     <TextView
         android:id="@+id/itemFeatureTextSecondary"
-        style="@style/Models12Text"
+        style="@style/Models14Text"
         android:textColor="@color/secondary_text"
+        android:textSize="@dimen/featureItemSecondaryTextSize"
         android:layout_marginStart="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

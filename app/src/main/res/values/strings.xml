@@ -502,6 +502,8 @@
 
     <string name="not_enough_pictures">There\'s not enough pictures.</string>
 
+    <string name="most_popular">Most Popular</string>
+
 
     <string name="subscriptions_not_supported">The Google Play Store version installed on your device does not support subscriptions</string>
 
