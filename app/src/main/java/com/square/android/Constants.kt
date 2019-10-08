@@ -139,6 +139,10 @@ object GOOGLEBILLING{
 
     const val SUBSCRIPTION_PER_MONTH_NAME = "square_monthly_premium"
 
+    const val SUBSCRIPTION_PER_WEEK_PREMIUM_NAME = "square_weekly_premium_extra"
+
+    const val SUBSCRIPTION_PER_MONTH_PREMIUM_NAME = "square_monthly_premium_extra"
+
     const val GOOGLE_CODE = "4/iQHOcHcwK4LEy01sMsqFyvoK_dObDw6qiE5JP-U8INPkGmYyTe_3tQXpryRgcOW3iZrn8xoAdkmApwL6KtGYc-I"
 
     const val CLIENT_SECRET = "qqJusPDEfqaXS4IomodNhZfC"

@@ -255,7 +255,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginTop="64dp"
             android:background="@drawable/bg_rounded_max_gray_stroke"
-            android:text="@string/subscribe"
+            android:text="@string/subscription"
             android:textAllCaps="true"
             android:visibility="gone"
             tools:visibility="visible"

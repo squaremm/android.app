@@ -5,7 +5,9 @@ import android.content.Context
 import android.preference.PreferenceManager
 import android.util.Log
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME
+import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_PREMIUM_NAME
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME
+import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_PREMIUM_NAME
 import com.square.android.data.pojo.UserInfo
 import com.square.android.ui.base.tutorial.TutorialService
 
@@ -204,6 +206,12 @@ class LocalDataManager(context: Context) {
         preferences.edit()
                 .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_MONTH_NAME, false)
                 .apply()
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_WEEK_PREMIUM_NAME, false)
+                .apply()
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_MONTH_PREMIUM_NAME, false)
+                .apply()
 
         //Repeat with every subscriptionId in app
     }
@@ -214,6 +222,14 @@ class LocalDataManager(context: Context) {
                 .apply()
         preferences.edit()
                 .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_MONTH_NAME, true)
+                .apply()
+
+        //TODO should premium be here?
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_WEEK_PREMIUM_NAME, true)
+                .apply()
+        preferences.edit()
+                .putBoolean(KEY_ENTITLEMENT+SUBSCRIPTION_PER_MONTH_PREMIUM_NAME, true)
                 .apply()
 
         //Repeat with every subscriptionId in app

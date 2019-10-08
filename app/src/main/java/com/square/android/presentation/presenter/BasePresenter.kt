@@ -6,7 +6,9 @@ import com.arellomobile.mvp.MvpPresenter
 import com.crashlytics.android.Crashlytics
 import com.google.gson.Gson
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_NAME
+import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_PREMIUM_NAME
 import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_NAME
+import com.square.android.GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_PREMIUM_NAME
 import com.square.android.SCREENS
 import com.square.android.data.BillingRepository
 import com.square.android.data.Repository
@@ -90,6 +92,8 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                 } else{
                     var valid1 = false
                     var valid2 = false
+                    var valid3 = false
+                    var valid4 = false
 
                     Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT REQUIRED"))
                     Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> PAYMENT REQUIRED")
@@ -150,11 +154,45 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), KoinComponent {
                         Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthValidSub IS NULL")
                     }
 
-//                    if(!valid1 && !valid2){
-//                        router.navigateTo(SCREENS.PASS_ELIGIBLE)
-//                        Log.e("SUBSCRIPTIONS", "ELIGIBLE")
-//
-//                    }
+                    val perWeekPremiumValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_WEEK_PREMIUM_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
+                    perWeekPremiumValidSub?.let {
+
+                        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekPremiumValidSub NOT NULL"))
+                        Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekPremiumValidSub NOT NULL")
+
+                        val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
+
+                        valid3 = validExpiry
+
+                        grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
+                                it.acknowledgementState == 0)
+                    } ?: run {
+                        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekPremiumValidSub IS NULL"))
+                        Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perWeekPremiumValidSub IS NULL")
+                    }
+
+                    val perMonthPremiumValidSub = subscriptions.filter { it.subscriptionId == SUBSCRIPTION_PER_MONTH_PREMIUM_NAME && it.paymentState != 0}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
+                    perMonthPremiumValidSub?.let {
+
+                        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthPremiumValidSub NOT NULL"))
+                        Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthPremiumValidSub NOT NULL")
+
+                        val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
+
+                        valid4 = validExpiry
+
+                        grantEntitlement(validExpiry, BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token },
+                                it.acknowledgementState == 0)
+                    } ?: run {
+                        Crashlytics.logException(Throwable("SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthPremiumValidSub IS NULL"))
+
+                        Log.d("SUBSCRIPTIONS LOG","SUBSCRIPTIONS -> BasePresenter: checkSubscriptions() -> perMonthPremiumValidSub IS NULL")
+                    }
+
+                    if(!valid1 && !valid2 && !valid3 && valid4){
+                        router.navigateTo(SCREENS.PASS_ELIGIBLE)
+                        Log.e("SUBSCRIPTIONS", "ELIGIBLE")
+                    }
 
                 }
                 eventBus.post(SubscriptionErrorEvent(1))

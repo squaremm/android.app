@@ -531,7 +531,7 @@
     <string name="open_in_map">Open in map</string>
     <string name="select_an_app">Select an application</string>
 
-    <string name="subscribe">Subscribe</string>
+    <string name="subscription">Subscription</string>
     <string name="cancel_subscription">Cancel subscription</string>
 
     <string name="purchase_completed_successfully">The purchase was completed successfully</string>
@@ -542,6 +542,28 @@
     <string name="premium_plan">Premium Plan</string>
     <string name="per_week">per week</string>
     <string name="per_month">per month</string>
+    <string name="membership_label">Membership allows access to Square features. Payment will be charged to your Google account. Subscription can be cancelled at any time.</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="week_off_included">1 week off included</string>
+
+    <string name="basic_week_feature1">Access to venues network</string>
+    <string name="basic_week_feature2">9 available bookings</string>
+    <string name="basic_week_feature2_secondary">(gym excluded)</string>
+    <string name="premium_week_feature1">Extension to exclusive venues</string>
+    <string name="premium_week_feature2">12 available bookings</string>
+    <string name="premium_week_feature2_secondary">(gym excluded)</string>
+    <string name="premium_week_feature3">Priority booking features</string>
+    <string name="premium_week_feature4">Fast lane action approval</string>
+
+    <string name="basic_month_feature1">Access to venues network</string>
+    <string name="basic_month_feature2">10 available bookings</string>
+    <string name="basic_month_feature2_secondary">(gym excluded)</string>
+    <string name="premium_month_feature1">Extension to exclusive venues</string>
+    <string name="premium_month_feature2">15 available bookings</string>
+    <string name="premium_month_feature2_secondary">(gym excluded)</string>
+    <string name="premium_month_feature3">Priority booking features</string>
+    <string name="premium_month_feature4">Fast lane action approval</string>
+
 
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>

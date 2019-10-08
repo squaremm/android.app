@@ -108,10 +108,39 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
                 Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perMonthValidSub IS NULL")
             }
 
+            val perWeekPremiumValidSub = subscriptions.filter { it.subscriptionId == GOOGLEBILLING.SUBSCRIPTION_PER_WEEK_PREMIUM_NAME}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
+            perWeekPremiumValidSub?.let {
+                Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perWeekPremiumValidSub NOT NULL")
+
+                val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
+
+                if(validExpiry){
+                    actualTokenInfo = BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token }
+                }
+
+            } ?: run {
+                Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perWeekPremiumValidSub IS NULL")
+            }
+
+            val perMonthPremiumValidSub = subscriptions.filter { it.subscriptionId == GOOGLEBILLING.SUBSCRIPTION_PER_MONTH_PREMIUM_NAME}.sortedByDescending {it.expiryTimeMillis}.firstOrNull()
+            perMonthPremiumValidSub?.let {
+                Crashlytics.logException(Throwable("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perMonthPremiumValidSub NOT NULL"))
+
+                val validExpiry = (it.expiryTimeMillis - actualTimeInMillis) > 1000
+
+                if(validExpiry){
+                    actualTokenInfo = BillingTokenInfo().apply { subscriptionId = it.subscriptionId; token = it.token }
+                }
+
+            } ?: run {
+                Crashlytics.log("SUBSCRIPTIONS -> ProfilePresenter: loadSubscriptions() -> perMonthPremiumValidSub IS NULL")
+            }
+
             if(actualTokenInfo != null){
                 viewState.showButton(hasSubscription = true)
                 viewState.showPremiumLabel()
             } else{
+                //TODO move cancel sub out of here?
                 //TODO check if user can get a subscription (required amount of followers on instagram)
                 viewState.showButton(hasSubscription = false)
             }
@@ -128,10 +157,12 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
 
     fun subButtonClicked(){
         actualTokenInfo?.let {
+            //TODO move cancel sub out of here?
             cancelSubscription(it)
-        } ?: router.navigateTo(SCREENS.PASS_ELIGIBLE)
+        } ?: router.navigateTo(SCREENS.PASS_ELIGIBLE, true)
     }
 
+    //TODO move cancel sub out of here?
     private fun cancelSubscription(billingTokenInfo: BillingTokenInfo) = launch ({
         viewState.showSubProgress()
 

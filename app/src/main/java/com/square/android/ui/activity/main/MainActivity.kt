@@ -34,6 +34,7 @@ import com.square.android.ui.activity.gallery.GalleryActivity
 import com.square.android.ui.activity.gallery.USER_EXTRA
 import com.square.android.ui.fragment.campaigns.CAMPAIGN_EXTRA_ID
 import com.square.android.ui.activity.noConnection.NoConnectionActivity
+import com.square.android.ui.activity.passEligible.PASS_CAN_BACK_EXTRA
 import com.square.android.ui.activity.passEligible.PassEligibleActivity
 import com.square.android.ui.activity.place.PLACE_EXTRA_ID
 import com.square.android.ui.activity.place.PlaceActivity
@@ -200,7 +201,7 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                         context.intentFor<TutorialVideosActivity>()
 
                     SCREENS.PASS_ELIGIBLE -> {
-                        context.intentFor<PassEligibleActivity>()
+                        context.intentFor<PassEligibleActivity>(PASS_CAN_BACK_EXTRA to data as Boolean)
                     }
 
                     SCREENS.CAMPAIGN_DETAILS ->

@@ -112,10 +112,11 @@ class ProfileFragment: BaseFragment(), ProfileView {
     override fun showButton(hasSubscription: Boolean) {
         if(hasSubscription){
             showPremiumLabel()
+            //TODO move cancel sub out of here?
             profileSubscribe.text = getString(R.string.cancel_subscription)
         } else{
             hidePremiumLabel()
-            profileSubscribe.text = getString(R.string.subscribe)
+            profileSubscribe.text = getString(R.string.subscription)
         }
         profileSubscribe.visibility = View.VISIBLE
     }

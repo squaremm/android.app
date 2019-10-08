@@ -8,9 +8,9 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/fillProfile2Back"
-        android:layout_width="@dimen/featureArrowSize"
-        android:layout_height="@dimen/featureArrowSize"
+        android:id="@+id/passBack"
+        android:layout_width="@dimen/passArrowSize"
+        android:layout_height="@dimen/passArrowSize"
         android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:tint="@android:color/black"
@@ -21,19 +21,20 @@
 
     <ImageView
         android:id="@+id/passLogo"
-        android:layout_width="@dimen/featureLogoWidth"
-        android:layout_height="@dimen/featureLogoHeight"
+        android:layout_width="@dimen/passLogoWidth"
+        android:layout_height="@dimen/passLogoHeight"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:scaleType="fitXY"
+        android:src="@drawable/square_logo"
+        app:layout_constraintTop_toTopOf="@+id/passBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fillProfile2Back"
-        android:src="@drawable/square_logo" />
+        tools:layout_editor_absoluteY="40dp" />
 
     <TextView
         android:id="@+id/passCardTitle"
-        android:textSize="@dimen/featureTitleTextSize"
+        android:textSize="@dimen/passTitleTextSize"
         android:textStyle="bold"
         android:textColor="@android:color/black"
         android:layout_width="wrap_content"
@@ -70,7 +71,7 @@
     <LinearLayout
         android:id="@+id/passBtnsRl"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/featureBtnHeight"
+        android:layout_height="@dimen/passBtnHeight"
         android:layout_marginTop="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
@@ -82,47 +83,51 @@
 
         <TextView
             android:id="@+id/passBtnWeekly"
-            android:textSize="@dimen/featureBtnTextSize"
+            android:textSize="@dimen/passBtnTextSize"
             android:gravity="center"
-            android:textStyle=""
-            android:layout_width="@dimen/featureBtnWidth"
+            android:layout_width="@dimen/passBtnWidth"
             android:layout_height="match_parent"
             android:layout_marginStart="3.5dp"
             android:layout_marginTop="3.5dp"
             android:layout_marginBottom="3.5dp"
             android:background="@drawable/gradient_rounded_8dp"
-            android:backgroundTint="@android:color/white"
-            android:textColor="@color/gray_disabled"
+            android:textColor="@android:color/white"
             android:text="@string/weekly" />
 
         <TextView
             android:id="@+id/passBtnMonthly"
-            android:textSize="@dimen/featureBtnTextSize"
-            android:textColor="@android:color/white"
+            android:textSize="@dimen/passBtnTextSize"
             android:gravity="center"
-            android:layout_width="@dimen/featureBtnWidth"
+            android:layout_width="@dimen/passBtnWidth"
             android:layout_height="match_parent"
             android:layout_marginEnd="3.5dp"
             android:layout_marginTop="3.5dp"
             android:layout_marginBottom="3.5dp"
             android:background="@drawable/gradient_rounded_8dp"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@color/gray_disabled"
             android:text="@string/monthly" />
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/passContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingTop="8dp"
         android:layout_marginTop="16dp"
-        android:paddingBottom="16dp"
+        android:scrollbars="none"
+        android:overScrollMode="never"
         android:requiresFadingEdge="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/passBtnsRl"
         app:layout_constraintBottom_toTopOf="@+id/passPayContainer" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp"
             android:background="@android:color/white"
             android:orientation="vertical" >
 
@@ -132,18 +137,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/featurePlanStartEndMargin"
-                android:layout_marginEnd="@dimen/featurePlanStartEndMargin"
+                android:layout_marginStart="@dimen/passPlanStartEndMargin"
+                android:layout_marginEnd="@dimen/passPlanStartEndMargin"
                 android:orientation="vertical"
                 android:clipChildren="false" >
 
                 <RadioButton
                     android:id="@+id/passCb1"
-                    android:textSize ="@dimen/featurePlanCbTextSize"
+                    android:textSize ="@dimen/passPlanCbTextSize"
                     android:textStyle="bold"
                     android:layout_marginStart="-5dp"
                     android:paddingStart="5dp"
                     android:clickable="false"
+                    android:buttonTint="@color/radio_btn_tint"
                     android:layout_marginBottom="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -156,13 +162,13 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/interval_background" >
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.square.android.utils.widget.InterceptConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/featurePlanContainerHeight" >
+                        android:layout_height="@dimen/passPlanContainerHeight" >
 
                         <LinearLayout
                             android:id="@+id/passPriceLabel1"
-                            android:layout_width="@dimen/featurePriceMinWidth"
+                            android:layout_width="@dimen/passPriceMinWidth"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:gravity="center"
@@ -173,18 +179,21 @@
 
                             <TextView
                                 android:id="@+id/passPrice1"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:includeFontPadding="false"
+                                android:gravity="center"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/featurePriceTextSize"
+                                android:textSize="@dimen/passPriceTextSize"
+                                app:autoSizeTextType="uniform"
+                                android:maxLines="1"
                                 android:textStyle="bold"
-                                tools:text="4.99€" />
+                                tools:text="4,99€" />
 
                             <TextView
                                 android:id="@+id/passPer1"
                                 android:layout_marginTop="2dp"
-                                android:textSize="@dimen/featurePerTextSize"
+                                android:textSize="@dimen/passPerTextSize"
                                 android:textColor="@color/gray_hint_light"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -215,16 +224,33 @@
                             android:layout_marginTop="12dp"
                             android:paddingStart="4dp"
                             android:paddingEnd="4dp"
-                            app:layout_constraintTop_toTopOf="parent"
+                            android:nestedScrollingEnabled="false"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/passDivider1"
-                            tools:listitem="@layout/item_feature"
-                            tools:itemCount="4" >
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/item_feature" />
 
-                        </androidx.recyclerview.widget.RecyclerView>
+                        <TextView
+                            android:id="@+id/passWeekOff"
+                            android:textSize="@dimen/featureItemTextSize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_hint_light"
+                            android:text="@string/week_off_included"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            android:includeFontPadding="false"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="7.5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/passDivider1" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.square.android.utils.widget.InterceptConstraintLayout>
 
                 </com.square.android.utils.widget.CheckableLinearLayout>
 
@@ -237,8 +263,8 @@
                 android:layout_height="wrap_content"
                 tools:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="@dimen/featurePlanStartEndMargin"
-                android:layout_marginEnd="@dimen/featurePlanStartEndMargin"
+                android:layout_marginStart="@dimen/passPlanStartEndMargin"
+                android:layout_marginEnd="@dimen/passPlanStartEndMargin"
                 android:orientation="vertical"
                 android:clipChildren="false" >
 
@@ -250,10 +276,11 @@
 
                     <RadioButton
                         android:id="@+id/passCb2"
-                        android:textSize ="@dimen/featurePlanCbTextSize"
+                        android:textSize ="@dimen/passPlanCbTextSize"
                         android:textStyle="bold"
                         android:layout_marginStart="-5dp"
                         android:clickable="false"
+                        android:buttonTint="@color/radio_btn_tint"
                         android:layout_marginBottom="6dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -286,13 +313,13 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/passPlan2MostPopular" >
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <com.square.android.utils.widget.InterceptConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/featurePlanContainerHeight" >
+                            android:layout_height="@dimen/passPlanContainerHeight" >
 
                             <LinearLayout
                                 android:id="@+id/passPriceLabel2"
-                                android:layout_width="@dimen/featurePriceMinWidth"
+                                android:layout_width="@dimen/passPriceMinWidth"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:gravity="center"
@@ -303,18 +330,21 @@
 
                                 <TextView
                                     android:id="@+id/passPrice2"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:includeFontPadding="false"
                                     android:textColor="@android:color/black"
-                                    android:textSize="@dimen/featurePriceTextSize"
+                                    android:textSize="@dimen/passPriceTextSize"
                                     android:textStyle="bold"
+                                    app:autoSizeTextType="uniform"
+                                    android:maxLines="1"
+                                    android:gravity="center"
                                     tools:text="12.99€" />
 
                                 <TextView
                                     android:id="@+id/passPer2"
                                     android:layout_marginTop="2dp"
-                                    android:textSize="@dimen/featurePerTextSize"
+                                    android:textSize="@dimen/passPerTextSize"
                                     android:textColor="@color/gray_hint_light"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -345,16 +375,20 @@
                                 android:layout_marginTop="12dp"
                                 android:paddingStart="4dp"
                                 android:paddingEnd="4dp"
-                                app:layout_constraintTop_toTopOf="parent"
+                                android:nestedScrollingEnabled="false"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                android:orientation="vertical"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/passDivider2"
-                                tools:listitem="@layout/item_feature"
-                                tools:itemCount="4" >
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0"
+                                tools:itemCount="4"
+                                tools:listitem="@layout/item_feature">
 
                             </androidx.recyclerview.widget.RecyclerView>
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.square.android.utils.widget.InterceptConstraintLayout>
 
                     </com.square.android.utils.widget.CheckableLinearLayout>
 
@@ -370,7 +404,7 @@
                         android:paddingBottom="4dp"
                         android:layout_marginEnd="12dp"
                         android:includeFontPadding="false"
-                        android:textSize="@dimen/featurePopularTextSize"
+                        android:textSize="@dimen/passPopularTextSize"
                         android:background="@drawable/background_rounded_max"
                         android:backgroundTint="@color/nice_pink"
                         android:layout_marginBottom="8dp"
@@ -381,244 +415,91 @@
 
             </LinearLayout>
 
+            <TextView
+                android:textSize="@dimen/passLabelTextSize"
+                android:textColor="@color/gray_hint_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/membership_label"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp" />
+
+            <TextView
+                android:id="@+id/passUnsubscribe"
+                android:textSize="@dimen/passPayTextSize"
+                android:textColor="@color/nice_pink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/unsubscribe"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:lineSpacingExtra="5dp"
+                android:layout_marginTop="18dp" />
+
         </LinearLayout>
 
     </ScrollView>
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/passCardView"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="24dp"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        android:layout_marginEnd="24dp"-->
-<!--        android:layout_marginBottom="24dp"-->
-<!--        android:animateLayoutChanges="true"-->
-<!--        android:background="@android:color/white"-->
-<!--        app:cardCornerRadius="12dp"-->
-<!--        app:cardElevation="1dp"-->
-<!--        app:cardUseCompatPadding="false"-->
-<!--        android:visibility="gone"-->
-<!--        tools:visibility="visible"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/passCardLabelTwo" >-->
+    <ProgressBar
+        android:id="@+id/passMainProgress"
+        android:layout_width="@dimen/passPayBtnHeight"
+        android:layout_height="@dimen/passPayBtnHeight"
+        android:indeterminate="true"
+        android:visibility="visible"
+        tools:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/passBtnsRl"
+        app:layout_constraintBottom_toTopOf="@+id/passPayContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:clipToPadding="false"-->
-<!--            android:padding="24dp" >-->
+    <LinearLayout
+        android:id="@+id/passPayContainer"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/passBtnsRl"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="48dp"-->
-<!--                android:background="@drawable/bg_rounded_max_gray_stroke_trans"-->
-<!--                android:orientation="horizontal"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent" >-->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_divider" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/passBtnWeekly"-->
-<!--                    style="@style/Models18BoldText"-->
-<!--                    android:gravity="center"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_marginStart="2.5dp"-->
-<!--                    android:layout_marginTop="2.5dp"-->
-<!--                    android:layout_marginBottom="2.5dp"-->
-<!--                    android:background="@drawable/background_rounded_max"-->
-<!--                    android:backgroundTint="@android:color/white"-->
-<!--                    android:textColor="@color/gray_disabled"-->
-<!--                    android:text="@string/weekly" />-->
+        <Button
+            android:id="@+id/passPayBtn"
+            style="@style/Models16BoldText"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_width="@dimen/passPayBtnWidth"
+            android:layout_height="@dimen/passPayBtnHeight"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:background="@drawable/nice_button_purple_pink_alpha"
+            android:text="@string/pay"/>
 
-<!--                <TextView-->
-<!--                    android:id="@+id/passBtnMonthly"-->
-<!--                    style="@style/Models18BoldText"-->
-<!--                    android:gravity="center"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_marginEnd="2.5dp"-->
-<!--                    android:layout_marginTop="2.5dp"-->
-<!--                    android:layout_marginBottom="2.5dp"-->
-<!--                    android:background="@drawable/background_rounded_max"-->
-<!--                    android:backgroundTint="@color/gray_btn_disabled"-->
-<!--                    android:text="@string/monthly"/>-->
-<!--            </LinearLayout>-->
+            <ProgressBar
+                android:id="@+id/passProgress"
+                android:layout_width="@dimen/passPayBtnHeight"
+                android:layout_height="@dimen/passPayBtnHeight"
+                android:indeterminate="true"
+                android:visibility="visible"
+                android:indeterminateTint="@color/nice_pink"
+                tools:visibility="gone" />
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/passCardLl"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="24dp"-->
-<!--                android:orientation="horizontal"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/passBtnsRl" >-->
-<!--                <TextView-->
-<!--                    android:id="@+id/passCardPrice"-->
-<!--                    style="@style/Models38BoldText"-->
-<!--                    android:textColor="@color/nice_pink"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    tools:text="€14.99" />-->
-<!--                <TextView-->
-<!--                    android:id="@+id/passCardTime"-->
-<!--                    style="@style/Models20Text"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:textColor="@color/nice_pink"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/slash_month" />-->
-<!--            </LinearLayout>-->
-
-<!--            <View-->
-<!--                android:id="@+id/divider1"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="1dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:background="@color/gray_divider"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/passCardLl"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/passCardCheck1"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:layout_marginStart="8dp"-->
-<!--                android:src="@drawable/checkmark"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/divider1"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/divider1" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/passCardText1"-->
-<!--                style="@style/Models15Text"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/pass_features_one"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/divider1"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/passCardCheck1"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/passCardCheck1" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/passCardCheck2"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="8dp"-->
-<!--                android:layout_marginTop="24dp"-->
-<!--                android:src="@drawable/checkmark"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/divider1"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/passCardText1" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/passCardText2"-->
-<!--                style="@style/Models15Text"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/pass_features_two"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/divider1"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/passCardCheck2"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/passCardCheck2" />-->
-
-<!--            <View-->
-<!--                android:id="@+id/divider2"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="1dp"-->
-<!--                android:layout_marginTop="18dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:background="@color/gray_divider"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/passCardText2" />-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/passPayBtn"-->
-<!--                android:layout_width="172dp"-->
-<!--                android:layout_height="42dp"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:elevation="1dp"-->
-<!--                android:visibility="gone"-->
-<!--                tools:visibility="visible"-->
-<!--                android:stateListAnimator="@animator/image_button_anim"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/divider2"-->
-<!--                app:layout_constraintVertical_bias="1.0"-->
-<!--                android:layout_marginTop="32dp"-->
-<!--                android:gravity="center"-->
-<!--                android:background="@drawable/referral_field_background"-->
-<!--                android:backgroundTint="@color/nice_pink" >-->
-<!--                <androidx.appcompat.widget.AppCompatImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:padding="4dp"-->
-<!--                    android:src="@drawable/logo_google"-->
-<!--                    android:background="@drawable/circle_white" />-->
-<!--                <TextView-->
-<!--                    style="@style/Models16BoldText"-->
-<!--                    android:textColor="@android:color/white"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/pay"-->
-<!--                    android:layout_marginStart="8dp" />-->
-<!--            </LinearLayout>-->
-
-<!--            <ProgressBar-->
-<!--                android:id="@+id/passProgress"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="42dp"-->
-<!--                android:indeterminate="true"-->
-<!--                android:visibility="visible"-->
-<!--                tools:visibility="gone"-->
-<!--                android:layout_marginTop="32dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/divider2"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintVertical_bias="1.0" />-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--        -->
-<!--    </androidx.cardview.widget.CardView>-->
-
-
-<!-- TODO bottom layout with swipe to pay btn only -->
-<LinearLayout
-    android:id="@+id/passPayContainer"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:layout_height="80dp"
-    android:orientation="horizontal"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" >
-
-</LinearLayout>
-
-
-<!--    <ProgressBar-->
-<!--        android:id="@+id/passMainProgress"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:indeterminate="true"-->
-<!--        android:visibility="visible"-->
-<!--        tools:visibility="gone"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/passCardLabelTwo"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

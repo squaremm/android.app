@@ -22,7 +22,7 @@ import com.crashlytics.android.Crashlytics
 import java.security.spec.X509EncodedKeySpec
 
 @InjectViewState
-class PassEligiblePresenter: BasePresenter<PassEligibleView>(){
+class PassEligiblePresenter(val canGoBack: Boolean = false): BasePresenter<PassEligibleView>(){
 
     private val eventBus: EventBus by inject()
 

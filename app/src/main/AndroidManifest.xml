@@ -99,7 +99,7 @@
         <activity
             android:name=".ui.activity.passEligible.PassEligibleActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/GreyishStatusActivity" />
+            android:theme="@style/WhiteStatusActivity" />
 
         <activity
             android:name=".ui.activity.place.PlaceActivity"

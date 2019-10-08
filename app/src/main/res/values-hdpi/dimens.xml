@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--  feature  -->
-    <dimen name="featureItemTextSize">10sp</dimen>
+    <!-- pass eligible -->
+    <dimen name="featureItemTextSize">9sp</dimen>
     <dimen name="featureItemSecondaryTextSize">8sp</dimen>
     <dimen name="featureItemImageSize">12dp</dimen>
-    <dimen name="featurePriceTextSize">18sp</dimen>
-    <dimen name="featurePerTextSize">12sp</dimen>
-    <dimen name="featurePriceMinWidth">68dp</dimen>
-    <dimen name="featureLogoWidth">102dp</dimen>
-    <dimen name="featureLogoHeight">22dp</dimen>
-    <dimen name="featureTitleTextSize">13sp</dimen>
-    <dimen name="featureArrowSize">18dp</dimen>
-    <dimen name="featurePlanContainerHeight">106dp</dimen>
-    <dimen name="featurePlanCbTextSize">14sp</dimen>
-    <dimen name="featurePlanStartEndMargin">19dp</dimen>
-    <dimen name="featureBtnHeight">30dp</dimen>
-    <dimen name="featureBtnWidth">88dp</dimen>
-    <dimen name="featureBtnTextSize">10sp</dimen>
-    <dimen name="featurePopularTextSize">8sp</dimen>
+    <dimen name="passPriceTextSize">18sp</dimen>
+    <dimen name="passPerTextSize">12sp</dimen>
+    <dimen name="passPriceMinWidth">68dp</dimen>
+    <dimen name="passLogoWidth">102dp</dimen>
+    <dimen name="passLogoHeight">22dp</dimen>
+    <dimen name="passTitleTextSize">13sp</dimen>
+    <dimen name="passArrowSize">18dp</dimen>
+    <dimen name="passPlanContainerHeight">106dp</dimen>
+    <dimen name="passPlanCbTextSize">14sp</dimen>
+    <dimen name="passPlanStartEndMargin">19dp</dimen>
+    <dimen name="passBtnHeight">34dp</dimen>
+    <dimen name="passBtnWidth">88dp</dimen>
+    <dimen name="passBtnTextSize">10sp</dimen>
+    <dimen name="passPopularTextSize">8sp</dimen>
+    <dimen name="passPayBtnHeight">36dp</dimen>
+    <dimen name="passPayBtnWidth">156dp</dimen>
+    <dimen name="passLabelTextSize">10sp</dimen>
+    <dimen name="passPayTextSize">13sp</dimen>
 
 </resources>
