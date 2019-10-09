@@ -24,4 +24,12 @@
     <dimen name="passLabelTextSize">14sp</dimen>
     <dimen name="passPayTextSize">16sp</dimen>
 
+    <!-- driver login -->
+    <dimen name="loginFormHeight">48dp</dimen>
+    <dimen name="loginFormTextSize">14sp</dimen>
+    <dimen name="loginButtonHeight">50dp</dimen>
+    <dimen name="loginButtonTextSize">18sp</dimen>
+    <dimen name="loginForgotTextSize">14sp</dimen>
+    <dimen name="loginMarginHeight">40dp</dimen>
+
 </resources>

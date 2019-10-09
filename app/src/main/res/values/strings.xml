@@ -206,7 +206,6 @@
     <string name="profile_picture">Profile Picture</string>
     <string name="others">Others</string>
 
-
 <!-- TODO: strings for driver app CUT -->
     <string name="my_pick_up">My Pick up</string>
     <string name="go_to">Go to</string>
@@ -235,8 +234,10 @@
     fragment_driver_my_pickup
     item_driver_itinerary
     activity_driver_pickup_info
--->
+    driver_login
 
+    drawables: login_bg
+-->
 
     <string name="select_timeframe">Select your timeframe</string>
 

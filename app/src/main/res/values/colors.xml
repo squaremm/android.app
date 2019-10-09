@@ -67,6 +67,7 @@
     <color name="black_trans_50">#80000000</color>
 
     <color name="black_trans_30">#4D000000</color>
+    <color name="black_trans_15">#26000000</color>
 
     <color name="grey_dark">#888888</color>
     <color name="grey_background_field">#F8F8F8</color>
