@@ -1,7 +1,6 @@
 package com.square.android
 
 import android.app.Application
-import android.util.Log
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -15,8 +14,9 @@ import io.fabric.sdk.android.Fabric
 import org.koin.android.ext.android.startKoin
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import com.square.android.utils.AppLifecycleTracker
+import com.squareup.picasso.OkHttp3Downloader
 import org.greenrobot.eventbus.EventBus
-
+import com.squareup.picasso.Picasso
 
 class App : Application() {
 
@@ -33,6 +33,11 @@ class App : Application() {
         Fabric.with(this, Crashlytics())
         mixpanel = MixpanelAPI.getInstance(this, Network.MIXPANEL_TOKEN)
         registerActivityLifecycleCallbacks((AppLifecycleTracker(EventBus.getDefault())))
+
+        val builder = Picasso.Builder(this)
+        builder.downloader(OkHttp3Downloader(this, Long.MAX_VALUE))
+        val built = builder.build()
+        Picasso.setSingletonInstance(built)
     }
 
     companion object {
