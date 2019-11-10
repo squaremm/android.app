@@ -81,7 +81,8 @@ class ReviewDialog(val index: Int, val action: Offer.Action, private val subActi
                 0 -> openByType()
                 1 -> {
                     photo?.let {
-                        handler.sendClicked(index, it)
+//                        handler.sendClicked(index, it)
+                        handler.sendClicked(index, it, action.type)
                         dialog.cancel()
                     }
                 }
@@ -180,7 +181,8 @@ class ReviewDialog(val index: Int, val action: Offer.Action, private val subActi
     }
 
     interface Handler {
-        fun sendClicked(index: Int, photo: ByteArray)
+//        fun sendClicked(index: Int, photo: ByteArray)
+        fun sendClicked(index: Int, photo: ByteArray, actionType:String)
     }
 
     override fun onDestroy() {

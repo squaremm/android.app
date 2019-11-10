@@ -1,6 +1,7 @@
 package com.square.android.ui.fragment.checkIn
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,18 +65,27 @@ class CheckInFragment: BaseFragment(), CheckInView{
     }
 
     override fun showData(offer: Offer, user: Profile.User?, place: Place?, redemptionFull: RedemptionFull?) {
-//        couponImage.loadImage(offer.photo)
-//
-//        user.mainImage?.let {
-//            couponAvatar.loadImage(it)
-//        }
-//
-//        couponPersonName.text = user.name
+
+        if(TextUtils.isEmpty(offer.photo) || offer.photo == "link"){
+            offer.images.firstOrNull()?.let {
+                couponImage.loadImage(it.url)
+            } ?: run {
+                couponImage.loadImage("")
+            }
+        } else {
+            couponImage.loadImage(offer.photo)
+        }
+
+        user?.mainImage?.let {
+            couponAvatar.loadImage(it)
+        }
+
+        couponPersonName.text = user?.name
         couponComponents.text = offer.compositionAsString()
-//
-//        couponPlaceName.text = place.name
-//        couponPlaceAddress.text = place.address
-//        couponPlaceDate.text = "${redemptionFull.redemption.date} / ${getString(R.string.time_range, redemptionFull.redemption.startTime, redemptionFull.redemption.endTime)}"
+
+        couponPlaceName.text = place?.name
+        couponPlaceAddress.text = place?.address
+        couponPlaceDate.text = "${redemptionFull?.redemption?.date} / ${getString(R.string.time_range, redemptionFull?.redemption?.startTime, redemptionFull?.redemption?.endTime)}"
 
         visibleNow()
     }

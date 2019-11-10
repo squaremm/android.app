@@ -98,6 +98,9 @@ class LocalDataManager(context: Context) {
     }
 
     fun getUserInfo(): UserInfo {
+        println("JFKSIDFSK userId:"+getId())
+
+
         return UserInfo(
                 name = getUserName(),
                 photo = getAvatarUrl(),

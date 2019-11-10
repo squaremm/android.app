@@ -143,7 +143,11 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
         data = repository.getPlacesByFilters(PlaceData().apply { city = selectedCity!!.name }).await().toMutableList()
 
-        for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+        //TODO - need city property in places gotten by event.placeId
+//        for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+//            data!!.add(place)
+//        }
+        for(place in eventPlaces){
             data!!.add(place)
         }
 
@@ -191,7 +195,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     if(data != null){
                         actualDataLoaded = false
 
-                        filteredData = data!!.filter { it.name.contains(searchText.toString(), true) && it.city == selectedCity?.name }.toMutableList()
+                        filteredData = data!!.filter { it.name.contains(searchText.toString(), true) }.toMutableList()
 
                         fillDistances(false)
                         filteredData?.let { viewState.updatePlaces(it) }
@@ -209,7 +213,11 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                         date  = mDate
                         selectedCity?.let { city = selectedCity!!.name } }).await().toMutableList()
 
-                    for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+                    //TODO - need city property in places gotten by event.placeId
+//                    for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+//                        filteredData!!.add(place)
+//                    }
+                    for(place in eventPlaces){
                         filteredData!!.add(place)
                     }
 
@@ -232,10 +240,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                         val selectedTypes = allSelected - selectedTimeframes.map { it.name }
 
                         filteredData = if(selectedTimeframes.isEmpty()){
-                            data!!.filter { it.type in selectedTypes && it.city == selectedCity?.name }.toMutableList()
+                            data!!.filter { it.type[0] in selectedTypes}.toMutableList()
                         } else{
                             //TODO probably should be done with API call(no call allowing list of timeframes and types for now)
-                            data!!.filter {it.type in selectedTimeframes.map {t -> t.type } && it.city == selectedCity?.name}.toMutableList()
+                            data!!.filter {it.type[0] in selectedTimeframes.map {t -> t.type }}.toMutableList()
                         }
 
                         fillDistances(false)
@@ -272,7 +280,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
             cities = repository.getCities().await()
 
-            selectedCity = cities!![0]
+            val tryCity = cities!!.firstOrNull { it.name == "Milan" }
+
+            selectedCity = tryCity ?: cities!![0]
+
             viewState.changeCityName(selectedCity!!.name)
 
             data = repository.getPlacesByFilters(PlaceData().apply {
@@ -280,6 +291,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     city = selectedCity!!.name
                 } }).await().toMutableList()
 
+            //TODO events not working correctly right now. Event's city is unknown and all places gotten by event's id will ignore selected city.
             events = repository.getEvents().await()
 
             for(event in events){
@@ -291,7 +303,11 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                 })
             }
 
-            for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+            //TODO - need city property in places gotten by event.placeId
+//            for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
+//                data!!.add(place)
+//            }
+            for(place in eventPlaces){
                 data!!.add(place)
             }
 
@@ -331,8 +347,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         } else{
             AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
             AnalyticsManager.logEvent(AnalyticsEvent(
-                    //TODO change to RESTAURANT_OPENED_USING_FILTERS ?
-                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = place.name },
+                    AnalyticsEvents.RESTAURANT_OPENED_USING_FILTERS.apply { venueName = place.name },
                     hashMapOf("id" to id.toString())),
                     repository)
         }

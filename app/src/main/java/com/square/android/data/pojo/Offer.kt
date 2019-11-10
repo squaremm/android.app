@@ -34,19 +34,19 @@ class Offer(
         var price: Int = 0,
         var user: Int = 0,
         var instaUser: String = "",
+
         var posts: MutableList<Post> = mutableListOf(),
-        var creationDate: String = "",
+
+        var creationDate: String? = "",
         var post: Long = 0,
         var level: Int = 0,
-        var images: List<String> = listOf(),
+        var images: List<Photo> = listOf(),
         var mainImage: String? = null,
         var actions: List<Action> = listOf(),
         var subActions: List<Action> = listOf(),
-        var scopes: List<String> = listOf()
-
-        //Not in data from api
-//        var isAvailable: Boolean = false,
-//        var timeframes: List<String>? = null
+        var scopes: List<String> = listOf(),
+        var isActive: Boolean = false,
+        var timeframes: List<String>? = null
 
 ) : Parcelable {
 
@@ -56,15 +56,17 @@ class Offer(
             @Transient
             var enabled: Boolean = true,
 
+            var active: Boolean = true,
+            var image: String? = null,
             var id: String = "",
             var displayName: String = "",
             var type: String = "",
-            var credits: Int = 0,
-            var imageUrl: String? = null,
-            var isPictureRequired: Boolean = false,
-            var maxAttempts: Int = 0,
-            var parentId: String? = null,
-            var attempts: Int = 0
+            var credits: Int = 0
+//            var imageUrl: String? = null,
+//            var isPictureRequired: Boolean = false,
+//            var maxAttempts: Int = 1,
+//            var parentId: String? = null,
+//            var attempts: Int = 0
     ): Parcelable
 
     @JsonClass(generateAdapter = true)

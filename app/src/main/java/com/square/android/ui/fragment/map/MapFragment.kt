@@ -102,7 +102,7 @@ class MapFragment : BaseMapFragment(), MapView, PermissionsListener, LocationEng
 
         mapPlaceInfo.visibility = View.VISIBLE
 
-        mapPlaceInfo.mapPlaceTypeLabel.text = place.type
+        mapPlaceInfo.mapPlaceTypeLabel.text = place.type[0]
 
         //TODO change mapPlaceInfo.mapPlaceTypeIcon for different types of places
 

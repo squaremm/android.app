@@ -23,7 +23,7 @@ interface Repository {
 
     fun getRideTimeframesForPlace(placeId: Long): Deferred<List<DriverRide>>
 
-    fun bookEvent(bookEventData: BookEventData): Deferred<MessageResponse>
+//    fun bookEvent(bookEventData: BookEventData): Deferred<MessageResponse>
 
     fun getUserEventBookings(eventBookingId: String?): Deferred<List<BookEventData.EventBooking>>
 
@@ -94,7 +94,9 @@ interface Repository {
 
     fun claimOffer(offerId: Long) : MessageResponse
 
-    fun addReview(offerId: Long, bookingId: Long, link: String, actionId: String, imageBytes: ByteArray) : MessageResponse
+//    fun addReview(offerId: Long, bookingId: Long, link: String, actionId: String, imageBytes: ByteArray) : MessageResponse
+    fun addReview(offerId: Long, bookingId: Long, link: String, actionType: String, imageBytes: ByteArray) : MessageResponse
+
 
     fun getPlaceOffers(placeId: Long) : Deferred<List<OfferInfo>>
 
@@ -108,7 +110,7 @@ interface Repository {
     fun getIntervals(placeId: Long, date: String): Deferred<IntervalsWrapper>
     fun getIntervalSlots(placeId: Long, date: String): Deferred<List<Place.Interval>>
 
-//    fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>>
+    fun getActions(offerId: Long, bookingId: Long): Deferred<List<Offer.Action>>
 
     fun removePhoto(userId: Long, photoId: PhotoId): Deferred<MessageResponse>
     fun addPhoto(userId: Long, imageBytes: ByteArray): Deferred<Images>

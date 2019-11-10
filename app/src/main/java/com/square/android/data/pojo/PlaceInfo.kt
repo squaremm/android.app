@@ -16,5 +16,10 @@ const val SOCIAL_YELP = "yelp"
 class PlaceInfo(
         @Json(name="_id")
         var id: Long = 0,
-        var socials: Map<String, String> = mapOf()
+        var socials: Map<String, String> = mapOf(),
+        var name: String = "",
+        var address: String = "",
+        var mainImage: String?= "",
+        var photo: String? = ""
+
 ): Parcelable

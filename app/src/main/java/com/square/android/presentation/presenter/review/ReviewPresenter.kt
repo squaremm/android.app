@@ -10,7 +10,7 @@ import com.square.android.presentation.view.review.ReviewView
 import org.greenrobot.eventbus.EventBus
 import org.koin.standalone.inject
 
-class ActionExtras(var index: Int, var id: String = "", var photo: ByteArray? = null)
+class ActionExtras(var index: Int, var id: String = "", var photo: ByteArray? = null, var type: String = "")
 
 @InjectViewState
 class ReviewPresenter(private val offerId: Long,
@@ -22,7 +22,7 @@ class ReviewPresenter(private val offerId: Long,
 
     private var data: Offer? = null
 
-    private var actions: List<Offer.Action> = listOf()
+    private var actions: MutableList<Offer.Action> = mutableListOf()
     var subActions: List<Offer.Action> = listOf()
 
     private val filledActions: MutableList<ActionExtras> = mutableListOf()
@@ -34,29 +34,45 @@ class ReviewPresenter(private val offerId: Long,
     private fun loadData() = launch {
         viewState.showProgress()
 
+        println("JFKSIDFSK ReviewPresenter offerId: "+offerId.toString()+" , redemptionId: "+redemptionId)
+
+        actions = repository.getActions(offerId, redemptionId).await().toMutableList()
+
+        //TODO no subActions for now, action picture will not be working without them
+        val pictureAction = actions.firstOrNull { it.type == TYPE_PICTURE }
+        pictureAction?.let {
+            actions.remove(it)
+        }
+
         data = interactor.getOffer(offerId).await()
 
-        actions = data!!.actions
-        subActions = data!!.subActions
-
-        for(subAction in subActions){
-            if(subAction.attempts >= subAction.maxAttempts) subAction.enabled = false
-        }
-
         for(action in actions){
-            if(action.type != TYPE_PICTURE){
-                if(action.attempts >= action.maxAttempts) action.enabled = false
-            } else{
-                var disabledCount = 0
-                for(subAction in subActions){
-                    if(!subAction.enabled) disabledCount++
-                }
-                if(disabledCount == subActions.size) action.enabled = false
-            }
+            action.enabled = action.active
         }
+
+//        actions = data!!.actions
+
+        //TODO there are no subActions for now
+//        subActions = data!!.subActions
+
+//        for(subAction in subActions){
+//            if(subAction.attempts >= subAction.maxAttempts) subAction.enabled = false
+//        }
+//
+//        for(action in actions){
+//            if(action.type != TYPE_PICTURE){
+//                if(action.attempts >= action.maxAttempts) action.enabled = false
+//            } else{
+//                var disabledCount = 0
+//                for(subAction in subActions){
+//                    if(!subAction.enabled) disabledCount++
+//                }
+//                if(disabledCount == subActions.size) action.enabled = false
+//            }
+//        }
 
         viewState.hideProgress()
-        viewState.showData(data!!, actions)
+        viewState.showData(data!!, actions.toList())
     }
 
     fun itemClicked(index: Int) {
@@ -78,12 +94,22 @@ class ReviewPresenter(private val offerId: Long,
         }
     }
 
-    fun addAction(index: Int, photo: ByteArray){
+//    fun addAction(index: Int, photo: ByteArray){
+//        if(filledActions.isEmpty()){
+//            viewState.showButton()
+//        }
+//
+//        filledActions.add(ActionExtras(index, actions[index].id, photo))
+//
+//        viewState.changeSelection(index)
+//    }
+
+    fun addAction(index: Int, photo: ByteArray, actionType: String){
         if(filledActions.isEmpty()){
             viewState.showButton()
         }
 
-        filledActions.add(ActionExtras(index, actions[index].id, photo))
+        filledActions.add(ActionExtras(index, actions[index].id, photo, actionType))
 
         viewState.changeSelection(index)
     }
@@ -95,7 +121,7 @@ class ReviewPresenter(private val offerId: Long,
         //TODO changed ReviewInfo to link:String in api.addReview
         for(filledAction in filledActions){
             filledAction.photo?.let {
-                interactor.addReview(offerId, redemptionId, filledAction.id, it).await()
+                interactor.addReview(offerId, redemptionId, filledAction.type, it).await()
             }
         }
 

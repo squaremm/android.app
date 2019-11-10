@@ -141,8 +141,12 @@ class ReviewFragment : BaseFragment(), ReviewView, ReviewAdapter.Handler, Review
         dialog.show()
     }
 
-    override fun sendClicked(index: Int, photo: ByteArray) {
-       presenter.addAction(index, photo)
+//    override fun sendClicked(index: Int, photo: ByteArray) {
+//       presenter.addAction(index, photo)
+//    }
+
+    override fun sendClicked(index: Int, photo: ByteArray, actionType: String) {
+        presenter.addAction(index, photo, actionType)
     }
 
     private fun getRedemptionId() = arguments?.getLong(EXTRA_REDEMPTION_ID, 0) ?: 0

@@ -46,9 +46,9 @@ interface ApiService {
     fun getRideTimeframesForPlace(@Header("Authorization") authorization: String,
                                @Query("placeId") placeId: Long): Call<List<DriverRide>>
 
-    @POST("event-booking")
-    fun bookEvent(@Header("Authorization") authorization: String,
-                  @Body bookEventData: BookEventData): Call<MessageResponse>
+//    @POST("event-booking")
+//    fun bookEvent(@Header("Authorization") authorization: String,
+//                  @Body bookEventData: BookEventData): Call<MessageResponse>
 
 
     @GET("event-booking")
@@ -145,14 +145,24 @@ interface ApiService {
     fun getOffer(@Path("offerId") offerId: Long,
                  @Query("userID") userId: Long) : Call<Offer>
 
+//    @POST("v2/offer/{id}/booking/{bookingId}/post")
+//    @Multipart
+//    fun addReview(@Header("Authorization") authorization: String,
+//                  @Path("id") offerId: Long,
+//                  @Path("bookingId") bookingId: Long,
+//                  @Part("link") link: String,
+//                  @Part("actionId") actionId: String,
+//                  @Part image: MultipartBody.Part) : Call<MessageResponse>
+
     @POST("v2/offer/{id}/booking/{bookingId}/post")
     @Multipart
     fun addReview(@Header("Authorization") authorization: String,
                   @Path("id") offerId: Long,
                   @Path("bookingId") bookingId: Long,
                   @Part("link") link: String,
-                  @Part("actionId") actionId: String,
+                  @Part("actionType") actionType: String,
                   @Part image: MultipartBody.Part) : Call<MessageResponse>
+
 
     @GET("place/{id}/sample")
     fun getFeedbackBody(@Path("id") id: Long) : Call<MessageResponse>
@@ -172,9 +182,10 @@ interface ApiService {
     fun getIntervalSlots(@Path("id") placeId: Long,
                          @Query("date") date: String) : Call<List<Place.Interval>>
 
-//    @GET("v2/offer/{id}/booking/{bookingId}/actions")
-//    fun getActions(@Path("id") offerId: Long,
-//                   @Path("bookingId") bookingId: Long) : Call<List<ReviewNetType>>
+    @GET("v2/offer/booking/actions")
+    fun getActions(@Header("Authorization") authorization: String,
+                   @Query("offerId") offerId: Long,
+                   @Query("bookingId") bookingId: Long) : Call<List<Offer.Action>>
 
     @DELETE("user/{id}/images")
     fun removePhoto(@Path("id") userId: Long,
@@ -192,7 +203,6 @@ interface ApiService {
     @PUT("user/{id}/device")
     fun sendFcmToken(@Path("id") userId: Long,
                      @Body fcmTokenData: FcmTokenData) : Call<MessageResponse>
-
 
     @GET("user/paymentToken")
     fun getPaymentTokens(@Header("Authorization") authorization: String): Call<List<BillingTokenInfo>>

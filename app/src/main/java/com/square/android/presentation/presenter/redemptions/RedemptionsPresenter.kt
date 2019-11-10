@@ -110,6 +110,7 @@ class RedemptionsPresenter : BasePresenter<RedemptionsView>() {
         val item = data!![position] as? RedemptionInfo ?: return
 
         if (item.claimed) {
+
             router.navigateTo(SCREENS.SELECT_OFFER, item.id)
             return
         }

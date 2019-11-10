@@ -14,7 +14,7 @@ class RedemptionFull(
             var id: Long = 0,
             var claimed: Boolean = false,
             var closed: Boolean = false,
-            var creationDate: String = "",
+            var creationDate: String? = "",
             var date: String = "",
             var endTime: String = "",
             var place: PlaceInfo = PlaceInfo(),

@@ -19,7 +19,7 @@ class ReviewAdapter(data: List<Offer.Action>, private val handler: Handler?): Ba
         return ReviewHolder(view, handler)
     }
 
-    //TODO fire when action attempts >= maxAttempts
+    //TODO (there is in attempts and maxAttempts for now ) fire when action attempts >= maxAttempts
     //TODO in ClaimedActions, actions will be sent individually, not in a list
     // for ClaimedActions
     fun disableAction(position: Int) {

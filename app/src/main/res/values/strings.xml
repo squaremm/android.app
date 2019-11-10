@@ -206,39 +206,6 @@
     <string name="profile_picture">Profile Picture</string>
     <string name="others">Others</string>
 
-<!-- TODO: strings for driver app CUT -->
-    <string name="my_pick_up">My Pick up</string>
-    <string name="go_to">Go to</string>
-    <string name="chat">Chat</string>
-    <string name="profile">Profile</string>
-    <string name="license_no">License nº</string>
-    <string name="expiration_date">Expiration date</string>
-    <string name="car_brand">Car brand</string>
-    <string name="car_model">Car model</string>
-    <string name="car_color">Car color</string>
-    <string name="car_plate">Car plate</string>
-    <string name="itinerary">Itinerary</string>
-    <string name="drop_off">Drop off</string>
-    <string name="pick_up_complete">Pick up complete</string>
-    <string name="pick_up_info">Pick up info</string>
-    <string name="departure_point">Departure point</string>
-    <string name="destination_point">Destination point</string>
-    <string name="no_show">Are you incurring in a no show?</string>
-    <string name="click_here">Click here</string>
-
-<!-- TODO: layouts for driver app to CUT
-    activity_driver_itinerary
-    activity_driver_my_pickup
-    activity_driver_profile
-    item_pick_up
-    fragment_driver_my_pickup
-    item_driver_itinerary
-    activity_driver_pickup_info
-    driver_login
-
-    drawables: login_bg
--->
-
     <string name="select_timeframe">Select your timeframe</string>
 
     <string name="spot_format">%d Spots</string>

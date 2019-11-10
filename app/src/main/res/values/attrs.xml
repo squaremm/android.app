@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="ScrollViewMaxHeight">
-        <attr name="scroll_view_max_height" format="dimension" />
-    </declare-styleable>
+<declare-styleable name="ScrollViewMaxHeight">
+    <attr name="scroll_view_max_height" format="dimension" />
+</declare-styleable>
 
-    <declare-styleable name="RecyclerViewMaxHeight">
-        <attr name="recycler_max_height" format="dimension" />
-    </declare-styleable>
+<declare-styleable name="RecyclerViewMaxHeight">
+    <attr name="recycler_max_height" format="dimension" />
+</declare-styleable>
 </resources>

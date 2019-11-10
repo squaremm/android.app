@@ -71,7 +71,11 @@ class ClaimedActionsFragment : BaseFragment(), ClaimedActionsView, ReviewAdapter
         dialog.show(fragmentManager, "")
     }
 
-    override fun sendClicked(index: Int, photo: ByteArray) {
+//    override fun sendClicked(index: Int, photo: ByteArray) {
+//        presenter.addReview(index, photo)
+//    }
+
+    override fun sendClicked(index: Int, photo: ByteArray, actionType: String) {
         presenter.addReview(index, photo)
     }
 

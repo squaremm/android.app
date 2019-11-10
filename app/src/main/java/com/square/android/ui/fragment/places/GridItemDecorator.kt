@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
  WHEN CALLING RecyclerView.addItemDecoration MULTIPLE TIMES: remember to check if it isn't already defined
 
  var decorationAdded = false
+
  if(!decorationAdded){
     decorationAdded = true
     RecyclerView.addItemDecoration(GridItemDecoration...

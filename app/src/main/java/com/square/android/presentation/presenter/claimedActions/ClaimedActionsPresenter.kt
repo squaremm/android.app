@@ -23,7 +23,7 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
 
     private var data: Offer? = null
 
-    private var actions: List<Offer.Action> = listOf()
+    private var actions: MutableList<Offer.Action> = mutableListOf()
     var subActions: List<Offer.Action> = listOf()
 
     init {
@@ -41,44 +41,93 @@ class ClaimedActionsPresenter: BasePresenter<ClaimedActionsView>() {
 
     private fun processData(data: Offer) {
         launch {
-            actions = data.actions
-            subActions = data.subActions
 
-            for(subAction in subActions){
-                if(subAction.attempts >= subAction.maxAttempts) subAction.enabled = false
+            println("JFKSIDFSK ClaimedActionsPresenter offerId: "+offerId.toString()+" , redemptionId: "+redemptionId)
+
+            actions = repository.getActions(offerId, redemptionId).await().toMutableList()
+
+            //TODO no subActions for now, action picture will not be working without them
+            val pictureAction = actions.firstOrNull { it.type == TYPE_PICTURE }
+            pictureAction?.let {
+                actions.remove(it)
             }
 
             for(action in actions){
-                if(action.type != TYPE_PICTURE){
-                    if(action.attempts >= action.maxAttempts) action.enabled = false
-                } else{
-                    var disabledCount = 0
-                    for(subAction in subActions){
-                        if(!subAction.enabled) disabledCount++
-                    }
-                    if(disabledCount == subActions.size) action.enabled = false
-                }
+                action.enabled = action.active
             }
 
-            viewState.showData(data, actions)
+//            actions = data.actions
+            //TODO there are no subActions for now
+//            subActions = data.subActions
+
+//            for(subAction in subActions){
+//                if(subAction.attempts >= subAction.maxAttempts) subAction.enabled = false
+//            }
+//
+//            for(action in actions){
+//                if(action.type != TYPE_PICTURE){
+//                    if(action.attempts >= action.maxAttempts) action.enabled = false
+//                } else{
+//                    var disabledCount = 0
+//                    for(subAction in subActions){
+//                        if(!subAction.enabled) disabledCount++
+//                    }
+//                    if(disabledCount == subActions.size) action.enabled = false
+//                }
+//            }
+
+            viewState.showData(data, actions.toList())
         }
     }
 
-    fun addReview(index: Int, photo: ByteArray) = launch {
-        viewState.showLoadingDialog()
+//    fun addReview(index: Int, photo: ByteArray) =
 
-        //TODO error: D/OkHttp: <-- HTTP FAILED: javax.net.ssl.SSLException: Write error: ssl=0x7b6ed76208: I/O error during system call, Broken pipe
-        //TODO changed ReviewInfo to link:String in api.addReview
-        interactor.addReview(offerId, redemptionId, actions[index].id, photo).await()
+    fun addReview(index: Int, photo: ByteArray) =
+            launch ({
+                viewState.showLoadingDialog()
 
-        actions[index].attempts++
-        if(actions[index].attempts >= actions[index].maxAttempts){
-            actions[index].enabled = false
-            viewState.disableAction(index)
-        }
+                //TODO error: D/OkHttp: <-- HTTP FAILED: javax.net.ssl.SSLException: Write error: ssl=0x7b6ed76208: I/O error during system call, Broken pipe
+                //TODO changed ReviewInfo to link:String in api.addReview
+                var message = interactor.addReview(offerId, redemptionId, actions[index].type, photo).await()
 
-        viewState.hideLoadingDialog()
-    }
+                println("JFKSIDFSK ClaimedActionsPresenter message:"+message)
+
+                actions[index].enabled = false
+
+                //TODO no attempts and maxAttempts for now
+//        actions[index].attempts++
+//        if(actions[index].attempts >= actions[index].maxAttempts){
+//            actions[index].enabled = false
+//            viewState.disableAction(index)
+//        }
+
+                viewState.hideLoadingDialog()
+            }, { error ->
+                println("JFKSIDFSK ClaimedActionsPresenter error:"+error)
+            })
+
+
+//    fun addReview(index: Int, photo: ByteArray) = launch {
+//        viewState.showLoadingDialog()
+//
+//        //TODO error: D/OkHttp: <-- HTTP FAILED: javax.net.ssl.SSLException: Write error: ssl=0x7b6ed76208: I/O error during system call, Broken pipe
+//        //TODO changed ReviewInfo to link:String in api.addReview
+//        var message = interactor.addReview(offerId, redemptionId, actions[index].id, photo).await()
+//
+//        println("JFKSIDFSK ClaimedActionsPresenter message:"+message)
+//
+//
+//        actions[index].enabled = false
+//
+//        //TODO no attempts and maxAttempts for now
+////        actions[index].attempts++
+////        if(actions[index].attempts >= actions[index].maxAttempts){
+////            actions[index].enabled = false
+////            viewState.disableAction(index)
+////        }
+//
+//        viewState.hideLoadingDialog()
+//    }
 
     fun itemClicked(index: Int) {
         viewState.showDialog(index, actions[index], subActions, data!!.instaUser, "TODO")

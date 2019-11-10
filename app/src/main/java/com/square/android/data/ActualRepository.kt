@@ -48,11 +48,10 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-//    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<ReviewNetType>> = GlobalScope.async {
-//        val data = performRequest {api.getActions(offerId, bookingId)}
-//        data
-//    }
-
+    override fun getActions(offerId: Long, bookingId: Long): Deferred<List<Offer.Action>> = GlobalScope.async {
+        val data = performRequest {api.getActions(localManager.getAuthToken(),offerId, bookingId)}
+        data
+    }
 
 // Event / ride endpoints
     override fun createRide(rideData: RideData): Deferred<MessageResponse> = GlobalScope.async {
@@ -92,10 +91,10 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun bookEvent(bookEventData: BookEventData): Deferred<MessageResponse> = GlobalScope.async {
-        val data = performRequest {api.bookEvent(localManager.getAuthToken(), bookEventData)}
-        data
-    }
+//    override fun bookEvent(bookEventData: BookEventData): Deferred<MessageResponse> = GlobalScope.async {
+//        val data = performRequest {api.bookEvent(localManager.getAuthToken(), bookEventData)}
+//        data
+//    }
 
     override fun getUserEventBookings(eventBookingId: String?): Deferred<List<BookEventData.EventBooking>> = GlobalScope.async {
         val data = performRequest {api.getUserEventBookings(localManager.getAuthToken(), eventBookingId)}
@@ -163,14 +162,23 @@ class ActualRepository(private val api: ApiService,
         data
     }
 
-    override fun addReview(offerId: Long, bookingId: Long, link: String, actionId: String, imageBytes: ByteArray) = performRequest {
+//    override fun addReview(offerId: Long, bookingId: Long, link: String, actionId: String, imageBytes: ByteArray) = performRequest {
+//        val requestFile = RequestBody.create(
+//                MediaType.parse("image/*"),
+//                imageBytes
+//        )
+//        val body = MultipartBody.Part.createFormData("images", "", requestFile)
+//
+//        api.addReview(localManager.getAuthToken(), offerId, offerId, link, actionId, body)
+//    }
+    override fun addReview(offerId: Long, bookingId: Long, link: String, actionType: String, imageBytes: ByteArray) = performRequest {
         val requestFile = RequestBody.create(
                 MediaType.parse("image/*"),
                 imageBytes
         )
         val body = MultipartBody.Part.createFormData("images", "", requestFile)
 
-        api.addReview(localManager.getAuthToken(), offerId, offerId, link, actionId, body)
+        api.addReview(localManager.getAuthToken(), offerId, offerId, link, actionType, body)
     }
 
     override fun claimOffer(offerId: Long) = performRequest {

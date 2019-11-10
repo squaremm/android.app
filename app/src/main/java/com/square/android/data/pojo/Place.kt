@@ -11,23 +11,26 @@ import kotlinx.android.parcel.Parcelize
 class Place(
         @Json(name="_id")
         var id: Long = 0,
+        var mainImage: String? = null,
         var address: String = "",
+        var type: List<String> = listOf(),
+        var name: String = "",
+        var location: Location = Location(),
+        var access: String = "",
+        var icons: Icons? = null,
+
+
 //        var bookings: List<Booking> = listOf(),
         var intervals: List<Interval> = listOf(),
         var credits: Int = 0,
         var description: String = "",
         var level: Int? = 0,
-        var location: Location = Location(),
-        var name: String = "",
         var offers: List<OfferInfo> = listOf(),
         var photos: List<String>? = listOf(),
-        var mainImage: String? = null,
+
         @IgnoreObjectIfIncorrect.IgnoreJsonObjectError
         @Transient
         var schedule: Map<String, ScheduleDay> = mapOf(),
-        var type: String = "",
-
-        var icons: Icons? = null,
 
         var city: String = "",
 
