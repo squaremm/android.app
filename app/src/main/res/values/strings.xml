@@ -616,6 +616,16 @@
 
     <string name="text_copied">Text copied!</string>
 
+    <string name="starting">Starting:</string>
+    <string name="ending">Ending:</string>
+    <string name="award_included">Award included</string>
+    <string name="campaign_closed">Campaign\nclosed</string>
+    <string name="end_date">End date:</string>
+    <string name="ended_on">Ended on:</string>
+
+    <string name="gifting">Gifting</string>
+    <string name="influencer">Influencer</string>
+
     <string name="choose_photo">Choose photo</string>
     <string name="gallery">Gallery</string>
     <string name="set_image_as_main">Set image as main</string>

@@ -6,104 +6,365 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="16dp"
     android:layout_marginStart="16dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="1dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
     app:cardUseCompatPadding="false"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    app:layout_constraintStart_toStartOf="parent"
+    tools:layout_marginStart="24dp"
+    tools:layout_marginEnd="24dp" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/campaignContainer"
         android:layout_width="match_parent"
-        android:layout_height="200dp" >
+        android:clipToPadding="false"
+        android:layout_height="420dp" >
 
         <ImageView
             android:id="@+id/campaignImage"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="300dp"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
             tools:src="@drawable/auth_background"
             tools:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/shadowTop"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="@drawable/shadow_top"
-            app:layout_constraintBottom_toTopOf="@+id/guideline7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/campaignTitle"
-            style="@style/Models24BoldText"
+        <LinearLayout
+            android:id="@+id/campaignClosedView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@id/campaignEndedLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Mongobambo Campaign" />
-
-        <TextView
-            android:id="@+id/campaignEndedLabel"
-            style="@style/Models14Text"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"
-            android:textColor="@android:color/white"
-            android:layout_width="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:background="@drawable/referral_field_background"
-            android:backgroundTint="@color/black_trans_50"
-            android:text="@string/ended"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:visibility="gone"
             tools:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/campaignTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/campaignTitle" />
+            android:background="@color/black_trans_30"
+            app:layout_constraintTop_toTopOf="@+id/campaignImage"
+            app:layout_constraintBottom_toBottomOf="@+id/campaignImage"
+            app:layout_constraintStart_toStartOf="@+id/campaignImage"
+            app:layout_constraintEnd_toEndOf="@+id/campaignImage" >
 
-        <TextView
-            android:id="@+id/campaignType"
-            style="@style/Models14Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/campaignClosedImv"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_lock"
+                app:layout_constraintTop_toTopOf="@+id/campaignImage"
+                app:layout_constraintBottom_toBottomOf="@+id/campaignImage"
+                app:layout_constraintStart_toStartOf="@+id/campaignImage"
+                app:layout_constraintEnd_toEndOf="@+id/campaignImage" />
+
+            <TextView
+                style="@style/Models24BoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="@android:color/white"
+                android:textAllCaps="true"
+                android:text="@string/campaign_closed" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/normalCampaignContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:maxLines="1"
-            android:paddingStart="12dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="8dp"
-            android:textColor="@android:color/white"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="12dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:background="@drawable/round_bg_pink_pinkish"
-            tools:text="Gifting Campaign" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/campaignImage" >
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline7"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/campaignNName"
+                style="@style/Models18BoldText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:layout_marginEnd="24dp"
+                android:maxLines="1"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toStartOf="@+id/campaignNType"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Emporio Armani" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/campaignNHashtag"
+                style="@style/Models15Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textColor="@color/gray_back_arrow"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toEndOf="@+id/campaignNName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/campaignNName"
+                tools:text="#hashtag" />
+
+            <TextView
+                android:id="@+id/campaignNType"
+                style="@style/Models14BoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/interval_checked"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/nice_pink"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Gift" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/campaignNExtraRv"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/campaignNDateLabel"
+                    style="@style/Models14Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/end_date" />
+
+                <TextView
+                    android:id="@+id/campaignNDate"
+                    style="@style/Models14BoldText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textColor="@color/nice_pink"
+                    tools:text="30 Jun 19" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/campaignNExtraRv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:background="@color/grey_dark"
+                tools:itemCount="3"
+                tools:orientation="horizontal"
+                tools:layout_height="32dp"
+                tools:listitem="@layout/item_place_extra"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/campaignNLogoContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4" />
+            app:cardCornerRadius="8dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="false"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@id/normalCampaignContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" >
+            <ImageView
+                android:id="@+id/campaignNLogo"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                tools:tint="@color/nice_pink" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/futureCampaignContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/campaignImage" >
+
+            <ImageView
+                android:id="@+id/campaignFLogo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                tools:src="@drawable/background_rounded_8dp"
+                tools:tint="@color/nice_pink"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/campaignFName"
+                style="@style/Models18BoldText"
+                android:layout_width="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"
+                app:autoSizeTextType="uniform"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:gravity="center_vertical"
+                tools:text="Emporio Armani"
+                app:layout_constraintEnd_toStartOf="@+id/divider"
+                app:layout_constraintStart_toEndOf="@+id/campaignFLogo"
+                app:layout_constraintTop_toTopOf="@+id/campaignFLogo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/campaignFHashtag"
+                style="@style/Models15Text"
+                android:textColor="@color/gray_back_arrow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintEnd_toStartOf="@+id/divider"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/campaignFLogo"
+                app:layout_constraintTop_toBottomOf="@+id/campaignFName"
+                tools:text="#hashtag" />
+
+            <TextView
+                android:id="@+id/campaignFType"
+                style="@style/Models14BoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/interval_checked"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/nice_pink"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/campaignFLogo"
+                app:layout_constraintTop_toBottomOf="@+id/campaignFLogo"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="Gift" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/campaignFAwardLabel"
+                style="@style/Models14Text"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="48dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:includeFontPadding="false"
+                android:layout_height="wrap_content"
+                app:autoSizeTextType="uniform"
+                app:layout_constrainedWidth="true"
+                android:maxLines="1"
+                android:gravity="center_vertical"
+                android:text="@string/award_included"
+                app:layout_constraintEnd_toStartOf="@+id/divider"
+                app:layout_constraintStart_toEndOf="@+id/campaignFLogo"
+                app:layout_constraintTop_toTopOf="@+id/campaignFType"
+                app:layout_constraintBottom_toBottomOf="@+id/campaignFType" />
+
+            <ImageView
+                android:id="@+id/campaignFAwardImg"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/trophy2"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/campaignFAwardLabel"
+                app:layout_constraintEnd_toStartOf="@+id/divider"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/campaignFAwardLabel"
+                app:layout_constraintTop_toTopOf="@+id/campaignFAwardLabel" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray_divider"
+                app:layout_constraintEnd_toStartOf="@+id/dateContainer"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/dateContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                    <TextView
+                        style="@style/Models14BoldText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/starting" />
+                    <TextView
+                        android:id="@+id/campaignFStartDate"
+                        style="@style/Models12Text"
+                        android:textColor="@color/nice_pink"
+                        android:layout_marginTop="1dp"
+                        android:minWidth="53dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="30 Jun 19" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="53dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
+                    <TextView
+                        style="@style/Models14BoldText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ending" />
+                    <TextView
+                        android:id="@+id/campaignFEndDate"
+                        style="@style/Models12Text"
+                        android:textColor="@color/nice_pink"
+                        android:layout_marginTop="1dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="30 Jul 19" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

@@ -1,7 +1,6 @@
 package com.square.android.ui.fragment.campaigns
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.square.android.R
 import com.square.android.data.pojo.CampaignInfo
 import com.square.android.extensions.loadImage
@@ -32,22 +31,42 @@ class CampaignsAdapter(data: List<CampaignInfo>,
 
         override fun bind(item: CampaignInfo, vararg extras: Any?) {
 
-            campaignTitle.text = item.title
-
-            when(item.type){
-                "gifting" ->{
-                    campaignType.text = campaignType.context.getString(R.string.gifting_campaign)
-                    campaignType.background = ContextCompat.getDrawable(campaignType.context, R.drawable.round_bg_pink_pinkish)
-                }
-                "influencer" ->{
-                    campaignType.text = campaignType.context.getString(R.string.influencer_campaign)
-                    campaignType.background = ContextCompat.getDrawable(campaignType.context, R.drawable.round_bg_purple_purpleish)
-                }
-            }
+            //TODO no hashtag, date(start, end), extra icons, logo
+            //TODO when to tell if award is included?
 
             item.mainImage?.let { campaignImage.loadImage(it)}
 
-            campaignEndedLabel.visibility = if(item.hasWinner) View.VISIBLE else View.GONE
+            if(item.daysToStart > 0 ){
+                futureCampaignContainer.visibility = View.VISIBLE
+                campaignFName.text = item.title
+
+                //TODO will there be more types?
+                when(item.type){
+                    "gifting" ->{
+                        campaignFType.text = campaignFType.context.resources.getString(R.string.gifting)
+                    }
+                    "influencer" ->{
+                        campaignFType.text = campaignFType.context.resources.getString(R.string.influencer)
+                    }
+                }
+            } else{
+                normalCampaignContainer.visibility = View.VISIBLE
+                campaignNLogoContainer.visibility = View.VISIBLE
+                campaignNName.text = item.title
+
+                //TODO is it proper closed indicator?
+                campaignClosedView.visibility = if(item.hasWinner) View.VISIBLE else View.GONE
+
+                //TODO will there be more types?
+                when(item.type){
+                    "gifting" ->{
+                        campaignNType.text = campaignNType.context.resources.getString(R.string.gifting)
+                    }
+                    "influencer" ->{
+                        campaignNType.text = campaignNType.context.resources.getString(R.string.influencer)
+                    }
+                }
+            }
         }
     }
 
