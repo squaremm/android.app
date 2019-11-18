@@ -24,18 +24,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
+            android:background="@drawable/dashed_bg_check_in"
             android:paddingBottom="24dp" >
 
-            <ImageView
-                android:id="@+id/couponImage"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/couponImgCv"
                 android:layout_width="0dp"
-                android:layout_height="128dp"
-                android:foreground="#4DFFFFFF"
-                tools:src="@drawable/fill_profile_header_1"
-                tools:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <ImageView
+                    android:id="@+id/couponImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:foreground="#4DFFFFFF"
+                    tools:src="@drawable/fill_profile_header_1"
+                    tools:scaleType="centerCrop"  />
+            </androidx.cardview.widget.CardView>
 
             <com.square.android.ui.view.CircleImageView
                 android:id="@+id/couponAvatar"
@@ -43,18 +53,18 @@
                 android:layout_height="100dp"
                 android:background="@drawable/circle_white"
                 android:padding="2dp"
-                app:layout_constraintBottom_toBottomOf="@+id/couponImage"
+                app:layout_constraintBottom_toBottomOf="@+id/couponImgCv"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="@+id/couponImage"
-                app:layout_constraintStart_toStartOf="@+id/couponImage"
-                app:layout_constraintTop_toBottomOf="@+id/couponImage" />
+                app:layout_constraintEnd_toEndOf="@+id/couponImgCv"
+                app:layout_constraintStart_toStartOf="@+id/couponImgCv"
+                app:layout_constraintTop_toBottomOf="@+id/couponImgCv" />
 
             <TextView
                 android:id="@+id/couponPersonName"
                 style="@style/Models22BoldText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:visibility="gone"
@@ -139,7 +149,7 @@
 
                 <TextView
                     android:id="@+id/couponPlaceName"
-                    style="@style/Models20BoldText"
+                    style="@style/Models18BoldText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -149,7 +159,7 @@
 
                 <TextView
                     android:id="@+id/couponPlaceAddress"
-                    style="@style/Models16Text"
+                    style="@style/Models14Text"
                     android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
