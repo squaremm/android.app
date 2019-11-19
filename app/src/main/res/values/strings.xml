@@ -102,6 +102,9 @@
 
     <string name="action_delete_label">Are you sure you want to delete this action?</string>
 
+    <string name="confirmation">Confirmation</string>
+    <string name="confirmation_dialog_content">Are yo sure you want to join the selected campaign? Only if accepted, you will be charged for</string>
+
     <string name="facebook_package">com.facebook.katana</string>
     <string name="instagram_package">com.instagram.android</string>
     <string name="tripadvisor_package">com.tripadvisor.tripadvisor</string>
@@ -416,7 +419,9 @@
     <string name="upload_your_pictures">Upload your pictures</string>
 
 
-    <string name="waiting_for_acceptance">Waiting for acceptance</string>
+    <string name="pending_request">Pending request</string>
+    <string name="campaign_rejected">Sorry… maybe next time!</string>
+    <string name="join_now_with_just">Join now with just</string>
 
     <string name="thanks_applying">Thanks for applying!</string>
     <string name="we_will_let">We will let you know soon\nif you are accepted</string>

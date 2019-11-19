@@ -1,12 +1,11 @@
 package com.square.android.ui.fragment.campaignNotApproved
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.square.android.data.pojo.Campaign
 import com.square.android.ui.activity.campaignDetails.EXTRA_CAMPAIGN
 import com.square.android.ui.fragment.BaseFragment
@@ -54,6 +54,9 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
     private var modelTypeAdapter: SquareWrapWidthImagesAdapter? = null
     private var moodboardAdapter: SquareImagesAdapter? = null
 
+    private var btnClickable = true
+
+    private var credits: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -63,25 +66,59 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        notApprovedJoinBtn.setOnClickListener { presenter.joinClicked() }
+        notApprovedJoinBtn.setOnClickListener {
+            if(btnClickable){
+                showConfirmationDialog()
+            }
+        }
     }
 
     override fun showData(campaign: Campaign) {
         Log.e("LOL", campaign.toString())
-        if(campaign.isParticipant){
-            notApprovedJoinBtn.isEnabled = false
-            notApprovedJoinBtn.text = getString(R.string.waiting_for_acceptance)
-            notApprovedJoinBtn.isAllCaps = false
-            notApprovedJoinBtn.setTextColor(ContextCompat.getColor(notApprovedJoinBtn.context, R.color.nice_pink))
-        } else if(!campaign.isJoinable){
-            notApprovedJoinBtn.visibility = View.GONE
+
+        //TODO what to do with icon (mainIcon)
+
+        //TODO what to do with status circle?(color)
+        mainStatusText.text = campaign.statusDescription
+
+        //TODO what to do with hashtag
+//        mainHashtag.text =
+
+        //TODO will there be more types?
+        when(campaign.type){
+            "gifting" ->{
+                mainType.text = mainType.context.resources.getString(R.string.gifting)
+            }
+            "influencer" ->{
+                mainType.text = mainType.context.resources.getString(R.string.influencer)
+            }
         }
+
+        mainTitle.text = campaign.title
+
+        credits = context!!.getString(R.string.credits_format_lowercase, campaign.credits)
+        val ss = SpannableString(getString(R.string.join_now_with_just) +" "+credits)
+        val bss = StyleSpan(android.graphics.Typeface.BOLD);
+        ss.setSpan(bss, ss.length - (credits.length + 1) , ss.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        notApprovedJoinBtn.text = ss
+
+        if(campaign.isParticipant){
+            btnClickable = false
+            notApprovedJoinBtn.text = getString(R.string.pending_request)
+        }
+        else if(!campaign.isAccepted){
+            btnClickable = false
+            notApprovedJoinBtn.text = getString(R.string.campaign_rejected)
+        }
+        else if(!campaign.isJoinable){
+            notApprovedJoinBtn.visibility = View.GONE
+            separatorDesc.visibility = View.GONE
+        }
+
         if (campaign.hasWinner) {
+            btnClickable = false
             notApprovedJoinBtn.isEnabled = false
             notApprovedJoinBtn.text = getString(R.string.ended)
-            notApprovedJoinBtn.isAllCaps = false
-            notApprovedJoinBtn.setTextColor(Color.WHITE)
-            notApprovedJoinBtn.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(notApprovedJoinBtn.context, R.color.black_trans_75))
         }
 
         if(TextUtils.isEmpty(campaign.description)){
@@ -199,6 +236,27 @@ class CampaignNotApprovedFragment: BaseFragment(), CampaignNotApprovedView {
         cvHow.visibility = View.GONE
 
         hideProgress()
+    }
+
+    private fun showConfirmationDialog() {
+        val ss = SpannableString(getString(R.string.confirmation_dialog_content) +" "+credits+".")
+        val bss = StyleSpan(android.graphics.Typeface.BOLD);
+        ss.setSpan(bss, ss.length - (credits.length + 1) , ss.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+
+        val dialog = MaterialDialog.Builder(activity!!)
+                .cancelable(true)
+                .content(ss)
+                .contentColor(ContextCompat.getColor(activity!!, android.R.color.black))
+                .title(R.string.confirmation)
+                .positiveText(R.string.yes)
+                .positiveColor(ContextCompat.getColor(activity!!, R.color.nice_pink))
+                .negativeText(R.string.no)
+                .negativeColor(ContextCompat.getColor(activity!!, R.color.secondary_text))
+                .onPositive { dialog, which -> presenter.joinClicked() }
+                .onNegative { dialog, which -> dialog.dismiss() }
+                .build()
+
+        dialog.show()
     }
 
     override fun showProgress() {

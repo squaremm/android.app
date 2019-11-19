@@ -29,7 +29,7 @@ import com.square.android.ui.fragment.pickUpLocation.PickUpLocationFragment
 import com.square.android.ui.fragment.pickUpSpot.PickUpSpotFragment
 import com.square.android.ui.fragment.scanQr.ScanQrFragment
 import com.square.android.ui.fragment.uploadPics.UploadPicsFragment
-import com.square.android.ui.fragment.winner.WinnerFragment
+import com.square.android.utils.ActivityUtils
 import kotlinx.android.synthetic.main.activity_campaign_details.*
 import org.jetbrains.anko.intentFor
 import ru.terrakok.cicerone.Navigator
@@ -61,6 +61,8 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ActivityUtils.setTransparentStatusAndDrawBehind(this)
+
         setContentView(R.layout.activity_campaign_details)
 
         campaignBack.setOnClickListener {presenter.exit()}
@@ -68,8 +70,6 @@ class CampaignDetailsActivity: BaseActivity(), CampaignDetailsView{
 
     override fun showData(campaign: Campaign) {
         campaign.mainImage?.let {campaignBg.loadImage(it)}
-
-        campaignName.text = campaign.title
     }
 
     fun replaceToApproval(){
