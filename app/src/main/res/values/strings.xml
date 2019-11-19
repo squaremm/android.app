@@ -302,6 +302,12 @@
 
     <string name="show_more">Show more</string>
 
+    <string name="read_more">Read more</string>
+    <string name="products">Products</string>
+    <string name="see_all">See all</string>
+    <string name="how_to_get_product">How to get the product</string>
+    <string name="application_requirements">Application Requirements</string>
+
     <string name="book_now">Book Now</string>
 
     <string name="total_credits">Total credits</string>
