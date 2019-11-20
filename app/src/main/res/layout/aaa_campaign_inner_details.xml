@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Views in each section
+
+* Products -> productsLabel, seeAllProducts, productsRv, separatorProducts
+
+* How to -> howToLabel, howToTv, readMoreHowToLl, howTLl, separatorHowTo
+
+* Application -> applicationLabel, applicationCl, guideline7, separatorApplication
+
+* Model typology -> typologyLabel, typologyTv, rvTypology, separatorTypology
+
+* How it works -> howItWorksLabel, howItWorksTv, readMoreHowItWorksLl, separatorHowItWorks
+
+* What to do -> whatToDoLabel, guidelines, whatToDoCl, guideline8, whatToDoTv, readMoreWhatToDoLl, separatorWhatToDo
+
+* References -> referencesLabel, referencesSeeAll, rvReferences, separatorReferences
+
+* Captions details -> captionsLabel, captionsTv, separatorCaptions
+
+* Rewards -> rewardsLabel, participantsRewardsCl, topMembersRewardsCl, rewardWinnerText, winnerRewardsRv
+
+-->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -85,10 +108,10 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
-                        android:clipToPadding="false"
-                        android:clipChildren="false"
                         android:paddingTop="20dp"
                         android:paddingBottom="32dp" >
 
@@ -97,10 +120,9 @@
                             style="@style/Models24BoldText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
                             android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
                             android:layout_marginEnd="24dp"
-                            tools:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -114,7 +136,6 @@
                             android:layout_marginTop="2dp"
                             android:gravity="center_vertical"
                             android:maxLines="1"
-                            tools:visibility="gone"
                             android:textColor="@color/gray_back_arrow"
                             app:autoSizeTextType="uniform"
                             app:layout_constraintEnd_toEndOf="@+id/title"
@@ -133,7 +154,6 @@
                             android:paddingTop="8dp"
                             android:paddingEnd="12dp"
                             android:paddingBottom="8dp"
-                            tools:visibility="gone"
                             android:textColor="@color/nice_pink"
                             app:layout_constraintStart_toStartOf="@+id/hashtag"
                             app:layout_constraintTop_toBottomOf="@+id/hashtag"
@@ -143,9 +163,8 @@
                             android:id="@+id/approvalStatusLl"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            tools:visibility="gone"
                             android:layout_marginEnd="24dp"
+                            android:gravity="center"
                             android:orientation="horizontal"
                             app:layout_constraintBottom_toBottomOf="@+id/mainType"
                             app:layout_constraintEnd_toEndOf="parent" >
@@ -171,9 +190,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:layout_marginEnd="24dp"
                             android:layout_marginTop="28dp"
-                            tools:visibility="gone"
+                            android:layout_marginEnd="24dp"
                             android:text="@string/description"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
@@ -184,11 +202,9 @@
                             android:id="@+id/rvIcons"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
                             android:nestedScrollingEnabled="false"
                             android:overScrollMode="never"
-                            android:visibility="gone"
-                            tools:visibility="gone"
-                            android:layout_marginEnd="24dp"
                             app:layout_constraintBottom_toBottomOf="@+id/descriptionLabel"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/descriptionLabel"
@@ -204,10 +220,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:layout_marginEnd="24dp"
                             android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
                             android:lineSpacingExtra="6dp"
-                            tools:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/descriptionLabel"
@@ -218,11 +233,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="26dp"
                             android:orientation="horizontal"
-                            android:visibility="gone"
-                            tools:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@+id/descriptionTv"
                             app:layout_constraintEnd_toEndOf="@+id/descriptionTv" >
-
                             <View
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
@@ -233,8 +245,8 @@
                                 style="@style/Models16BoldText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:gravity="end|bottom"
                                 android:background="@android:color/white"
+                                android:gravity="end|bottom"
                                 android:paddingStart="6dp"
                                 android:text="@string/read_more"
                                 android:textColor="@color/nice_pink" />
@@ -244,43 +256,41 @@
                             android:id="@+id/separatorDesc"
                             android:layout_width="0dp"
                             android:layout_height="1dp"
-                            android:layout_marginTop="20dp"
                             android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginEnd="24dp"
-                            tools:visibility="gone"
                             android:background="@color/gray_divider"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.417"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/descriptionTv" />
 
+<!--         Products                   -->
                         <TextView
                             android:id="@+id/productsLabel"
                             style="@style/Models16BoldText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:layout_marginEnd="24dp"
                             android:layout_marginTop="24dp"
-                            tools:visibility="gone"
+                            android:layout_marginEnd="24dp"
                             android:text="@string/products"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/separatorDesc" />
+                            app:layout_constraintTop_toBottomOf="@+id/separatorDesc"
+                            android:visibility="gone" />
 
                         <LinearLayout
                             android:id="@+id/seeAllProducts"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:layout_marginEnd="24dp"
-                            tools:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@+id/productsLabel"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/productsLabel" >
-
+                            app:layout_constraintTop_toTopOf="@+id/productsLabel"
+                            android:visibility="gone" >
                             <TextView
                                 style="@style/Models14Text"
                                 android:layout_width="wrap_content"
@@ -300,65 +310,172 @@
                             android:id="@+id/productsRv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:layout_marginTop="20dp"
                             android:clipToPadding="false"
                             android:nestedScrollingEnabled="false"
                             android:overScrollMode="never"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="24dp"
-                            tools:visibility="gone"
-                            app:layout_constraintTop_toBottomOf="@+id/productsLabel"
-                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/productsLabel"
                             tools:background="@color/gray_hint"
                             tools:itemCount="1"
-                            tools:layout_height="20dp" />
+                            tools:layout_height="20dp"
+                            android:visibility="gone" />
 
                         <View
-                            android:id="@+id/separatorProdcts"
+                            android:id="@+id/separatorProducts"
                             android:layout_width="0dp"
                             android:layout_height="1dp"
-                            android:layout_marginTop="20dp"
                             android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginEnd="24dp"
-                            tools:visibility="gone"
                             android:background="@color/gray_divider"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.417"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/productsRv" />
+                            app:layout_constraintTop_toBottomOf="@+id/productsRv"
+                            android:visibility="gone" />
 
+<!--         How to                 -->
                         <TextView
                             android:id="@+id/howToLabel"
                             style="@style/Models16BoldText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:layout_marginEnd="24dp"
                             android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
                             android:text="@string/how_to_get_product"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/separatorProdcts" />
+                            app:layout_constraintTop_toBottomOf="@+id/separatorProducts" />
 
-<!--        TODO: three items(collection, shipment, purchase) instead of RV                -->
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/howToRv"
+                        <LinearLayout
+                            android:id="@+id/howToLl"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:clipToPadding="false"
-                            android:nestedScrollingEnabled="false"
-                            android:overScrollMode="never"
-                            android:layout_marginStart="24dp"
                             android:layout_marginTop="20dp"
-                            android:layout_marginEnd="24dp"
-                            app:layout_constraintTop_toBottomOf="@+id/howToLabel"
+                            android:layout_marginStart="24dp"
+                            android:layout_margin="24dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            tools:background="@color/gray_hint"
-                            tools:itemCount="1"
-                            tools:layout_height="20dp" />
+                            app:layout_constraintTop_toBottomOf="@+id/howToLabel" >
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginEnd="8dp"
+                                android:layout_weight="0.333" >
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:background="@drawable/background_rounded_8dp_stroke"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:id="@+id/collectionImv"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:adjustViewBounds="true"
+                                        android:src="@drawable/r_pin"
+                                        tools:scaleType="centerCrop"
+                                        android:padding="24dp"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintBottom_toBottomOf="parent" />
+                                </FrameLayout>
+
+                                <TextView
+                                    style="@style/Models18BoldText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:maxLines="1"
+                                    android:autoSizeTextType="uniform"
+                                    android:text="@string/collection" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginEnd="4dp"
+                                android:layout_weight="0.333" >
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:background="@drawable/background_rounded_8dp_stroke"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:id="@+id/shipmentImv"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:adjustViewBounds="true"
+                                        android:src="@drawable/r_pin"
+                                        tools:scaleType="centerCrop"
+                                        android:padding="24dp"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintBottom_toBottomOf="parent" />
+                                </FrameLayout>
+
+                                <TextView
+                                    style="@style/Models18BoldText"
+                                    android:layout_width="match_parent"
+                                    android:maxLines="1"
+                                    android:autoSizeTextType="uniform"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="@string/shipment" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="0.333" >
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:background="@drawable/background_rounded_8dp_stroke"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:id="@+id/purcaseImv"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:adjustViewBounds="true"
+                                        android:src="@drawable/r_pin"
+                                        tools:scaleType="centerCrop"
+                                        android:padding="24dp"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintBottom_toBottomOf="parent" />
+                                </FrameLayout>
+
+                                <TextView
+                                    style="@style/Models18BoldText"
+                                    android:layout_width="match_parent"
+                                    android:maxLines="1"
+                                    android:autoSizeTextType="uniform"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="@string/purchase" />
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/howToTv"
@@ -366,12 +483,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:layout_marginEnd="24dp"
                             android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
                             android:lineSpacingExtra="6dp"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/howToRv"
+                            app:layout_constraintTop_toBottomOf="@+id/howToLl"
                             tools:text="Collection: the product will be available for pick up in specific points in M..." />
 
                         <LinearLayout
@@ -380,10 +498,8 @@
                             android:layout_height="26dp"
                             android:orientation="horizontal"
                             android:visibility="gone"
-                            tools:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="@+id/howToTv"
                             app:layout_constraintEnd_toEndOf="@+id/howToTv" >
-
                             <View
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
@@ -394,8 +510,8 @@
                                 style="@style/Models16BoldText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:gravity="end|bottom"
                                 android:background="@android:color/white"
+                                android:gravity="end|bottom"
                                 android:paddingStart="6dp"
                                 android:text="@string/read_more"
                                 android:textColor="@color/nice_pink" />
@@ -405,64 +521,863 @@
                             android:id="@+id/separatorHowTo"
                             android:layout_width="0dp"
                             android:layout_height="1dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:background="@color/gray_divider"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/howToTv"
+                            android:visibility="gone" />
+
+<!--         Application                 -->
+                        <TextView
+                            android:id="@+id/applicationLabel"
+                            style="@style/Models16BoldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            android:text="@string/application_requirements"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/separatorHowTo" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/applicationCl"
+                            android:visibility="gone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:layout_marginStart="24dp"
                             android:layout_marginEnd="24dp"
-                            tools:visibility="visible"
+                            app:layout_constraintTop_toBottomOf="@+id/applicationLabel"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" >
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone"
+                                app:layout_constraintGuide_begin="0dp" />
+
+                            <ImageView
+                                android:id="@+id/applicationCalendarIc"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/r_calendar"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/Models14BoldText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/end_date"
+                                android:includeFontPadding="false"
+                                android:layout_marginStart="12dp"
+                                app:layout_constraintStart_toEndOf="@+id/applicationCalendarIc"
+                                app:layout_constraintTop_toTopOf="@+id/applicationCalendarIc"
+                                app:layout_constraintBottom_toBottomOf="@+id/applicationCalendarIc" />
+
+                            <TextView
+                                android:id="@+id/endDate"
+                                style="@style/Models14Text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:includeFontPadding="false"
+                                app:autoSizeTextType="uniform"
+                                android:maxLines="1"
+                                app:layout_constraintEnd_toStartOf="@+id/guideline7"
+                                app:layout_constraintStart_toEndOf="@+id/applicationCalendarIc"
+                                app:layout_constraintTop_toBottomOf="@+id/applicationCalendarIc"
+                                tools:text="Jul 30th, 2019" />
+
+                            <ImageView
+                                android:id="@+id/applicationPinIc"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/r_pin"
+                                app:layout_constraintStart_toEndOf="@+id/guideline7"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/Models14BoldText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/from_"
+                                android:includeFontPadding="false"
+                                android:layout_marginStart="12dp"
+                                app:layout_constraintStart_toEndOf="@+id/applicationPinIc"
+                                app:layout_constraintTop_toTopOf="@+id/applicationPinIc"
+                                app:layout_constraintBottom_toBottomOf="@+id/applicationPinIc" />
+
+                            <TextView
+                                android:id="@+id/from"
+                                style="@style/Models14Text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:includeFontPadding="false"
+                                app:autoSizeTextType="uniform"
+                                android:maxLines="1"
+                                app:layout_constraintStart_toEndOf="@+id/applicationPinIc"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/applicationPinIc"
+                                tools:text="Worldwide" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/separatorApplication"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
                             android:background="@color/gray_divider"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.417"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/howToTv" />
+                            app:layout_constraintTop_toBottomOf="@+id/applicationCl"
+                            android:visibility="gone" />
 
+<!--         Typology                 -->
+                        <TextView
+                            android:id="@+id/typologyLabel"
+                            style="@style/Models16BoldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            android:text="@string/model_typology"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/separatorApplication" />
 
+                        <TextView
+                            android:id="@+id/typologyTv"
+                            style="@style/Models16Text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:lineSpacingExtra="6dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/typologyLabel"
+                            tools:text="Brunette, long hair, tall, baby face" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvTypology"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/typologyTv"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:background="@color/grey_dark"
+                            tools:itemCount="1"
+                            tools:layout_height="23dp"
+                            tools:layout_marginStart="24dp"
+                            tools:layout_marginEnd="24dp"
+                            tools:orientation="horizontal" />
 
+                        <View
+                            android:id="@+id/separatorTypology"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:background="@color/gray_divider"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rvTypology"
+                            android:visibility="gone" />
 
+<!--         How it works                 -->
+                        <TextView
+                            android:id="@+id/howItWorksLabel"
+                            style="@style/Models16BoldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            android:text="@string/how_it_works"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/separatorTypology" />
 
+                        <TextView
+                            android:id="@+id/howItWorksTv"
+                            style="@style/Models16Text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:lineSpacingExtra="6dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/howItWorksLabel"
+                            tools:text="Collection: the product will be available for pick up in specific points in M..." />
 
+                        <LinearLayout
+                            android:id="@+id/readMoreHowItWorksLl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="26dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@+id/howItWorksTv"
+                            app:layout_constraintEnd_toEndOf="@+id/howItWorksTv" >
+                            <View
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:background="@drawable/shadow_horizontal" />
 
+                            <TextView
+                                android:id="@+id/readMoreHowItWorks"
+                                style="@style/Models16BoldText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/white"
+                                android:gravity="end|bottom"
+                                android:paddingStart="6dp"
+                                android:text="@string/read_more"
+                                android:textColor="@color/nice_pink" />
+                        </LinearLayout>
 
+                        <View
+                            android:id="@+id/separatorHowItWorks"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:background="@color/gray_divider"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/howItWorksTv"
+                            android:visibility="gone" />
 
+<!--         What to do                -->
+                        <TextView
+                            android:id="@+id/whatToDoLabel"
+                            style="@style/Models16BoldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            android:text="@string/what_to_do"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/separatorHowItWorks" />
 
+                        <LinearLayout
+                            android:id="@+id/guidelines"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="@+id/whatToDoLabel"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/whatToDoLabel"
+                            android:visibility="gone" >
+                            <TextView
+                                style="@style/Models14Text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="@string/guidelines"
+                                android:textColor="@color/gray_hint" />
 
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/chevron_right"
+                                android:tint="@color/gray_hint" />
+                        </LinearLayout>
 
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/whatToDoCl"
+                            android:visibility="gone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginEnd="24dp"
+                            app:layout_constraintTop_toBottomOf="@+id/whatToDoLabel"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" >
 
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.5" />
 
+                            <ImageView
+                                android:id="@+id/storiesIc"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/r_insta"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
+                            <TextView
+                                style="@style/Models14BoldText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/insta_stories"
+                                android:includeFontPadding="false"
+                                android:layout_marginStart="12dp"
+                                app:layout_constraintStart_toEndOf="@+id/storiesIc"
+                                app:layout_constraintTop_toTopOf="@+id/storiesIc"
+                                app:layout_constraintBottom_toBottomOf="@+id/storiesIc" />
 
+                            <TextView
+                                android:id="@+id/storiesNo"
+                                style="@style/Models14Text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:includeFontPadding="false"
+                                app:autoSizeTextType="uniform"
+                                android:maxLines="1"
+                                app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                                app:layout_constraintStart_toEndOf="@+id/storiesIc"
+                                app:layout_constraintTop_toBottomOf="@+id/storiesIc"
+                                tools:text="3" />
 
+                            <ImageView
+                                android:id="@+id/postsIc"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/r_insta"
+                                app:layout_constraintStart_toEndOf="@+id/guideline8"
+                                app:layout_constraintTop_toTopOf="parent" />
 
+                            <TextView
+                                style="@style/Models14BoldText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/insta_posts"
+                                android:includeFontPadding="false"
+                                android:layout_marginStart="12dp"
+                                app:layout_constraintStart_toEndOf="@+id/postsIc"
+                                app:layout_constraintTop_toTopOf="@+id/postsIc"
+                                app:layout_constraintBottom_toBottomOf="@+id/postsIc" />
 
+                            <TextView
+                                android:id="@+id/postsNo"
+                                style="@style/Models14Text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:includeFontPadding="false"
+                                app:autoSizeTextType="uniform"
+                                android:maxLines="1"
+                                app:layout_constraintStart_toEndOf="@+id/postsIc"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/postsIc"
+                                tools:text="2" />
 
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/whatToDoTv"
+                            style="@style/Models16Text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:lineSpacingExtra="6dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/whatToDoCl"
+                            tools:text="Collection: the product will be available for pick up in specific points in M..." />
+
+                        <LinearLayout
+                            android:id="@+id/readMoreWhatToDoLl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="26dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@+id/whatToDoTv"
+                            app:layout_constraintEnd_toEndOf="@+id/whatToDoTv" >
+                            <View
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:background="@drawable/shadow_horizontal" />
+
+                            <TextView
+                                android:id="@+id/readMoreWhatToDo"
+                                style="@style/Models16BoldText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/white"
+                                android:gravity="end|bottom"
+                                android:paddingStart="6dp"
+                                android:text="@string/read_more"
+                                android:textColor="@color/nice_pink" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/separatorWhatToDo"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:background="@color/gray_divider"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/whatToDoTv"
+                            android:visibility="gone" />
+
+<!--         References                -->
+                        <TextView
+                            android:id="@+id/referencesLabel"
+                            style="@style/Models16BoldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            android:text="@string/references"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/separatorHowItWorks" />
+
+                        <LinearLayout
+                            android:id="@+id/referencesSeeAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="@+id/referencesLabel"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/referencesLabel"
+                            android:visibility="gone" >
+                            <TextView
+                                style="@style/Models14Text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="@string/see_all"
+                                android:textColor="@color/gray_hint" />
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/chevron_right"
+                                android:tint="@color/gray_hint" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvReferences"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/referencesLabel"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:background="@color/grey_dark"
+                            tools:itemCount="1"
+                            tools:layout_height="23dp"
+                            tools:layout_marginStart="24dp"
+                            tools:layout_marginEnd="24dp"
+                            tools:orientation="horizontal" />
+
+                        <View
+                            android:id="@+id/separatorReferences"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:background="@color/gray_divider"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rvReferences"
+                            android:visibility="gone" />
+
+<!--         Captions details                -->
+                        <TextView
+                            android:id="@+id/captionsLabel"
+                            style="@style/Models16BoldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            android:text="@string/captions_details"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/separatorReferences" />
+
+                        <TextView
+                            android:id="@+id/captionsTv"
+                            style="@style/Models16Text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:lineSpacingExtra="6dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/captionsLabel"
+                            tools:text="Be creative, talk about the product and the experience with it. use to following tags: @emporioarmani @square.app #emporioarmani #square.app" />
+
+                        <View
+                            android:id="@+id/separatorCaptions"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:background="@color/gray_divider"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/captionsTv"
+                            android:visibility="gone" />
+
+<!--         Rewards                -->
+                        <TextView
+                            android:id="@+id/rewardsLabel"
+                            style="@style/Models16BoldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            android:text="@string/rewards"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/separatorReferences" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/participantsRewardsCl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/rewardsLabel"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" >
+
+                            <TextView
+                                android:id="@+id/tv"
+                                style="@style/Models16Text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/participants_will_get"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintTop_toBottomOf="@+id/tv"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" >
+
+                                <androidx.constraintlayout.widget.Guideline
+                                    android:id="@+id/guideline9"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintGuide_percent="0.5" />
+
+                                <ImageView
+                                    android:id="@+id/creditsIc1"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/credits"
+                                    tools:tint="@android:color/black"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    style="@style/Models14BoldText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/credits_"
+                                    android:includeFontPadding="false"
+                                    android:layout_marginStart="12dp"
+                                    app:layout_constraintStart_toEndOf="@+id/creditsIc1"
+                                    app:layout_constraintTop_toTopOf="@+id/creditsIc1"
+                                    app:layout_constraintBottom_toBottomOf="@+id/creditsIc1" />
+
+                                <TextView
+                                    android:id="@+id/creditsNo1"
+                                    style="@style/Models14BoldText"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:includeFontPadding="false"
+                                    android:textColor="@color/nice_pink"
+                                    app:autoSizeTextType="uniform"
+                                    android:maxLines="1"
+                                    app:layout_constraintEnd_toStartOf="@+id/guideline9"
+                                    app:layout_constraintStart_toEndOf="@+id/creditsIc1"
+                                    app:layout_constraintTop_toBottomOf="@+id/creditsIc1"
+                                    tools:text="600" />
+
+                                <ImageView
+                                    android:id="@+id/pointsIc1"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/credits"
+                                    tools:tint="@android:color/black"
+                                    app:layout_constraintStart_toEndOf="@+id/guideline9"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    style="@style/Models14BoldText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/points_"
+                                    android:includeFontPadding="false"
+                                    android:layout_marginStart="12dp"
+                                    app:layout_constraintStart_toEndOf="@+id/pointsIc1"
+                                    app:layout_constraintTop_toTopOf="@+id/pointsIc1"
+                                    app:layout_constraintBottom_toBottomOf="@+id/pointsIc1" />
+
+                                <TextView
+                                    android:id="@+id/pointsNo1"
+                                    style="@style/Models14BoldText"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:includeFontPadding="false"
+                                    app:autoSizeTextType="uniform"
+                                    android:textColor="@color/nice_pink"
+                                    android:maxLines="1"
+                                    app:layout_constraintStart_toEndOf="@+id/pointsIc1"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/pointsIc1"
+                                    tools:text="20" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/topMembersRewardsCl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/participantsRewardsCl"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" >
+
+                            <TextView
+                                android:id="@+id/topMembersText"
+                                style="@style/Models16Text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                tools:text="Top 5 members will take part in the final Instagram match and they will receive extra:"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintTop_toBottomOf="@+id/topMembersText"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" >
+
+                                <androidx.constraintlayout.widget.Guideline
+                                    android:id="@+id/guideline10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintGuide_percent="0.5" />
+
+                                <ImageView
+                                    android:id="@+id/creditsIc2"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/credits"
+                                    tools:tint="@android:color/black"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    style="@style/Models14BoldText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/credits_"
+                                    android:includeFontPadding="false"
+                                    android:layout_marginStart="12dp"
+                                    app:layout_constraintStart_toEndOf="@+id/creditsIc2"
+                                    app:layout_constraintTop_toTopOf="@+id/creditsIc2"
+                                    app:layout_constraintBottom_toBottomOf="@+id/creditsIc2" />
+
+                                <TextView
+                                    android:id="@+id/creditsNo2"
+                                    style="@style/Models14BoldText"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:includeFontPadding="false"
+                                    android:textColor="@color/nice_pink"
+                                    app:autoSizeTextType="uniform"
+                                    android:maxLines="1"
+                                    app:layout_constraintEnd_toStartOf="@+id/guideline10"
+                                    app:layout_constraintStart_toEndOf="@+id/creditsIc2"
+                                    app:layout_constraintTop_toBottomOf="@+id/creditsIc2"
+                                    tools:text="300" />
+
+                                <ImageView
+                                    android:id="@+id/pointsIc2"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/credits"
+                                    tools:tint="@android:color/black"
+                                    app:layout_constraintStart_toEndOf="@+id/guideline10"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    style="@style/Models14BoldText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/points_"
+                                    android:includeFontPadding="false"
+                                    android:layout_marginStart="12dp"
+                                    app:layout_constraintStart_toEndOf="@+id/pointsIc2"
+                                    app:layout_constraintTop_toTopOf="@+id/pointsIc2"
+                                    app:layout_constraintBottom_toBottomOf="@+id/pointsIc2" />
+
+                                <TextView
+                                    android:id="@+id/pointsNo2"
+                                    style="@style/Models14BoldText"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:includeFontPadding="false"
+                                    app:autoSizeTextType="uniform"
+                                    android:textColor="@color/nice_pink"
+                                    android:maxLines="1"
+                                    app:layout_constraintStart_toEndOf="@+id/pointsIc2"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/pointsIc2"
+                                    tools:text="10" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/rewardWinnerText"
+                            style="@style/Models16Text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/the_winner_rewarded"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginTop="20dp"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/topMembersRewardsCl"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/winnerRewardsRv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="24dp"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rewardWinnerText"
+                            tools:background="@color/gray_hint"
+                            tools:itemCount="1"
+                            tools:layout_height="20dp"
+                            android:visibility="gone" />
 
                         <View
                             android:id="@+id/separatorBtn"
                             android:layout_width="0dp"
                             android:layout_height="1dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="32dp"
                             android:background="@color/gray_divider"
                             app:layout_constraintEnd_toEndOf="parent"
-                            tools:layout_marginTop="530dp"
-                            app:layout_constraintHorizontal_bias="0.417"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/mainType" />
+                            app:layout_constraintTop_toBottomOf="@+id/winnerRewardsRv" />
 
                         <Button
                             android:id="@+id/notApprovedJoinBtn"
                             style="@style/Models14Text"
                             android:layout_width="0dp"
                             android:layout_height="46dp"
-                            android:layout_marginTop="16dp"
                             android:layout_marginStart="24dp"
+                            android:layout_marginTop="16dp"
                             android:layout_marginEnd="24dp"
                             android:background="@drawable/nice_button_red_pink_alpha"
                             android:textAllCaps="false"
                             android:textColor="@android:color/white"
-                            tools:text="Join now with just 200 credits"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/separatorBtn" />
+                            app:layout_constraintTop_toBottomOf="@+id/separatorBtn"
+                            tools:text="Join now with just 200 credits" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>

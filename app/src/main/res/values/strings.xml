@@ -307,6 +307,23 @@
     <string name="see_all">See all</string>
     <string name="how_to_get_product">How to get the product</string>
     <string name="application_requirements">Application Requirements</string>
+    <string name="from_">From:</string>
+    <string name="collection">Collection</string>
+    <string name="shipment">Shipment</string>
+    <string name="purchase">Purchase</string>
+    <string name="model_typology">Model Typology</string>
+    <string name="what_to_do">What to do</string>
+    <string name="insta_stories">Insta stories:</string>
+    <string name="insta_posts">Insta posts:</string>
+    <string name="guidelines">Guidelines</string>
+    <string name="references">References</string>
+    <string name="captions_details">Captions details</string>
+    <string name="participants_will_get">All accepted participants will get:</string>
+    <string name="the_winner_rewarded">The winner of the competition will be rewarded with:</string>
+    <string name="top_members_format">Top %d members will take part in the final Instagram match and they will receive extra:</string>
+    <string name="credits_">Credits:</string>
+    <string name="points_">Points:</string>
+
 
     <string name="book_now">Book Now</string>
 
