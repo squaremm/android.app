@@ -38,6 +38,13 @@ class Place(
         @Transient
         var slots: Int = 0,
 
+        //TODO for getting event from place
+        @Transient
+        var isEventPlace: Boolean = false,
+        @Transient
+        var event: Event? = null,
+
+
         // Availability label data
         var availableOfferDay: String? = null,
         var availableOfferSpots: Int = 0

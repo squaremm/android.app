@@ -23,15 +23,15 @@ import kotlinx.android.synthetic.main.fragment_places.*
 import androidx.core.content.ContextCompat
 import com.square.android.data.pojo.City
 
-class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, FiltersAdapter.Handler, DaysShortAdapter.Handler {
+class PlacesFragment: LocationFragment(), PlacesView, FiltersAdapter.Handler, DaysShortAdapter.Handler {
 
     @InjectPresenter(type = PresenterType.GLOBAL, tag = "PlacesPresenter")
     lateinit var presenter: PlacesPresenter
 
-    private var adapter: PlacesAdapter? = null
-
     private var filterDays = false
     private var filterTypes = false
+
+    private var mapShown = false
 
     var ignoreText = false
 
@@ -47,14 +47,7 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         placesProgress.visibility = View.GONE
     }
 
-    override fun showData(data: List<Place>, types: MutableList<String>, activatedItems: MutableList<String>, days: MutableList<String>) {
-        placesList.visibility = View.VISIBLE
-
-        adapter = PlacesAdapter(data, this)
-        placesList.adapter = adapter
-        placesList.layoutManager = LinearLayoutManager(placesList.context, RecyclerView.VERTICAL,false)
-        placesList.addItemDecoration(MarginItemDecorator(placesList.context.resources.getDimension(R.dimen.rv_item_decorator_12).toInt(), true))
-
+    override fun showData(data: MutableList<Place>, types: MutableList<String>, activatedItems: MutableList<String>, days: MutableList<String>) {
         filtersAdapter = FiltersAdapter(types, this, activatedItems)
         placesFiltersTypesRv.adapter = filtersAdapter
         placesFiltersTypesRv.layoutManager = LinearLayoutManager(placesFiltersTypesRv.context, RecyclerView.HORIZONTAL,false)
@@ -64,11 +57,13 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         placesFiltersDaysRv.adapter = daysAdapter
         placesFiltersDaysRv.layoutManager = LinearLayoutManager(placesFiltersDaysRv.context, RecyclerView.HORIZONTAL,false)
         placesFiltersDaysRv.addItemDecoration(MarginItemDecorator(placesFiltersDaysRv.context.resources.getDimension(R.dimen.rv_item_decorator_4).toInt(), false))
-    }
 
-    override fun updatePlaces(data: List<Place>) {
-        adapter = PlacesAdapter(data, this)
-        placesList.adapter = adapter
+        setUpPager(data)
+    }
+    private fun setUpPager(data: MutableList<Place>) {
+        placesPager.isPagingEnabled = false
+        placesPager.adapter = PlacesFragmentAdapter(childFragmentManager, data)
+        placesPager.offscreenPageLimit = 2
     }
 
     override fun updateFilters(types: MutableList<String>, activated: MutableList<String>, updateAll: Boolean) {
@@ -78,10 +73,6 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         }
 
         filtersAdapter!!.updateData(activated)
-    }
-
-    override fun updateDistances() {
-        adapter?.updateDistances()
     }
 
     override fun locationGotten(lastLocation: Location?) {
@@ -95,8 +86,6 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        placesList.setHasFixedSize(true)
 
         placesSearch.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {}
@@ -126,6 +115,11 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         placesIcTypes.setOnClickListener {
             filterTypes = filterTypes.not()
             changeFiltering()
+        }
+
+        placesIcMap.setOnClickListener {
+            loadFragment()
+            mapShown = mapShown.not()
         }
 
         placesClear.setOnClickListener { presenter.clearFilters() }
@@ -180,28 +174,39 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
         placesCity.text = name
     }
 
+    private fun loadFragment(){
+        placesIcMap.imageTintList = if(!mapShown) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
+        else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
+
+        if(!mapShown){
+            placesPager.setCurrentItem(1, false)
+        } else{
+            placesPager.setCurrentItem(0, false)
+        }
+    }
+
     private fun changeFiltering(){
-        placesIcDays.imageTintList = if(filterDays) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
+        placesIcDays.imageTintList = if (filterDays) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
         else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
 
-        placesIcTypes.imageTintList = if(filterTypes) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
+        placesIcTypes.imageTintList = if (filterTypes) ColorStateList.valueOf(ContextCompat.getColor(activity!!, R.color.nice_pink))
         else ColorStateList.valueOf(ContextCompat.getColor(activity!!, android.R.color.black))
 
-        if((filterDays && filterTypes) || (!filterDays && !filterTypes)){
+        if ((filterDays && filterTypes) || (!filterDays && !filterTypes)) {
             placesTypes.visibility = View.GONE
             placesFiltersDaysRv.visibility = View.GONE
             placesSearchLl.visibility = View.VISIBLE
             presenter.changeFiltering(1)
 
-        } else{
+        } else {
             placesSearchLl.visibility = View.GONE
 
-            placesTypes.visibility = if(filterTypes) View.VISIBLE else View.GONE
-            placesFiltersDaysRv.visibility = if(filterDays) View.VISIBLE else View.GONE
+            placesTypes.visibility = if (filterTypes) View.VISIBLE else View.GONE
+            placesFiltersDaysRv.visibility = if (filterDays) View.VISIBLE else View.GONE
 
-            if(filterDays){
+            if (filterDays) {
                 presenter.changeFiltering(2)
-            } else{
+            } else {
                 presenter.changeFiltering(3)
             }
         }
@@ -213,10 +218,6 @@ class PlacesFragment: LocationFragment(), PlacesView, PlacesAdapter.Handler, Fil
 
     override fun showClear() {
         placesClear.visibility = View.VISIBLE
-    }
-
-    override fun itemClicked(place: Place) {
-        presenter.itemClicked(place)
     }
 
     override fun filterClicked(position: Int) {

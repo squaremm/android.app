@@ -1,4 +1,4 @@
-package com.square.android.ui.fragment.places
+package com.square.android.ui.fragment.placesList
 
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,7 @@ class PlaceExtrasAdapter (var data: List<String>) : RecyclerView.Adapter<PlaceEx
         var icon: ImageView = v.findViewById(R.id.placeExtraImage) as ImageView
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceExtrasAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_place_extra, parent, false)
         return ViewHolder(v)
     }

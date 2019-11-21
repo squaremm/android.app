@@ -1,82 +1,67 @@
 package com.square.android.presentation.presenter.map
 
-import android.location.Location
 import com.arellomobile.mvp.InjectViewState
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.square.android.SCREENS
 import com.square.android.data.pojo.Place
-
 import com.square.android.presentation.presenter.BasePresenter
-
+import com.square.android.presentation.presenter.places.PlaceSelectedEvent
+import com.square.android.presentation.presenter.placesList.PlacesUpdatedEvent
 import com.square.android.presentation.view.map.MapView
-import com.square.android.utils.AnalyticsEvent
-import com.square.android.utils.AnalyticsEvents
-import com.square.android.utils.AnalyticsManager
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import org.koin.standalone.inject
 
 @InjectViewState
-class MapPresenter : BasePresenter<MapView>() {
-    private var locationPoint: LatLng? = null
+class MapPresenter(var data: MutableList<Place>): BasePresenter<MapView>() {
 
-    private var data: List<Place>? = null
+    private var locationPoint: LatLng? = null
 
     private var currentInfo: Place? = null
 
-    fun locationGotten(lastLocation: Location?) {
+    private val eventBus: EventBus by inject()
+
+    fun locationGotten(lastLocation: android.location.Location?) {
         lastLocation?.let {
             locationPoint = LatLng(it.latitude, it.longitude)
-
-            if (data != null) {
-                updateDistances()
-            }
         }
     }
 
-    private fun updateDistances() {
-        launch {
-            fillDistances().await()
+    init {
+        eventBus.register(this)
+    }
 
-            if (currentInfo != null) {
-                viewState.updateCurrentInfoDistance(currentInfo!!.distance)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPlacesUpdatedEvent(event: PlacesUpdatedEvent) {
+        data = event.data
+
+        if(event.shouldUpdateDistances){
+            currentInfo?.let {
+                val selectedPlace = (data.firstOrNull{ place -> place.id == it.id})
+
+                selectedPlace?.let {
+                    it.distance = selectedPlace.distance
+                    viewState.updateCurrentInfoDistance(selectedPlace.distance)
+                }
+            }
+        } else{
+            mapClicked()
+            viewState.updatePlaces(data)
+        }
+
+        currentInfo?.let {
+            if(it.id !in data.map {place -> place.id}){
+                mapClicked()
             }
         }
     }
 
     fun loadData() {
-        if (data != null) {
-            viewState.showPlaces(data!!)
-        } else {
-            load()
-        }
-    }
-
-    private fun load() {
-        launch {
-            data = repository.getPlaces().await()
-
-            if (locationPoint != null) fillDistances().await()
-
-            viewState.showPlaces(data!!)
-        }
-    }
-
-    private fun fillDistances(): Deferred<Unit> = GlobalScope.async {
-        data?.forEach { place ->
-            val placePoint = place.location.latLng()
-
-            val distance = placePoint.distanceTo(locationPoint!!).toInt()
-
-            place.distance = distance
-        }
-
-        Unit
+        viewState.showPlaces(data)
     }
 
     fun markerClicked(id: Long) {
-        currentInfo = data!!.first { it.id == id }
+        currentInfo = data.first { it.id == id }
 
         viewState.showInfo(currentInfo!!)
     }
@@ -89,13 +74,7 @@ class MapPresenter : BasePresenter<MapView>() {
 
     fun infoClicked() {
         currentInfo?.let {
-            //TODO check if working
-            router.navigateTo(SCREENS.PLACE, it.id)
-            AnalyticsManager.logEvent(
-                    AnalyticsEvent(
-                            AnalyticsEvents.RESTAURANT_OPENED_FROM_MAP.apply { venueName = it.name },
-                            hashMapOf("id" to it.id.toString())),
-                    repository)
+            eventBus.post(PlaceSelectedEvent(it, true))
         }
     }
 
@@ -103,5 +82,11 @@ class MapPresenter : BasePresenter<MapView>() {
         locationPoint?.let {
             viewState.locate(it)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        eventBus.unregister(this)
     }
 }

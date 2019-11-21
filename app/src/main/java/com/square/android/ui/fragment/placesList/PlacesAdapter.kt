@@ -1,4 +1,4 @@
-package com.square.android.ui.fragment.places
+package com.square.android.ui.fragment.placesList
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager

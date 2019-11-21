@@ -10,7 +10,7 @@ interface MapView : BaseView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showPlaces(data: List<Place>)
-
+    fun updatePlaces(data: List<Place>)
     fun showInfo(place: Place)
     fun updateCurrentInfoDistance(distance: Int?)
     fun hideInfo()

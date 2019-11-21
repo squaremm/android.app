@@ -7,13 +7,20 @@ import com.mapbox.mapboxsdk.geometry.LatLng
 import com.square.android.SCREENS
 import com.square.android.data.pojo.*
 import com.square.android.presentation.presenter.BasePresenter
+import com.square.android.presentation.presenter.placesList.PlacesUpdatedEvent
 import com.square.android.presentation.view.places.PlacesView
 import com.square.android.ui.activity.event.EventExtras
 import com.square.android.utils.AnalyticsEvent
 import com.square.android.utils.AnalyticsEvents
 import com.square.android.utils.AnalyticsManager
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import org.koin.standalone.inject
 import java.lang.Exception
 import java.util.*
+
+class PlaceSelectedEvent(val place: Place, val fromMap: Boolean)
 
 @InjectViewState
 class PlacesPresenter : BasePresenter<PlacesView>() {
@@ -56,8 +63,39 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
     var eventPlaces: MutableList<Place> = mutableListOf()
 
+    private val eventBus: EventBus by inject()
+
     init {
+        eventBus.register(this)
+
         loadData()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPlaceSelectedEvent(event: PlaceSelectedEvent) {
+        val place = event.place
+        val id = place.id
+
+        if(event.fromMap){
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_FROM_MAP.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
+        } else{
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
+        }
+
+        if(actualDataLoaded){
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_WITHOUT_FILTERS.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
+        } else{
+            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.RESTAURANT_OPENED_USING_FILTERS.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
+        }
+
+        if(place.isEventPlace){
+            place.event?.let {
+                val extras = EventExtras(it, place)
+                router.navigateTo(SCREENS.EVENT, extras)
+            }
+        } else {
+            router.navigateTo(SCREENS.PLACE, place.id)
+        }
     }
 
     fun locationGotten(lastLocation: Location?) {
@@ -156,6 +194,14 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
         checkFilters()
     }
 
+    private fun sendData(isActual: Boolean, updateDistances: Boolean = false){
+        val data = if(isActual) data else filteredData
+
+        data?.let {
+            eventBus.post(PlacesUpdatedEvent(data, updateDistances))
+        }
+    }
+
     fun dayClicked(position: Int){
         selectedDayPosition = position
         viewState.setSelectedDayItem(selectedDayPosition!!)
@@ -198,7 +244,9 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                         filteredData = data!!.filter { it.name.contains(searchText.toString(), true) }.toMutableList()
 
                         fillDistances(false)
-                        filteredData?.let { viewState.updatePlaces(it) }
+
+                        sendData(false)
+
                     } else {}
                 }
             }
@@ -222,7 +270,9 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                     }
 
                     fillDistances(false)
-                    filteredData?.let { viewState.updatePlaces(it) }
+
+                    sendData(false)
+
                 } ?: run {
                     setActualData()
                 }
@@ -247,7 +297,8 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                         }
 
                         fillDistances(false)
-                        filteredData?.let { viewState.updatePlaces(it) }
+
+                        sendData(false)
 
                         viewState.showClear()
                     }
@@ -262,14 +313,16 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
     fun setActualData(){
         actualDataLoaded = true
         fillDistances(true)
-        data?.let { viewState.updatePlaces(it) }
+
+        sendData(true)
     }
 
     private fun updateDistances() {
         launch {
             if(locationPoint != null){
                 fillDistances(true)
-                viewState.updateDistances()
+
+                sendData(true, true)
             }
         }
     }
@@ -296,6 +349,9 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
             for(event in events){
                 val place = repository.getPlace(event.placeId).await()
+                place.isEventPlace = true
+                place.event = event
+
                 eventPlaces.add(place.apply {
                     event.timeframe?.freeSpots?.let {
                         availableOfferSpots = it
@@ -328,35 +384,9 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
             }
 
             viewState.hideProgress()
-            viewState.showData(data!!.toList(), allFilters, allSelected, days)
+            viewState.showData(data!!, allFilters, allSelected, days)
 
             initialized = true
-        }
-    }
-
-    fun itemClicked(place: Place) {
-        val id = place.id
-
-        if(allSelected.isEmpty()){
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
-            AnalyticsManager.logEvent(AnalyticsEvent(
-                    AnalyticsEvents.RESTAURANT_OPENED_FROM_LIST.apply { venueName = place.name },
-                    hashMapOf("id" to id.toString())),
-                    repository)
-
-        } else{
-            AnalyticsManager.logEvent(AnalyticsEvent(AnalyticsEvents.VENUE_CLICKED.apply { venueName = place.name }, hashMapOf("id" to id.toString())), repository)
-            AnalyticsManager.logEvent(AnalyticsEvent(
-                    AnalyticsEvents.RESTAURANT_OPENED_USING_FILTERS.apply { venueName = place.name },
-                    hashMapOf("id" to id.toString())),
-                    repository)
-        }
-
-        if(id in eventPlaces.map { it.id }){
-            val extras = EventExtras(events.first { it.placeId == id }, place)
-            router.navigateTo(SCREENS.EVENT, extras)
-        } else {
-            router.navigateTo(SCREENS.PLACE, id)
         }
     }
 
@@ -389,5 +419,11 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
                 filteredData?.let { filteredData = filteredData!!.sortedBy { it.distance }.toMutableList() }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        eventBus.unregister(this)
     }
 }

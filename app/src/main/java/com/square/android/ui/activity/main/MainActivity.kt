@@ -18,7 +18,6 @@ import com.square.android.R
 import com.square.android.SCREENS
 import com.square.android.androidx.navigator.AppNavigator
 import com.square.android.data.network.fcm.NotificationType
-import com.square.android.data.pojo.Event
 import com.square.android.data.pojo.Profile
 import com.square.android.presentation.presenter.main.MainPresenter
 import com.square.android.presentation.view.main.MainView
@@ -125,7 +124,6 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
             }
             R.id.action_profile -> SCREENS.PROFILE
             R.id.action_places -> SCREENS.PLACES
-//            R.id.action_map -> SCREENS.MAP
             R.id.action_campaigns -> SCREENS.CAMPAIGNS
             else -> SCREENS.PROFILE
         }
@@ -214,7 +212,6 @@ class MainActivity : BaseActivity(), MainView, BottomNavigationView.OnNavigation
                 }
 
         override fun createFragment(screenKey: String, data: Any?): Fragment? = when (screenKey) {
-//            SCREENS.MAP -> MapFragment()
             SCREENS.PLACES -> PlacesFragment()
             SCREENS.REDEMPTIONS -> RedemptionsFragment()
             SCREENS.PROFILE -> ProfileFragment()

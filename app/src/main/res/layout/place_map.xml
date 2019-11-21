@@ -4,113 +4,114 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
     android:layout_marginBottom="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    tools:visibility="visible">
+    app:layout_constraintStart_toStartOf="parent" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" >
+        android:paddingBottom="16dp" >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mapPlaceRv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:overScrollMode="never"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:gravity="start"
-            android:orientation="vertical"
+<!--  was:  app:layout_constraintDimensionRatio="16:9"    -->
+        <ImageView
+            android:id="@+id/mapPlaceInfoImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:src="@drawable/fill_profile_header_1"
+            tools:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="20:9"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/mapPlaceTitle">
-
-            <TextView
-                android:id="@+id/mapPlaceDistance"
-                style="@style/Models14Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="3km" />
-
-            <TextView
-                android:id="@+id/placeInfoDistanceLabel"
-                style="@style/Models10Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/distance"
-                android:textColor="@color/gray_disabled" />
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/mapPlaceTitle"
-            style="@style/Models16BoldText"
+            style="@style/Models18BoldText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toStartOf="@+id/mapPlaceTypeLabel"
-            app:layout_constraintStart_toStartOf="@+id/mapPlaceRv"
-            app:layout_constraintTop_toBottomOf="@+id/mapPlaceRv"
-            tools:text="Bar&amp;Grill" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapPlaceInfoImage"
+            app:layout_constraintEnd_toStartOf="@+id/mapPlaceDistance"
+            tools:text="Bar&amp;Grill 108" />
+
+        <TextView
+            android:id="@+id/mapPlaceDistance"
+            style="@style/Models14Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintBottom_toBottomOf="@+id/mapPlaceTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="1,5 km" />
 
         <TextView
             android:id="@+id/mapPlaceAddress"
-            style="@style/Models12Text"
+            style="@style/Models14Text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:textColor="@color/secondary_text"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+            app:layout_constraintEnd_toStartOf="@+id/mapPlaceExtrasRv"
             app:layout_constraintStart_toStartOf="@+id/mapPlaceTitle"
             app:layout_constraintTop_toBottomOf="@+id/mapPlaceTitle"
             tools:text="Via vigenano 31" />
 
-
         <TextView
-            android:id="@+id/mapPlaceTypeLabel"
-            style="@style/Models14BoldText"
+            android:id="@+id/mapPlaceAvailableValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
+            style="@style/Models18BoldText"
             android:textColor="@color/nice_pink"
-            app:layout_constraintEnd_toStartOf="@+id/mapPlaceTypeIcon"
-            app:layout_constraintTop_toTopOf="@+id/mapPlaceTitle"
-            tools:text="Asian" />
+            tools:text="No"
+            android:includeFontPadding="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/mapPlaceAddress"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/mapPlaceTypeIcon"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/Models13BoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="1dp"
+            android:includeFontPadding="false"
+            android:text="@string/available_spots"
+            app:layout_constraintBottom_toBottomOf="@+id/mapPlaceAvailableValue"
+            app:layout_constraintStart_toEndOf="@+id/mapPlaceAvailableValue" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mapPlaceExtrasRv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_height="32dp"
             android:layout_marginEnd="16dp"
-
-            android:src="@drawable/ic_restaurant"
-            android:tint="@color/secondary_text"
-            app:layout_constraintBottom_toBottomOf="@+id/mapPlaceTypeLabel"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="@+id/mapPlaceTypeLabel" />
-
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/mapPlaceAvailableValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/mapPlaceAddress"
+            app:layout_constraintVertical_bias="1.0"
+            tools:background="@color/grey_dark"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

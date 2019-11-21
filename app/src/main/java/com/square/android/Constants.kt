@@ -16,7 +16,6 @@ object SCREENS {
     const val FILL_PROFILE_REFERRAL = "FILL_PROFILE_REFERRAL"
 
     const val REDEMPTIONS = "REDEMPTIONS"
-//    const val MAP = "MAP"
     const val PLACES = "PLACES"
     const val PROFILE = "PROFILE"
 
