@@ -57,7 +57,7 @@ class PlacesAdapter(data: List<Place>,
 
             placeInfoTitle.text = item.name
 
-            placeAvailableValue.text = if(item.availableOfferSpots > 0) item.availableOfferSpots.toString() else placeAvailableValue.context.getString(R.string.no)
+            placeAvailableValue.text = if(item.freeSpots > 0) item.freeSpots.toString() else placeAvailableValue.context.getString(R.string.no)
 
             item.icons?.let {
                 placeExtrasRv.visibility = View.VISIBLE

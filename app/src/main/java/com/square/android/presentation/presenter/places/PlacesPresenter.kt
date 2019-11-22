@@ -179,7 +179,10 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
         selectedCity = c
 
-        data = repository.getPlacesByFilters(PlaceData().apply { city = selectedCity!!.name }).await().toMutableList()
+        data = repository.getPlacesByFilters(PlaceData().apply {
+            date = actualDates[0]
+            city = selectedCity!!.name
+        }).await().toMutableList()
 
         //TODO - need city property in places gotten by event.placeId
 //        for(place in eventPlaces.filter { it.city == selectedCity!!.name }){
@@ -339,8 +342,18 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
             viewState.changeCityName(selectedCity!!.name)
 
+            val calendar = Calendar.getInstance()
+
+            for (x in 0 until 7) {
+                days.add(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()).substring(0, 1).toUpperCase())
+                actualDates.add(calendar.get(Calendar.DAY_OF_MONTH).toString()+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.YEAR))
+
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
+            }
+
             data = repository.getPlacesByFilters(PlaceData().apply {
                 selectedCity?.let {
+                    date = actualDates[0]
                     city = selectedCity!!.name
                 } }).await().toMutableList()
 
@@ -354,7 +367,7 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
                 eventPlaces.add(place.apply {
                     event.timeframe?.freeSpots?.let {
-                        availableOfferSpots = it
+                        freeSpots = it
                     }
                 })
             }
@@ -374,19 +387,12 @@ class PlacesPresenter : BasePresenter<PlacesView>() {
 
             allFilters = types
 
-            val calendar = Calendar.getInstance()
-
-            for (x in 0 until 7) {
-                days.add(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()).substring(0, 1).toUpperCase())
-                actualDates.add(calendar.get(Calendar.DAY_OF_MONTH).toString()+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.YEAR))
-
-                calendar.add(Calendar.DAY_OF_YEAR, 1)
-            }
-
             viewState.hideProgress()
             viewState.showData(data!!, allFilters, allSelected, days)
 
             initialized = true
+
+            viewState.setSelectedDayItem(0)
         }
     }
 

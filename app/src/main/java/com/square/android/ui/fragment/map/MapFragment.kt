@@ -118,7 +118,7 @@ class MapFragment(var data: MutableList<Place>) : BaseMapFragment(), MapView, Pe
     override fun showInfo(place: Place) {
         updateCurrentInfoDistance(place.distance)
 
-        mapPlaceInfo.mapPlaceAvailableValue.text = if(place.availableOfferSpots > 0) place.availableOfferSpots.toString() else mapPlaceInfo.mapPlaceAvailableValue.context.getString(R.string.no)
+        mapPlaceInfo.mapPlaceAvailableValue.text = if(place.freeSpots > 0) place.freeSpots.toString() else mapPlaceInfo.mapPlaceAvailableValue.context.getString(R.string.no)
         mapPlaceInfo.mapPlaceTitle.text = place.name
         mapPlaceInfo.mapPlaceAddress.text = place.address
 

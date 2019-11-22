@@ -18,7 +18,7 @@ class Place(
         var location: Location = Location(),
         var access: String = "",
         var icons: Icons? = null,
-
+        var freeSpots: Int = 0,
 
 //        var bookings: List<Booking> = listOf(),
         var intervals: List<Interval> = listOf(),
@@ -46,8 +46,7 @@ class Place(
 
 
         // Availability label data
-        var availableOfferDay: String? = null,
-        var availableOfferSpots: Int = 0
+        var availableOfferDay: String? = null
 
 ) : Parcelable {
 
